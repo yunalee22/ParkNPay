@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary colors -->
+    <color name="lightGray">#ACB5C0</color>
+    <color name="orange">#F79256</color>
+    <color name="green">#24C1B1</color>
+    <color name="blue">#00BBD8</color>
+    <color name="darkGray">#3B424C</color>
+
+    <!-- Old colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
