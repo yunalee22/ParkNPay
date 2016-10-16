@@ -36,9 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String driversLicense = editDriversLicense.getText().toString();
 
         // If registration is successful, proceed to owner/seeker selection view.
-        Intent seekerIntent = new Intent(this, SeekerMainActivity.class);
-        Intent ownerIntent = new Intent(this, OwnerMainActivity.class);
-        startActivity(seekerIntent);
+        Intent intent = new Intent(this, SetDefaultModeActivity.class);
+        startActivity(intent);
 
         // If registration is unsuccessful, display an error message.
         TextView errorMessage = new TextView(this);
