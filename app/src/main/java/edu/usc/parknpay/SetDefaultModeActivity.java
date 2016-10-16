@@ -26,6 +26,6 @@ public class SetDefaultModeActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Set user's default mode to owner
-        
+
     }
 }
