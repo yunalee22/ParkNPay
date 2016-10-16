@@ -7,29 +7,21 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class DatabaseTalker extends Application {
 
     private static DatabaseTalker instance = null;
-    private String test;
 
     Firebase mRef, mUsersRef, mBrowseRef;
 
     private DatabaseTalker() {
-        test = "Hi";
     }
 
     public synchronized static DatabaseTalker getInstance() {
         if(instance == null)
             instance = new DatabaseTalker();
         return instance;
-    }
-
-    public String getString() {
-        return this.test;
-    }
-
-    public void setString(String value) {
-        test = value;
     }
 
     @Override
@@ -57,5 +49,23 @@ public class DatabaseTalker extends Application {
                 System.out.println("Error in fetching data");
             }
         });
+    }
+
+    public ArrayList<ParkingSpot> getParkingSpots(ParkingSpotQuery query) {
+        ArrayList<ParkingSpot> spots = new ArrayList<ParkingSpot>();
+
+        return spots;
+    }
+
+    public boolean addParkingSpots(ParkingSpot spot) {
+        return false;
+    }
+
+    public boolean addParkingSpots(ArrayList<ParkingSpot> list) {
+        return false;
+    }
+
+    public boolean reserveParkingSpot(ParkingSpot spot) {
+        return false;
     }
 }
