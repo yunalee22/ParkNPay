@@ -51,7 +51,7 @@ public class DatabaseTalker extends Application {
         });
     }
 
-    public ArrayList<ParkingSpot> getParkingSpots(ParkingSpotQuery query) {
+    public ArrayList<ParkingSpot> getParkingSpots(ParkingSpot query) {
         ArrayList<ParkingSpot> spots = new ArrayList<ParkingSpot>();
 
         return spots;

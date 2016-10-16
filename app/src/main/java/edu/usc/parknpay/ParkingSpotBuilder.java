@@ -1,9 +1,10 @@
 package edu.usc.parknpay;
 // Builds up Parking Spot Queries neatly, so we can build like so:
 // HOW TO USE:
-// ParkingSpotQuery s2 = new ParkngSpotBuilder()
+// ParkingSpot s2 = new ParkngSpotBuilder()
 //        .isHandicap(true)
-//        .size(1);
+//        .size(1)
+//        .buildQuery();
 
 import java.util.Date;
 
@@ -12,12 +13,13 @@ public class ParkingSpotBuilder {
     private Date startTime;
     private Date endTime;
     private boolean isHandicap;
-    private int size; // TODO: make an enum in ParkingSpot
+    private ParkingSpot.Size size;
+    private double maxPrice;
 
     public ParkingSpotBuilder() {}
 
-    public ParkingSpotQuery buildQuery() {
-        return new ParkingSpotQuery(location, startTime, endTime, isHandicap, size);
+    public ParkingSpot buildQuery() {
+        return new ParkingSpot(location, startTime, endTime, size, maxPrice);
     }
 
     public ParkingSpotBuilder location(Location location) {
@@ -40,8 +42,13 @@ public class ParkingSpotBuilder {
         return this;
     }
 
-    public ParkingSpotBuilder size(int size) {
+    public ParkingSpotBuilder size(ParkingSpot.Size size) {
         this.size = size;
+        return this;
+    }
+
+    public ParkingSpotBuilder maxPrice(double maxPrice) {
+        this.maxPrice = maxPrice;
         return this;
     }
 }
