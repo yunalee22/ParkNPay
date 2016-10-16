@@ -13,6 +13,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_default_mode);
     }
 
+    /** Called when the user clicks the seeker button. */
     public void setDefaultToSeeker(View view) {
         Intent intent = new Intent(this, SeekerMainActivity.class);
         startActivity(intent);
@@ -21,6 +22,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
 
     }
 
+    /** Called when the user clicks the owner button. */
     public void setDefaultToOwner(View view) {
         Intent intent = new Intent(this, OwnerMainActivity.class);
         startActivity(intent);
