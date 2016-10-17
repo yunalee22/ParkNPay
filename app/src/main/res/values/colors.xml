@@ -7,6 +7,8 @@
     <color name="blue">#00BBD8</color>
     <color name="darkGray">#3B424C</color>
 
-    <!-- Secondary colors -->
-
+    <!-- Old colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>

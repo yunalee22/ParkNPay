@@ -8,12 +8,41 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+public class LoginActivity extends AppCompatActivity {
+
+//    Firebase mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // REFERENCE FOR USING FIREBASE
+//        Firebase.setAndroidContext(this);
+//        mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/Users/47fsSEGu3WOzQ1UkkzBkEj8jGHD3");
+//
+//        mRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Object _data = dataSnapshot.getValue();
+//                System.out.println("DATA");
+//                System.out.println(_data.toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//                System.out.println("Error in fetching data");
+//            }
+//        });
     }
 
     /** Called when the user clicks the login button. */
