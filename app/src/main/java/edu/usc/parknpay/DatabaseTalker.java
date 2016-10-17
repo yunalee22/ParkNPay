@@ -6,11 +6,14 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class DatabaseTalker extends Application {
 
+    private DatabaseReference mDatabase;
     private static DatabaseTalker instance = null;
 
     Firebase mRef, mUsersRef, mBrowseRef;
@@ -31,6 +34,9 @@ public class DatabaseTalker extends Application {
 
         //TODO: might have to be in onStart()
         Firebase.setAndroidContext(this);
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/Users/47fsSEGu3WOzQ1UkkzBkEj8jGHD3");
         mUsersRef = mRef.child("Users");

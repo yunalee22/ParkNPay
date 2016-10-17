@@ -23,31 +23,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // REFERENCE FOR USING FIREBASE
-//        Firebase.setAndroidContext(this);
-//        mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/Users/47fsSEGu3WOzQ1UkkzBkEj8jGHD3");
-//
-//        mRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Object _data = dataSnapshot.getValue();
-//                System.out.println("DATA");
-//                System.out.println(_data.toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                System.out.println("Error in fetching data");
-//            }
-//        });
-    }
-
     /** Called when the user clicks the login button. */
     public void authenticateUser(View view) {
-
         // Communicate with Firebase to authenticate the user.
         EditText editEmail = (EditText) findViewById(R.id.edit_email);
         String email = editEmail.getText().toString();
