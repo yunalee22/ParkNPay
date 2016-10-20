@@ -2,16 +2,16 @@
 
 package edu.usc.parknpay;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ParkingSpot {
-    private Location location;
-    private Date startTime, endTime;
-    private Size size;
-    private double maxPrice;
-    public enum Size { HANDICAP, COMPACT, TRUCK}
+    private String location;
+    private String startTime, endTime;
+    private String size;
+    private String maxPrice;
 
-    public ParkingSpot(Location location, Date startTime, Date endTime, ParkingSpot.Size size, double maxPrice) {
+    public ParkingSpot(@JsonProperty("location") String location, @JsonProperty("startTime") String startTime,
+                       @JsonProperty("endTime") String endTime, @JsonProperty("size") String size, @JsonProperty("maxPrice") String maxPrice) {
         this.location = location;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -19,43 +19,42 @@ public class ParkingSpot {
         this.maxPrice = maxPrice;
     }
 
-    public Location getLocation() {
-        return location;
-    }
+    public String getLocation() { return location; }
 
-    public void setLocation(Location location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+    public void setStartTime(String startTime) { this.startTime = startTime; }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public Size getSize() {
-        return size;
-    }
+    public String getSize() { return size; }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public double getMaxPrice() {
+    public String getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(double maxPrice) {
+    public void setMaxPrice(String maxPrice) {
         this.maxPrice = maxPrice;
+    }
+
+    @Override
+    public String toString() {
+        return getLocation() + " " + getSize() + " " + getStartTime() + " " + getEndTime() + " " + getSize() + " "  + getMaxPrice();
     }
 }

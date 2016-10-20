@@ -9,12 +9,11 @@ package edu.usc.parknpay;
 import java.util.Date;
 
 public class ParkingSpotBuilder {
-    private Location location;
-    private Date startTime;
-    private Date endTime;
-    private boolean isHandicap;
-    private ParkingSpot.Size size;
-    private double maxPrice;
+    private String location;
+    private String startTime;
+    private String endTime;
+    private String size;
+    private String maxPrice;
 
     public ParkingSpotBuilder() {}
 
@@ -22,32 +21,27 @@ public class ParkingSpotBuilder {
         return new ParkingSpot(location, startTime, endTime, size, maxPrice);
     }
 
-    public ParkingSpotBuilder location(Location location) {
+    public ParkingSpotBuilder location(String location) {
         this.location = location;
         return this;
     }
 
-    public ParkingSpotBuilder startTime(Date startTime) {
+    public ParkingSpotBuilder startTime(String startTime) {
         this.startTime = startTime;
         return this;
     }
 
-    public ParkingSpotBuilder endTime(Date endTime) {
+    public ParkingSpotBuilder endTime(String endTime) {
         this.endTime = endTime;
         return this;
     }
 
-    public ParkingSpotBuilder isHandicap(boolean isHandicap) {
-        this.isHandicap = isHandicap;
-        return this;
-    }
-
-    public ParkingSpotBuilder size(ParkingSpot.Size size) {
+    public ParkingSpotBuilder size(String size) {
         this.size = size;
         return this;
     }
 
-    public ParkingSpotBuilder maxPrice(double maxPrice) {
+    public ParkingSpotBuilder maxPrice(String maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }

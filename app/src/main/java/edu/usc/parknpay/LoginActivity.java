@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("YO");
-        DatabaseTalker.getInstance();
+        //DatabaseTalker.getInstance();
         setContentView(R.layout.activity_main);
     }
 
