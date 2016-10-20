@@ -1,4 +1,4 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.database;
 
 // This is just a temporary class so we don't get errors, eventually
 // all references to Location should be whatever API call we're using

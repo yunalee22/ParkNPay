@@ -1,23 +1,23 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.mutual;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-//import android.widget.Toolbar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
+import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.R;
 
 /**
- * Created by Bobo on 10/14/2016.
+ * Created by Bobo on 10/16/2016.
  */
 
-public class PaymentActivity extends MenuActivity {
+public class AccountSettingsActivity extends TemplateActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment_info_layout);
+        setContentView(R.layout.account_settings);
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -32,6 +32,4 @@ public class PaymentActivity extends MenuActivity {
         }
         return false;
     }
-
-
 }

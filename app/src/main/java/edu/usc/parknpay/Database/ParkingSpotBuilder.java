@@ -1,4 +1,4 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.database;
 // Builds up Parking Spot Queries neatly, so we can build like so:
 // HOW TO USE:
 // ParkingSpot s2 = new ParkngSpotBuilder()
