@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import edu.usc.parknpay.R;
 
-public class SearchFilterActivity extends AppCompatActivity {
+public class SeekerMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_filter);
+        setContentView(R.layout.seeker_main);
     }
 }

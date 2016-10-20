@@ -1,15 +1,15 @@
-package edu.usc.parknpay.seeker;
+package edu.usc.parknpay.owner;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.usc.parknpay.R;
 
-public class SearchFilterActivity extends AppCompatActivity {
+public class OwnerMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_filter);
+        setContentView(R.layout.owner_main);
     }
 }
