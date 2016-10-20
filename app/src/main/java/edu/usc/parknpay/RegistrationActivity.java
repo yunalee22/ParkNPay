@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         // If registration is unsuccessful, display an error message.
         TextView errorMessage = new TextView(this);
         errorMessage.setText("Failed to register user.");
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_main);
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_registration);
         layout.addView(errorMessage);
     }
 }

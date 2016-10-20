@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         // If authentication is unsuccessful, display an error message.
         TextView errorMessage = new TextView(this);
         errorMessage.setText("Failed to authenticate user.");
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_main);
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_login);
         layout.addView(errorMessage);
     }
 
