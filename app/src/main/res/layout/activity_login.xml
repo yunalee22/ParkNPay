@@ -1,30 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/activity_main"
+<RelativeLayout android:id="@+id/activity_login"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"/>
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <EditText android:id="@+id/edit_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/email"/>
+        android:hint="@string/email"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/app_title"
+        android:layout_centerHorizontal="true" />
+
     <EditText android:id="@+id/edit_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/password"/>
-    <Button
+        android:hint="@string/password"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edit_email"
+        android:layout_centerHorizontal="true"/>
+
+    <Button android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:onClick="authenticateUser"/>
-    <Button
+        android:onClick="authenticateUser"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/edit_password"
+        android:layout_centerHorizontal="true"/>
+
+    <Button android:id="@+id/register_option_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_option"
-        android:onClick="displayRegistrationScreen"/>
-</LinearLayout>
+        android:onClick="displayRegistrationScreen"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/login_button"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
