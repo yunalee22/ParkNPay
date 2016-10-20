@@ -1,3 +1,5 @@
+package edu.usc.parknpay;
+
 public class User {
     private String name;
     private String lastName;
