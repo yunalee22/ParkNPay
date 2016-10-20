@@ -9,8 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import edu.usc.parknpay.mutual.PaymentActivity;
-
 public class TemplateActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
@@ -41,7 +39,7 @@ public class TemplateActivity extends AppCompatActivity {
             //code for the menu buttons
             switch(position) {
                 case 2:
-                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.mutual.PaymentInfoActivity.class);
                     //intent.putExtra("shopCash", cash);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);

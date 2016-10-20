@@ -12,7 +12,7 @@ import edu.usc.parknpay.R;
  * Created by Bobo on 10/14/2016.
  */
 
-public class PaymentActivity extends TemplateActivity {
+public class PaymentInfoActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
