@@ -1,16 +1,20 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.authentication;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import edu.usc.parknpay.owner.OwnerMainActivity;
+import edu.usc.parknpay.R;
+import edu.usc.parknpay.seeker.SeekerMainActivity;
+
 public class SetDefaultModeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_default_mode);
+        setContentView(R.layout.set_default_mode);
     }
 
     /** Called when the user clicks the seeker button. */

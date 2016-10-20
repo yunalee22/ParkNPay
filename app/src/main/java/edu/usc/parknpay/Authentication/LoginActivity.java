@@ -1,4 +1,4 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.authentication;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import edu.usc.parknpay.owner.OwnerMainActivity;
+import edu.usc.parknpay.R;
+import edu.usc.parknpay.seeker.SeekerMainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
     }
 
     @Override

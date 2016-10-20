@@ -1,4 +1,4 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.database;
 
 import android.app.Application;
 

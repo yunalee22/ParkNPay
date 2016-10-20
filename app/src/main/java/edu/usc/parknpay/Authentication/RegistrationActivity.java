@@ -1,4 +1,4 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.authentication;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import edu.usc.parknpay.R;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.registration);
     }
 
     /** Called when the user clicks the register account button. */
