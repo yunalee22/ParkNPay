@@ -6,21 +6,25 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 public class DatabaseTalker extends Application {
-
     private static DatabaseTalker instance = null;
 
     Firebase mRef, mUsersRef, mBrowseRef;
 
-    private DatabaseTalker() {
+    // Firebase Authentication variable
+    private FirebaseAuth firebaseAuth;
+
+    public DatabaseTalker() {
     }
 
     public synchronized static DatabaseTalker getInstance() {
-        if(instance == null)
+        if(instance == null) {
             instance = new DatabaseTalker();
+        }
         return instance;
     }
 
@@ -32,7 +36,7 @@ public class DatabaseTalker extends Application {
         //TODO: might have to be in onStart()
         Firebase.setAndroidContext(this);
 
-        mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/Users/47fsSEGu3WOzQ1UkkzBkEj8jGHD3");
+        mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/");
         mUsersRef = mRef.child("Users");
         mBrowseRef = mRef.child("Browse");
 
@@ -49,6 +53,7 @@ public class DatabaseTalker extends Application {
                 System.out.println("Error in fetching data");
             }
         });
+
     }
 
     public ArrayList<ParkingSpot> getParkingSpots(ParkingSpot query) {
@@ -68,4 +73,5 @@ public class DatabaseTalker extends Application {
     public boolean reserveParkingSpot(ParkingSpot spot) {
         return false;
     }
+
 }
