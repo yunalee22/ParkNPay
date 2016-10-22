@@ -19,6 +19,4 @@ public class SeekerMainActivity extends TemplateActivity {
     private void loadSearchResults() {
 
     }
-
-
 }

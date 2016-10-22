@@ -16,10 +16,17 @@ public class LoginActivity extends AppCompatActivity {
 
 //    Firebase mRef;
 
+    EditText editEmail;
+    EditText editPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        // Get references to UI views
+        editEmail = (EditText) findViewById(R.id.edit_email);
+        editPassword = (EditText) findViewById(R.id.edit_password);
     }
 
     @Override
@@ -48,9 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     public void authenticateUser(View view) {
 
         // Communicate with Firebase to authenticate the user.
-        EditText editEmail = (EditText) findViewById(R.id.edit_email);
         String email = editEmail.getText().toString();
-        EditText editPassword = (EditText) findViewById(R.id.edit_password);
         String password = editPassword.getText().toString();
 
         // If authentication is successful, proceed to owner/seeker main view
@@ -68,10 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /** Called when the user selects the registration option. */
     public void displayRegistrationScreen(View view) {
-
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
-
-
     }
 }
