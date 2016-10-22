@@ -25,11 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.authentication.RegistrationActivity;
 import edu.usc.parknpay.authentication.SetDefaultModeActivity;
+import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
 
 /**
@@ -133,6 +135,14 @@ public class AddSpotActivity extends TemplateActivity {
         String sizeFinal = size.getSelectedItem().toString();
         String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
+
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+
+        String parkingSpotID = UUID.randomUUID().toString();
+
+        // Get correct firebase ref
+        ParkingSpot spot = new ParkingSpot("Swaggin spot", "INSERTUSERID", "asdf", "a", "a", "a", "a", "compact", 5.3, 4.4, "asdf", "asdf");
+        Ref.child("Parking-Spots").child(parkingSpotID).setValue(spot);
 
         // If registration is successful, proceed to owner/seeker selection view.
         // intent = new Intent(this, SetDefaultModeActivity.class);
