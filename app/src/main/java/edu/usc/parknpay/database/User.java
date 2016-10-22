@@ -30,6 +30,7 @@ public class User {
         this.numRatings = numRatings;
     }
 
+    // Alternate constructor
     public User(String name,
          String lastName,
          String email,

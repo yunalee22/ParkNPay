@@ -63,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
+        // Check if passwords match
         if(!password.equals(confirmPassword)) {
             Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
