@@ -1,20 +1,12 @@
 package edu.usc.parknpay;
 
 import android.app.Application;
-import android.util.Log;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -36,7 +28,7 @@ public class DatabaseTalker extends Application {
         super.onCreate();
         instance = this;
         Firebase.setAndroidContext(this);
-        getParkingSpots(); // temporary!
+        //getParkingSpots(); // temporary!
     }
 
     public ArrayList<ParkingSpot> getParkingSpots(/*query*/) {
