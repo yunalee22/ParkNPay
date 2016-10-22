@@ -10,22 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".authentication.LoginActivity"
-
-        />
-        <activity android:name=".authentication.RegistrationActivity" />
-        <activity android:name=".authentication.SetDefaultModeActivity" />
-
-        <activity android:name=".mutual.PaymentInfoActivity" />
-        <activity android:name=".mutual.AccountSettingsActivity" />
-
-        <activity android:name=".owner.AddSpotActivity">
+        <activity android:name=".authentication.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".authentication.RegistrationActivity" />
+        <activity android:name=".authentication.SetDefaultModeActivity" />
+
+        <activity android:name=".mutual.PaymentInfoActivity" />
+        <activity android:name=".mutual.AccountSettingsActivity" />
+
+        <activity android:name=".owner.AddSpotActivity"/>
         <activity android:name=".owner.OwnerMainActivity" />
 
         <activity android:name=".seeker.SeekerMainActivity" />
