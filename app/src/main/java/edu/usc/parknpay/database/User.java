@@ -77,11 +77,15 @@ public class User {
         return licenseNumber;
     }
 
-    public int getRating() {
+    public int Rating() {
         return rawRating / numRatings;
     }
 
-    private int getNumRating() {
+    public int getRawRating() {
+        return rawRating;
+    }
+
+    public int getNumRating() {
         return numRatings;
     }
 
