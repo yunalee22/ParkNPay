@@ -55,6 +55,7 @@ public class AddSpotActivity extends TemplateActivity {
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add a Space");
     }
 
     protected void initializeEdits() {
@@ -126,10 +127,10 @@ public class AddSpotActivity extends TemplateActivity {
             public void onClick(View arg0) {
                 //grabbing all the values from the inputs (if all inputs are valid)
                 String streetFinal = street.getText().toString();
-                String cityFinal = street.getText().toString();
-                String stateFinal = street.getText().toString();
-                String zipFinal = street.getText().toString();
-                String notesFinal = street.getText().toString();
+                String cityFinal = city.getText().toString();
+                String stateFinal = state.getText().toString();
+                String zipFinal = zipCode.getText().toString();
+                String notesFinal = notes.getText().toString();
                 String sizeFinal = size.getSelectedItem().toString();
                 String cancelFinal = cancel.getSelectedItem().toString();
                 boolean handicappedFinal = handicapped.isChecked();
