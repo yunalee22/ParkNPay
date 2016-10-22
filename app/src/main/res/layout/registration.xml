@@ -11,16 +11,42 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/app_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+        <ImageView android:id="@+id/pic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/testpic" />
+        <ImageView android:id="@+id/circle_crop"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/circlecrop" />
+    </FrameLayout>
+
+    <TextView android:id="@+id/edit_button"
+        android:text="@string/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
 
     <EditText android:id="@+id/edit_first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="@string/first_name"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/app_title"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edit_button"
         android:layout_centerHorizontal="true" />
 
     <EditText android:id="@+id/edit_last_name"
@@ -80,7 +106,7 @@
         android:layout_height="wrap_content"
         android:text="@string/register"
         android:onClick="registerUser"
-        android:layout_marginBottom="75dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edit_drivers_license"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

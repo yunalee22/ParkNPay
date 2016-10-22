@@ -8,6 +8,7 @@
     <string name="register_option">Don\'t have an account? Register</string>
 
     <!-- Registration screen -->
+    <string name="edit">Edit</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
@@ -18,5 +19,6 @@
     <!-- Choose seeker or owner screen -->
     <string name="select_owner">"I\'m letting out a spot.</string>
     <string name="select_seeker">I\'m looking for a spot.</string>
+
 
 </resources>

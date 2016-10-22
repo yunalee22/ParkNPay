@@ -4,8 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 
-public class SearchFilterActivity extends AppCompatActivity {
+public class SearchFilterActivity extends TemplateActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
