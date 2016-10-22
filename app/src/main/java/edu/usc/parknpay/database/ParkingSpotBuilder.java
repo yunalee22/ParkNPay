@@ -1,54 +1,50 @@
-package edu.usc.parknpay.database;
-// Builds up Parking Spot Queries neatly, so we can build like so:
-// HOW TO USE:
-// ParkingSpot s2 = new ParkngSpotBuilder()
-//        .isHandicap(true)
-//        .size(1)
-//        .buildQuery();
-
-import java.util.Date;
-
-public class ParkingSpotBuilder {
-    private Location location;
-    private Date startTime;
-    private Date endTime;
-    private boolean isHandicap;
-    private ParkingSpot.Size size;
-    private double maxPrice;
-
-    public ParkingSpotBuilder() {}
-
-    public ParkingSpot buildQuery() {
-        return new ParkingSpot(location, startTime, endTime, size, maxPrice);
-    }
-
-    public ParkingSpotBuilder location(Location location) {
-        this.location = location;
-        return this;
-    }
-
-    public ParkingSpotBuilder startTime(Date startTime) {
-        this.startTime = startTime;
-        return this;
-    }
-
-    public ParkingSpotBuilder endTime(Date endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
-    public ParkingSpotBuilder isHandicap(boolean isHandicap) {
-        this.isHandicap = isHandicap;
-        return this;
-    }
-
-    public ParkingSpotBuilder size(ParkingSpot.Size size) {
-        this.size = size;
-        return this;
-    }
-
-    public ParkingSpotBuilder maxPrice(double maxPrice) {
-        this.maxPrice = maxPrice;
-        return this;
-    }
-}
+//package edu.usc.parknpay;
+//// Builds up Parking Spot Queries neatly, so we can build like so:
+//// HOW TO USE:
+//// ParkingSpot s2 = new ParkngSpotBuilder()
+////        .isHandicap(true)
+////        .size(1)
+////        .buildQuery();
+//
+//import java.util.Date;
+//
+//public class ParkingSpotBuilder {
+//    private String name;
+//    private String ownerUserId;
+//    private String location;
+//    private String startTime;
+//    private String endTime;
+//    private String size;
+//    private String maxPrice;
+//
+//    public ParkingSpotBuilder() {}
+//
+//    public ParkingSpot buildQuery() {
+//        return new ParkingSpot(location, startTime, endTime, size, maxPrice);
+//    }
+//
+//    public ParkingSpotBuilder location(String location) {
+//        this.location = location;
+//        return this;
+//    }
+//
+//    public ParkingSpotBuilder startTime(String startTime) {
+//        this.startTime = startTime;
+//        return this;
+//    }
+//
+//    public ParkingSpotBuilder endTime(String endTime) {
+//        this.endTime = endTime;
+//        return this;
+//    }
+//
+//    public ParkingSpotBuilder size(String size) {
+//        this.size = size;
+//        return this;
+//    }
+//
+//    public ParkingSpotBuilder maxPrice(String maxPrice) {
+//        this.maxPrice = maxPrice;
+//        return this;
+//    }
+//}
