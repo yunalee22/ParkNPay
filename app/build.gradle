@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "edu.usc.parknpay"
-        minSdkVersion 9
+        minSdkVersion 11
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -29,4 +29,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
+    compile 'com.google.firebase:firebase-auth:9.6.0'
+    compile 'com.google.firebase:firebase-core:9.6.0'
+
+    compile 'com.google.android.gms:play-services-location:9.6.0'
+    compile 'com.google.android.gms:play-services-places:9.6.0'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

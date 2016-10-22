@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.usc.parknpay">
+    
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +27,10 @@
             android:label="Payment"
             android:theme="@style/AppBarActivity">
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg"/>
 
     </application>
 

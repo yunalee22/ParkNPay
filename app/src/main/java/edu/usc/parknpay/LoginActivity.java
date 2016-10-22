@@ -1,78 +1,55 @@
 package edu.usc.parknpay;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
+        import android.text.Html;
+        import android.texl.Log;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+        import com.google.andt.TextUtils;
+        import android.utiroid.gms.common.api.Status;
+        import com.google.android.gms.location.places.Place;
+        import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+        import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.LatLngBounds;
 
-//    Firebase mRef;
+public class LoginActivity extends AppCompatActivity implements PlaceSelectionListener {
+
+    private static final String LOG_TAG = "PlaceSelectionListener";
+    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
+            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
+    private TextView locationTextView;
+    private TextView attributionsTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Method #1
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_fragment);
+        autocompleteFragment.setOnPlaceSelectedListener(this);
+        autocompleteFragment.setHint("Search a Location");
+        autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
+
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        // REFERENCE FOR USING FIREBASE
-//        Firebase.setAndroidContext(this);
-//        mRef = new Firebase("https://parknpay-4c06e.firebaseio.com/Users/47fsSEGu3WOzQ1UkkzBkEj8jGHD3");
-//
-//        mRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Object _data = dataSnapshot.getValue();
-//                System.out.println("DATA");
-//                System.out.println(_data.toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                System.out.println("Error in fetching data");
-//            }
-//        });
+    public void onPlaceSelected(Place place) {
+        Log.i(LOG_TAG, "Place Selected: " + place.getName());
     }
 
-    /** Called when the user clicks the login button. */
-    public void authenticateUser(View view) {
-
-        // Communicate with Firebase to authenticate the user.
-        EditText editEmail = (EditText) findViewById(R.id.edit_email);
-        String email = editEmail.getText().toString();
-        EditText editPassword = (EditText) findViewById(R.id.edit_password);
-        String password = editPassword.getText().toString();
-
-        // If authentication is successful, proceed to owner/seeker main view
-        // (whichever is user's default).
-        Intent seekerIntent = new Intent(this, SeekerMainActivity.class);
-        Intent ownerIntent = new Intent(this, OwnerMainActivity.class);
-        startActivity(seekerIntent);
-
-        // If authentication is unsuccessful, display an error message.
-        TextView errorMessage = new TextView(this);
-        errorMessage.setText("Failed to authenticate user.");
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_main);
-        layout.addView(errorMessage);
-    }
-
-    /** Called when the user selects the registration option. */
-    public void displayRegistrationScreen(View view) {
-
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-
-
+    @Override
+    public void onError(Status status) {
+        Log.e(LOG_TAG, "onError: Status = " + status.toString());
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
     }
 }

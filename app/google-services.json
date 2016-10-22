@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "325596210182",
+    "firebase_url": "https://parknpay-4c06e.firebaseio.com",
+    "project_id": "parknpay-4c06e",
+    "storage_bucket": "parknpay-4c06e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325596210182:android:0bc4e6b2264409ac",
+        "android_client_info": {
+          "package_name": "edu.usc.parknpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325596210182-skdqif1jjdpsk8q0a0lt58p7bqa5975m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usc.parknpay",
+            "certificate_hash": "D66F16425C0C661D108CE07957468C702B53A482"
+          }
+        },
+        {
+          "client_id": "325596210182-2mbrsm65tna83e3dijv0nh7tkklm74ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4iis04YrAhyN--uRTeMO8rhLY41F6Cgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325596210182-2mbrsm65tna83e3dijv0nh7tkklm74ef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
