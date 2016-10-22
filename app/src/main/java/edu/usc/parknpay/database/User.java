@@ -1,7 +1,14 @@
 package edu.usc.parknpay.database;
 
 public class User {
+    private static User instance = null;
+
     private String firstName;
+
+    public static void setInstance(User instance) {
+        User.instance = instance;
+    }
+
     private String lastName;
     private String email;
     private String id;
@@ -9,8 +16,37 @@ public class User {
     private int numRatings;
     private String phoneNumber;
     private String licenseNumber;
+    private boolean isSeeker;
 
-    // Constructor
+    public synchronized static User getInstance() {
+        return instance;
+    }
+
+    public synchronized static void createUser(User user)
+    {
+        instance = new User(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getId(),
+                user.getPhoneNumber(),
+                user.getLicenseNumber(),
+                user.getRawRating(),
+                user.getNumRatings(),
+                user.isSeeker()
+        );
+    }
+
+    // On signing out
+    public void removeUser()
+    {
+        instance = null;
+    }
+
+    // Constructors
+
+    public User(){}
+
     public User(String name,
          String lastName,
          String email,
@@ -18,7 +54,8 @@ public class User {
          String phoneNumber,
          String licenseNumber,
          int rawRating,
-         int numRatings
+         int numRatings,
+         boolean isSeeker
     ) {
         this.firstName = name;
         this.lastName = lastName;
@@ -28,6 +65,7 @@ public class User {
         this.licenseNumber = licenseNumber;
         this.rawRating = rawRating;
         this.numRatings = numRatings;
+        this.isSeeker = isSeeker;
     }
 
     // Alternate constructor
@@ -37,7 +75,8 @@ public class User {
          String phoneNumber,
          String licenseNumber,
          int rawRating,
-         int numRatings
+         int numRatings,
+         boolean isSeeker
     ) {
         this.firstName = name;
         this.lastName = lastName;
@@ -49,7 +88,7 @@ public class User {
     }
     public void setId(String id) { this.id = id; }
 
-    public String getName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -57,7 +96,7 @@ public class User {
         return lastName;
     }
 
-    public String getFullName() {
+    public String FullName() {
         return firstName + " " + lastName;
     }
 
@@ -85,14 +124,54 @@ public class User {
         return rawRating;
     }
 
-    public int getNumRating() {
+    public int getNumRatings() {
         return numRatings;
+    }
+
+    public boolean isSeeker() {
+        return isSeeker;
+    }
+
+    public void setIsSeeker(boolean isSeeker) {
+        this.isSeeker = isSeeker;
     }
 
     public void updateRating(int rating) {
         rawRating += rating;
         numRatings++;
         // update these values in firebase
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRawRating(int rawRating) {
+        this.rawRating = rawRating;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+    public void setSeeker(boolean seeker) {
+        isSeeker = seeker;
     }
 
 }
