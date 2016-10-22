@@ -41,14 +41,14 @@ public class DatabaseTalker extends Application {
 
     public ArrayList<ParkingSpot> getParkingSpots(/*query*/) {
         ArrayList<ParkingSpot> spots = new ArrayList<ParkingSpot>();
+
+        // Example of filtering by price - insert corresponding filter
         Query myTopPostsQuery = new Firebase("https://parknpay-4c06e.firebaseio.com/Browse/").orderByChild("maxPrice");
         myTopPostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                System.out.println("VALUE: " + dataSnapshot.getValue());
                 ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);
                 System.out.println(spot.toString());
-
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -60,19 +60,16 @@ public class DatabaseTalker extends Application {
             public void onCancelled(FirebaseError firebaseError) {}
         });
 
-
-        System.out.println("GET PARKING SPOTS");
+        // Example of acquiring parking spots
         Query ref = new Firebase("https://parknpay-4c06e.firebaseio.com/Browse").limitToLast(10);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     Map<String, Object> map = (Map<String, Object>)  messageSnapshot.getValue();
-                    System.out.println("SPOT: " + messageSnapshot.getKey());
+                    System.out.println("Spot: " + messageSnapshot.getKey());
                     for (Map.Entry<String, Object> entry : map.entrySet()) {
-                        String key = entry.getKey().toString();
-                        String value = entry.getValue().toString();
-                        System.out.println("key: " + key + " value: " + value);
+                        System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
                     }
                 }
             }

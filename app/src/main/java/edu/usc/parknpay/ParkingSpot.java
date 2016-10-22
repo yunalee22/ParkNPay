@@ -4,6 +4,8 @@ package edu.usc.parknpay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 public class ParkingSpot {
     private String location;
     private String startTime, endTime;
@@ -55,6 +57,7 @@ public class ParkingSpot {
 
     @Override
     public String toString() {
-        return getLocation() + " " + getSize() + " " + getStartTime() + " " + getEndTime() + " " + getSize() + " "  + getMaxPrice();
+        return "Location: " + getLocation() + " Size: " + getSize() + " startTime: " + getStartTime() + " endTime" + getEndTime() +
+               " maxPrice: "  + getMaxPrice();
     }
 }
