@@ -1,278 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_height="match_parent">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/toolbar" />
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorAccent"
+                android:theme="?attr/actionBarTheme"
+                android:minHeight="?attr/actionBarSize"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/toolbar" />
 
-        <TextView
-            android:text="City:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cityTextView"
-            android:textSize="18sp"
-            android:layout_alignBaseline="@+id/cityEdit"
-            android:layout_alignBottom="@+id/cityEdit"
-            android:layout_alignLeft="@+id/streetTextView"
-            android:layout_alignStart="@+id/streetTextView" />
+            <TextView
+                android:text="City:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cityTextView"
+                android:textSize="18sp"
+                android:layout_alignBaseline="@+id/cityEdit"
+                android:layout_alignBottom="@+id/cityEdit"
+                android:layout_alignLeft="@+id/streetTextView"
+                android:layout_alignStart="@+id/streetTextView" />
 
-        <TextView
-            android:text="Size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:id="@+id/sizeTextView"
-            android:textSize="20sp"
-            android:textStyle="normal|bold"
-            android:layout_below="@+id/handicappedTextView"
-            android:layout_alignLeft="@+id/handicappedTextView"
-            android:layout_alignStart="@+id/handicappedTextView" />
+            <TextView
+                android:text="Size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/sizeTextView"
+                android:textSize="20sp"
+                android:textStyle="normal|bold"
+                android:layout_below="@+id/handicappedTextView"
+                android:layout_alignLeft="@+id/handicappedTextView"
+                android:layout_alignStart="@+id/handicappedTextView" />
 
-        <Spinner
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/sizeTextView"
-            android:id="@+id/sizeSpinner"
-            android:layout_alignLeft="@+id/stateEdit"
-            android:layout_alignStart="@+id/stateEdit"
-            android:layout_alignBottom="@+id/sizeTextView" />
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/sizeTextView"
+                android:id="@+id/sizeSpinner"
+                android:layout_alignLeft="@+id/stateEdit"
+                android:layout_alignStart="@+id/stateEdit"
+                android:layout_alignBottom="@+id/sizeTextView" />
 
-        <TextView
-            android:text="Additional Notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sizeTextView"
-            android:layout_alignLeft="@+id/sizeTextView"
-            android:layout_alignStart="@+id/sizeTextView"
-            android:layout_marginTop="15dp"
-            android:id="@+id/notesTextView"
-            android:textSize="20sp"
-            android:textStyle="normal|bold" />
+            <TextView
+                android:text="Additional Notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sizeTextView"
+                android:layout_alignLeft="@+id/sizeTextView"
+                android:layout_alignStart="@+id/sizeTextView"
+                android:layout_marginTop="15dp"
+                android:id="@+id/notesTextView"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
 
-        <TextView
-            android:text="Parking lot security, lot number, etc."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/notesTextView"
-            android:layout_alignLeft="@+id/notesTextView"
-            android:layout_alignStart="@+id/notesTextView"
-            android:id="@+id/notesDes"
-            android:textSize="14sp"
-            android:textStyle="normal|italic" />
+            <TextView
+                android:text="Parking lot security, lot number, etc."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notesTextView"
+                android:layout_alignLeft="@+id/notesTextView"
+                android:layout_alignStart="@+id/notesTextView"
+                android:id="@+id/notesDes"
+                android:textSize="14sp"
+                android:textStyle="normal|italic" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="State"
-            android:ems="10"
-            android:id="@+id/stateEdit"
-            android:layout_alignBaseline="@+id/zipEdit"
-            android:layout_alignBottom="@+id/zipEdit"
-            android:layout_alignLeft="@+id/cityEdit"
-            android:layout_alignStart="@+id/cityEdit"
-            android:layout_width="60dp" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="State"
+                android:ems="10"
+                android:id="@+id/stateEdit"
+                android:layout_alignBaseline="@+id/zipEdit"
+                android:layout_alignBottom="@+id/zipEdit"
+                android:layout_alignLeft="@+id/cityEdit"
+                android:layout_alignStart="@+id/cityEdit"
+                android:layout_width="60dp" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:layout_marginTop="8dp"
-            android:id="@+id/streetEdit"
-            android:hint="Street"
-            android:layout_below="@+id/addressTextView"
-            android:layout_toRightOf="@+id/streetTextView"
-            android:layout_toEndOf="@+id/streetTextView"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
-            android:layout_width="280dp"
-            android:fontFamily="sans-serif" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:layout_marginTop="8dp"
+                android:id="@+id/streetEdit"
+                android:hint="Street"
+                android:layout_below="@+id/addressTextView"
+                android:layout_toRightOf="@+id/streetTextView"
+                android:layout_toEndOf="@+id/streetTextView"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_width="280dp"
+                android:fontFamily="sans-serif" />
 
-        <TextView
-            android:text="State:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stateTextView"
-            android:textSize="18sp"
-            android:layout_alignBaseline="@+id/stateEdit"
-            android:layout_alignBottom="@+id/stateEdit"
-            android:layout_alignLeft="@+id/cityTextView"
-            android:layout_alignStart="@+id/cityTextView" />
+            <TextView
+                android:text="State:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stateTextView"
+                android:textSize="18sp"
+                android:layout_alignBaseline="@+id/stateEdit"
+                android:layout_alignBottom="@+id/stateEdit"
+                android:layout_alignLeft="@+id/cityTextView"
+                android:layout_alignStart="@+id/cityTextView" />
 
-        <TextView
-            android:text="Street:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/streetTextView"
-            android:textSize="18sp"
-            android:layout_alignBaseline="@+id/streetEdit"
-            android:layout_alignBottom="@+id/streetEdit"
-            android:layout_alignLeft="@+id/addressTextView"
-            android:layout_alignStart="@+id/addressTextView"
-            android:textAllCaps="false" />
+            <TextView
+                android:text="Street:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/streetTextView"
+                android:textSize="18sp"
+                android:layout_alignBaseline="@+id/streetEdit"
+                android:layout_alignBottom="@+id/streetEdit"
+                android:layout_alignLeft="@+id/addressTextView"
+                android:layout_alignStart="@+id/addressTextView"
+                android:textAllCaps="false" />
 
-        <TextView
-            android:text="Handicapped?"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:id="@+id/handicappedTextView"
-            android:textSize="20sp"
-            android:textStyle="normal|bold"
-            android:layout_below="@+id/stateEdit"
-            android:layout_alignLeft="@+id/stateTextView"
-            android:layout_alignStart="@+id/stateTextView" />
+            <TextView
+                android:text="Handicapped?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:id="@+id/handicappedTextView"
+                android:textSize="20sp"
+                android:textStyle="normal|bold"
+                android:layout_below="@+id/stateEdit"
+                android:layout_alignLeft="@+id/stateTextView"
+                android:layout_alignStart="@+id/stateTextView" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox"
-            android:layout_below="@+id/zipEdit"
-            android:layout_marginTop="5dp"
-            android:layout_alignLeft="@+id/zipTextView"
-            android:layout_alignStart="@+id/zipTextView" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox"
+                android:layout_below="@+id/zipEdit"
+                android:layout_marginTop="5dp"
+                android:layout_alignLeft="@+id/zipTextView"
+                android:layout_alignStart="@+id/zipTextView" />
 
-        <EditText
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="City"
-            android:ems="10"
-            android:id="@+id/cityEdit"
-            android:layout_below="@+id/streetEdit"
-            android:layout_alignLeft="@+id/streetEdit"
-            android:layout_alignStart="@+id/streetEdit" />
+            <EditText
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="City"
+                android:ems="10"
+                android:id="@+id/cityEdit"
+                android:layout_below="@+id/streetEdit"
+                android:layout_alignLeft="@+id/streetEdit"
+                android:layout_alignStart="@+id/streetEdit" />
 
-        <TextView
-            android:text="Zip Code:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/zipTextView"
-            android:textSize="18sp"
-            android:layout_alignBaseline="@+id/stateEdit"
-            android:layout_alignBottom="@+id/stateEdit"
-            android:layout_alignRight="@+id/notesDes"
-            android:layout_alignEnd="@+id/notesDes" />
+            <TextView
+                android:text="Zip Code:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/zipTextView"
+                android:textSize="18sp"
+                android:layout_alignBaseline="@+id/stateEdit"
+                android:layout_alignBottom="@+id/stateEdit"
+                android:layout_alignRight="@+id/notesDes"
+                android:layout_alignEnd="@+id/notesDes" />
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:hint="Zip Code"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/zipEdit"
-            android:layout_width="100dp"
-            android:layout_below="@+id/cityEdit"
-            android:layout_toRightOf="@+id/zipTextView"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_alignRight="@+id/cityEdit"
-            android:layout_alignEnd="@+id/cityEdit" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:hint="Zip Code"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/zipEdit"
+                android:layout_width="100dp"
+                android:layout_below="@+id/cityEdit"
+                android:layout_toRightOf="@+id/zipTextView"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_alignRight="@+id/cityEdit"
+                android:layout_alignEnd="@+id/cityEdit" />
 
-        <EditText
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/notesEdit"
-            android:layout_width="340dp"
-            android:layout_height="130dp"
-            android:gravity="top|left"
-            android:hint="Additional notes here..."
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:layout_below="@+id/notesDes"
-            android:layout_alignLeft="@+id/notesDes"
-            android:layout_alignStart="@+id/notesDes" />
+            <EditText
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/notesEdit"
+                android:layout_width="340dp"
+                android:layout_height="130dp"
+                android:gravity="top|left"
+                android:hint="Additional notes here..."
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:layout_below="@+id/notesDes"
+                android:layout_alignLeft="@+id/notesDes"
+                android:layout_alignStart="@+id/notesDes" />
 
-        <TextView
-            android:text="Cancellation Policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:id="@+id/cancelTextView"
-            android:textStyle="normal|bold"
-            android:textSize="20sp"
-            android:layout_below="@+id/notesEdit"
-            android:layout_alignLeft="@+id/notesEdit"
-            android:layout_alignStart="@+id/notesEdit" />
+            <TextView
+                android:text="Cancellation Policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:id="@+id/cancelTextView"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/notesEdit"
+                android:layout_alignLeft="@+id/notesEdit"
+                android:layout_alignStart="@+id/notesEdit" />
 
-        <TextView
-            android:text="Select a reservation cancellation policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelDes"
-            android:textStyle="normal|italic"
-            android:layout_below="@+id/cancelTextView"
-            android:layout_alignLeft="@+id/cancelTextView"
-            android:layout_alignStart="@+id/cancelTextView" />
+            <TextView
+                android:text="Select a reservation cancellation policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancelDes"
+                android:textStyle="normal|italic"
+                android:layout_below="@+id/cancelTextView"
+                android:layout_alignLeft="@+id/cancelTextView"
+                android:layout_alignStart="@+id/cancelTextView" />
 
-        <Button
-            android:text="done"
-            android:id="@+id/button"
-            android:layout_width="150dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="12sp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/cancelSpinner"
-            android:layout_centerHorizontal="true" />
+            <Button
+                android:text="done"
+                android:id="@+id/button"
+                android:layout_width="150dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="12sp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/cancelSpinner"
+                android:layout_centerHorizontal="true" />
 
-        <Spinner
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelSpinner"
-            android:layout_marginTop="9dp"
-            android:layout_below="@+id/cancelDes"
-            android:layout_alignLeft="@+id/cancelDes"
-            android:layout_alignStart="@+id/cancelDes" />
+            <Spinner
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancelSpinner"
+                android:layout_marginTop="9dp"
+                android:layout_below="@+id/cancelDes"
+                android:layout_alignLeft="@+id/cancelDes"
+                android:layout_alignStart="@+id/cancelDes" />
 
-        <TextView
-            android:text="Parking Spot Photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignLeft="@+id/addressTextView"
-            android:layout_alignStart="@+id/addressTextView"
-            android:layout_marginTop="24dp"
-            android:id="@+id/textView24"
-            android:textSize="20sp"
-            android:textStyle="normal|bold" />
+            <TextView
+                android:text="Parking Spot Photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:layout_alignLeft="@+id/addressTextView"
+                android:layout_alignStart="@+id/addressTextView"
+                android:layout_marginTop="24dp"
+                android:id="@+id/textView24"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
 
-        <TextView
-            android:text="Address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addressTextView"
-            android:textStyle="normal|bold"
-            android:textSize="20sp"
-            android:layout_marginTop="19dp"
-            android:layout_marginRight="17dp"
-            android:layout_marginEnd="17dp"
-            android:layout_below="@+id/spotPhoto"
-            android:layout_toLeftOf="@+id/button"
-            android:layout_toStartOf="@+id/button" />
+            <TextView
+                android:text="Address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addressTextView"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_below="@+id/spotPhoto"
+                android:layout_toLeftOf="@+id/button"
+                android:layout_toStartOf="@+id/button" />
 
-        <ImageView
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/addphoto"
-            android:layout_marginTop="14dp"
-            android:id="@+id/spotPhoto"
-            android:layout_below="@+id/textView24"
-            android:layout_alignLeft="@+id/textView24"
-            android:layout_alignStart="@+id/textView24" />
+            <ImageView
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/addphoto"
+                android:layout_marginTop="14dp"
+                android:id="@+id/spotPhoto"
+                android:layout_below="@+id/textView24"
+                android:layout_alignLeft="@+id/textView24"
+                android:layout_alignStart="@+id/textView24" />
 
 
-    </RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
+        android:background="#fff"/>
+</android.support.v4.widget.DrawerLayout>

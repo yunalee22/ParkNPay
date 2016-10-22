@@ -35,9 +35,8 @@ public class AddSpotActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_spot);
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        super.onCreateDrawer();
+        toolbarSetup();
         initializeEdits();
         addListeners();
         setSpinners();
@@ -51,6 +50,13 @@ public class AddSpotActivity extends TemplateActivity {
         }
         return false;
     }
+
+    protected void toolbarSetup() {
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     protected void initializeEdits() {
         street = (EditText) findViewById(R.id.streetEdit);
         city = (EditText) findViewById(R.id.cityEdit);
