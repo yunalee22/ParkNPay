@@ -1,7 +1,7 @@
 package edu.usc.parknpay.database;
 
 public class User {
-    private String name;
+    private String firstName;
     private String lastName;
     private String email;
     private String id;
@@ -11,7 +11,7 @@ public class User {
     private String licenseNumber;
 
     // Constructor
-    User(String name,
+    public User(String name,
          String lastName,
          String email,
          String id,
@@ -20,7 +20,7 @@ public class User {
          int rawRating,
          int numRatings
     ) {
-        this.name = name;
+        this.firstName = name;
         this.lastName = lastName;
         this.email = email;
         this.id = id;
@@ -28,11 +28,29 @@ public class User {
         this.licenseNumber = licenseNumber;
         this.rawRating = rawRating;
         this.numRatings = numRatings;
-
     }
 
+    // Alternate constructor
+    public User(String name,
+         String lastName,
+         String email,
+         String phoneNumber,
+         String licenseNumber,
+         int rawRating,
+         int numRatings
+    ) {
+        this.firstName = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.licenseNumber = licenseNumber;
+        this.rawRating = rawRating;
+        this.numRatings = numRatings;
+    }
+    public void setId(String id) { this.id = id; }
+
     public String getName() {
-        return name;
+        return firstName;
     }
 
     public String getLastName() {
@@ -40,7 +58,7 @@ public class User {
     }
 
     public String getFullName() {
-        return name + " " + lastName;
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {
@@ -61,6 +79,10 @@ public class User {
 
     public int getRating() {
         return rawRating / numRatings;
+    }
+
+    private int getNumRating() {
+        return numRatings;
     }
 
     public void updateRating(int rating) {
