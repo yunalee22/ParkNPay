@@ -1,6 +1,7 @@
 package edu.usc.parknpay.authentication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,9 @@ public class RegistrationActivity extends AppCompatActivity {
         editConfirmPassword = (EditText) findViewById(R.id.edit_confirm_password);
         editPhoneNumber = (EditText) findViewById(R.id.edit_phone_number);
         editDriversLicense = (EditText) findViewById(R.id.edit_drivers_license);
+
+        // Add button listeners
+        addListeners();
     }
 
     /** Called when the user clicks the register account button. */
