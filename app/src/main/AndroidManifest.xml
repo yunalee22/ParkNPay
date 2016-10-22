@@ -11,28 +11,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+        <!-- Authentication activities -->
         <activity android:name=".authentication.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".authentication.RegistrationActivity" />
         <activity android:name=".authentication.SetDefaultModeActivity" />
 
+        <!-- Mutual activities -->
         <activity android:name=".mutual.PaymentInfoActivity" />
         <activity android:name=".mutual.AccountSettingsActivity" />
 
+        <!-- Owner activities -->
         <activity android:name=".owner.AddSpotActivity"/>
         <activity android:name=".owner.OwnerMainActivity" />
 
+        <!-- Seeker activities -->
         <activity android:name=".seeker.SeekerMainActivity" />
         <activity android:name=".seeker.SearchFilterActivity" />
         <activity android:name=".seeker.SpotDetailsActivity" />
         <activity android:name=".seeker.ReservationsActivity" />
         <activity android:name=".seeker.HistoryActivity" />
-        <activity android:name=".seeker.RateActivity"></activity>
+        <activity android:name=".seeker.RateActivity" />
     </application>
 
 </manifest>

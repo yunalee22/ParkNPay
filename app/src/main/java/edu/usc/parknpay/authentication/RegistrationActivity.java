@@ -59,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editPhoneNumber = (EditText) findViewById(R.id.edit_phone_number);
         editDriversLicense = (EditText) findViewById(R.id.edit_drivers_license);
 
-        // Add button listeners
+        // Add view listeners
         addListeners();
     }
 

@@ -7,6 +7,7 @@
     tools:context="edu.usc.parknpay.seeker.SeekerMainActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorAccent"
@@ -14,8 +15,45 @@
         android:minHeight="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/toolbar" />
+        android:layout_alignParentStart="true" />
+
+    <ImageView android:id="@+id/rectangle"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/search_box_border"
+        android:layout_below="@+id/toolbar" />
+
+    <EditText android:id="@+id/search_text"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/toolbar"/>
+
+    <ImageView android:id="@+id/filter_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/filter"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignTop="@+id/rectangle"
+        android:layout_alignRight="@+id/rectangle"
+        android:layout_alignEnd="@+id/rectangle" />
+
+    <ImageView android:id="@+id/search_image"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/magnifying_glass"
+        android:layout_alignTop="@+id/filter_button"
+        android:layout_toLeftOf="@+id/search_text"
+        android:layout_toStartOf="@+id/search_text"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
 
 
 </RelativeLayout>
