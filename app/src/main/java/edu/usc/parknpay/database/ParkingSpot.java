@@ -9,27 +9,18 @@ import java.util.Map;
 public class ParkingSpot {
     private String ownerUserId;
     private String address;
-    private String startDate, endDate;
-    private String startTime, endTime;
     private String size;
-    private double price;
     private double rating;
     private boolean isHandicapped;
     private String description;
     private String cancellationPolicy;
     // TODO: images
 
-    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("startDate") String startDate,
-                       @JsonProperty("endDate") String endDate, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime, @JsonProperty("size") String size, @JsonProperty("price") double price, @JsonProperty("rating") double rating,
+    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
                        @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy) {
         this.ownerUserId = ownerUserId;
         this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.size = size;
-        this.price = price;
         this.rating = rating;
         this.isHandicapped = isHandicapped;
         this.description = description;
@@ -60,22 +51,6 @@ public class ParkingSpot {
         this.description = description;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public boolean isHandicapped() {
         return isHandicapped;
     }
@@ -90,14 +65,6 @@ public class ParkingSpot {
 
     public void setOwnerUserId(String ownerUserId) {
         this.ownerUserId = ownerUserId;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public double getRating() {
@@ -116,25 +83,8 @@ public class ParkingSpot {
         this.size = size;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
     @Override
     public String toString() {
-        return "Address: " + getAddress() + " Size: " + getSize() + " startTime: " + getStartDate() + " endDate" + getEndDate() +
-               " price: "  + getPrice();
+        return "Address: " + getAddress();
     }
 }

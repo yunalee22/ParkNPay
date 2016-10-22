@@ -140,16 +140,16 @@ public class AddSpotActivity extends TemplateActivity {
 
         String parkingSpotID = UUID.randomUUID().toString();
 
-        // Get correct firebase ref
-        ParkingSpot spot = new ParkingSpot("Swaggin spot", "INSERTUSERID", "asdf", "a", "a", "a", "a", "compact", 5.3, 4.4, "asdf", "asdf");
+        String userId = User.getInstance().getId();
+
+        // Parking-Spots table
+        ParkingSpot spot = new ParkingSpot("Swaggin spot", userId, sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
         Ref.child("Parking-Spots").child(parkingSpotID).setValue(spot);
 
-        // If registration is successful, proceed to owner/seeker selection view.
-        // intent = new Intent(this, SetDefaultModeActivity.class);
+        // Add to User with list of parking spots table
 
-        // Ref.child("Users").child(userId).setValue(user);
+        // Add to Browse table
 
-        //should be sending to database here
 
 
         Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
