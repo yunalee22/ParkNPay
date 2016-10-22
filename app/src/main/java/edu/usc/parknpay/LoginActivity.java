@@ -5,12 +5,12 @@ package edu.usc.parknpay;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
         import android.text.Html;
-        import android.texl.Log;
+        import android.text.TextUtils;
+        import android.util.Log;
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import com.google.andt.TextUtils;
-        import android.utiroid.gms.common.api.Status;
+        import com.google.android.gms.common.api.Status;
         import com.google.android.gms.location.places.Place;
         import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
         import com.google.android.gms.location.places.ui.PlaceSelectionListener;
