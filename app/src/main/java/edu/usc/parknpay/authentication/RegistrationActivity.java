@@ -89,12 +89,12 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         // Check if passwords match
-        if(!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(phoneNumber.length() != 10) {
+        if (phoneNumber.length() != 10) {
             Toast.makeText(RegistrationActivity.this, "Please enter a phone number of length 10", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -106,7 +106,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 phoneNumber,
                 driversLicense,
                 5,
-                1
+                1,
+                true
         );
 
         // If registration is successful, proceed to owner/seeker selection view.
@@ -114,7 +115,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        Task<AuthResult> result = firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), password)
+        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -127,6 +128,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             // Get correct firebase ref
                             Ref.child("Users").child(userId).setValue(user);
+                            User.createUser(user);
                             Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                         } else {

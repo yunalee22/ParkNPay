@@ -1,12 +1,13 @@
 package edu.usc.parknpay.authentication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.seeker.SeekerMainActivity;
 
 public class SetDefaultModeActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Set user's default mode to seeker
-
+        User.getInstance().setSeeker(true);
     }
 
     /** Called when the user clicks the owner button. */
@@ -32,6 +33,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Set user's default mode to owner
+        User.getInstance().setSeeker(false);
 
     }
 }
