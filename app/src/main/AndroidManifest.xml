@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".authentication.LoginActivity">
+        <activity android:name=".owner.AddSpotActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
         <activity android:name=".mutual.PaymentInfoActivity" />
         <activity android:name=".mutual.AccountSettingsActivity" />
 
-        <activity android:name=".owner.AddSpotActivity"/>
+        <!--<activity android:name=".owner.AddSpotActivity"/>-->
         <activity android:name=".owner.OwnerMainActivity" />
 
         <activity android:name=".seeker.SeekerMainActivity" />
