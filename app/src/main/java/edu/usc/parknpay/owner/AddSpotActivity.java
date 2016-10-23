@@ -125,21 +125,13 @@ public class AddSpotActivity extends TemplateActivity {
     }
 
     public void addSpot(View view) {
-        // If registration is successful, proceed to owner/seeker selection view.
-        // intent = new Intent(this, SetDefaultModeActivity.class);
-
-        // Ref.child("Users").child(userId).setValue(user);
-
-        //grabbing all the values from the inputs (if all inputs are valid)
         String notesFinal = notes.getText().toString();
         String sizeFinal = size.getSelectedItem().toString();
         String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
 
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-
         String parkingSpotID = UUID.randomUUID().toString();
-
         String userId = User.getInstance().getId();
 
         // Parking-Spots table
@@ -147,10 +139,7 @@ public class AddSpotActivity extends TemplateActivity {
         Ref.child("Parking-Spots").child(parkingSpotID).setValue(spot);
 
         // Add to User with list of parking spots table
-
-        // Add to Browse table
-
-
+        Ref.child("Owner-To-Spots").child(userId).child(parkingSpotID).setValue(true);
 
         Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
