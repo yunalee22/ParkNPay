@@ -37,6 +37,7 @@ public class DatabaseTalker extends Application {
         ArrayList<ParkingSpot> spots = new ArrayList<ParkingSpot>();
 
         // Example of filtering by price - insert corresponding filter
+        // TODO: Change this table to Parking-Spots
         Query myTopPostsQuery = new Firebase("https://parknpay-4c06e.firebaseio.com/Browse/").orderByChild("maxPrice");
         myTopPostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
