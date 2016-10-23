@@ -42,10 +42,10 @@ public class SeekerMainActivity extends TemplateActivity {
         // Perform search and load results
         ArrayList<ParkingSpot> results = new ArrayList<ParkingSpot>();
         for (int i = 0; i < 4; i++) {
-            ParkingSpot p = new ParkingSpot("yunalee22", "2651 Ellendale Pl",
-                    "10/22/16", "10/22/16", "12:00", "14:00", "Compact",
-                    20.0, 4.0, true, "", "My cancellation policy!");
-            results.add(p);
+//            ParkingSpot p = new ParkingSpot("yunalee22", "2651 Ellendale Pl",
+//                    "10/22/16", "10/22/16", "12:00", "14:00", "Compact",
+//                    20.0, 4.0, true, "", "My cancellation policy!");
+//            results.add(p);
         }
         loadSearchResults(results);
     }
