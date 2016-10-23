@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.DatabaseTalker;
@@ -26,7 +28,7 @@ import edu.usc.parknpay.database.User;
 public class RegistrationActivity extends AppCompatActivity {
 
     static final int PICK_PHOTO = 1;
-
+    Uri selectedImage;
     ImageView profilePicture;
     TextView editButton;
     EditText editFirstName;
@@ -65,7 +67,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /** Called when the user clicks the register account button. */
     public void registerUser(View view) {
-
         // Communicate with Firebase to authenticate the user.
         String firstName = editFirstName.getText().toString().trim();
         String lastName = editLastName.getText().toString().trim();
@@ -99,6 +100,11 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
+        if (selectedImage == null) {
+            Toast.makeText(RegistrationActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         user = new User(
                 firstName,
                 lastName,
@@ -128,6 +134,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             // Get correct firebase ref
                             Ref.child("Users").child(userId).setValue(user);
+
+
+                            // Put the profile photo into firebase
+                            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId).child("profile");
+                            firebaseStorage.putFile(selectedImage);
+
                             User.createUser(user);
                             Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
@@ -155,7 +167,7 @@ public class RegistrationActivity extends AppCompatActivity {
         switch(requestCode) {
             case PICK_PHOTO:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = imageReturnedIntent.getData();
                     profilePicture.setImageURI(selectedImage);
                 }
                 break;
