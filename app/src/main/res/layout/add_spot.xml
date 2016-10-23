@@ -100,21 +100,6 @@
                 android:layout_alignStart="@+id/cityEdit"
                 android:layout_width="60dp" />
 
-            <EditText
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:layout_marginTop="8dp"
-                android:id="@+id/streetEdit"
-                android:hint="Street"
-                android:layout_below="@+id/addressTextView"
-                android:layout_toRightOf="@+id/streetTextView"
-                android:layout_toEndOf="@+id/streetTextView"
-                android:layout_marginLeft="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_width="280dp"
-                android:fontFamily="sans-serif" />
-
             <TextView
                 android:text="State:"
                 android:layout_width="wrap_content"
@@ -288,6 +273,19 @@
                 android:layout_below="@+id/textView24"
                 android:layout_alignLeft="@+id/textView24"
                 android:layout_alignStart="@+id/textView24" />
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:layout_marginTop="8dp"
+                android:id="@+id/streetEdit"
+                android:hint="Street"
+                android:layout_width="280dp"
+                android:fontFamily="sans-serif"
+                android:layout_below="@+id/addressTextView"
+                android:layout_alignRight="@+id/notesEdit"
+                android:layout_alignEnd="@+id/notesEdit" />
 
 
         </RelativeLayout>

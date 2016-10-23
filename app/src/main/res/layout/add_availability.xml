@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Add an Availability"
+                android:gravity = "center"
+                android:id="@+id/toolbar_title"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textStyle="normal|bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:text="Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="33dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="25dp"
+            android:id="@+id/textView5"
+            android:textSize="18sp" />
+
+        <CalendarView
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:id="@+id/calendar"
+            android:layout_alignTop="@+id/textView5"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:id="@+id/textView11"
+            android:textSize="19sp"
+            android:layout_below="@+id/editTo"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6" />
+
+
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editFrom"
+            android:layout_width="60dp"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_toRightOf="@+id/editFrom"
+            android:layout_toEndOf="@+id/editFrom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/spinnerFrom" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView8"
+            android:layout_alignLeft="@+id/spinnerFrom"
+            android:layout_alignStart="@+id/spinnerFrom"
+            android:id="@+id/spinnerTo" />
+
+        <TextView
+            android:text="To:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_alignBaseline="@+id/editTo"
+            android:layout_alignBottom="@+id/editTo"
+            android:layout_alignLeft="@+id/textView7"
+            android:layout_alignStart="@+id/textView7" />
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/prices"
+            android:hint="Enter price"
+            android:layout_alignBaseline="@+id/textView12"
+            android:layout_alignBottom="@+id/textView12"
+            android:layout_alignLeft="@+id/editTo"
+            android:layout_alignStart="@+id/editTo" />
+
+        <TextView
+            android:text="Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:textSize="19sp"
+            android:layout_marginTop="13dp"
+            android:layout_below="@+id/calendar"
+            android:layout_alignLeft="@+id/calendar"
+            android:layout_alignStart="@+id/calendar" />
+
+        <TextView
+            android:text="$"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/textView12"
+            android:textSize="20sp"
+            android:layout_below="@+id/textView11"
+            android:layout_toRightOf="@+id/textView8"
+            android:layout_toEndOf="@+id/textView8" />
+
+        <Button
+            android:text="Done"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:id="@+id/done"
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/prices"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="From:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"
+            android:layout_below="@+id/textView6"
+            android:layout_toLeftOf="@+id/editFrom"
+            android:layout_toStartOf="@+id/editFrom"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp" />
+
+        <EditText
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editTo"
+            android:layout_below="@+id/editFrom"
+            android:layout_alignLeft="@+id/editFrom"
+            android:layout_alignStart="@+id/editFrom" />
+
+    </RelativeLayout>
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
+        android:background="#fff"/>
+</android.support.v4.widget.DrawerLayout>
