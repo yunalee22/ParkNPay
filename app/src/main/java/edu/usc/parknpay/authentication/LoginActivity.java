@@ -86,14 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-
+                                public void onCancelled(DatabaseError databaseError) {}
                             });
-
-
-                    //startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
                 }
