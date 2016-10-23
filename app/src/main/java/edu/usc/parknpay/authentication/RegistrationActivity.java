@@ -113,7 +113,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 driversLicense,
                 5,
                 1,
-                true
+                true,
+                500.00
         );
 
         // If registration is successful, proceed to owner/seeker selection view.

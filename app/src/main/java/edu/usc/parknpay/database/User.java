@@ -18,6 +18,8 @@ public class User {
     private String licenseNumber;
     private boolean isSeeker;
 
+    private double balance;
+
     public synchronized static User getInstance() {
         return instance;
     }
@@ -33,7 +35,8 @@ public class User {
                 user.getLicenseNumber(),
                 user.getRawRating(),
                 user.getNumRatings(),
-                user.isSeeker()
+                user.isSeeker(),
+                user.getBalance()
         );
     }
 
@@ -55,7 +58,8 @@ public class User {
          String licenseNumber,
          int rawRating,
          int numRatings,
-         boolean isSeeker
+         boolean isSeeker,
+         double balance
     ) {
         this.firstName = name;
         this.lastName = lastName;
@@ -66,6 +70,7 @@ public class User {
         this.rawRating = rawRating;
         this.numRatings = numRatings;
         this.isSeeker = isSeeker;
+        this.balance = balance;
     }
 
     // Alternate constructor
@@ -76,7 +81,8 @@ public class User {
          String licenseNumber,
          int rawRating,
          int numRatings,
-         boolean isSeeker
+         boolean isSeeker,
+         double balance
     ) {
         this.firstName = name;
         this.lastName = lastName;
@@ -85,6 +91,7 @@ public class User {
         this.licenseNumber = licenseNumber;
         this.rawRating = rawRating;
         this.numRatings = numRatings;
+        this.balance = balance;
     }
     public void setId(String id) { this.id = id; }
 
@@ -132,10 +139,6 @@ public class User {
         return isSeeker;
     }
 
-    public void setIsSeeker(boolean isSeeker) {
-        this.isSeeker = isSeeker;
-    }
-
     public void updateRating(int rating) {
         rawRating += rating;
         numRatings++;
@@ -172,6 +175,14 @@ public class User {
 
     public void setSeeker(boolean seeker) {
         isSeeker = seeker;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
 }
