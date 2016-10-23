@@ -25,6 +25,7 @@
         android:layout_marginTop="20dp">
         <ImageView android:id="@+id/pic"
             android:layout_width="80dp"
+            android:scaleType="centerCrop"
             android:layout_height="80dp"
             android:src="@drawable/testpic" />
         <ImageView android:id="@+id/circle_crop"
