@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ import java.util.List;
 
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.OwnerMainActivity;
 
 /**
@@ -32,19 +38,22 @@ public class AccountSettingsActivity extends TemplateActivity {
     Spinner defaultLogin;
     ImageView profPic;
     Button saveButton;
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_settings);
         super.onCreateDrawer();
+        u = User.getInstance();
         toolbarSetup();
         initializeEdits();
         setSpinners();
         addListeners();
-
+        fireBase();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -53,6 +62,19 @@ public class AccountSettingsActivity extends TemplateActivity {
                 return true;
         }
         return false;
+    }
+
+    protected void fireBase() {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(u.getId()+"/profile");
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(AccountSettingsActivity.this)
+                        .load(uri)
+                        .placeholder(R.drawable.progress_animation)
+                        .into(profPic);
+            }
+        });
     }
 
     protected void toolbarSetup() {
@@ -64,10 +86,17 @@ public class AccountSettingsActivity extends TemplateActivity {
     protected void initializeEdits(){
         edit = (TextView) findViewById(R.id.editView);
         firstName = (EditText) findViewById(R.id.firstName);
+        firstName.setText(u.getFirstName());
         lastName = (EditText) findViewById(R.id.lastName);
+        lastName.setText(u.getLastName());
         email = (EditText) findViewById(R.id.email);
+        email.setText(u.getEmail());
+        email.setKeyListener(null);
         phoneNum = (EditText) findViewById(R.id.phoneNum);
+        phoneNum.setText(u.getPhoneNumber());
         defaultLogin = (Spinner) findViewById(R.id.loginSpinner);
+        if(!u.isSeeker())
+            defaultLogin.setSelection(1);
         profPic = (ImageView) findViewById(R.id.profPic);
         saveButton = (Button) findViewById(R.id.saveButton);
 
