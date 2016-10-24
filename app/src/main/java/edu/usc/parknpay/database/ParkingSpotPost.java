@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ParkingSpotPost {
     private String ownerId, parkingSpotId;
     private String startTime, endTime;
+    private String size;
     private double latitude, longitude;
     private double price;
     private int cancellationPolicy;
