@@ -14,19 +14,31 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
+import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.User;
 
 public class SeekerMainActivity extends TemplateActivity {
 
@@ -84,6 +96,38 @@ public class SeekerMainActivity extends TemplateActivity {
 //                    20.0, 4.0, true, "", "My cancellation policy!");
 //            searchResults.add(p);
         }
+
+        DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
+        browseRef.
+                orderByChild("startTime")
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+                        ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
+                        System.out.println("POST: "+ post.toString());
+                    }
+
+                    @Override
+                    public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
         loadSearchResults(searchResults);
     }
 
