@@ -165,5 +165,5 @@ public class SeekerMainActivity extends TemplateActivity {
         });
     }
 
-    private class SearchListAdapter extends
+//    private class SearchListAdapter extends
 }
