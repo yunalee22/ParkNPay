@@ -5,20 +5,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -32,13 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
-import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
@@ -46,13 +35,13 @@ public class SeekerMainActivity extends TemplateActivity {
     public static final double RADIUS_LIMIT = 3;
     ImageView filterButton;
 
-    ListView searchResultView;
-    ArrayList<ParkingSpotPost> searchResults;
-    ArrayAdapter<ParkingSpot> searchResultsAdapter;
-
     PlaceAutocompleteFragment autocompleteFragment;
     Geocoder coder;
     private static final String LOG_TAG = "PlaceSelectionListener";
+
+    ListView searchList;
+    List<ParkingSpotPost> searchResults;
+    ArrayAdapter<ParkingSpot> searchResultsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +52,7 @@ public class SeekerMainActivity extends TemplateActivity {
         filterButton = (ImageView) findViewById(R.id.filter_button);
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-        searchResultView = (ListView) findViewById(R.id.search_results);
+        searchList = (ListView) findViewById(R.id.search_list);
 
         // Add search text field and geocoder
         coder = new Geocoder(this);
@@ -75,7 +64,8 @@ public class SeekerMainActivity extends TemplateActivity {
 
         // Add adapter to ListView
         searchResults = new ArrayList<ParkingSpotPost>();
-        //searchResultsAdapter = new ArrayAdapter<ParkingSpot>(this, , searchResults);
+//        searchResultsAdapter = new ArrayAdapter<ParkingSpot>(SeekerMainActivity.this,
+//                R.layout.search_list_item, searchResults);
 
         // Add view listeners
         addListeners();
@@ -118,19 +108,14 @@ public class SeekerMainActivity extends TemplateActivity {
                             }
                         }
                     }
-
                     @Override
-                    public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-                    }
+                    public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
                     @Override
-                    public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) {
-                    }
+                    public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
                     @Override
-                    public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-                    }
+                    public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    public void onCancelled(DatabaseError databaseError) { }
                 });
     }
 
@@ -179,4 +164,6 @@ public class SeekerMainActivity extends TemplateActivity {
             }
         });
     }
+
+    private class SearchListAdapter extends
 }

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorAccent"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" >
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Filter Search"
+            android:gravity = "center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_above="@id/toolbar">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout android:id="@+id/price_range_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp">
+
+                <TextView android:id="@+id/price_label"
+                    android:text="Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <EditText android:id="@+id/min_price_field"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/light_gray_border"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView android:id="@+id/to_label"
+                    android:text="to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_alignBaseline="@id/price_label"
+                    android:layout_toRightOf="@id/price_label">
+
+                <EditText android:id="@+id/max_price_field"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/light_gray_border"
+                    android:layout_marginLeft="15dp"/>
+
+            </LinearLayout>
+
+            <TextView android:id="@+id/owner_rating_label"
+                android:text="Owner Rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/price_range_layout"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
+            <RatingBar android:id="@+id/owner_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/owner_rating_label"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/and_up_label_1"
+                android:text="&amp; up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/owner_rating_bar"
+                android:layout_toRightOf="@id/owner_rating_bar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView android:id="@+id/spot_rating_label"
+                android:text="Spot Rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/owner_rating_bar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
+            <RatingBar android:id="@+id/spot_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spot_rating_label"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/and_up_label_2"
+                android:text="&amp; up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_alignTop="@id/spot_rating_bar"
+                android:layout_toRightOf="@id/spot_rating_bar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView android:id="@+id/handicap_only_label"
+                android:text="Handicap Only"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/spot_rating_bar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
+            <CheckBox android:id="@+id/handicap_only_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/handicap_only_label"
+                android:layout_toRightOf="@id/handicap_only_label"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView android:id="@+id/size_label"
+                android:text="Size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/handicap_only_label"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
+            <TableLayout android:id="@+id/size_checkbox_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/size_label"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp">
+
+                <TableRow>
+                    <CheckBox android:id="@+id/normal_checkbox"
+                        android:text="Normal"
+                        android:textSize="20sp" />
+                    <CheckBox android:id="@+id/compact_checkbox"
+                        android:text="Compact"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="40dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <CheckBox android:id="@+id/SUV_checkbox"
+                        android:text="SUV"
+                        android:textSize="20sp" />
+                    <CheckBox android:id="@+id/truck_checkbox"
+                        android:text="Truck"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="40dp"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView android:id="@+id/dates_available_label"
+                android:text="Dates Available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/size_checkbox_table"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp" />
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
+
+
