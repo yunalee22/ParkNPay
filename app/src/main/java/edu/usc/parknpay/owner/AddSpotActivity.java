@@ -16,15 +16,22 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
@@ -56,7 +63,70 @@ public class AddSpotActivity extends TemplateActivity {
         addListeners();
         setSpinners();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        User u = User.getInstance();
+
+        System.out.println("START");
+
+        FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots/" + u.getId()).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+
+                DatabaseReference parkingSpotRef = FirebaseDatabase.getInstance().getReference().child("Parking-Spots");
+
+                for(Map.Entry<String, Object> entry : spots.entrySet()) {
+                    System.out.println("parking id " + entry.getKey());
+                     parkingSpotRef.child(entry.getKey()).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+                         @Override
+                         public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                             ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);
+                             // create ui for parking spot in here
+
+
+                         }
+                         @Override
+                         public void onCancelled(DatabaseError databaseError) {
+                         }
+                     });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+//        System.out.println("START");
+//        User u = User.getInstance();
+//        // Example of acquiring parking spots
+//        Query query = new Firebase("https://parknpay-4c06e.firebaseio.com/Owner-To-Spots/" + u.getId());
+//        System.out.println("DONE");
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//
+//                    System.out.println(messageSnapshot.toString());
+//
+//                    Map<String, Boolean> map = (Map<String, Boolean>)  messageSnapshot.getValue();
+//                    System.out.println("Spot: " + messageSnapshot.getKey());
+//                    for (Map.Entry<String, Boolean> entry : map.entrySet()) {
+//                        System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) { }
+//        });
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
