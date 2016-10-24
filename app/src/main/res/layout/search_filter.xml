@@ -12,10 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorAccent"
         android:theme="?attr/actionBarTheme"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" >
+        android:minHeight="?attr/actionBarSize" >
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -162,31 +159,42 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp">
 
-                <TableRow>
+                <TableRow android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                     <CheckBox android:id="@+id/normal_checkbox"
                         android:text="Normal"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                     <CheckBox android:id="@+id/compact_checkbox"
                         android:text="Compact"
                         android:textSize="20sp"
-                        android:layout_marginLeft="40dp"/>
+                        android:layout_marginLeft="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </TableRow>
 
                 <TableRow
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <CheckBox android:id="@+id/SUV_checkbox"
                         android:text="SUV"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                     <CheckBox android:id="@+id/truck_checkbox"
                         android:text="Truck"
                         android:textSize="20sp"
-                        android:layout_marginLeft="40dp"/>
+                        android:layout_marginLeft="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </TableRow>
 
             </TableLayout>
 
             <TextView android:id="@+id/dates_available_label"
-                android:text="Dates Available"
+                android:text="Date Range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -194,6 +202,84 @@
                 android:layout_below="@+id/size_checkbox_table"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp" />
+
+            <TableLayout android:id="@+id/date_range_table"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dates_available_label"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView android:id="@+id/start_label"
+                        android:text="Start"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_marginRight="10dp"/>
+                    <Button android:id="@+id/start_date_button"
+                        android:text="10/24/16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textAllCaps="false"/>
+                    <Button android:id="@+id/start_time_button"
+                        android:text="12:00 AM"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="20dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:id="@+id/end_label"
+                        android:text="End"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_marginRight="10dp"/>
+                    <Button android:id="@+id/end_date_button"
+                        android:text="10/24/16"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textAllCaps="false"/>
+                    <Button android:id="@+id/end_time_button"
+                        android:text="11:59 PM"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="20dp"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <Button android:id="@+id/search_button"
+                android:text="Search"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/date_range_table"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"/>
 
         </RelativeLayout>
     </ScrollView>
