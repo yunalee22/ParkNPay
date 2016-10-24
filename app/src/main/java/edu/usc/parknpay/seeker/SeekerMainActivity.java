@@ -39,13 +39,15 @@ import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
 
+    public static final double RADIUS_LIMIT = 3;
     ImageView filterButton;
 
     ListView searchResultView;
-    ArrayList<ParkingSpot> searchResults;
+    ArrayList<ParkingSpotPost> searchResults;
     ArrayAdapter<ParkingSpot> searchResultsAdapter;
 
     PlaceAutocompleteFragment autocompleteFragment;
@@ -72,7 +74,7 @@ public class SeekerMainActivity extends TemplateActivity {
         ));
 
         // Add adapter to ListView
-        searchResults = new ArrayList<ParkingSpot>();
+        searchResults = new ArrayList<ParkingSpotPost>();
         //searchResultsAdapter = new ArrayAdapter<ParkingSpot>(this, , searchResults);
 
         // Add view listeners
@@ -97,14 +99,35 @@ public class SeekerMainActivity extends TemplateActivity {
 //            searchResults.add(p);
         }
 
+        final String sStartTime = "1997-07-16T19:20+01:00";
+        final String sEndTime = "1997-07-16T19:20+01:05";
+        final double sLatitude = 34.0168;
+        final double sLongitude = 118.2820;
+
         DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
         browseRef.
-                orderByChild("startTime")
+                orderByChild("startTime").startAt(sStartTime)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
                         ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-                        System.out.println("POST: "+ post.toString());
+
+                        System.out.println("WHAT THE HECK");
+                        System.out.println("Search end: " + sEndTime + " Post end: " + post.getEndTime());
+
+                        if(sEndTime.compareTo(post.getEndTime()) <= 0) {
+                            System.out.println("WITHIN END TIME");
+                            double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
+                            System.out.println("DISTANCE: " + distance);
+                            if(distance < RADIUS_LIMIT) {
+                                //if(FILTERS)
+                                    //DISPLAY
+                                System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
+                            }
+
+                        }
+
+                        System.out.println("POST: " + post.toString());
                     }
 
                     @Override
@@ -131,10 +154,10 @@ public class SeekerMainActivity extends TemplateActivity {
         loadSearchResults(searchResults);
     }
 
-    private void loadSearchResults(ArrayList<ParkingSpot> parkingSpots) {
+    private void loadSearchResults(ArrayList<ParkingSpotPost> parkingSpots) {
 
         // Populate ListView with entries
-        for (ParkingSpot p : parkingSpots) {
+        for (ParkingSpotPost p : parkingSpots) {
 
             // Add a parking spot
 
