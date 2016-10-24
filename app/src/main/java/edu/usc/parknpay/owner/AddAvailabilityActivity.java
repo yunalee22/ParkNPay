@@ -106,6 +106,10 @@ public class AddAvailabilityActivity extends TemplateActivity {
 
 
                 //should be sending to database here
+                //int tempFrom is military time for the first time value
+                //int tempTo is military time for the second time value
+                //String date is the date on the calendar in iso-8601
+                //int priceFinal is price for the reservation
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

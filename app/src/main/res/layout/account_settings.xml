@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/white">
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -94,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
                 android:layout_height="match_parent"
-                android:src="@drawable/testpic" />
+                android:src="@drawable/progress_image" />
 
             <ImageView
                 android:id="@+id/circle_crop"
@@ -143,7 +144,7 @@
 
         <Button
             android:text="save changes"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="15dp"
             android:id="@+id/saveButton"
             android:layout_height="40dp"
             android:layout_width="150dp"

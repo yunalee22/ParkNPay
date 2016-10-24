@@ -19,6 +19,7 @@
     <!-- Choose seeker or owner screen -->
     <string name="select_owner">"I\'m letting out a spot.</string>
     <string name="select_seeker">I\'m looking for a spot.</string>
+    <color name="white">#FFFFFF</color>
 
     <!-- Seeker main/search screen -->
     <string name="search_hint">Search for a spot</string>
