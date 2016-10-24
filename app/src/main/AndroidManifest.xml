@@ -37,6 +37,12 @@
         <activity android:name=".seeker.ReservationsActivity" />
         <activity android:name=".seeker.HistoryActivity" />
         <activity android:name=".seeker.RateActivity" />
+
+        <!--Google places integration-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg"/>
+
     </application>
 
 </manifest>
