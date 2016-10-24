@@ -136,7 +136,6 @@ public class RegistrationActivity extends AppCompatActivity {
                             // Get correct firebase ref
                             Ref.child("Users").child(userId).setValue(user);
 
-
                             // Put the profile photo into firebase
                             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId).child("profile");
                             firebaseStorage.putFile(selectedImage);

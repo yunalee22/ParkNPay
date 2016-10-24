@@ -9,12 +9,15 @@ import java.util.Map;
 public class ParkingSpot {
     private String ownerUserId;
     private String address;
+    private double latitude, longitude;
     private String size;
     private double rating;
     private boolean isHandicapped;
     private String description;
     private String cancellationPolicy;
-    // TODO: images
+
+    public ParkingSpot() {
+    }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
                        @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy) {
