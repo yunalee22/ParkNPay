@@ -55,6 +55,8 @@ public class AddSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
         setSpinners();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -135,7 +137,7 @@ public class AddSpotActivity extends TemplateActivity {
         String userId = User.getInstance().getId();
 
         // Parking-Spots table
-        ParkingSpot spot = new ParkingSpot("Swaggin spot", userId, sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
+        ParkingSpot spot = new ParkingSpot(userId "address-here", sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
         Ref.child("Parking-Spots").child(parkingSpotID).setValue(spot);
 
         // Add to User with list of parking spots table
