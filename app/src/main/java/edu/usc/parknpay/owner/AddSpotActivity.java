@@ -65,8 +65,6 @@ public class AddSpotActivity extends TemplateActivity {
 
         User u = User.getInstance();
 
-        System.out.println("START");
-
         FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots/" + u.getId()).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
@@ -75,7 +73,6 @@ public class AddSpotActivity extends TemplateActivity {
                 DatabaseReference parkingSpotRef = FirebaseDatabase.getInstance().getReference().child("Parking-Spots");
 
                 for(Map.Entry<String, Object> entry : spots.entrySet()) {
-                    System.out.println("parking id " + entry.getKey());
                      parkingSpotRef.child(entry.getKey()).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
                          @Override
                          public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
