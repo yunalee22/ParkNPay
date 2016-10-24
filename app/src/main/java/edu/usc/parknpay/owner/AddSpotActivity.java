@@ -55,8 +55,6 @@ public class AddSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
         setSpinners();
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
