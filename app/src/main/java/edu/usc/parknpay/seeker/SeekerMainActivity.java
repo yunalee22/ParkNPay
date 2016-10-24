@@ -81,77 +81,57 @@ public class SeekerMainActivity extends TemplateActivity {
         addListeners();
     }
 
-    private void executeSearch(String address, double latitude, double longitude) {
+    private void executeSearch(String address, final double latitude, final double longitude) {
 
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
-        // Perform search and load results
-        for (int i = 0; i < 4; i++) {
-
-            /* TIFF: LOAD UP SOME NUMBER OF SEARCH RESULTS.
-            Load the closest 100ish (or whatever) parking spots.
-            Create a ParkingSpot for each spot and add to array called "searchResults". */
-
-            // So something like this:
-//            ParkingSpot p = new ParkingSpot("yunalee22", "2651 Ellendale Pl",
-//                    "10/22/16", "10/22/16", "12:00", "14:00", "Compact",
-//                    20.0, 4.0, true, "", "My cancellation policy!");
-//            searchResults.add(p);
-        }
-
+        // TODO: YUNA: Set these variables as well as filters?
+        final double sLatitude = 34.0224;
+        final double sLongitude = 118.2851;
         final String sStartTime = "1997-07-16T19:20+01:00";
-        final String sEndTime = "1997-07-16T19:20+01:05";
-        final double sLatitude = 34.0168;
-        final double sLongitude = 118.2820;
+        final String sEndTime = "1997-07-16T19:25+01:00";
+        // filters?
+
+        // TODO: Show error popup if bad input?
+        if(sStartTime.compareTo(sEndTime) > 0)
+            System.out.println("Start time is later than end time");
 
         DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
         browseRef.
-                orderByChild("startTime").startAt(sStartTime)
+                orderByChild("startTime").equalTo(sStartTime)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
                         ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-
-                        System.out.println("WHAT THE HECK");
-                        System.out.println("Search end: " + sEndTime + " Post end: " + post.getEndTime());
-
+                        // check end time
+                        System.out.println("Found with start time");
                         if(sEndTime.compareTo(post.getEndTime()) <= 0) {
-                            System.out.println("WITHIN END TIME");
+                            // check distance
+                            System.out.println("Found with end time");
+                            // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
                             double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
-                            System.out.println("DISTANCE: " + distance);
                             if(distance < RADIUS_LIMIT) {
-                                //if(FILTERS)
-                                    //DISPLAY
+                                // TODO: check filters
+                                // if(insert filters)
+                                    // display dynamically
                                 System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
                             }
-
                         }
-
-                        System.out.println("POST: " + post.toString());
                     }
 
                     @Override
                     public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
                     }
-
                     @Override
                     public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) {
-
                     }
-
                     @Override
                     public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
-
-        loadSearchResults(searchResults);
     }
 
     private void loadSearchResults(ArrayList<ParkingSpotPost> parkingSpots) {
