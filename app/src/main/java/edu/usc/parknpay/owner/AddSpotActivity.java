@@ -3,9 +3,7 @@ package edu.usc.parknpay.owner;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,12 +14,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +25,6 @@ import java.util.UUID;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
-import edu.usc.parknpay.authentication.RegistrationActivity;
-import edu.usc.parknpay.authentication.SetDefaultModeActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
 
@@ -45,6 +39,7 @@ public class AddSpotActivity extends TemplateActivity {
     Spinner size, cancel;
     Button doneButton;
     ImageView parkingSpotPhoto;
+    Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +91,7 @@ public class AddSpotActivity extends TemplateActivity {
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = imageReturnedIntent.getData();
                     parkingSpotPhoto.setImageURI(selectedImage);
                 }
                 break;
@@ -125,6 +120,11 @@ public class AddSpotActivity extends TemplateActivity {
     }
 
     public void addSpot(View view) {
+        if (selectedImage == null) {
+            Toast.makeText(AddSpotActivity.this, "Please upload a photo.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String notesFinal = notes.getText().toString();
         String sizeFinal = size.getSelectedItem().toString();
         String cancelFinal = cancel.getSelectedItem().toString();
@@ -133,6 +133,9 @@ public class AddSpotActivity extends TemplateActivity {
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
         String parkingSpotID = UUID.randomUUID().toString();
         String userId = User.getInstance().getId();
+
+        StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId + "/Spots/" + parkingSpotID);
+        firebaseStorage.putFile(selectedImage);
 
         // Parking-Spots table
         ParkingSpot spot = new ParkingSpot("Swaggin spot", userId, sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
