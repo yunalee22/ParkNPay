@@ -267,7 +267,7 @@
                 android:layout_width="230dp"
                 android:layout_height="230dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/addphoto"
+                app:srcCompat="@drawable/add_photo"
                 android:layout_marginTop="14dp"
                 android:id="@+id/spotPhoto"
                 android:layout_below="@+id/textView24"

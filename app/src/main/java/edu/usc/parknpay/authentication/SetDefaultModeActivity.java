@@ -15,7 +15,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.set_default_mode);
+        setContentView(R.layout.authentication_set_default_mode);
     }
 
     /** Called when the user clicks the seeker button. */

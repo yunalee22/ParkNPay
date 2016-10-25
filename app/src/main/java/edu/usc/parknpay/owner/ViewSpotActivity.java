@@ -1,10 +1,6 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -29,7 +25,7 @@ public class ViewSpotActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_spot);
+        setContentView(R.layout.owner_view_spot);
         super.onCreateDrawer();
         toolbarSetup();
         initializeEdits();

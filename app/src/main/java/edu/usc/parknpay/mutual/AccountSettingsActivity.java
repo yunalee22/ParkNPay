@@ -18,8 +18,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class AccountSettingsActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_settings);
+        setContentView(R.layout.mutual_account_settings);
         super.onCreateDrawer();
         u = User.getInstance();
         toolbarSetup();

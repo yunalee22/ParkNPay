@@ -31,21 +31,25 @@
         android:layout_centerHorizontal="true"/>
 
     <Button android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/login"
-        android:onClick="authenticateUser"
-        android:layout_marginTop="60dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/edit_password"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="authenticateUser"/>
 
     <Button android:id="@+id/register_option_button"
+        android:text="@string/register_option"
+        android:textAllCaps="false"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_option"
-        android:onClick="displayRegistrationScreen"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/login_button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="displayRegistrationScreen"/>
 
 </RelativeLayout>

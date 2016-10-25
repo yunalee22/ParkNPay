@@ -29,7 +29,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_availability);
+        setContentView(R.layout.owner_add_availability);
         super.onCreateDrawer();
         toolbarSetup();
         initializeEdits();

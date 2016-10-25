@@ -33,15 +33,26 @@ import edu.usc.parknpay.utility.Utility;
 public class SeekerMainActivity extends TemplateActivity {
 
     public static final double RADIUS_LIMIT = 3;
-    ImageView filterButton;
 
-    PlaceAutocompleteFragment autocompleteFragment;
-    Geocoder coder;
+    // Filter button
+    private ImageView filterButton;
+
+    // Search autocomplete text field
+    private PlaceAutocompleteFragment autocompleteFragment;
+    private Geocoder coder;
     private static final String LOG_TAG = "PlaceSelectionListener";
 
-    ListView searchList;
-    List<ParkingSpotPost> searchResults;
-    ArrayAdapter<ParkingSpot> searchResultsAdapter;
+    // Search results list view
+    private ListView searchList;
+    private List<ParkingSpotPost> searchResults;
+    private ArrayAdapter<ParkingSpot> searchResultsAdapter;
+
+    // Search parameters
+    private double minPrice, maxPrice;
+    private int minOwnerRating, minSpotRating;
+    private boolean handicapOnly;
+    private boolean showNormal, showCompact, showSuv, showTruck;
+    private String startDate, startTime, endDate, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +65,33 @@ public class SeekerMainActivity extends TemplateActivity {
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         searchList = (ListView) findViewById(R.id.search_list);
 
+        // Set default search parameters
+        minPrice = 0;
+        maxPrice = 100000000;                   // What is the max price?????
+        minOwnerRating = 0;
+        minSpotRating = 0;
+        handicapOnly = false;
+        showNormal = true;
+        showCompact = true;
+        showSuv = true;
+        showTruck = true;
+        startDate = null;                       // This should be today's date
+        startTime = "00:00";
+        endDate = null;                         // This should be today's date also
+        endTime = "23:59";
+
         // Add search text field and geocoder
         coder = new Geocoder(this);
         autocompleteFragment.setHint("Enter an address");
         autocompleteFragment.setBoundsBias(new LatLngBounds(
-                new LatLng(34.0224, -118.2851),
-                new LatLng(34.0224, -118.2851)
+            new LatLng(34.0224, -118.2851),
+            new LatLng(34.0224, -118.2851)
         ));
 
         // Add adapter to ListView
         searchResults = new ArrayList<ParkingSpotPost>();
 //        searchResultsAdapter = new ArrayAdapter<ParkingSpot>(SeekerMainActivity.this,
-//                R.layout.search_list_item, searchResults);
+//                R.layout.seeker_search_list_item, searchResults);
 
         // Add view listeners
         addListeners();
@@ -83,40 +109,41 @@ public class SeekerMainActivity extends TemplateActivity {
         // filters?
 
         // TODO: Show error popup if bad input?
-        if(sStartTime.compareTo(sEndTime) > 0)
+        if(sStartTime.compareTo(sEndTime) > 0) {
             System.out.println("Start time is later than end time");
+        }
 
         DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
-        browseRef.
-                orderByChild("startTime").equalTo(sStartTime)
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-                        ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-                        // check end time
-                        System.out.println("Found with start time");
-                        if(sEndTime.compareTo(post.getEndTime()) <= 0) {
-                            // check distance
-                            System.out.println("Found with end time");
-                            // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
-                            double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
-                            if(distance < RADIUS_LIMIT) {
-                                // TODO: check filters
-                                // if(insert filters)
-                                    // display dynamically
-                                System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
-                            }
-                        }
+        browseRef.orderByChild("startTime").equalTo(sStartTime).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+
+                ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
+                // check end time
+                System.out.println("Found with start time");
+
+                if(sEndTime.compareTo(post.getEndTime()) <= 0) {
+                    // check distance
+                    System.out.println("Found with end time");
+                    // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
+                    double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
+                    if(distance < RADIUS_LIMIT) {
+                        // TODO: check filters
+                        // if(insert filters)
+                            // display dynamically
+                        System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
                     }
-                    @Override
-                    public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-                    @Override
-                    public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
-                    @Override
-                    public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
+                }
+            }
+            @Override
+            public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+            });
     }
 
     private void loadSearchResults(ArrayList<ParkingSpotPost> parkingSpots) {
@@ -129,14 +156,14 @@ public class SeekerMainActivity extends TemplateActivity {
         }
     }
 
-    protected void addListeners() {
+    private void addListeners() {
 
         // Called when search filter button is pressed
         filterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                Intent intent = new Intent(SeekerMainActivity.this, SearchFilterActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(SeekerMainActivity.this, SearchFilterActivity.class);
+            startActivity(intent);
             }
         });
 

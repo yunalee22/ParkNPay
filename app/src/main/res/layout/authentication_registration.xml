@@ -27,11 +27,11 @@
             android:layout_width="80dp"
             android:scaleType="centerCrop"
             android:layout_height="80dp"
-            android:src="@drawable/defaultpic" />
+            android:src="@drawable/default_pic" />
         <ImageView android:id="@+id/circle_crop"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/circlecrop" />
+            android:src="@drawable/circle_crop" />
     </FrameLayout>
 
     <TextView android:id="@+id/edit_button"

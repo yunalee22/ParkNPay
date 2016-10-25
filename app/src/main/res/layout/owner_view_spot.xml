@@ -32,7 +32,7 @@
         </android.support.v7.widget.Toolbar>
 
         <ImageView
-            app:srcCompat="@drawable/testpic"
+            app:srcCompat="@drawable/test_pic"
             android:id="@+id/imageView"
             android:layout_below="@+id/toolbar"
             android:layout_alignParentLeft="true"
@@ -141,7 +141,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            app:srcCompat="@drawable/addspot"
+            app:srcCompat="@drawable/add_spot"
             android:id="@+id/addAvail"
             android:layout_below="@+id/scroll"
             android:layout_alignRight="@+id/address"

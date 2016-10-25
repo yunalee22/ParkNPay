@@ -44,7 +44,7 @@ public class AddSpotActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_spot);
+        setContentView(R.layout.owner_add_spot);
         super.onCreateDrawer();
         toolbarSetup();
         initializeEdits();

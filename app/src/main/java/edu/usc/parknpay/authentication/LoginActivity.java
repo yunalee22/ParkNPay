@@ -24,70 +24,66 @@ import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.seeker.SeekerMainActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText editEmail;
-    EditText editPassword;
+
+    private EditText editEmail, editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.authentication_login);
 
         // Get references to UI views
         editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    /** Called when the user clicks the login button. */
+    /** Called when the user clicks the authentication_login button. */
     public void authenticateUser(View view) {
 
         // Communicate with Firebase to authenticate the user.
         String email = editEmail.getText().toString();
         String password = editPassword.getText().toString();
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        // If authentication is successful, proceed to owner/seeker main view
-        // (whichever is user's default).
-        final Intent seekerIntent = new Intent(this, SeekerMainActivity.class);
-        final Intent ownerIntent = new Intent(this, OwnerMainActivity.class);
-
+        // Verify input
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(LoginActivity.this, "Please enter your email and/or password", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        firebaseAuth.signInWithEmailAndPassword(email, password) .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        // Authenticate user through database
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()) {
+
                     // Get the newly generated user
                     String userId = task.getResult().getUser().getUid();
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
 
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId)
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    User user = snapshot.getValue(User.class);
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            // Create user
+                            User user = snapshot.getValue(User.class);
+                            User.createUser(user);
 
-                                    // Create the user
-                                    User.createUser(user);
+                            // If authentication is successful, proceed to default (owner/seeker) main view.
+                            if (User.getInstance().isSeeker()) {
+                                Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+                                startActivity(seekerIntent);
+                            } else {
+                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+                                startActivity(ownerIntent);
+                            }
+                        }
 
-                                    // Am I a seeker or an owner?
-                                    if (User.getInstance().isSeeker()) {
-                                        startActivity(seekerIntent);
-                                    } else {
-                                        startActivity(ownerIntent);
-                                    }
-                                }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {}
-                            });
+                        }
+                    });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /** Called when the user selects the registration option. */
+    /** Called when the user selects the authentication_registration option. */
     public void displayRegistrationScreen(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);

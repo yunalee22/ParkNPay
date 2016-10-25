@@ -16,7 +16,7 @@ public class PaymentInfoActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment_info);
+        setContentView(R.layout.mutual_payment_info);
         super.onCreateDrawer();
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);

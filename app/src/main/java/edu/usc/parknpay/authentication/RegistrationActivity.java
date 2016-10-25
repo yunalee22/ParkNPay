@@ -27,27 +27,23 @@ import edu.usc.parknpay.database.User;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    static final int PICK_PHOTO = 1;
-    Uri selectedImage;
-    ImageView profilePicture;
-    TextView editButton;
-    EditText editFirstName;
-    EditText editLastName;
-    EditText editEmail;
-    EditText editPassword;
-    EditText editConfirmPassword;
-    EditText editPhoneNumber;
-    EditText editDriversLicense;
+    private static final int PICK_PHOTO = 1;
+    private Uri selectedImage;
+    private ImageView profilePicture;
+    private TextView editButton;
+    private EditText editFirstName, editLastName, editEmail,
+            editPassword, editConfirmPassword,
+            editPhoneNumber, editDriversLicense;
 
-    DatabaseTalker databaseTalker;
-    User user;
-    Intent intent;
+    private DatabaseTalker databaseTalker;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registration);
+        setContentView(R.layout.authentication_registration);
 
+        // Get database talker instance
         databaseTalker = DatabaseTalker.getInstance();
 
         // Get references to UI views
@@ -67,6 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /** Called when the user clicks the register account button. */
     public void registerUser(View view) {
+
         // Communicate with Firebase to authenticate the user.
         String firstName = editFirstName.getText().toString().trim();
         String lastName = editLastName.getText().toString().trim();
@@ -83,8 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
             || TextUtils.isEmpty(lastName)
             || TextUtils.isEmpty(confirmPassword)
             || TextUtils.isEmpty(phoneNumber)
-            || TextUtils.isEmpty(driversLicense)
-        ) {
+            || TextUtils.isEmpty(driversLicense)) {
             Toast.makeText(RegistrationActivity.this, "Please do not leave any fields empty", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -117,37 +113,41 @@ public class RegistrationActivity extends AppCompatActivity {
                 500.00
         );
 
-        // If registration is successful, proceed to owner/seeker selection view.
-        intent = new Intent(this, SetDefaultModeActivity.class);
-
+        // If authentication_registration is successful, proceed to owner/seeker selection view.
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-                            // Get the newly generated user
-                            String userId = task.getResult().getUser().getUid();
-                            // Add newly generated user id to the user passed in
-                            user.setId(userId);
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
 
-                            // Get correct firebase ref
-                            Ref.child("Users").child(userId).setValue(user);
+                    // Get the newly generated user
+                    String userId = task.getResult().getUser().getUid();
 
-                            // Put the profile photo into firebase
-                            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId).child("profile");
-                            firebaseStorage.putFile(selectedImage);
+                    // Add newly generated user id to the user passed in
+                    user.setId(userId);
 
-                            User.createUser(user);
-                            Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    // Get correct firebase ref
+                    Ref.child("Users").child(userId).setValue(user);
+
+                    // Insert profile photo into database
+                    StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId).child("profile");
+                    firebaseStorage.putFile(selectedImage);
+
+                    User.createUser(user);
+
+                    // Proceed to default mode selection view
+                    Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistrationActivity.this, SetDefaultModeActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                }
+                }
+            });
     }
 
     protected void addListeners() {
@@ -156,7 +156,7 @@ public class RegistrationActivity extends AppCompatActivity {
             {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , PICK_PHOTO);
+                startActivityForResult(pickPhoto, PICK_PHOTO);
             }
 
         });
