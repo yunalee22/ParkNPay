@@ -11,7 +11,7 @@
 
     <!--Component colors-->
     <color name="toolbarColor">#3B424C</color>
-    <color name="textEditBorderColor">ACB5C0</color>
+    <color name="textEditBorderColor">#ACB5C0</color>
 
     <!-- Custom color HEX codes (for reference) -->
     <color name="lightGray">#ACB5C0</color>

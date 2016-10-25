@@ -1,14 +1,18 @@
 package edu.usc.parknpay.seeker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -44,8 +48,8 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search results list view
     private ListView searchList;
-    private List<ParkingSpotPost> searchResults;
-    private ArrayAdapter<ParkingSpot> searchResultsAdapter;
+    private ArrayList<ParkingSpot> searchResults;
+    private SearchListAdapter searchResultsAdapter;
 
     // Search parameters
     private double minPrice, maxPrice;
@@ -89,15 +93,17 @@ public class SeekerMainActivity extends TemplateActivity {
         ));
 
         // Add adapter to ListView
-        searchResults = new ArrayList<ParkingSpotPost>();
-//        searchResultsAdapter = new ArrayAdapter<ParkingSpot>(SeekerMainActivity.this,
-//                R.layout.seeker_search_list_item, searchResults);
+        searchResults = new ArrayList<ParkingSpot>();
+        searchResultsAdapter = new SearchListAdapter(SeekerMainActivity.this, searchResults);
+        searchList.setAdapter(searchResultsAdapter);
 
         // Add view listeners
         addListeners();
     }
 
     private void executeSearch(String address, final double latitude, final double longitude) {
+
+        searchResults.clear();
 
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
@@ -146,14 +152,10 @@ public class SeekerMainActivity extends TemplateActivity {
             });
     }
 
-    private void loadSearchResults(ArrayList<ParkingSpotPost> parkingSpots) {
+    private void loadSearchResults(ArrayList<ParkingSpot> parkingSpots) {
 
-        // Populate ListView with entries
-        for (ParkingSpotPost p : parkingSpots) {
-
-            // Add a parking spot
-
-        }
+        searchResultsAdapter.clear();
+        searchResultsAdapter.addAll(parkingSpots);
     }
 
     private void addListeners() {
@@ -192,5 +194,61 @@ public class SeekerMainActivity extends TemplateActivity {
         });
     }
 
-//    private class SearchListAdapter extends
+    protected class SearchListAdapter extends ArrayAdapter<ParkingSpot> {
+
+        public SearchListAdapter(Context context, ArrayList<ParkingSpot> results) {
+            super(context, 0, results);
+        }
+
+        // View lookup cache
+        private class ViewHolder {
+            ImageView image;
+            TextView address;
+            TextView dateTimeRange;
+            TextView size;
+            TextView handicap;
+            TextView price;
+            TextView distance;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            // Get data item
+            ParkingSpot parkingSpot = getItem(position);
+
+            // Check if an existing view is being reused, otherwise inflate the view
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.seeker_search_list_item, parent, false);
+                viewHolder.image = (ImageView) findViewById(R.id.image);
+                viewHolder.address = (TextView) findViewById(R.id.address);
+                viewHolder.dateTimeRange = (TextView) findViewById(R.id.date_time_range);
+                viewHolder.size = (TextView) findViewById(R.id.size);
+                viewHolder.handicap = (TextView) findViewById(R.id.handicap);
+                viewHolder.price = (TextView) findViewById(R.id.price);
+                viewHolder.distance = (TextView) findViewById(R.id.distance);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            // Populate data into the views
+            //viewHolder.image.setImageBitmap(parkinigSpot.get);       // Need the image bitmap in ParkingSpot class
+            viewHolder.address.setText(parkingSpot.getAddress());
+            //viewHolder.dateTimeRange.setText(parkingSpot.get);       // Need date time range
+            viewHolder.size.setText(parkingSpot.getSize());
+            if (!parkingSpot.isHandicapped()) {
+                viewHolder.handicap.setVisibility(View.INVISIBLE);
+            }
+            //viewHolder.price.setText(parkingSpot.get);               // Need spot price
+            //viewHolder.distance.setText();                           // Need distance from entered location
+
+            // Return completed view
+            return convertView;
+        }
+
+    }
 }
