@@ -29,6 +29,7 @@
         <activity android:name=".owner.AddSpotActivity"/>
         <activity android:name=".owner.OwnerMainActivity" />
         <activity android:name=".owner.AddAvailabilityActivity"/>
+        <activity android:name=".owner.ViewSpotActivity"/>
 
         <!-- Seeker activities -->
         <activity android:name=".seeker.SeekerMainActivity" />
