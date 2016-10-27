@@ -3,6 +3,7 @@ package edu.usc.parknpay.owner;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +15,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +32,6 @@ import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
 
-/**
- * Created by Bobo on 10/19/2016.
- */
-
 public class AddSpotActivity extends TemplateActivity {
 
     EditText street, city, state, zipCode, notes;
@@ -40,6 +40,8 @@ public class AddSpotActivity extends TemplateActivity {
     Button doneButton;
     ImageView parkingSpotPhoto;
     Uri selectedImage;
+    ParkingSpot spot;
+    DatabaseReference Ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,23 +132,39 @@ public class AddSpotActivity extends TemplateActivity {
         String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
 
-        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref = FirebaseDatabase.getInstance().getReference();
         String parkingSpotID = UUID.randomUUID().toString();
         String userId = User.getInstance().getId();
 
+
+        // Create parking spot
+        spot = new ParkingSpot(userId, "address-here", sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
+        spot.setParkingId(parkingSpotID);
+
+        // handle image
         StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId + "/Spots/" + parkingSpotID);
-        firebaseStorage.putFile(selectedImage);
+        firebaseStorage.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                spot.setPhotoURL(taskSnapshot.getDownloadUrl().toString());
+                Ref.child("Parking-Spots").child(spot.getParkingId()).setValue(spot);
 
-        // Parking-Spots table
-        ParkingSpot spot = new ParkingSpot(userId, "address-here", sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
-        Ref.child("Parking-Spots").child(parkingSpotID).setValue(spot);
+                // Add to User with list of parking spots table
+                Ref.child("Owner-To-Spots").child(spot.getOwnerUserId()).child(spot.getParkingId()).setValue(true);
 
-        // Add to User with list of parking spots table
-        Ref.child("Owner-To-Spots").child(userId).child(parkingSpotID).setValue(true);
+                Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddSpotActivity.this, "Failed to create parking spot.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+
+
     }
 
     protected void addListeners() {

@@ -2,9 +2,11 @@
 
 package edu.usc.parknpay.database;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import android.net.Uri;
 
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class ParkingSpot {
     private String ownerUserId;
@@ -15,6 +17,8 @@ public class ParkingSpot {
     private boolean isHandicapped;
     private String description;
     private String cancellationPolicy;
+    private String parkingId;
+    private String photoURL;
 
     public ParkingSpot() {
     }
@@ -89,5 +93,27 @@ public class ParkingSpot {
     @Override
     public String toString() {
         return "Address: " + getAddress();
+    }
+
+    public String getParkingId() {return parkingId;}
+
+    public void setParkingId(String PID) {
+        parkingId = PID;
+
+        FirebaseStorage.getInstance().getReference().child(User.getInstance().getId()).child("Spots").child(PID)
+                .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                photoURL = uri.toString();
+            }
+        });
+    }
+
+    public void setPhotoURL(String url) {
+        photoURL = url;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
     }
 }
