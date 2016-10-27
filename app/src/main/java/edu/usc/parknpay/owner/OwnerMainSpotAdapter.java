@@ -37,6 +37,7 @@ public class OwnerMainSpotAdapter extends ArrayAdapter<ParkingSpot> {
         ParkingSpot spot = getItem(position);
         Picasso.with(getContext())
                 .load(spot.getPhotoURL())
+                .placeholder(R.drawable.progress_animation)
                 .resize(450, 450)
                 .centerCrop()
                 .into(spotImageView);

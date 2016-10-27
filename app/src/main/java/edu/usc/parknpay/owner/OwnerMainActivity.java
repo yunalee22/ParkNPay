@@ -3,6 +3,7 @@ package edu.usc.parknpay.owner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -82,6 +83,16 @@ public class OwnerMainActivity extends TemplateActivity {
                 startActivity(intent);
             }
 
+        });
+
+        parkingSpots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ViewSpotActivity.class);
+                intent.putExtra("parkingSpot", parkingSpotArray.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
         });
     }
 

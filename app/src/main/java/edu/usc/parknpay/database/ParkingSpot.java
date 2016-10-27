@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
-public class ParkingSpot {
+import java.io.Serializable;
+
+public class ParkingSpot implements Serializable{
     private String ownerUserId;
     private String address;
     private double latitude, longitude;

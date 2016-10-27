@@ -9,8 +9,11 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.database.ParkingSpot;
 
 /**
  * Created by Bobo on 10/23/2016.
@@ -30,13 +33,26 @@ public class ViewSpotActivity extends TemplateActivity {
         toolbarSetup();
         initializeEdits();
         addListeners();
+
+        ParkingSpot parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
+
+        // Set values from passed in parking spot
+        address.setText(parkingSpot.getAddress());
+        additionalNotes.setText(parkingSpot.getDescription());
+        spotType.setText(parkingSpot.getSize());
+        Picasso.with(this)
+                .load(parkingSpot.getPhotoURL())
+                .resize(450, 450)
+                .centerCrop()
+                .into(spotPhoto);
+        ratingBar.setNumStars((int) parkingSpot.getRating()); // not working?
     }
 
     protected void toolbarSetup() {
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Add a Space");
+        getSupportActionBar().setTitle("View Spot");
     }
 
     protected void initializeEdits() {
