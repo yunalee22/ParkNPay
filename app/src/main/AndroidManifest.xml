@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.usc.parknpay">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".database.DatabaseTalker"
         android:allowBackup="true"
         android:icon="@drawable/test_pic"
         android:label="@string/app_name"
-        android:name=".database.DatabaseTalker"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <!-- Authentication activities -->
         <activity android:name=".authentication.LoginActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".authentication.RegistrationActivity" />
         <activity android:name=".authentication.SetDefaultModeActivity" />
@@ -23,24 +28,23 @@
         <activity android:name=".mutual.AccountSettingsActivity" />
 
         <!-- Owner activities -->
-        <activity android:name=".owner.AddSpotActivity"/>
+        <activity android:name=".owner.AddSpotActivity" />
         <activity android:name=".owner.OwnerMainActivity" />
-        <activity android:name=".owner.AddAvailabilityActivity"/>
-        <activity android:name=".owner.ViewSpotActivity"/>
+        <activity android:name=".owner.AddAvailabilityActivity" />
+        <activity android:name=".owner.ViewSpotActivity" />
 
         <!-- Seeker activities -->
-        <activity android:name=".seeker.SeekerMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".seeker.SeekerMainActivity" />
         <activity android:name=".seeker.SearchFilterActivity" />
+        <activity android:name=".seeker.ReservationsActivity" />
+        <activity android:name=".seeker.HistoryActivity" />
+        <activity android:name=".seeker.ViewSpotActivity" />
+        <activity android:name=".seeker.RateActivity" />
 
-        <!--Google places integration-->
+        <!-- Google places integration -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg"/>
+            android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg" />
 
     </application>
 
