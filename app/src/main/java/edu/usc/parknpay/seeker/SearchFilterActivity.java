@@ -56,8 +56,76 @@ public class SearchFilterActivity extends TemplateActivity {
         endTimeButton = (Button) findViewById(R.id.end_time_button);
         searchButton = (Button) findViewById(R.id.search_button);
 
+        // Get initial values
+        Bundle extras = getIntent().getExtras();
+        double minPrice = extras.getDouble("minPrice");
+        double maxPrice = extras.getDouble("maxPrice");
+        int minOwnerRating = extras.getInt("minOwnerRating");
+        int minSpotRating = extras.getInt("minSpotRating");
+        boolean handicapOnly = extras.getBoolean("handicapOnly");
+        boolean showNormal = extras.getBoolean("showNormal");
+        boolean showCompact = extras.getBoolean("showCompact");
+        boolean showSuv = extras.getBoolean("showSuv");
+        boolean showTruck = extras.getBoolean("showTruck");
+        String startDate = extras.getString("startDate");
+        String startTime = extras.getString("startTime");
+        String endDate = extras.getString("endDate");
+        String endTime = extras.getString("endTime");
+
+        // Set initial values of views
+        minPriceField.setText(String.valueOf(minPrice));
+        maxPriceField.setText(String.valueOf(maxPrice));
+        ownerRatingBar.setNumStars(minOwnerRating);
+        spotRatingBar.setNumStars(minSpotRating);
+        handicapOnlyCheckbox.setChecked(handicapOnly);
+        normalCheckbox.setChecked(showNormal);
+        compactCheckbox.setChecked(showCompact);
+        suvCheckbox.setChecked(showSuv);
+        truckCheckbox.setChecked(showTruck);
+        startDateButton.setText(startDate);
+        startTimeButton.setText(startTime);
+        endDateButton.setText(endDate);
+        endTimeButton.setText(endTime);
+
         // Add view listeners
         addListeners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get initial values
+        Bundle extras = getIntent().getExtras();
+        double minPrice = extras.getDouble("minPrice");
+        System.out.println("Min price is " + minPrice);
+        double maxPrice = extras.getDouble("maxPrice");
+        int minOwnerRating = extras.getInt("minOwnerRating");
+        int minSpotRating = extras.getInt("minSpotRating");
+        boolean handicapOnly = extras.getBoolean("handicapOnly");
+        boolean showNormal = extras.getBoolean("showNormal");
+        boolean showCompact = extras.getBoolean("showCompact");
+        boolean showSuv = extras.getBoolean("showSuv");
+        boolean showTruck = extras.getBoolean("showTruck");
+        String startDate = extras.getString("startDate");
+        String startTime = extras.getString("startTime");
+        String endDate = extras.getString("endDate");
+        String endTime = extras.getString("endTime");
+
+        // Set initial values of views
+        minPriceField.setText(String.valueOf(minPrice));
+        maxPriceField.setText(String.valueOf(maxPrice));
+        ownerRatingBar.setNumStars(minOwnerRating);
+        spotRatingBar.setNumStars(minSpotRating);
+        handicapOnlyCheckbox.setChecked(handicapOnly);
+        normalCheckbox.setChecked(showNormal);
+        compactCheckbox.setChecked(showCompact);
+        suvCheckbox.setChecked(showSuv);
+        truckCheckbox.setChecked(showTruck);
+        startDateButton.setText(startDate);
+        startTimeButton.setText(startTime);
+        endDateButton.setText(endDate);
+        endTimeButton.setText(endTime);
     }
 
     private void addListeners() {
@@ -105,8 +173,8 @@ public class SearchFilterActivity extends TemplateActivity {
                 Intent output = new Intent();
 
                 // Add return data to intent
-                output.putExtra("minPrice", minPriceField.getText());
-                output.putExtra("maxPrice", maxPriceField.getText());
+                output.putExtra("minPrice", Double.parseDouble(minPriceField.getText().toString()));
+                output.putExtra("maxPrice", Double.parseDouble(maxPriceField.getText().toString()));
                 output.putExtra("minOwnerRating", ownerRatingBar.getNumStars());
                 output.putExtra("minSpotRating", spotRatingBar.getNumStars());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());

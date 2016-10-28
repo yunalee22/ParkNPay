@@ -177,6 +177,23 @@ public class SeekerMainActivity extends TemplateActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(SeekerMainActivity.this, SearchFilterActivity.class);
+
+                // Add initial data to intent
+                intent.putExtra("minPrice", minPrice);
+                System.out.println("Added a parameter min price of " + minPrice);
+                intent.putExtra("maxPrice", maxPrice);
+                intent.putExtra("minOwnerRating", minOwnerRating);
+                intent.putExtra("minSpotRating", minSpotRating);
+                intent.putExtra("handicapOnly", handicapOnly);
+                intent.putExtra("showNormal", showNormal);
+                intent.putExtra("showCompact", showCompact);
+                intent.putExtra("showSuv", showSuv);
+                intent.putExtra("showTruck", showTruck);
+                intent.putExtra("startDate", startDate);
+                intent.putExtra("startTime", startTime);
+                intent.putExtra("endDate", endDate);
+                intent.putExtra("endTime", endTime);
+
                 startActivityForResult(intent, SEARCH_FILTER);
             }
         });
@@ -211,8 +228,9 @@ public class SeekerMainActivity extends TemplateActivity {
 
         if (requestCode == SEARCH_FILTER && resultCode == RESULT_OK && data != null) {
             // Update search parameters
-            minPrice = data.getIntExtra("minPrice", 0);
-            maxPrice = data.getIntExtra("maxPrice", 100000000);                   // What is the max price?????
+            minPrice = data.getDoubleExtra("minPrice", 0);
+            System.out.println("Min price is updated to " + minPrice);
+            maxPrice = data.getDoubleExtra("maxPrice", 100000000);                   // What is the max price?????
             minOwnerRating = data.getIntExtra("minOwnerRating", 0);
             minSpotRating = data.getIntExtra("minSpotRating", 0);
             handicapOnly = data.getBooleanExtra("handicapOnly", false);
