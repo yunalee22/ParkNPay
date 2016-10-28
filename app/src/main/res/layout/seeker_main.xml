@@ -26,22 +26,25 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout android:id="@+id/search_layout"
+    <RelativeLayout android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar">
 
         <fragment android:id="@+id/place_autocomplete_fragment"
-            android:layout_width="380dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
 
         <ImageView android:id="@+id/filter_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/filter" />
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/filter"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView android:id="@+id/search_list"
         android:layout_width="360dp"

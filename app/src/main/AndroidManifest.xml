@@ -13,10 +13,7 @@
 
         <!-- Authentication activities -->
         <activity android:name=".authentication.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".authentication.RegistrationActivity" />
         <activity android:name=".authentication.SetDefaultModeActivity" />
@@ -32,7 +29,12 @@
         <activity android:name=".owner.ViewSpotActivity"/>
 
         <!-- Seeker activities -->
-        <activity android:name=".seeker.SeekerMainActivity" />
+        <activity android:name=".seeker.SeekerMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".seeker.SearchFilterActivity" />
 
         <!--Google places integration-->

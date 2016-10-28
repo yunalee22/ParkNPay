@@ -25,7 +25,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import edu.usc.parknpay.R;
@@ -37,6 +40,7 @@ import edu.usc.parknpay.utility.Utility;
 public class SeekerMainActivity extends TemplateActivity {
 
     public static final double RADIUS_LIMIT = 3;
+    private static final int SEARCH_FILTER = 2;
 
     // Filter button
     private ImageView filterButton;
@@ -69,6 +73,13 @@ public class SeekerMainActivity extends TemplateActivity {
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         searchList = (ListView) findViewById(R.id.search_list);
 
+        // Get current date and time
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(today);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String time = timeFormat.format(today);
+
         // Set default search parameters
         minPrice = 0;
         maxPrice = 100000000;                   // What is the max price?????
@@ -79,9 +90,9 @@ public class SeekerMainActivity extends TemplateActivity {
         showCompact = true;
         showSuv = true;
         showTruck = true;
-        startDate = null;                       // This should be today's date
-        startTime = "00:00";
-        endDate = null;                         // This should be today's date also
+        startDate = date;
+        startTime = time;
+        endDate = date;
         endTime = "23:59";
 
         // Add search text field and geocoder
@@ -162,10 +173,11 @@ public class SeekerMainActivity extends TemplateActivity {
 
         // Called when search filter button is pressed
         filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v)
             {
-            Intent intent = new Intent(SeekerMainActivity.this, SearchFilterActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(SeekerMainActivity.this, SearchFilterActivity.class);
+                startActivityForResult(intent, SEARCH_FILTER);
             }
         });
 
@@ -192,6 +204,27 @@ public class SeekerMainActivity extends TemplateActivity {
                 Log.e(LOG_TAG, "onError: Status = " + status.toString());
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == SEARCH_FILTER && resultCode == RESULT_OK && data != null) {
+            // Update search parameters
+            minPrice = data.getIntExtra("minPrice", 0);
+            maxPrice = data.getIntExtra("maxPrice", 100000000);                   // What is the max price?????
+            minOwnerRating = data.getIntExtra("minOwnerRating", 0);
+            minSpotRating = data.getIntExtra("minSpotRating", 0);
+            handicapOnly = data.getBooleanExtra("handicapOnly", false);
+            showNormal = data.getBooleanExtra("showNormal", true);
+            showCompact = data.getBooleanExtra("showCompact", true);
+            showSuv = data.getBooleanExtra("showSuv", true);
+            showTruck = data.getBooleanExtra("showTruck", true);
+            startDate = data.getStringExtra("startDate");
+            startTime = data.getStringExtra("startTime");
+            endDate = data.getStringExtra("endDate");
+            endTime = data.getStringExtra("endTime");
+        }
     }
 
     protected class SearchListAdapter extends ArrayAdapter<ParkingSpot> {
