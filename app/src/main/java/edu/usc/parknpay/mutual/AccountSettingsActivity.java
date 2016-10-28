@@ -13,22 +13,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.OwnerMainActivity;
-
-/**
- * Created by Bobo on 10/16/2016.
- */
 
 public class AccountSettingsActivity extends TemplateActivity {
     TextView edit;
@@ -48,8 +41,6 @@ public class AccountSettingsActivity extends TemplateActivity {
         initializeEdits();
         setSpinners();
         addListeners();
-        fireBase();
-
     }
 
     @Override
@@ -60,19 +51,6 @@ public class AccountSettingsActivity extends TemplateActivity {
                 return true;
         }
         return false;
-    }
-
-    protected void fireBase() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(u.getId()+"/profile");
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.with(AccountSettingsActivity.this)
-                        .load(uri)
-                        .placeholder(R.drawable.progress_animation)
-                        .into(profPic);
-            }
-        });
     }
 
     protected void toolbarSetup() {
@@ -98,6 +76,11 @@ public class AccountSettingsActivity extends TemplateActivity {
         profPic = (ImageView) findViewById(R.id.profPic);
         saveButton = (Button) findViewById(R.id.saveButton);
 
+        // Load profile image
+        Picasso.with(AccountSettingsActivity.this)
+                .load(u.getProfilePhotoURL())
+                .placeholder(R.drawable.progress_animation)
+                .into(profPic);
     }
 
     protected void setSpinners() {

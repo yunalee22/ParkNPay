@@ -18,6 +18,8 @@ public class User {
     private String licenseNumber;
     private boolean isSeeker;
 
+    private String profilePhotoURL;
+
     private double balance;
 
     public synchronized static User getInstance() {
@@ -36,7 +38,8 @@ public class User {
                 user.getRawRating(),
                 user.getNumRatings(),
                 user.isSeeker(),
-                user.getBalance()
+                user.getBalance(),
+                user.getProfilePhotoURL()
         );
     }
 
@@ -59,7 +62,8 @@ public class User {
          int rawRating,
          int numRatings,
          boolean isSeeker,
-         double balance
+         double balance,
+         String photoURL
     ) {
         this.firstName = name;
         this.lastName = lastName;
@@ -71,6 +75,7 @@ public class User {
         this.numRatings = numRatings;
         this.isSeeker = isSeeker;
         this.balance = balance;
+        this.profilePhotoURL = photoURL;
     }
 
     // Alternate constructor
@@ -184,5 +189,14 @@ public class User {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public String getProfilePhotoURL() {
+        return profilePhotoURL;
+    }
+
+    public void setProfilePhotoURL(String profilePhotoURL) {
+        this.profilePhotoURL = profilePhotoURL;
+    }
+
 
 }
