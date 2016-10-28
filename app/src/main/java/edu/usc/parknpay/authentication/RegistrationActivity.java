@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.DatabaseTalker;
@@ -37,6 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private DatabaseTalker databaseTalker;
     private User user;
+    DatabaseReference Ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+                    Ref = FirebaseDatabase.getInstance().getReference();
 
                     // Get the newly generated user
                     String userId = task.getResult().getUser().getUid();
@@ -129,20 +132,25 @@ public class RegistrationActivity extends AppCompatActivity {
                     // Add newly generated user id to the user passed in
                     user.setId(userId);
 
-                    // Get correct firebase ref
-                    Ref.child("Users").child(userId).setValue(user);
-
                     // Insert profile photo into database
                     StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(userId).child("profile");
-                    firebaseStorage.putFile(selectedImage);
+                    firebaseStorage.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    User.createUser(user);
+                            user.setProfilePhotoURL(taskSnapshot.getDownloadUrl().toString());
 
-                    // Proceed to default mode selection view
-                    Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegistrationActivity.this, SetDefaultModeActivity.class);
-                    startActivity(intent);
+                            // Get correct firebase ref
+                            Ref.child("Users").child(user.getId()).setValue(user);
 
+                            User.createUser(user);
+
+                            // Proceed to default mode selection view
+                            Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegistrationActivity.this, SetDefaultModeActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                 } else {
                     Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                 }
