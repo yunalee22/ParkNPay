@@ -157,7 +157,6 @@ public class SeekerMainActivity extends TemplateActivity {
                 ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                 // check end time
                 System.out.println("Found with start time");
-
                 if(sEndTime.compareTo(post.getEndTime()) <= 0) {
                     // check distance
                     System.out.println("Found with end time");
@@ -165,6 +164,7 @@ public class SeekerMainActivity extends TemplateActivity {
                     double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
                     if(distance < RADIUS_LIMIT) {
                         // TODO: check filters
+                        if(post.getIsHandicap() == handicapOnly && post.getPrice() >= minPrice && post.getPrice() <= maxPrice)
                         // if(insert filters)
                             // display dynamically
                         System.out.println("SPOT WITHIN 3 MILES: " + post.toString());

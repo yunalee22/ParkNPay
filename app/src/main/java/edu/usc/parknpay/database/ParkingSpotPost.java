@@ -15,12 +15,15 @@ public class ParkingSpotPost {
     private int size;
     private int cancellationPolicy;
     private boolean isHandicap;
+    private double ownerRating;
     private String address;
 
     public ParkingSpotPost() {
     }
 
     public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
+                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") int size, @JsonProperty("cancellationPolicy") int cancellationPolicy,
+                           @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating)
                            @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") int size, @JsonProperty("cancellationPolicy") int cancellationPolicy, @JsonProperty("isHandicap") boolean isHandicap,
                            @JsonProperty("address") String address
     )
@@ -35,6 +38,7 @@ public class ParkingSpotPost {
         this.size = size;
         this.cancellationPolicy = cancellationPolicy;
         this.isHandicap = isHandicap;
+        this.ownerRating = ownerRating;
         this.address = address;
     }
 
@@ -55,11 +59,11 @@ public class ParkingSpotPost {
         this.endTime = endTime;
     }
 
-    public boolean getIsHandicap() {
+    public boolean isHandicap() {
         return isHandicap;
     }
 
-    public void setIsHandicap(boolean handicap) {
+    public void setHandicap(boolean handicap) {
         isHandicap = handicap;
     }
 
@@ -117,6 +121,14 @@ public class ParkingSpotPost {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public double getOwnerRating() {
+        return ownerRating;
+    }
+
+    public void setOwnerRating(double ownerRating) {
+        this.ownerRating = ownerRating;
     }
 
     @Override
