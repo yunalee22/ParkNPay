@@ -1,11 +1,22 @@
 package edu.usc.parknpay.utility;
 
+import edu.usc.parknpay.database.ParkingSpot;
+
 /**
  * Created by tiffanyhuang on 10/23/16.
  */
 
 
+
 public class Utility {
+
+    public static int convertSize(boolean isCompact, boolean isNormal, boolean isSuv, boolean isTruck) {
+        if(isTruck) return ParkingSpot.Size.Truck.getValue();
+        else if(isSuv) return ParkingSpot.Size.Suv.getValue();
+        else if(isNormal) return ParkingSpot.Size.Normal.getValue();
+        else if(isCompact) return ParkingSpot.Size.Compact.getValue();
+        return -1;
+    }
  /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /*::                                                                         :*/
 /*::  This routine calculates the distance between two points (given the     :*/

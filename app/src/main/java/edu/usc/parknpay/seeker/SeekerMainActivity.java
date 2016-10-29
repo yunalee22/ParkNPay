@@ -58,7 +58,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search parameters
     private double latitude, longitude, minPrice, maxPrice;
-    private float minOwnerRating, minSpotRating;
+    private float minOwnerRating, minSpotRating, size;
     private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
     private String address, startDate, startTime, endDate, endTime;
 
@@ -119,6 +119,12 @@ public class SeekerMainActivity extends TemplateActivity {
 
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
+        // TODO: Show error window
+        if(address.isEmpty() || address == null)
+            System.out.println("No address was inputted");
+        // TODO: check that these were inputted, not sure what the correct comparison is yet
+        //if(latitude == null || longitude == null)
+
         // TODO: YUNA: Set these variables as well as filters?
         final double sLatitude = 34.0224; // should be latitude
         final double sLongitude = 118.2851; // should be longitude
@@ -143,8 +149,7 @@ public class SeekerMainActivity extends TemplateActivity {
         System.out.println("startTime: " + startTime);
 
 
-
-        // TODO: Show error popup if bad input?
+        // TODO: Show error window
         if(sStartTime.compareTo(sEndTime) > 0) {
             System.out.println("Start time is later than end time");
         }
@@ -163,10 +168,15 @@ public class SeekerMainActivity extends TemplateActivity {
                     // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
                     double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
                     if(distance < RADIUS_LIMIT) {
-                        // TODO: check filters
-                        if(post.getIsHandicap() == handicapOnly && post.getPrice() >= minPrice && post.getPrice() <= maxPrice)
-                        // if(insert filters)
-                            // display dynamically
+                        // check filters
+                        if(post.getPrice() >= minPrice && post.getPrice() <= maxPrice) {
+                            if(post.getSize() <= size && post.isHandicap() == handicapOnly) {
+                                if(post.getOwnerRating() >= minOwnerRating)
+                                    System.out.println();
+                                    // display
+                            }
+                        }
+
                         System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
                     }
                 }

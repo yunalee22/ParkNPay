@@ -22,6 +22,17 @@ public class ParkingSpot implements Serializable{
     private String parkingId;
     private String photoURL;
 
+    public enum Size {
+        Compact(0), Normal(1), Suv(2), Truck(3);
+        private final int value;
+        private Size(int value) {
+            this.value = value;
+        }
+        public int getValue() {
+            return value;
+        }
+    };
+
     public ParkingSpot() {
     }
 
