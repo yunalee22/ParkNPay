@@ -57,11 +57,10 @@ public class SeekerMainActivity extends TemplateActivity {
     private SearchListAdapter searchResultsAdapter;
 
     // Search parameters
-    private double minPrice, maxPrice;
+    private double latitude, longitude, minPrice, maxPrice;
     private float minOwnerRating, minSpotRating;
-    private boolean handicapOnly;
-    private boolean showNormal, showCompact, showSuv, showTruck;
-    private String startDate, startTime, endDate, endTime;
+    private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
+    private String address, startDate, startTime, endDate, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,19 +113,36 @@ public class SeekerMainActivity extends TemplateActivity {
         addListeners();
     }
 
-
-    private void executeSearch(String address, final double latitude, final double longitude) {
+    private void executeSearch() {
 
         searchResults.clear();
 
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
         // TODO: YUNA: Set these variables as well as filters?
-        final double sLatitude = 34.0224;
-        final double sLongitude = 118.2851;
+        final double sLatitude = 34.0224; // should be latitude
+        final double sLongitude = 118.2851; // should be longitude
         final String sStartTime = "1997-07-16T19:20+01:00";
         final String sEndTime = "1997-07-16T19:25+01:00";
         // filters?
+
+        System.out.println("startDate: " + startDate);
+        System.out.println("startTime: " + startTime);
+        System.out.println("endDate: " + endDate);
+        System.out.println("endTime: " + endTime);
+        System.out.println("minPrice: " + minPrice);
+        System.out.println("maxPrice: " + maxPrice);
+        System.out.println("minOwnerRating: " + minOwnerRating);
+        System.out.println("minSpotRating: " + minSpotRating);
+        System.out.println("handicapOnly: " + handicapOnly);
+        System.out.println("showNormal: " + showNormal);
+        System.out.println("showCompact: " + showCompact);
+        System.out.println("showSuv: " + showSuv);
+        System.out.println("showTruck: " + showTruck);
+        System.out.println("startDate: " + startDate);
+        System.out.println("startTime: " + startTime);
+
+
 
         // TODO: Show error popup if bad input?
         if(sStartTime.compareTo(sEndTime) > 0) {
@@ -215,7 +231,10 @@ public class SeekerMainActivity extends TemplateActivity {
                 try {
                     addressInfo = coder.getFromLocationName(address, 5);
                     Address location = addressInfo.get(0);
-                    executeSearch(address, location.getLatitude(), location.getLongitude());
+                    address = place.getName().toString();
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    executeSearch();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -247,6 +266,7 @@ public class SeekerMainActivity extends TemplateActivity {
             startTime = data.getStringExtra("startTime");
             endDate = data.getStringExtra("endDate");
             endTime = data.getStringExtra("endTime");
+            executeSearch();
         }
     }
 
