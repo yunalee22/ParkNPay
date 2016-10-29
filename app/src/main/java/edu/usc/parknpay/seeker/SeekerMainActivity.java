@@ -158,7 +158,6 @@ public class SeekerMainActivity extends TemplateActivity {
         browseRef.orderByChild("startTime").equalTo(sStartTime).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
                 ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                 // check end time
                 System.out.println("Found with start time");
@@ -170,10 +169,11 @@ public class SeekerMainActivity extends TemplateActivity {
                     if(distance < RADIUS_LIMIT) {
                         // check filters
                         if(post.getPrice() >= minPrice && post.getPrice() <= maxPrice) {
+                            size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
                             if(post.getSize() <= size && post.isHandicap() == handicapOnly) {
                                 if(post.getOwnerRating() >= minOwnerRating)
+                                    // TODO: @Yuna dynamically create posts here
                                     System.out.println();
-                                    // display
                             }
                         }
 

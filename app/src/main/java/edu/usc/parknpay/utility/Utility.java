@@ -17,6 +17,16 @@ public class Utility {
         else if(isCompact) return ParkingSpot.Size.Compact.getValue();
         return -1;
     }
+
+    // TODO: not complete
+    public static String convertToISO861(String date, String time) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(date);
+        builder.append("T");
+        builder.append(time);
+        //builder.append(/*timezone*/);
+        return builder.toString();
+    }
  /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /*::                                                                         :*/
 /*::  This routine calculates the distance between two points (given the     :*/
