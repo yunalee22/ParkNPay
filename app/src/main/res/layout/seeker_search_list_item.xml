@@ -7,7 +7,7 @@
     tools:context="edu.usc.parknpay.seeker.SeekerMainActivity">
 
     <ImageView android:id="@+id/image"
-        android:src="@drawable/test_pic"
+        android:src="@drawable/default_pic"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_below="@id/toolbar"
@@ -17,6 +17,7 @@
     <TextView android:id="@+id/address"
         android:text="Address"
         android:textStyle="bold"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
@@ -25,6 +26,7 @@
 
     <TextView android:id="@+id/date_time_range"
         android:text="Date time range"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
@@ -33,6 +35,8 @@
 
     <TextView android:id="@+id/size"
         android:text="Size"
+        android:textSize="16sp"
+        android:textColor="@color/orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/image"
@@ -41,6 +45,8 @@
 
     <TextView android:id="@+id/handicap"
         android:text="Handicap"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/image"
@@ -49,6 +55,7 @@
 
     <TextView android:id="@+id/price"
         android:text="Price"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/image"
@@ -57,6 +64,7 @@
 
     <TextView android:id="@+id/distance"
         android:text="Distance"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/image"

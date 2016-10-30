@@ -4,10 +4,127 @@
     android:id="@+id/seeker_view_spot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
 
+    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbarColor"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ParkNPay"
+            android:gravity = "center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp">
+
+            <ImageView android:id="@+id/parkingSpotImage"
+                android:src="@drawable/default_pic"
+                android:layout_marginTop="30dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp" />
+
+            <TextView android:id="@+id/address"
+                android:text="Address"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/parkingSpotImage"
+                android:layout_marginLeft="20dp"/>
+
+            <RatingBar android:id="@+id/spotRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_alignTop="@id/parkingSpotImage"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="78dp"/>
+
+            <TextView android:id="@+id/size"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/parkingSpotImage"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView android:id="@+id/handicap"
+                android:text="Handicap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/size"
+                android:layout_marginLeft="10dp" />
+
+            <TextView android:id="@+id/additionalNotesLabel"
+                android:text="Additional Notes"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/parkingSpotImage"
+                android:layout_marginTop="30dp"/>
+
+            <TextView android:id="@+id/additionalNotes"
+                android:text="Insert additional notes here"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/additionalNotesLabel"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/ownerInformationLabel"
+                android:text="Host Information"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/additionalNotes"
+                android:layout_marginTop="30dp"/>
+
+            <ImageView android:id="@+id/ownerImage"
+                android:src="@drawable/default_pic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/ownerInformationLabel"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/ownerName"
+                android:text="Host Name"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ownerImage"
+                android:layout_toRightOf="@id/ownerImage"
+                android:layout_marginLeft="20dp"/>
+
+            <RatingBar android:id="@+id/ownerRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:layout_alignTop="@id/ownerImage"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="50dp"/>
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

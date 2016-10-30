@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.usc.parknpay.owner.AccountSettingsActivity;
+import edu.usc.parknpay.owner.PaymentInfoActivity;
+
 public class TemplateActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -47,7 +50,7 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 2:     // Payment
                 {
-                    intent = new Intent(getApplicationContext(), edu.usc.parknpay.mutual.PaymentInfoActivity.class);
+                    intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
                     //intent.putExtra("shopCash", cash);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
@@ -55,7 +58,7 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 3:     // Settings
                 {
-                    intent = new Intent(getApplicationContext(), edu.usc.parknpay.mutual.AccountSettingsActivity.class);
+                    intent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
                     //intent.putExtra("shopCash", cash);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);

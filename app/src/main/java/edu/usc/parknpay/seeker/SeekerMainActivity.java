@@ -163,10 +163,12 @@ public class SeekerMainActivity extends TemplateActivity {
             });
     }
 
+    // Call this function to update the search results view
     private void loadSearchResults(ArrayList<ParkingSpot> parkingSpots) {
 
         searchResultsAdapter.clear();
         searchResultsAdapter.addAll(parkingSpots);
+        searchResultsAdapter.notifyDataSetChanged();
     }
 
     private void addListeners() {

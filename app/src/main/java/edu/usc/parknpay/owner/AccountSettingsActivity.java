@@ -1,4 +1,4 @@
-package edu.usc.parknpay.mutual;
+package edu.usc.parknpay.owner;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,7 +21,6 @@ import java.util.List;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.User;
-import edu.usc.parknpay.owner.OwnerMainActivity;
 
 public class AccountSettingsActivity extends TemplateActivity {
     TextView edit;
@@ -34,7 +33,7 @@ public class AccountSettingsActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mutual_account_settings);
+        setContentView(R.layout.owner_account_settings);
         super.onCreateDrawer();
         u = User.getInstance();
         toolbarSetup();
