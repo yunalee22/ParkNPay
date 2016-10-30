@@ -96,4 +96,87 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
+
+    // TESTING
+    public void SeekerTestLogin(View view){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword("s@s.com", "sssssss").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()) {
+
+                    // Get the newly generated user
+                    String userId = task.getResult().getUser().getUid();
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            // Create user
+                            User user = snapshot.getValue(User.class);
+                            User.createUser(user);
+
+                            // If authentication is successful, proceed to default (owner/seeker) main view.
+                            if (User.getInstance().isSeeker()) {
+                                Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+                                startActivity(seekerIntent);
+                            } else {
+                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+                                startActivity(ownerIntent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void HostTestLogin(View view){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword("h@h.com", "hhhhhhh").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()) {
+
+                    // Get the newly generated user
+                    String userId = task.getResult().getUser().getUid();
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            // Create user
+                            User user = snapshot.getValue(User.class);
+                            User.createUser(user);
+
+                            // If authentication is successful, proceed to default (owner/seeker) main view.
+                            if (User.getInstance().isSeeker()) {
+                                Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+                                startActivity(seekerIntent);
+                            } else {
+                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+                                startActivity(ownerIntent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }
