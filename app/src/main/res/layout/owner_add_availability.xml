@@ -29,76 +29,69 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <TextView
-            android:text="Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="33dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="25dp"
-            android:id="@+id/textView5"
-            android:textSize="18sp" />
-
-        <CalendarView
-            android:layout_width="350dp"
-            android:layout_height="300dp"
-            android:id="@+id/calendar"
-            android:layout_alignTop="@+id/textView5"
-            android:layout_centerHorizontal="true" />
 
         <TextView
-            android:text="Price"
+            android:text="Cancellation Policy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:id="@+id/textView11"
+            android:layout_marginTop="60dp"
+            android:id="@+id/cancelTextView"
             android:textSize="19sp"
-            android:layout_below="@+id/editTo"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_alignStart="@+id/textView6" />
-
-
-
-        <EditText
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editFrom"
-            android:layout_width="60dp"
-            android:layout_alignBaseline="@+id/textView7"
-            android:layout_alignBottom="@+id/textView7"
-            android:layout_centerHorizontal="true" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView7"
-            android:layout_toRightOf="@+id/editFrom"
-            android:layout_toEndOf="@+id/editFrom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:id="@+id/spinnerFrom" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView8"
-            android:layout_alignLeft="@+id/spinnerFrom"
-            android:layout_alignStart="@+id/spinnerFrom"
-            android:id="@+id/spinnerTo" />
+            android:layout_below="@+id/textView11"
+            android:layout_alignLeft="@+id/textView11"
+            android:textStyle="normal|bold" />
 
         <TextView
-            android:text="To:"
+            android:text="Select a reservation cancellation policy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            android:layout_alignBaseline="@+id/editTo"
-            android:layout_alignBottom="@+id/editTo"
-            android:layout_alignLeft="@+id/textView7"
-            android:layout_alignStart="@+id/textView7" />
+            android:id="@+id/cancelDes"
+            android:textStyle="normal|italic"
+            android:layout_below="@+id/cancelTextView"
+            android:layout_alignLeft="@+id/cancelTextView"
+            android:layout_alignStart="@+id/cancelTextView" />
+
+        <Spinner
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelSpinner"
+            android:layout_marginTop="9dp"
+            android:layout_below="@+id/cancelDes"
+            android:layout_alignLeft="@+id/cancelDes"
+            android:layout_alignStart="@+id/cancelDes" />
+
+
+        <Button
+            android:text="Done"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:id="@+id/done"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/cancelSpinner"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="End:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:id="@+id/textView14"
+            android:textSize="18sp"
+            android:layout_below="@+id/textView13"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignStart="@+id/textView13"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="$"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            android:textSize="20sp"
+            android:layout_alignBaseline="@+id/prices"
+            android:layout_alignBottom="@+id/prices"
+            android:layout_toLeftOf="@+id/prices"
+            android:layout_toStartOf="@+id/prices" />
 
         <EditText
             android:layout_width="100dp"
@@ -107,62 +100,101 @@
             android:ems="10"
             android:id="@+id/prices"
             android:hint="Enter price"
-            android:layout_alignBaseline="@+id/textView12"
-            android:layout_alignBottom="@+id/textView12"
-            android:layout_alignLeft="@+id/editTo"
-            android:layout_alignStart="@+id/editTo" />
-
-        <TextView
-            android:text="Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:textSize="19sp"
-            android:layout_marginTop="13dp"
-            android:layout_below="@+id/calendar"
-            android:layout_alignLeft="@+id/calendar"
-            android:layout_alignStart="@+id/calendar" />
-
-        <TextView
-            android:text="$"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:id="@+id/textView12"
-            android:textSize="20sp"
             android:layout_below="@+id/textView11"
+            android:layout_alignLeft="@+id/done"
+            android:layout_alignStart="@+id/done"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp" />
+
+        <TextView
+            android:text="END DATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endDate"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/textView14"
+            android:layout_alignLeft="@+id/startDate"
+            android:layout_alignStart="@+id/startDate" />
+
+        <TextView
+            android:text="Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:textSize="19sp"
+            android:layout_marginTop="34dp"
+            android:layout_below="@+id/endDate"
+            android:layout_alignRight="@+id/textView13"
+            android:layout_alignEnd="@+id/textView13"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="Start:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13"
+            android:layout_marginTop="36dp"
+            android:textSize="18sp"
+            android:layout_marginRight="36dp"
+            android:layout_marginEnd="36dp"
+            android:textStyle="normal|bold"
+            android:layout_below="@+id/toolbar"
+            android:layout_toLeftOf="@+id/textView12"
+            android:layout_toStartOf="@+id/textView12" />
+
+        <TextView
+            android:text="Hour:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_alignBottom="@+id/textView13"
+            android:layout_toRightOf="@+id/prices"
+            android:layout_toEndOf="@+id/prices"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="Hour:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:layout_alignBaseline="@+id/textView14"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_alignLeft="@+id/textView8"
+            android:layout_alignStart="@+id/textView8"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerEnd"
+            android:layout_alignBottom="@+id/textView16"
+            android:layout_alignLeft="@+id/spinnerStart"
+            android:layout_alignStart="@+id/spinnerStart" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:id="@+id/spinnerStart"
+            android:layout_alignTop="@+id/textView8"
             android:layout_toRightOf="@+id/textView8"
             android:layout_toEndOf="@+id/textView8" />
 
-        <Button
-            android:text="Done"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:id="@+id/done"
-            android:layout_marginTop="22dp"
-            android:layout_below="@+id/prices"
-            android:layout_centerHorizontal="true" />
-
         <TextView
-            android:text="From:"
+            android:text="START DATE "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView7"
-            android:layout_below="@+id/textView6"
-            android:layout_toLeftOf="@+id/editFrom"
-            android:layout_toStartOf="@+id/editFrom"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp" />
+            android:id="@+id/startDate"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/textView13"
+            android:layout_toRightOf="@+id/textView13"
+            android:layout_toEndOf="@+id/textView13" />
 
-        <EditText
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editTo"
-            android:layout_below="@+id/editFrom"
-            android:layout_alignLeft="@+id/editFrom"
-            android:layout_alignStart="@+id/editFrom" />
 
     </RelativeLayout>
     <!-- The navigation drawer -->

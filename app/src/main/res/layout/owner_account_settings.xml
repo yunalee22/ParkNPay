@@ -167,7 +167,7 @@
             android:layout_toEndOf="@+id/phone_text" />
 
         <TextView
-            android:text="Email:"
+            android:text="License:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/email_text"

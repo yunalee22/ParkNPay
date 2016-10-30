@@ -10,15 +10,17 @@ import android.widget.ListView;
 
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
+import edu.usc.parknpay.database.User;
 
 public class TemplateActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ArrayAdapter<String> drawerAdapter;
+    private User u;
 
     protected void onCreateDrawer() {
-
+        u = User.getInstance();
         // R.id.drawer_layout should be in every activity with exactly the same id.
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -29,7 +31,14 @@ public class TemplateActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] menuItems = {"Reservations", "History", "Payment", "Settings", "Use App as Owner", "Log Out"};
+        String[] menuItems = {
+                "Reservations",
+                "History",
+                "Payment",
+                "Settings",
+                u.isSeeker() ? "Use App as Owner" : "Use App as Seeker",
+                "Log Out"
+        };
         drawerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems);
         drawerList.setAdapter(drawerAdapter);
     }
@@ -66,11 +75,23 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 4:     // Use App as Owner
                 {
-                    // Swap to owner/seeker
+                    if (u.isSeeker()) {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    }
                     break;
                 }
                 case 5:     // Log Out
                 {
+                    User.setInstance(null);
+                    intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
                     break;
                 }
             }

@@ -41,6 +41,7 @@
         <activity android:name=".seeker.HistoryActivity" />
         <activity android:name=".seeker.ViewSpotActivity" />
         <activity android:name=".seeker.RateActivity" />
+        <activity android:name=".seeker.RatingActivity" />
 
         <!-- Google places integration -->
         <meta-data

@@ -193,41 +193,6 @@
                 android:layout_alignLeft="@+id/notesDes"
                 android:layout_alignStart="@+id/notesDes" />
 
-            <TextView
-                android:text="Cancellation Policy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:id="@+id/cancelTextView"
-                android:textStyle="normal|bold"
-                android:textSize="20sp"
-                android:layout_below="@+id/notesEdit"
-                android:layout_alignLeft="@+id/notesEdit"
-                android:layout_alignStart="@+id/notesEdit" />
-
-            <TextView
-                android:text="Select a reservation cancellation policy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cancelDes"
-                android:textStyle="normal|italic"
-                android:layout_below="@+id/cancelTextView"
-                android:layout_alignLeft="@+id/cancelTextView"
-                android:layout_alignStart="@+id/cancelTextView" />
-
-            <Button
-                android:text="done"
-                android:id="@+id/button"
-                android:layout_width="150dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="12sp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/cancelSpinner"
-                android:onClick="addSpot"
-                android:layout_centerHorizontal="true" />
-
             <Spinner
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -286,6 +251,41 @@
                 android:layout_below="@+id/addressTextView"
                 android:layout_alignRight="@+id/notesEdit"
                 android:layout_alignEnd="@+id/notesEdit" />
+
+            <TextView
+                android:text="Cancellation Policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:id="@+id/cancelTextView"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/notesEdit"
+                android:layout_alignRight="@+id/textView24"
+                android:layout_alignEnd="@+id/textView24" />
+
+            <TextView
+                android:text="Select a reservation cancellation policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancelDes"
+                android:textStyle="normal|italic"
+                android:layout_below="@+id/cancelTextView"
+                android:layout_alignRight="@+id/button"
+                android:layout_alignEnd="@+id/button" />
+
+            <Button
+                android:text="done"
+                android:id="@+id/button"
+                android:layout_width="150dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="12sp"
+                android:layout_height="40dp"
+                android:onClick="addSpot"
+                android:layout_below="@+id/cancelSpinner"
+                android:layout_centerHorizontal="true" />
+
 
 
         </RelativeLayout>

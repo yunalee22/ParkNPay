@@ -15,13 +15,9 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 
-/**
- * Created by Bobo on 10/23/2016.
- */
-
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
-    TextView address, spotType, additionalNotes;
+    TextView address, spotType, additionalNotes, handicapped, cancellationPolicy;
     ListView availabilities;
     RatingBar ratingBar;
 
@@ -40,6 +36,8 @@ public class ViewSpotActivity extends TemplateActivity {
         address.setText(parkingSpot.getAddress());
         additionalNotes.setText(parkingSpot.getDescription());
         spotType.setText(parkingSpot.getSize());
+        cancellationPolicy.setText(parkingSpot.getCancellationPolicy());
+        handicapped.setText(parkingSpot.isHandicapped() ? "Handicapped Spot" : "Not A Handicapped Spot");
         Picasso.with(this)
                 .load(parkingSpot.getPhotoURL())
                 .resize(450, 450)
@@ -63,6 +61,8 @@ public class ViewSpotActivity extends TemplateActivity {
         additionalNotes = (TextView) findViewById(R.id.notes);
         availabilities = (ListView) findViewById(R.id.availabilities);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        handicapped = (TextView) findViewById(R.id.time);
+        cancellationPolicy = (TextView) findViewById(R.id.date);
     }
 
     protected void addListeners() {

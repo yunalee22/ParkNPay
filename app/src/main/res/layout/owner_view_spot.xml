@@ -73,16 +73,6 @@
             android:isIndicator="true"
             android:stepSize="0.1"/>
 
-        <TextView
-            android:text="Parking Spot Type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ratingBar"
-            android:layout_alignLeft="@+id/address"
-            android:layout_alignStart="@+id/address"
-            android:id="@+id/spotType"
-            android:textSize="15sp" />
-
         <ScrollView
             android:id="@+id/scroll"
             android:layout_height="80dp"
@@ -128,7 +118,8 @@
             android:layout_marginTop="9dp"
             android:layout_below="@+id/textView17"
             android:layout_alignLeft="@+id/scroll"
-            android:layout_alignStart="@+id/scroll">
+            android:layout_alignStart="@+id/scroll"
+            android:id="@+id/scrollView2">
 
             <ListView
                 android:layout_width="match_parent"
@@ -137,16 +128,44 @@
                 android:id="@+id/availabilities"/>
         </ScrollView>
 
+        <TextView
+            android:text="Handicapped?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/spotType"
+            android:layout_alignStart="@+id/spotType"
+            android:id="@+id/time" />
+
+        <TextView
+            android:text="Cancellation Policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spotType"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/spotType"
+            android:layout_alignStart="@+id/spotType"
+            android:id="@+id/date" />
+
+        <TextView
+            android:text="Parking Spot Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spotType"
+            android:textSize="15sp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignLeft="@+id/address"
+            android:layout_alignStart="@+id/address" />
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="10dp"
             app:srcCompat="@drawable/add_spot"
             android:id="@+id/addAvail"
-            android:layout_below="@+id/scroll"
-            android:layout_alignRight="@+id/address"
-            android:layout_alignEnd="@+id/address"
-            android:layout_marginTop="8dp" />
+            android:layout_above="@+id/scrollView2"
+            android:layout_alignRight="@+id/scrollView2"
+            android:layout_alignEnd="@+id/scrollView2" />
 
     </RelativeLayout>
     <!-- The navigation drawer -->
