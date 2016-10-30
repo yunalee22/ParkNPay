@@ -7,16 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends TemplateActivity {
 
     private ListView historyList;
     private ArrayList<ParkingSpotPost> history;

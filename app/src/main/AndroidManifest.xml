@@ -18,6 +18,7 @@
         <activity android:name=".authentication.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -41,13 +42,11 @@
         <activity android:name=".seeker.HistoryActivity" />
         <activity android:name=".seeker.ViewSpotActivity" />
         <activity android:name=".seeker.RateActivity" />
-        <activity android:name=".seeker.RatingActivity" />
 
         <!-- Google places integration -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg" />
-
     </application>
 
 </manifest>

@@ -60,8 +60,8 @@ public class SearchFilterActivity extends TemplateActivity {
         Bundle extras = getIntent().getExtras();
         double minPrice = extras.getDouble("minPrice");
         double maxPrice = extras.getDouble("maxPrice");
-        int minOwnerRating = extras.getInt("minOwnerRating");
-        int minSpotRating = extras.getInt("minSpotRating");
+        float minOwnerRating = extras.getFloat("minOwnerRating");
+        float minSpotRating = extras.getFloat("minSpotRating");
         boolean handicapOnly = extras.getBoolean("handicapOnly");
         boolean showNormal = extras.getBoolean("showNormal");
         boolean showCompact = extras.getBoolean("showCompact");
@@ -75,8 +75,8 @@ public class SearchFilterActivity extends TemplateActivity {
         // Set initial values of views
         minPriceField.setText(String.valueOf(minPrice));
         maxPriceField.setText(String.valueOf(maxPrice));
-        ownerRatingBar.setNumStars(minOwnerRating);
-        spotRatingBar.setNumStars(minSpotRating);
+        ownerRatingBar.setRating(minOwnerRating);
+        spotRatingBar.setRating(minSpotRating);
         handicapOnlyCheckbox.setChecked(handicapOnly);
         normalCheckbox.setChecked(showNormal);
         compactCheckbox.setChecked(showCompact);
@@ -100,8 +100,8 @@ public class SearchFilterActivity extends TemplateActivity {
         double minPrice = extras.getDouble("minPrice");
         System.out.println("Min price is " + minPrice);
         double maxPrice = extras.getDouble("maxPrice");
-        int minOwnerRating = extras.getInt("minOwnerRating");
-        int minSpotRating = extras.getInt("minSpotRating");
+        float minOwnerRating = extras.getFloat("minOwnerRating");
+        float minSpotRating = extras.getFloat("minSpotRating");
         boolean handicapOnly = extras.getBoolean("handicapOnly");
         boolean showNormal = extras.getBoolean("showNormal");
         boolean showCompact = extras.getBoolean("showCompact");
@@ -115,8 +115,8 @@ public class SearchFilterActivity extends TemplateActivity {
         // Set initial values of views
         minPriceField.setText(String.valueOf(minPrice));
         maxPriceField.setText(String.valueOf(maxPrice));
-        ownerRatingBar.setNumStars(minOwnerRating);
-        spotRatingBar.setNumStars(minSpotRating);
+        ownerRatingBar.setRating(minOwnerRating);
+        spotRatingBar.setRating(minSpotRating);
         handicapOnlyCheckbox.setChecked(handicapOnly);
         normalCheckbox.setChecked(showNormal);
         compactCheckbox.setChecked(showCompact);
@@ -175,8 +175,8 @@ public class SearchFilterActivity extends TemplateActivity {
                 // Add return data to intent
                 output.putExtra("minPrice", Double.parseDouble(minPriceField.getText().toString()));
                 output.putExtra("maxPrice", Double.parseDouble(maxPriceField.getText().toString()));
-                output.putExtra("minOwnerRating", ownerRatingBar.getNumStars());
-                output.putExtra("minSpotRating", spotRatingBar.getNumStars());
+                output.putExtra("minOwnerRating", ownerRatingBar.getRating());
+                output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
                 output.putExtra("showNormal", normalCheckbox.isChecked());
                 output.putExtra("showCompact", compactCheckbox.isChecked());

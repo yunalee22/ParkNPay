@@ -57,7 +57,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search parameters
     private double minPrice, maxPrice;
-    private int minOwnerRating, minSpotRating;
+    private float minOwnerRating, minSpotRating;
     private boolean handicapOnly;
     private boolean showNormal, showCompact, showSuv, showTruck;
     private String startDate, startTime, endDate, endTime;
@@ -83,8 +83,8 @@ public class SeekerMainActivity extends TemplateActivity {
         // Set default search parameters
         minPrice = 0;
         maxPrice = 100000000;                   // What is the max price?????
-        minOwnerRating = 0;
-        minSpotRating = 0;
+        minOwnerRating = 0.0f;
+        minSpotRating = 0.0f;
         handicapOnly = false;
         showNormal = true;
         showCompact = true;
@@ -233,8 +233,8 @@ public class SeekerMainActivity extends TemplateActivity {
             minPrice = data.getDoubleExtra("minPrice", 0);
             System.out.println("Min price is updated to " + minPrice);
             maxPrice = data.getDoubleExtra("maxPrice", 100000000);                   // What is the max price?????
-            minOwnerRating = data.getIntExtra("minOwnerRating", 0);
-            minSpotRating = data.getIntExtra("minSpotRating", 0);
+            minOwnerRating = data.getFloatExtra("minOwnerRating", 0.0f);
+            minSpotRating = data.getFloatExtra("minSpotRating", 0.0f);
             handicapOnly = data.getBooleanExtra("handicapOnly", false);
             showNormal = data.getBooleanExtra("showNormal", true);
             showCompact = data.getBooleanExtra("showCompact", true);

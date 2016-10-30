@@ -4,10 +4,101 @@
     android:id="@+id/seeker_rate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.usc.parknpay.seeker.RateActivity">
 
+    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbarColor"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Rate Your Experience"
+            android:gravity = "center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/toolbar">
+
+        <ImageView android:id="@+id/parking_spot_image"
+            android:src="@drawable/default_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+
+        <TextView android:id="@+id/address"
+            android:text="Address"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/parking_spot_image"
+            android:layout_alignTop="@id/parking_spot_image"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView android:id="@+id/date_time_range"
+            android:text="Date time range"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/parking_spot_image"
+            android:layout_alignBottom="@id/parking_spot_image"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView android:id="@+id/rate_spot_label"
+            android:text="Rate the parking spot"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/parking_spot_image"
+            android:layout_marginTop="50dp"/>
+
+        <RatingBar android:id="@+id/spot_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rate_spot_label"
+            android:layout_marginTop="10dp"/>
+
+        <TextView android:id="@+id/rate_owner_label"
+            android:text="Rate the spot owner"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/spot_rating_bar"
+            android:layout_marginTop="40dp"/>
+
+        <RatingBar android:id="@+id/owner_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rate_owner_label"
+            android:layout_marginTop="10dp"/>
+
+        <Button android:id="@+id/submit_button"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/owner_rating_bar"
+            android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
 </RelativeLayout>
