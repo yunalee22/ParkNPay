@@ -1,31 +1,34 @@
 package edu.usc.parknpay.owner;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 
-/**
- * Created by Bobo on 10/22/2016.
- */
-
 public class AddAvailabilityActivity extends TemplateActivity {
-    CalendarView calendar;
-    Spinner from, to;
-    EditText editFrom, editTo, prices;
+    TextView startDate, endDate;
+    EditText prices;
     Button doneButton;
-    String date;
+    Spinner cancellationSpinner, endSpinner, startSpinner;
+    Calendar startCalendar;
+    Calendar endCalendar;
+    DatePickerDialog.OnDateSetListener dateStart, dateEnd;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,79 +38,75 @@ public class AddAvailabilityActivity extends TemplateActivity {
         initializeEdits();
         setSpinners();
         addListeners();
+
     }
 
     protected void initializeEdits() {
-        calendar = (CalendarView) findViewById(R.id.calendar);
-        from = (Spinner) findViewById(R.id.spinnerFrom);
-        to = (Spinner) findViewById(R.id.spinnerTo);
-        editFrom = (EditText) findViewById(R.id.editFrom);
-        editTo = (EditText) findViewById(R.id.editTo);
+        startCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
+        cancellationSpinner = (Spinner) findViewById(R.id.cancelSpinner);
+        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
+        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
         prices = (EditText) findViewById(R.id.prices);
         doneButton = (Button) findViewById(R.id.done);
+        startDate = (TextView) findViewById(R.id.startDate);
+        updateLabel("start");
+        endDate = (TextView) findViewById(R.id.endDate);
+        updateLabel("end");
     }
 
-    protected void setSpinners() {
-        List<String> fromArray =  new ArrayList<>();
-        fromArray.add("AM");
-        fromArray.add("PM");
-        ArrayAdapter<String> fromAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, fromArray);
-        fromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        from.setAdapter(fromAdapter);
-
-        List<String> toArray =  new ArrayList<>();
-        toArray.add("AM");
-        toArray.add("PM");
-        ArrayAdapter<String> toAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, fromArray);
-        toAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        to.setAdapter(toAdapter);
-    }
 
     protected void addListeners () {
+        dateStart = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                startCalendar.set(Calendar.YEAR, year);
+                startCalendar.set(Calendar.MONTH, monthOfYear);
+                startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                updateLabel("start");
+            }
+
+        };
+        dateEnd = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                endCalendar.set(Calendar.YEAR, year);
+                endCalendar.set(Calendar.MONTH, monthOfYear);
+                endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel("end");
+            }
+
+        };
         doneButton.setOnClickListener(new View.OnClickListener() {
             //Submitting all the data that user entered for parking spot here.
             @Override
             public void onClick(View arg0) {
-                //checking inputs
-
-
-                //grabbing all the values from the inputs (if all inputs are valid)
-                int fromFinal;
-                int toFinal;
                 int priceFinal;
-
+                String startString, endString;
+                String cancellation;
                 //checking if input is numerical
                 try {
-                    fromFinal = Integer.parseInt(editFrom.getText().toString());
-                    toFinal = Integer.parseInt(editTo.getText().toString());
                     priceFinal = Integer.parseInt(prices.getText().toString());
                 } catch (NumberFormatException e) {
                     //error message for bad format input
                     return;
                 }
-                if (fromFinal < 0 || fromFinal >12 ||
-                        toFinal < 0 || toFinal > 12 ||
-                        priceFinal < 0 || priceFinal >12 ) {
-                    //error message for bad input out of range
+                if(priceFinal < 0) {
+                    //error for negative number
                     return;
                 }
-                int tempFrom = 0, tempTo = 0;
-                String fromTimeFinal = from.getSelectedItem().toString();
-                String toTimeFinal = to.getSelectedItem().toString();
-                if(fromTimeFinal == "PM")
-                    tempFrom = fromFinal +12;
-                if(toTimeFinal == "PM")
-                    tempTo = toFinal +12;
-                if(tempFrom > tempTo)
-                    //invalid time range
-                    return;
 
-
+                startString = startDate.getText().toString() + "T" + startSpinner.getSelectedItem().toString() + ":00-7:00";
+                endString = endDate.getText().toString() + "T" + endSpinner.getSelectedItem().toString() + ":00-7:00";
+                cancellation = cancellationSpinner.getSelectedItem().toString();
                 //should be sending to database here
-                //int tempFrom is military time for the first time value
-                //int tempTo is military time for the second time value
                 //String date is the date on the calendar in iso-8601
                 //int priceFinal is price for the reservation
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
@@ -118,19 +117,60 @@ public class AddAvailabilityActivity extends TemplateActivity {
 
         });
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        startDate.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                String m = String.valueOf(month+1);
-                if(month<9)
-                    m = "0" + m;
-                String d = String.valueOf(dayOfMonth);
-                if(dayOfMonth<10)
-                    d = "0" + d;
-                date = String.valueOf(year) + "-" + m + "-" + d;
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(AddAvailabilityActivity.this, dateStart, startCalendar
+                        .get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
+                        startCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        endDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(AddAvailabilityActivity.this, dateEnd, endCalendar
+                        .get(Calendar.YEAR), endCalendar.get(Calendar.MONTH),
+                        endCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+    }
+
+    private void updateLabel(String end) {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        if(end == "end")
+            endDate.setText(sdf.format(endCalendar.getTime()));
+        else
+            startDate.setText(sdf.format(startCalendar.getTime()));
+    }
+
+    protected void setSpinners() {
+        List<String> cancelSpinner =  new ArrayList<>();
+        cancelSpinner.add("Cancellation Policy 1");
+        cancelSpinner.add("Cancellation Policy 2");
+        cancelSpinner.add("Cancellation Policy 3");
+        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, cancelSpinner);
+        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cancellationSpinner.setAdapter(sizeAdapter);
+        List<String> timeSpinner =  new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            if(i <10)
+                timeSpinner.add("0"+Integer.toString(i));
+            else
+                timeSpinner.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, timeSpinner);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endSpinner.setAdapter(timeAdapter);
+        startSpinner.setAdapter(timeAdapter);
+
     }
 
     protected void toolbarSetup() {

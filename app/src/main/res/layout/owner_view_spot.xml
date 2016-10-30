@@ -73,16 +73,6 @@
             android:isIndicator="true"
             android:stepSize="0.1"/>
 
-        <TextView
-            android:text="Parking Spot Type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ratingBar"
-            android:layout_alignLeft="@+id/address"
-            android:layout_alignStart="@+id/address"
-            android:id="@+id/spotType"
-            android:textSize="15sp" />
-
         <ScrollView
             android:id="@+id/scroll"
             android:layout_height="80dp"
@@ -147,6 +137,36 @@
             android:layout_alignRight="@+id/address"
             android:layout_alignEnd="@+id/address"
             android:layout_marginTop="8dp" />
+
+        <TextView
+            android:text="Handicapped?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/spotType"
+            android:layout_alignStart="@+id/spotType"
+            android:id="@+id/time" />
+
+        <TextView
+            android:text="Cancellation Policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spotType"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/spotType"
+            android:layout_alignStart="@+id/spotType"
+            android:id="@+id/date" />
+
+        <TextView
+            android:text="Parking Spot Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spotType"
+            android:textSize="15sp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignLeft="@+id/address"
+            android:layout_alignStart="@+id/address" />
 
     </RelativeLayout>
     <!-- The navigation drawer -->
