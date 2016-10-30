@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,10 @@ public class AddSpotActivity extends TemplateActivity {
         cancel = (Spinner) findViewById(R.id.cancelSpinner);
         doneButton = (Button) findViewById(R.id.button);
         parkingSpotPhoto = (ImageView) findViewById(R.id.spotPhoto);
+        // Clear the photo
+        Picasso.with(AddSpotActivity.this)
+                .load(R.drawable.add_photo)
+                .into(parkingSpotPhoto);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {

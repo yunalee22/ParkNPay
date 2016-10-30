@@ -36,6 +36,8 @@ public class ViewSpotActivity extends TemplateActivity {
         address.setText(parkingSpot.getAddress());
         additionalNotes.setText(parkingSpot.getDescription());
         spotType.setText(parkingSpot.getSize());
+        cancellationPolicy.setText(parkingSpot.getCancellationPolicy());
+        handicapped.setText(parkingSpot.isHandicapped() ? "Handicapped Spot" : "Not A Handicapped Spot");
         Picasso.with(this)
                 .load(parkingSpot.getPhotoURL())
                 .resize(450, 450)
