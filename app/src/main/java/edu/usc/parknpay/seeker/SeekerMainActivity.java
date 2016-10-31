@@ -24,6 +24,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -156,6 +157,8 @@ public class SeekerMainActivity extends TemplateActivity {
                                 if(postSize >= size && post.isHandicap() == handicapOnly) {
                                     if(post.getOwnerRating() >= minOwnerRating) {
                                         System.out.println("Got spot: " + post.getAddress());
+                                        searchResults.add(post);
+                                        searchResultsAdapter.notifyDataSetChanged();
                                     }
                                 }
                             }
@@ -275,13 +278,16 @@ public class SeekerMainActivity extends TemplateActivity {
             // Set image
             ImageView spotImageView = (ImageView) convertView.findViewById(R.id.image);
             spotImageView.setImageResource(0);
-//TODO: @tiff
-//            Picasso.with(getContext())
-//                    .load(/*TIFF ADD parkingSpotPost.getPhotoUrl HERE*/)
-//                    .placeholder(R.drawable.progress_animation)
-//                    .resize(150, 150)
-//                    .centerCrop()
-//                    .into(spotImageView);
+
+            Picasso.with(getContext())
+                    .load(parkingSpotPost.getPhotoUrl())
+                    .placeholder(R.drawable.progress_animation)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(spotImageView);
+
+            // @TODO: Avery fix pls
+            System.out.println("PHOTO URL: " + parkingSpotPost.getPhotoUrl());
             // Set Address
             TextView addrText = (TextView) convertView.findViewById(R.id.address);
             addrText.setText(parkingSpotPost.getAddress());
