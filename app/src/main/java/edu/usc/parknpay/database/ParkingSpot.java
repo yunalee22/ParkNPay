@@ -36,6 +36,20 @@ public class ParkingSpot implements Serializable{
         this.cancellationPolicy = cancellationPolicy;
     }
 
+    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
+                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy,
+                       @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude) {
+        this.ownerUserId = ownerUserId;
+        this.address = address;
+        this.size = size;
+        this.rating = rating;
+        this.isHandicapped = isHandicapped;
+        this.description = description;
+        this.cancellationPolicy = cancellationPolicy;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -117,5 +131,21 @@ public class ParkingSpot implements Serializable{
 
     public String getPhotoURL() {
         return photoURL;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

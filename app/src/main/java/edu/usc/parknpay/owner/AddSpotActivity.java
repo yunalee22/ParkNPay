@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,6 +54,7 @@ public class AddSpotActivity extends TemplateActivity {
     ParkingSpot spot;
     DatabaseReference Ref;
     String address;
+    double latitude, longitude;
     // Search autocomplete text field
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
@@ -71,6 +73,8 @@ public class AddSpotActivity extends TemplateActivity {
 
         //address bar stuff
 
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         // Add search text field and geocoder
         coder = new Geocoder(this);
         autocompleteFragment.setHint("Enter an address");
@@ -78,8 +82,6 @@ public class AddSpotActivity extends TemplateActivity {
                 new LatLng(34.0224, -118.2851),
                 new LatLng(34.0224, -118.2851)
         ));
-
-
 
     }
     @Override
@@ -159,9 +161,13 @@ public class AddSpotActivity extends TemplateActivity {
             Toast.makeText(AddSpotActivity.this, "Please upload a photo.", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (address == null) {
+            Toast.makeText(AddSpotActivity.this, "Please enter an address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //address string should hold the address typed into the google search bar
-        String notesFinal = notes.getText().toString();
+        String notesFinal = notes.getText().toString().trim();
         String sizeFinal = size.getSelectedItem().toString();
         String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
@@ -172,7 +178,7 @@ public class AddSpotActivity extends TemplateActivity {
 
 
         // Create parking spot
-        spot = new ParkingSpot(userId, "address-here", sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
+        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal, latitude, longitude);
         spot.setParkingId(parkingSpotID);
 
         // handle image
@@ -216,10 +222,17 @@ public class AddSpotActivity extends TemplateActivity {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-
-                Log.i(LOG_TAG, "Place Selected: " + place.getName());
                 address = place.getName().toString();
 
+                List<Address> addr;
+                try {
+                    addr = coder.getFromLocationName(address, 5);
+                    Address location = addr.get(0);
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onError(Status status) {
