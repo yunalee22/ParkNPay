@@ -25,11 +25,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
@@ -60,10 +63,9 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search parameters
     private double minPrice, maxPrice;
-    private float minOwnerRating, minSpotRating;
-    private boolean handicapOnly;
-    private boolean showNormal, showCompact, showSuv, showTruck;
-    private String startDate, startTime, endDate, endTime;
+    private float minOwnerRating, minSpotRating, size;
+    private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
+    private String address, startDate, startTime, endDate, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,56 +118,63 @@ public class SeekerMainActivity extends TemplateActivity {
         addListeners();
     }
 
-
-    private void executeSearch(String address, final double latitude, final double longitude) {
+    private void executeSearch() {
 
         searchResults.clear();
 
-        System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
+        System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
-        // TODO: YUNA: Set these variables as well as filters?
-        final double sLatitude = 34.0224;
-        final double sLongitude = 118.2851;
-        final String sStartTime = "1997-07-16T19:20+01:00";
-        final String sEndTime = "1997-07-16T19:25+01:00";
-        // filters?
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
 
-        // TODO: Show error popup if bad input?
-        if(sStartTime.compareTo(sEndTime) > 0) {
-            System.out.println("Start time is later than end time");
-        }
+        try {
+            Date date = df.parse(startDate + " " + startTime);
+            final String sStartTime = df.format(date);
+            date = df.parse(endDate + " " + endTime);
+            final String sEndTime = df.format(date);
 
-        DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
-        browseRef.orderByChild("startTime").equalTo(sStartTime).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+            // TODO: Show error popup if bad input?
+            if(startTime.compareTo(endTime) > 0 || startDate.compareTo(endDate) > 0) {
+                System.out.println("Start time is later than end time");
+            }
 
-                ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-                // check end time
-                System.out.println("Found with start time");
+            DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
+            browseRef.orderByChild("startTime").startAt(sStartTime).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
 
-                if(sEndTime.compareTo(post.getEndTime()) <= 0) {
-                    // check distance
-                    System.out.println("Found with end time");
-                    // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
-                    double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
-                    if(distance < RADIUS_LIMIT) {
-                        // TODO: check filters
-                        // if(insert filters)
-                            // display dynamically
-                        System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
+                    ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
+                    // check end time
+                    if(sEndTime.compareTo(post.getEndTime()) <= 0) {
+                        // check distance
+                        double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
+                        if(distance < RADIUS_LIMIT) {
+                            if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                int postSize = Utility.convertSize(post.getSize());
+                                if(postSize >= size && post.isHandicap() == handicapOnly) {
+                                    if(post.getOwnerRating() >= minOwnerRating) {
+                                        System.out.println("Got spot: " + post.getAddress());
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            @Override
-            public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-            @Override
-            public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
-            @Override
-            public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
+                @Override
+                public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+                @Override
+                public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
+                @Override
+                public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
             });
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addListeners() {
@@ -204,15 +213,16 @@ public class SeekerMainActivity extends TemplateActivity {
 
                 Log.i(LOG_TAG, "Place Selected: " + place.getName());
                 List<Address> addressInfo;
-                String address = place.getName().toString();
 
                 try {
+                    address = place.getName().toString();
                     addressInfo = coder.getFromLocationName(address, 5);
                     Address location = addressInfo.get(0);
+
                     // Store into variables that are used later
                     adapterLatitude = location.getLatitude();
                     adapterLongitude = location.getLongitude();
-                    executeSearch(address, adapterLatitude, adapterLongitude);
+                    executeSearch();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -244,6 +254,7 @@ public class SeekerMainActivity extends TemplateActivity {
             startTime = data.getStringExtra("startTime");
             endDate = data.getStringExtra("endDate");
             endTime = data.getStringExtra("endTime");
+            executeSearch();
         }
     }
 
@@ -284,7 +295,7 @@ public class SeekerMainActivity extends TemplateActivity {
             sizeText.setText(parkingSpotPost.getSize());
 
             // Set Handicap (hide if not handicap)
-            if (!parkingSpotPost.getIsHandicap())
+            if (!parkingSpotPost.isHandicap())
             {
                 TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
                 handiText.setVisibility(View.GONE);

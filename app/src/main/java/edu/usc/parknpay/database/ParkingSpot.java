@@ -22,18 +22,18 @@ public class ParkingSpot implements Serializable{
     private String parkingId;
     private String photoURL;
 
-    public ParkingSpot() {
-    }
+    public enum Size {
+        Compact(0), Normal(1), Suv(2), Truck(3);
+        private final int value;
+        private Size(int value) {
+            this.value = value;
+        }
+        public int getValue() {
+            return value;
+        }
+    };
 
-    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy) {
-        this.ownerUserId = ownerUserId;
-        this.address = address;
-        this.size = size;
-        this.rating = rating;
-        this.isHandicapped = isHandicapped;
-        this.description = description;
-        this.cancellationPolicy = cancellationPolicy;
+    public ParkingSpot() {
     }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,

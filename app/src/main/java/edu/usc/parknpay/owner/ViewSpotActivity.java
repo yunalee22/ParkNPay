@@ -21,6 +21,7 @@ public class ViewSpotActivity extends TemplateActivity {
     TextView address, spotType, additionalNotes, handicapped, cancellationPolicy;
     ListView availabilities;
     RatingBar ratingBar;
+    ParkingSpot parkingSpot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class ViewSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
 
-        ParkingSpot parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
+        parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
 
         // Set values from passed in parking spot
         address.setText(parkingSpot.getAddress());
@@ -81,6 +82,7 @@ public class ViewSpotActivity extends TemplateActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(getApplicationContext(), AddAvailabilityActivity.class);
+                intent.putExtra("parkingSpot", parkingSpot);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }

@@ -42,6 +42,7 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.Utility;
 
 public class AddSpotActivity extends TemplateActivity {
 

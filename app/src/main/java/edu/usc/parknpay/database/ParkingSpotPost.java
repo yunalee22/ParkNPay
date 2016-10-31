@@ -12,18 +12,19 @@ public class ParkingSpotPost {
     private String startTime, endTime;
     private double latitude, longitude;
     private double price;
-    private int size;
-    private int cancellationPolicy;
+    private String size;
+    private String cancellationPolicy;
     private boolean isHandicap;
+    private double ownerRating;
     private String address;
+    private String photoUrl;
 
     public ParkingSpotPost() {
     }
 
-    public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
-                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") int size, @JsonProperty("cancellationPolicy") int cancellationPolicy, @JsonProperty("isHandicap") boolean isHandicap,
-                           @JsonProperty("address") String address
-    )
+    public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("address") String address, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
+                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") String size, @JsonProperty("cancellationPolicy") String cancellationPolicy,
+                           @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating, @JsonProperty("photoUrl") String photoUrl)
     {
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
@@ -35,15 +36,16 @@ public class ParkingSpotPost {
         this.size = size;
         this.cancellationPolicy = cancellationPolicy;
         this.isHandicap = isHandicap;
+        this.ownerRating = ownerRating;
         this.address = address;
     }
 
 
-    public int getCancellationPolicy() {
+    public String getCancellationPolicy() {
         return cancellationPolicy;
     }
 
-    public void setCancellationPolicy(int cancellationPolicy) {
+    public void setCancellationPolicy(String cancellationPolicy) {
         this.cancellationPolicy = cancellationPolicy;
     }
 
@@ -55,11 +57,11 @@ public class ParkingSpotPost {
         this.endTime = endTime;
     }
 
-    public boolean getIsHandicap() {
+    public boolean isHandicap() {
         return isHandicap;
     }
 
-    public void setIsHandicap(boolean handicap) {
+    public void setHandicap(boolean handicap) {
         isHandicap = handicap;
     }
 
@@ -103,11 +105,11 @@ public class ParkingSpotPost {
         this.price = price;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -117,6 +119,14 @@ public class ParkingSpotPost {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public double getOwnerRating() {
+        return ownerRating;
+    }
+
+    public void setOwnerRating(double ownerRating) {
+        this.ownerRating = ownerRating;
     }
 
     @Override
@@ -130,6 +140,14 @@ public class ParkingSpotPost {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
 }
