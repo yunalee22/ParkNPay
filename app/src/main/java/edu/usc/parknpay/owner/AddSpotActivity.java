@@ -71,6 +71,8 @@ public class AddSpotActivity extends TemplateActivity {
         getSupportActionBar().setTitle("Add a Space");
     }
 
+
+
     protected void initializeEdits() {
         street = (EditText) findViewById(R.id.streetEdit);
         city = (EditText) findViewById(R.id.cityEdit);

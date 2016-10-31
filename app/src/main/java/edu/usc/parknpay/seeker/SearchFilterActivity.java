@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,6 +41,7 @@ public class SearchFilterActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_search_filter);
+        toolbarSetup();
 
         // Get references to UI views
         minPriceField = (EditText) findViewById(R.id.min_price_field);
@@ -89,6 +92,22 @@ public class SearchFilterActivity extends TemplateActivity {
 
         // Add view listeners
         addListeners();
+    }
+
+    protected void toolbarSetup() {
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 
     @Override

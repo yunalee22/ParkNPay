@@ -3,7 +3,9 @@ package edu.usc.parknpay.seeker;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,6 +28,8 @@ public class HistoryActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_history);
+        super.onCreateDrawer();
+        toolbarSetup();
 
         // Get references to UI views
         historyList = (ListView) findViewById(R.id.history_list);
@@ -35,6 +39,21 @@ public class HistoryActivity extends TemplateActivity {
         history = new ArrayList<ParkingSpotPost>();
         historyListAdapter = new HistoryListAdapter(HistoryActivity.this, history);
         historyList.setAdapter(historyListAdapter);
+    }
+
+    protected void toolbarSetup() {
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 
     // Call this function to update the history view

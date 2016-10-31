@@ -9,7 +9,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,9 +22,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
 
-public class ReservationsActivity extends AppCompatActivity {
+public class ReservationsActivity extends TemplateActivity {
 
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
@@ -34,6 +37,8 @@ public class ReservationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_reservations);
+        super.onCreateDrawer();
+        toolbarSetup();
 
         // Get references to UI views
         reservationsList = (ListView) findViewById(R.id.reservations_list);
@@ -43,7 +48,21 @@ public class ReservationsActivity extends AppCompatActivity {
         reservationsListAdapter = new ReservationsListAdapter(ReservationsActivity.this, reservations);
         reservationsList.setAdapter(reservationsListAdapter);
     }
+    protected void toolbarSetup() {
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
+    }
     // Call this function to update the reservations view
     private void loadReservations(ArrayList<ParkingSpotPost> reservations) {
 

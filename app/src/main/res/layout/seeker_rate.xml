@@ -1,104 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/seeker_rate"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.usc.parknpay.seeker.RateActivity">
+    android:background="#FFFFFF"
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/toolbarColor"
+        android:background="?attr/colorAccent"
         android:theme="?attr/actionBarTheme"
-        android:minHeight="?attr/actionBarSize">
-
-        <TextView android:id="@+id/toolbar_title"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/toolbar" >
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Rate Your Experience"
+            android:text="Rate your experience"
             android:gravity = "center"
+            android:id="@+id/toolbar_title"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:fontFamily="sans-serif-smallcaps"
+            android:textStyle="normal|bold" />
 
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        app:srcCompat="@drawable/default_pic"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp" />
+
+    <TextView
+        android:text="Address goes here"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_below="@id/toolbar">
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:id="@+id/address"
+        android:layout_width="190dp"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:textStyle="normal|bold" />
 
-        <ImageView android:id="@+id/parking_spot_image"
-            android:src="@drawable/default_pic"
-            android:layout_width="70dp"
-            android:layout_height="70dp"/>
 
-        <TextView android:id="@+id/address"
-            android:text="Address"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/parking_spot_image"
-            android:layout_alignTop="@id/parking_spot_image"
-            android:layout_marginLeft="20dp"/>
+    <TextView
+        android:text="Rate this parking spot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:id="@+id/textView6" />
 
-        <TextView android:id="@+id/date_time_range"
-            android:text="Date time range"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/parking_spot_image"
-            android:layout_alignBottom="@id/parking_spot_image"
-            android:layout_marginLeft="20dp"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:stepSize="1"
+        android:layout_marginTop="15dp"
+        android:id="@+id/ratingBarSpot" />
 
-        <TextView android:id="@+id/rate_spot_label"
-            android:text="Rate the parking spot"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/parking_spot_image"
-            android:layout_marginTop="50dp"/>
+    <TextView
+        android:text="Rate this owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingBarSpot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:id="@+id/textView19" />
 
-        <RatingBar android:id="@+id/spot_rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/rate_spot_label"
-            android:layout_marginTop="10dp"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/ratingBarOwner"
+        android:numStars="5"
+        android:stepSize="1"
+        android:layout_below="@+id/textView19"
+        android:layout_alignLeft="@+id/ratingBarSpot"
+        android:layout_alignStart="@+id/ratingBarSpot" />
 
-        <TextView android:id="@+id/rate_owner_label"
-            android:text="Rate the spot owner"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/spot_rating_bar"
-            android:layout_marginTop="40dp"/>
+    <Button
+        android:text="submit"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/ratingBarOwner"
+        android:layout_alignRight="@+id/date"
+        android:layout_alignEnd="@+id/date"
+        android:layout_marginTop="30dp"
+        android:id="@+id/button"
+        android:layout_height="40dp" />
 
-        <RatingBar android:id="@+id/owner_rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/rate_owner_label"
-            android:layout_marginTop="10dp"/>
+    <TextView
+        android:text="2PM - 5PM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:textSize="16sp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignLeft="@+id/date"
+        android:layout_alignStart="@+id/date" />
 
-        <Button android:id="@+id/submit_button"
-            android:text="Submit"
-            android:textAllCaps="false"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/owner_rating_bar"
-            android:layout_marginTop="50dp"/>
+    <TextView
+        android:text="12/12/16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:textSize="16sp"
+        android:layout_above="@+id/time"
+        android:layout_alignLeft="@+id/address"
+        android:layout_alignStart="@+id/address"
+        android:layout_marginBottom="8dp" />
 
-    </RelativeLayout>
 </RelativeLayout>

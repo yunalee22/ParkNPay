@@ -32,7 +32,7 @@
         </android.support.v7.widget.Toolbar>
 
         <ImageView
-            app:srcCompat="@drawable/test_pic"
+            app:srcCompat="@drawable/default_pic"
             android:id="@+id/imageView"
             android:layout_below="@+id/toolbar"
             android:layout_alignParentLeft="true"
@@ -166,6 +166,9 @@
             android:layout_above="@+id/scrollView2"
             android:layout_alignRight="@+id/scrollView2"
             android:layout_alignEnd="@+id/scrollView2" />
+
+
+
 
     </RelativeLayout>
     <!-- The navigation drawer -->

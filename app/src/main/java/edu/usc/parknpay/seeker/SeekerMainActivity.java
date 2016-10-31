@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class SeekerMainActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_main);
+        super.onCreateDrawer();
 
         // Get references to UI views
         filterButton = (ImageView) findViewById(R.id.filter_button);
@@ -111,6 +113,7 @@ public class SeekerMainActivity extends TemplateActivity {
         // Add view listeners
         addListeners();
     }
+
 
     private void executeSearch(String address, final double latitude, final double longitude) {
 
