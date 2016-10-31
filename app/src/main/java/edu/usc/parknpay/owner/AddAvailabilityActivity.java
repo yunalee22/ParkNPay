@@ -128,8 +128,9 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
 
-                startString = startDate.getText().toString() + " " + startSpinner.getSelectedItem().toString();
-                endString = endDate.getText().toString() + " " + endSpinner.getSelectedItem().toString();
+                startString = startDate.getText().toString() + " " + startSpinner.getSelectedItem().toString() + ":00";
+                endString = endDate.getText().toString() + " " + endSpinner.getSelectedItem().toString() + ":00";
+
                 Date date1, date2;
                 try {
                     date1 = df.parse(startString);
@@ -139,6 +140,15 @@ public class AddAvailabilityActivity extends TemplateActivity {
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    final String startTime =  df.format(date1);
+                    final String endTIme = df.format(date2);
+
+                    System.out.println("OWNER START STRING 1: "+ startTime);
+                    System.out.println("OWNER END STRING 1: "+ endTIme);
+
+
+
                 } catch(ParseException e) {
                     //Exception handling
                     Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
@@ -155,10 +165,11 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 String postId = UUID.randomUUID().toString();
 
                 DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-/*
-                ParkingSpotPost post = new ParkingSpotPost(User.getInstance().getId(), parkingSpot.getParkingId(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
-                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating());
-                Ref.child("Browse").child(postId).setValue(post); */
+
+                ParkingSpotPost post = new ParkingSpotPost(User.getInstance().getId(), parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
+                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating(), parkingSpot.getPhotoURL());
+
+                Ref.child("Browse").child(postId).setValue(post);
 
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

@@ -37,17 +37,6 @@ public class ParkingSpot implements Serializable{
     }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy) {
-        this.ownerUserId = ownerUserId;
-        this.address = address;
-        this.size = size;
-        this.rating = rating;
-        this.isHandicapped = isHandicapped;
-        this.description = description;
-        this.cancellationPolicy = cancellationPolicy;
-    }
-
-    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
                        @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy,
                        @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude) {
         this.ownerUserId = ownerUserId;

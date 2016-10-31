@@ -18,6 +18,13 @@ public class Utility {
         return -1;
     }
 
+    public static int convertSize(String sizeName) {
+        if(sizeName.equals("Truck")) return ParkingSpot.Size.Truck.getValue(); // 3
+        else if(sizeName.equals("SUV")) return ParkingSpot.Size.Suv.getValue(); // 2
+        else if(sizeName.equals("Normal")) return ParkingSpot.Size.Normal.getValue(); // 1
+        else if(sizeName.equals("Compact")) return ParkingSpot.Size.Compact.getValue(); // 0
+        return -1;
+    }
 
  /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /*::                                                                         :*/

@@ -130,12 +130,10 @@ public class SeekerMainActivity extends TemplateActivity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
         try {
-            Date date = sdf.parse(startDate + " " + startTime);
+            Date date = df.parse(startDate + " " + startTime);
             final String sStartTime = df.format(date);
-            date = sdf.parse(endDate + " " + endTime);
+            date = df.parse(endDate + " " + endTime);
             final String sEndTime = df.format(date);
             System.out.println("START DATE: " + sStartTime);
             System.out.println("END TIME: " + sEndTime);
@@ -161,9 +159,17 @@ public class SeekerMainActivity extends TemplateActivity {
                         double distance = Utility.distance(latitude, longitude, post.getLatitude(), post.getLongitude(), "M");
                         if(distance < RADIUS_LIMIT) {
                             // TODO: check filters
+                            System.out.println("WITHIN RADIUS");
                             if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                System.out.println("WITHIN PRICE");
                                 int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
-                                if(post.getSize() >= size && post.isHandicap() == handicapOnly) {
+                                int postSize = Utility.convertSize(post.getSize());
+
+                                System.out.println("MY SIZE: " + size);
+                                System.out.println("POST SIZE: "+ postSize);
+
+                                if(postSize >= size && post.isHandicap() == handicapOnly) {
+                                    System.out.println("WITHIN SIZE");
                                     if(post.getOwnerRating() >= minOwnerRating) {
                                         System.out.println("SHOWING SPOT: " + post.getParkingSpotId());
                                     }
@@ -234,7 +240,6 @@ public class SeekerMainActivity extends TemplateActivity {
 
                 Log.i(LOG_TAG, "Place Selected: " + place.getName());
                 List<Address> addressInfo;
-                String address = place.getName().toString();
 
                 try {
                     address = place.getName().toString();
