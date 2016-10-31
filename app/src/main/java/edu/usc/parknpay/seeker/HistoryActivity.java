@@ -1,10 +1,12 @@
 package edu.usc.parknpay.seeker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -45,7 +47,7 @@ public class HistoryActivity extends TemplateActivity {
         history = new ArrayList<Transaction>();
         historyListAdapter = new HistoryListAdapter(HistoryActivity.this, history);
         historyList.setAdapter(historyListAdapter);
-        
+
         String userId = User.getInstance().getId();
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
         Ref.child("Transactions").orderByChild("seekerId").equalTo(userId).addValueEventListener(new ValueEventListener() {
@@ -62,6 +64,19 @@ public class HistoryActivity extends TemplateActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        historyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Transaction t = history.get(position);
+                if(!t.isRated()) {
+                    Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.RateActivity.class);
+                    intent.putExtra("transaction", t);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
+            }
         });
     }
 
@@ -115,6 +130,11 @@ public class HistoryActivity extends TemplateActivity {
 
             TextView ownerText = (TextView) convertView.findViewById(R.id.history_ownerr);
             ownerText.setText(transaction.getOwnerName());
+
+            if(transaction.isRated()) {
+                TextView rateText = (TextView) convertView.findViewById(R.id.history_rate);
+                rateText.setVisibility(View.GONE);
+            }
 
             return convertView;
         }
