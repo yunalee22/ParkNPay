@@ -124,8 +124,8 @@
             android:textSize="19sp"
             android:layout_marginTop="34dp"
             android:layout_below="@+id/endDate"
-            android:layout_alignRight="@+id/textView13"
-            android:layout_alignEnd="@+id/textView13"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignStart="@+id/textView13"
             android:textStyle="normal|bold" />
 
         <TextView

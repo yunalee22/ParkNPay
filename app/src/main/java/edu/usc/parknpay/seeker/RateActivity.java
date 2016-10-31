@@ -52,8 +52,8 @@ public class RateActivity extends AppCompatActivity {
     protected void initializeEdits() {
         spotPhoto = (ImageView) findViewById(R.id.imageView);
         address = (TextView) findViewById(R.id.address);
-        spotRatingBar = (RatingBar) findViewById(R.id.ratingBarSpot);
-        ownerRatingBar = (RatingBar) findViewById(R.id.ratingBarOwner);
+        spotRatingBar = (RatingBar) findViewById(R.id.ratingBarOwner);
+        ownerRatingBar = (RatingBar) findViewById(R.id.ratingBarSpot);
         time = (TextView) findViewById(R.id.time);
         date = (TextView) findViewById(R.id.date);
         doneButton = (Button) findViewById(R.id.button);

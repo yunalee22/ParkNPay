@@ -12,14 +12,19 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
+import edu.usc.parknpay.database.ParkingSpotPost;
 
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
     TextView address, spotType, additionalNotes, handicapped, cancellationPolicy;
     ListView availabilities;
+    private ArrayList<ParkingSpotPost> availabilitiesList;
+    private AddAvailabilityAdapter availabilityListAdapter;
     RatingBar ratingBar;
     ParkingSpot parkingSpot;
 
@@ -34,6 +39,11 @@ public class ViewSpotActivity extends TemplateActivity {
 
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
 
+        //availabilites
+        availabilitiesList = new ArrayList<ParkingSpotPost>();
+        availabilityListAdapter = new AddAvailabilityAdapter(ViewSpotActivity.this, availabilitiesList);
+        availabilities.setAdapter(availabilityListAdapter);
+
         // Set values from passed in parking spot
         address.setText(parkingSpot.getAddress());
         additionalNotes.setText(parkingSpot.getDescription());
@@ -45,7 +55,15 @@ public class ViewSpotActivity extends TemplateActivity {
                 .resize(450, 450)
                 .centerCrop()
                 .into(spotPhoto);
-        ratingBar.setNumStars((int) parkingSpot.getRating()); // not working?
+        ratingBar.setRating((float) parkingSpot.getRating());
+    }
+
+    // Call this function to update the availabilites view
+    private void loadReservations(ArrayList<ParkingSpotPost> avails) {
+
+        availabilityListAdapter.clear();
+        availabilityListAdapter.addAll(avails);
+        availabilityListAdapter.notifyDataSetChanged();
     }
 
     protected void toolbarSetup() {

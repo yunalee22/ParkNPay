@@ -146,15 +146,6 @@ public class AddSpotActivity extends TemplateActivity {
                 this, android.R.layout.simple_spinner_item, sizeArray);
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         size.setAdapter(sizeAdapter);
-
-        List<String> cancelArray =  new ArrayList<>();
-        cancelArray.add("Policy 1");
-        cancelArray.add("Policy 2");
-        cancelArray.add("Policy 3");
-        ArrayAdapter<String> cancelAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, cancelArray);
-        cancelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cancel.setAdapter(cancelAdapter);
     }
 
     public void addSpot(View view) {
