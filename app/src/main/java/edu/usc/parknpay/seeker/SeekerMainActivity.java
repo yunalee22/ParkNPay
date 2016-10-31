@@ -123,8 +123,8 @@ public class SeekerMainActivity extends TemplateActivity {
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
         // TODO: YUNA: Set these variables as well as filters?
-        final double sLatitude = 34.0224;
-        final double sLongitude = 118.2851;
+        //final double sLatitude = 34.0224;
+        //final double sLongitude = 118.2851;
 
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
@@ -137,7 +137,7 @@ public class SeekerMainActivity extends TemplateActivity {
             final String sStartTime = df.format(date);
             date = sdf.parse(endDate + " " + endTime);
             final String sEndTime = df.format(date);
-            System.out.println("DATE: " + sStartTime);
+            System.out.println("START DATE: " + sStartTime);
             System.out.println("END TIME: " + sEndTime);
 
             // TODO: Show error popup if bad input?
@@ -158,11 +158,18 @@ public class SeekerMainActivity extends TemplateActivity {
                         // check distance
                         System.out.println("Found with end time");
                         // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
-                        double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
+                        double distance = Utility.distance(latitude, longitude, post.getLatitude(), post.getLongitude(), "M");
                         if(distance < RADIUS_LIMIT) {
                             // TODO: check filters
-                            // if(insert filters)
-                            // display dynamically
+                            if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                if(post.getSize() >= size && post.isHandicap() == handicapOnly) {
+                                    if(post.getOwnerRating() >= minOwnerRating) {
+                                        System.out.println("SHOWING SPOT: " + post.getParkingSpotId());
+                                    }
+                                }
+                            }
+
                             System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
                         }
                     }
@@ -230,9 +237,9 @@ public class SeekerMainActivity extends TemplateActivity {
                 String address = place.getName().toString();
 
                 try {
+                    address = place.getName().toString();
                     addressInfo = coder.getFromLocationName(address, 5);
                     Address location = addressInfo.get(0);
-                    address = place.getName().toString();
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                     executeSearch();

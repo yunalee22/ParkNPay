@@ -14,6 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,9 +28,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.UUID;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.database.ParkingSpot;
+import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.User;
 
 public class AddAvailabilityActivity extends TemplateActivity {
     TextView startDate, endDate;
@@ -33,6 +45,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
     Calendar startCalendar;
     Calendar endCalendar;
     DatePickerDialog.OnDateSetListener dateStart, dateEnd;
+    ParkingSpot parkingSpot;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +56,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
         setSpinners();
         addListeners();
 
+        parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
     }
 
     protected void initializeEdits() {
@@ -110,13 +124,16 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     return;
                 }
 
-                startString = startDate.getText().toString() + "T" + startSpinner.getSelectedItem().toString() + ":00-7:00";
-                endString = endDate.getText().toString() + "T" + endSpinner.getSelectedItem().toString() + ":00-7:00";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+                TimeZone tz = TimeZone.getTimeZone("UTC");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+                df.setTimeZone(tz);
+
+                startString = startDate.getText().toString() + " " + startSpinner.getSelectedItem().toString();
+                endString = endDate.getText().toString() + " " + endSpinner.getSelectedItem().toString();
                 Date date1, date2;
                 try {
-                    date1 = sdf.parse(startString);
-                    date2 = sdf.parse(endString);
+                    date1 = df.parse(startString);
+                    date2 = df.parse(endString);
                     if(!date1.before(date2)) {
                         Toast.makeText(AddAvailabilityActivity.this, "Please enter valid dates",
                                 Toast.LENGTH_SHORT).show();
@@ -134,6 +151,15 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 //should be sending to database here
                 //String date is the date on the calendar in iso-8601
                 //int priceFinal is price for the reservation
+
+                String postId = UUID.randomUUID().toString();
+
+                DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+/*
+                ParkingSpotPost post = new ParkingSpotPost(User.getInstance().getId(), parkingSpot.getParkingId(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
+                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating());
+                Ref.child("Browse").child(postId).setValue(post); */
+
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

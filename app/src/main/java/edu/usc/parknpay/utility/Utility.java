@@ -11,22 +11,14 @@ import edu.usc.parknpay.database.ParkingSpot;
 public class Utility {
 
     public static int convertSize(boolean isCompact, boolean isNormal, boolean isSuv, boolean isTruck) {
-        if(isTruck) return ParkingSpot.Size.Truck.getValue();
-        else if(isSuv) return ParkingSpot.Size.Suv.getValue();
-        else if(isNormal) return ParkingSpot.Size.Normal.getValue();
-        else if(isCompact) return ParkingSpot.Size.Compact.getValue();
+        if(isTruck) return ParkingSpot.Size.Truck.getValue(); // 3
+        else if(isSuv) return ParkingSpot.Size.Suv.getValue(); // 2
+        else if(isNormal) return ParkingSpot.Size.Normal.getValue(); // 1
+        else if(isCompact) return ParkingSpot.Size.Compact.getValue(); // 0
         return -1;
     }
 
-    // TODO: not complete
-    public static String convertToISO861(String date, String time) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(date);
-        builder.append("T");
-        builder.append(time);
-        //builder.append(/*timezone*/);
-        return builder.toString();
-    }
+
  /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /*::                                                                         :*/
 /*::  This routine calculates the distance between two points (given the     :*/
