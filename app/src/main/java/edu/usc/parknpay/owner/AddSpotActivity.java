@@ -1,20 +1,35 @@
 package edu.usc.parknpay.owner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -32,10 +47,13 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.seeker.SeekerMainActivity;
 
-public class AddSpotActivity extends TemplateActivity {
+public class AddSpotActivity extends TemplateActivity implements PlaceSelectionListener {
 
-    EditText street, city, state, zipCode, notes;
+    //EditText street, city, state, zipCode, notes;
+    EditText notes;
+
     CheckBox handicapped;
     Spinner size, cancel;
     Button doneButton;
@@ -44,6 +62,15 @@ public class AddSpotActivity extends TemplateActivity {
     ParkingSpot spot;
     DatabaseReference Ref;
 
+    // Search autocomplete text field
+    private PlaceAutocompleteFragment autocompleteFragment;
+    private Geocoder coder;
+    private static final String LOG_TAG = "PlaceSelectionListener";
+
+    // Search results list view
+    private ListView searchList;
+    private ArrayList<ParkingSpot> searchResults;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +78,23 @@ public class AddSpotActivity extends TemplateActivity {
         super.onCreateDrawer();
         toolbarSetup();
         initializeEdits();
-        addListeners();
+        //addListeners();
         setSpinners();
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        // Add search text field and geocoder
+        coder = new Geocoder(this);
+        autocompleteFragment.setHint("Enter an address");
+        autocompleteFragment.setBoundsBias(new LatLngBounds(
+                new LatLng(34.0224, -118.2851),
+                new LatLng(34.0224, -118.2851)
+        ));
+
+        // Add view listeners
+        addListeners();
+        autocompleteFragment.setOnPlaceSelectedListener(this);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,10 +114,10 @@ public class AddSpotActivity extends TemplateActivity {
     }
 
     protected void initializeEdits() {
-        street = (EditText) findViewById(R.id.streetEdit);
-        city = (EditText) findViewById(R.id.cityEdit);
-        state = (EditText) findViewById(R.id.stateEdit);
-        zipCode = (EditText) findViewById(R.id.zipEdit);
+//        street = (EditText) findViewById(R.id.streetEdit);
+//        city = (EditText) findViewById(R.id.cityEdit);
+//        state = (EditText) findViewById(R.id.stateEdit);
+//        zipCode = (EditText) findViewById(R.id.zipEdit);
         notes = (EditText) findViewById(R.id.notesEdit);
         handicapped = (CheckBox) findViewById(R.id.checkBox);
         size = (Spinner) findViewById(R.id.sizeSpinner);
@@ -167,9 +209,6 @@ public class AddSpotActivity extends TemplateActivity {
                 Toast.makeText(AddSpotActivity.this, "Failed to create parking spot.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     protected void addListeners() {
@@ -180,7 +219,33 @@ public class AddSpotActivity extends TemplateActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
             }
-
         });
+    }
+
+    @Override
+    public void onPlaceSelected(Place place) {
+        Log.i(LOG_TAG, "Place Selected: " + place.getName());
+
+        List<Address> address;
+
+        String str = place.getName().toString();
+
+        try {
+            address = coder.getFromLocationName(str, 5);
+            Address location =address.get(0);
+            location.getLatitude(); //shows you how to get it
+            location.getLongitude();
+            Log.i(LOG_TAG, "SHOW LAT: "+location.getLatitude());
+
+            Toast.makeText(this, "Latitude is "+location.getLatitude(), Toast.LENGTH_LONG).show();
+        } catch (Exception IOException) {
+            Toast.makeText(this, "IOEXCEPTION", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.e(LOG_TAG, "onError: Status = "+status.toString());
+        Toast.makeText(this, "Place selection failed: "+status.getStatusMessage(), Toast.LENGTH_LONG).show();
     }
 }
