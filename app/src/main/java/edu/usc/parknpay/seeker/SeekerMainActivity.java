@@ -122,10 +122,6 @@ public class SeekerMainActivity extends TemplateActivity {
 
         System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
 
-        // TODO: YUNA: Set these variables as well as filters?
-        //final double sLatitude = 34.0224;
-        //final double sLongitude = 118.2851;
-
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
@@ -135,8 +131,6 @@ public class SeekerMainActivity extends TemplateActivity {
             final String sStartTime = df.format(date);
             date = df.parse(endDate + " " + endTime);
             final String sEndTime = df.format(date);
-            System.out.println("START DATE: " + sStartTime);
-            System.out.println("END TIME: " + sEndTime);
 
             // TODO: Show error popup if bad input?
             if(startTime.compareTo(endTime) > 0 || startDate.compareTo(endDate) > 0) {
@@ -144,39 +138,25 @@ public class SeekerMainActivity extends TemplateActivity {
             }
 
             DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
-            browseRef.orderByChild("startTime").equalTo(sStartTime).addChildEventListener(new ChildEventListener() {
+            browseRef.orderByChild("startTime").startAt(sStartTime).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
 
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check end time
-                    System.out.println("Found with start time");
-
                     if(sEndTime.compareTo(post.getEndTime()) <= 0) {
                         // check distance
-                        System.out.println("Found with end time");
-                        // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
                         double distance = Utility.distance(latitude, longitude, post.getLatitude(), post.getLongitude(), "M");
                         if(distance < RADIUS_LIMIT) {
-                            // TODO: check filters
-                            System.out.println("WITHIN RADIUS");
                             if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                System.out.println("WITHIN PRICE");
                                 int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
                                 int postSize = Utility.convertSize(post.getSize());
-
-                                System.out.println("MY SIZE: " + size);
-                                System.out.println("POST SIZE: "+ postSize);
-
                                 if(postSize >= size && post.isHandicap() == handicapOnly) {
-                                    System.out.println("WITHIN SIZE");
                                     if(post.getOwnerRating() >= minOwnerRating) {
-                                        System.out.println("SHOWING SPOT: " + post.getParkingSpotId());
+                                        System.out.println("Got spot: " + post.getAddress());
                                     }
                                 }
                             }
-
-                            System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
                         }
                     }
                 }
