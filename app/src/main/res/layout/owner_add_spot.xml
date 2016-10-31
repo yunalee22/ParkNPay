@@ -33,17 +33,6 @@
             </android.support.v7.widget.Toolbar>
 
             <TextView
-                android:text="City:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cityTextView"
-                android:textSize="18sp"
-                android:layout_alignBaseline="@+id/cityEdit"
-                android:layout_alignBottom="@+id/cityEdit"
-                android:layout_alignLeft="@+id/streetTextView"
-                android:layout_alignStart="@+id/streetTextView" />
-
-            <TextView
                 android:text="Size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,15 +43,6 @@
                 android:layout_below="@+id/handicappedTextView"
                 android:layout_alignLeft="@+id/handicappedTextView"
                 android:layout_alignStart="@+id/handicappedTextView" />
-
-            <Spinner
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/sizeTextView"
-                android:id="@+id/sizeSpinner"
-                android:layout_alignLeft="@+id/stateEdit"
-                android:layout_alignStart="@+id/stateEdit"
-                android:layout_alignBottom="@+id/sizeTextView" />
 
             <TextView
                 android:text="Additional Notes"
@@ -87,97 +67,17 @@
                 android:textSize="14sp"
                 android:textStyle="normal|italic" />
 
-            <EditText
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="State"
-                android:ems="10"
-                android:id="@+id/stateEdit"
-                android:layout_alignBaseline="@+id/zipEdit"
-                android:layout_alignBottom="@+id/zipEdit"
-                android:layout_alignLeft="@+id/cityEdit"
-                android:layout_alignStart="@+id/cityEdit"
-                android:layout_width="60dp" />
-
-            <TextView
-                android:text="State:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/stateTextView"
-                android:textSize="18sp"
-                android:layout_alignBaseline="@+id/stateEdit"
-                android:layout_alignBottom="@+id/stateEdit"
-                android:layout_alignLeft="@+id/cityTextView"
-                android:layout_alignStart="@+id/cityTextView" />
-
-            <TextView
-                android:text="Street:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/streetTextView"
-                android:textSize="18sp"
-                android:layout_alignBaseline="@+id/streetEdit"
-                android:layout_alignBottom="@+id/streetEdit"
-                android:layout_alignLeft="@+id/addressTextView"
-                android:layout_alignStart="@+id/addressTextView"
-                android:textAllCaps="false" />
-
             <TextView
                 android:text="Handicapped?"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="60dp"
                 android:id="@+id/handicappedTextView"
                 android:textSize="20sp"
                 android:textStyle="normal|bold"
-                android:layout_below="@+id/stateEdit"
-                android:layout_alignLeft="@+id/stateTextView"
-                android:layout_alignStart="@+id/stateTextView" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox"
-                android:layout_below="@+id/zipEdit"
-                android:layout_marginTop="5dp"
-                android:layout_alignLeft="@+id/zipTextView"
-                android:layout_alignStart="@+id/zipTextView" />
-
-            <EditText
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="City"
-                android:ems="10"
-                android:id="@+id/cityEdit"
-                android:layout_below="@+id/streetEdit"
-                android:layout_alignLeft="@+id/streetEdit"
-                android:layout_alignStart="@+id/streetEdit" />
-
-            <TextView
-                android:text="Zip Code:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/zipTextView"
-                android:textSize="18sp"
-                android:layout_alignBaseline="@+id/stateEdit"
-                android:layout_alignBottom="@+id/stateEdit"
-                android:layout_alignRight="@+id/notesDes"
-                android:layout_alignEnd="@+id/notesDes" />
-
-            <EditText
-                android:layout_height="wrap_content"
-                android:hint="Zip Code"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/zipEdit"
-                android:layout_width="100dp"
-                android:layout_below="@+id/cityEdit"
-                android:layout_toRightOf="@+id/zipTextView"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_alignRight="@+id/cityEdit"
-                android:layout_alignEnd="@+id/cityEdit" />
+                android:layout_below="@+id/addressTextView"
+                android:layout_alignLeft="@+id/addressTextView"
+                android:layout_alignStart="@+id/addressTextView" />
 
             <EditText
                 android:inputType="textMultiLine"
@@ -228,6 +128,12 @@
                 android:layout_toLeftOf="@+id/button"
                 android:layout_toStartOf="@+id/button" />
 
+            <fragment android:id="@+id/place_autocomplete_fragment"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addressTextView"
+                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
             <ImageView
                 android:layout_width="230dp"
                 android:layout_height="230dp"
@@ -238,19 +144,6 @@
                 android:layout_below="@+id/textView24"
                 android:layout_alignLeft="@+id/textView24"
                 android:layout_alignStart="@+id/textView24" />
-
-            <EditText
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:layout_marginTop="8dp"
-                android:id="@+id/streetEdit"
-                android:hint="Street"
-                android:layout_width="280dp"
-                android:fontFamily="sans-serif"
-                android:layout_below="@+id/addressTextView"
-                android:layout_alignRight="@+id/notesEdit"
-                android:layout_alignEnd="@+id/notesEdit" />
 
             <TextView
                 android:text="Cancellation Policy"
@@ -286,6 +179,24 @@
                 android:layout_below="@+id/cancelSpinner"
                 android:layout_centerHorizontal="true" />
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox"
+                android:layout_alignBaseline="@+id/handicappedTextView"
+                android:layout_alignBottom="@+id/handicappedTextView"
+                android:layout_alignRight="@+id/cancelTextView"
+                android:layout_alignEnd="@+id/cancelTextView" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeSpinner"
+                android:layout_above="@+id/notesTextView"
+                android:layout_toRightOf="@+id/sizeTextView"
+                android:layout_toEndOf="@+id/sizeTextView"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp" />
 
 
         </RelativeLayout>

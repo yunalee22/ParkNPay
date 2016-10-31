@@ -1,10 +1,13 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +18,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +44,7 @@ import edu.usc.parknpay.database.User;
 
 public class AddSpotActivity extends TemplateActivity {
 
-    EditText street, city, state, zipCode, notes;
+    EditText notes;
     CheckBox handicapped;
     Spinner size, cancel;
     Button doneButton;
@@ -43,6 +52,12 @@ public class AddSpotActivity extends TemplateActivity {
     Uri selectedImage;
     ParkingSpot spot;
     DatabaseReference Ref;
+    String address;
+    // Search autocomplete text field
+    private PlaceAutocompleteFragment autocompleteFragment;
+    private Geocoder coder;
+    private static final String LOG_TAG = "PlaceSelectionListener";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +68,19 @@ public class AddSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
         setSpinners();
+
+        //address bar stuff
+
+        // Add search text field and geocoder
+        coder = new Geocoder(this);
+        autocompleteFragment.setHint("Enter an address");
+        autocompleteFragment.setBoundsBias(new LatLngBounds(
+                new LatLng(34.0224, -118.2851),
+                new LatLng(34.0224, -118.2851)
+        ));
+
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -74,14 +102,12 @@ public class AddSpotActivity extends TemplateActivity {
 
 
     protected void initializeEdits() {
-        street = (EditText) findViewById(R.id.streetEdit);
-        city = (EditText) findViewById(R.id.cityEdit);
-        state = (EditText) findViewById(R.id.stateEdit);
-        zipCode = (EditText) findViewById(R.id.zipEdit);
         notes = (EditText) findViewById(R.id.notesEdit);
         handicapped = (CheckBox) findViewById(R.id.checkBox);
         size = (Spinner) findViewById(R.id.sizeSpinner);
         cancel = (Spinner) findViewById(R.id.cancelSpinner);
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         doneButton = (Button) findViewById(R.id.button);
         parkingSpotPhoto = (ImageView) findViewById(R.id.spotPhoto);
         // Clear the photo
@@ -134,6 +160,7 @@ public class AddSpotActivity extends TemplateActivity {
             return;
         }
 
+        //address string should hold the address typed into the google search bar
         String notesFinal = notes.getText().toString();
         String sizeFinal = size.getSelectedItem().toString();
         String cancelFinal = cancel.getSelectedItem().toString();
@@ -183,6 +210,21 @@ public class AddSpotActivity extends TemplateActivity {
                 startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
             }
 
+        });
+
+        // Called when user types into search field
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+
+                Log.i(LOG_TAG, "Place Selected: " + place.getName());
+                address = place.getName().toString();
+
+            }
+            @Override
+            public void onError(Status status) {
+                Log.e(LOG_TAG, "onError: Status = " + status.toString());
+            }
         });
     }
 }

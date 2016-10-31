@@ -120,11 +120,13 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     if(!date1.before(date2)) {
                         Toast.makeText(AddAvailabilityActivity.this, "Please enter valid dates",
                                 Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 } catch(ParseException e) {
                     //Exception handling
                     Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
                             Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 
