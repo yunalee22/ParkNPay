@@ -12,12 +12,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Date;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
@@ -77,7 +80,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 endCalendar.set(Calendar.YEAR, year);
                 endCalendar.set(Calendar.MONTH, monthOfYear);
                 endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -97,15 +99,35 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     priceFinal = Integer.parseInt(prices.getText().toString());
                 } catch (NumberFormatException e) {
                     //error message for bad format input
+                    Toast.makeText(AddAvailabilityActivity.this, "Please enter a numerical value for price.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(priceFinal < 0) {
                     //error for negative number
+                    Toast.makeText(AddAvailabilityActivity.this, "Price cannot be negative.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 startString = startDate.getText().toString() + "T" + startSpinner.getSelectedItem().toString() + ":00-7:00";
                 endString = endDate.getText().toString() + "T" + endSpinner.getSelectedItem().toString() + ":00-7:00";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+                Date date1, date2;
+                try {
+                    date1 = sdf.parse(startString);
+                    date2 = sdf.parse(endString);
+                    if(!date1.before(date2)) {
+                        Toast.makeText(AddAvailabilityActivity.this, "Please enter valid dates",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } catch(ParseException e) {
+                    //Exception handling
+                    Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
                 cancellation = cancellationSpinner.getSelectedItem().toString();
                 //should be sending to database here
                 //String date is the date on the calendar in iso-8601
