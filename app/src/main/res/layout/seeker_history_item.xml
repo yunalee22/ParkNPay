@@ -1,35 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/seeker_view_spot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.usc.parknpay.seeker.ViewSpotActivity"
-    android:layout_marginLeft="30dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
     android:layout_marginRight="30dp">
 
-    <TextView android:id="@+id/address"
-        android:text="Address"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:text="time"
+        android:layout_width="1000dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/history_time_frame"
+        android:layout_alignLeft="@+id/history_price"
+        android:layout_alignStart="@+id/history_price"
+        android:id="@+id/history_dates"
+        android:layout_alignRight="@+id/history_price"
+        android:layout_alignEnd="@+id/history_price" />
 
-    <TextView android:id="@+id/date"
-        android:text="Date"
-        android:textSize="16sp"
+    <TextView
+        android:text="Price: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/address"
-        android:layout_marginTop="15dp"/>
+        android:id="@+id/history_price2"
+        android:layout_alignTop="@+id/history_image"
+        android:layout_toRightOf="@+id/history_image"
+        android:layout_toEndOf="@+id/history_image" />
 
-    <TextView android:id="@+id/price"
-        android:text="Price"
-        android:textSize="20sp"
+    <TextView
+        android:text="Time: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/history_time_frame"
+        android:layout_below="@+id/history_price2"
+        android:layout_toRightOf="@+id/history_image"
+        android:layout_toEndOf="@+id/history_image" />
+
+    <TextView
+        android:text="Owner: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history_owner"
+        android:layout_below="@+id/history_time_frame"
+        android:layout_toRightOf="@+id/history_image"
+        android:layout_toEndOf="@+id/history_image" />
+
+    <TextView
+        android:text="shihborl"
+        android:layout_width="1000dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/history_dates"
+        android:layout_alignLeft="@+id/history_dates"
+        android:layout_alignStart="@+id/history_dates"
+        android:id="@+id/history_ownerr"
+        android:layout_alignRight="@+id/history_dates"
+        android:layout_alignEnd="@+id/history_dates" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:id="@+id/history_image"
+        android:layout_below="@+id/history_address"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history_address"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="1000dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:id="@+id/history_price"
+        tools:text="$$$$$$$$$$"
+        android:layout_above="@+id/history_dates"
+        android:layout_toRightOf="@+id/history_owner"
+        android:layout_toEndOf="@+id/history_owner" />
+
+    <TextView
+        android:text="(tap to rate)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"/>
+        android:layout_alignParentEnd="true"
+        android:id="@+id/history_rate" />
 
 </RelativeLayout>
