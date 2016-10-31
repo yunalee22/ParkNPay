@@ -38,6 +38,7 @@ public class ParkingSpotPost {
         this.isHandicap = isHandicap;
         this.ownerRating = ownerRating;
         this.address = address;
+        this.photoUrl = photoUrl;
     }
 
 
