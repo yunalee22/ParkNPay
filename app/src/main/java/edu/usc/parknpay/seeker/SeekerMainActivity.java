@@ -301,7 +301,7 @@ public class SeekerMainActivity extends TemplateActivity {
                             adapterLatitude,
                             adapterLongitude,
                             "M")
-                    + "mi"
+                    + " mi"
             );
 
 
