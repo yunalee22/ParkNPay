@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ import java.util.List;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
-import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.utility.Utility;
 
@@ -42,6 +40,10 @@ public class SeekerMainActivity extends TemplateActivity {
 
     public static final double RADIUS_LIMIT = 3;
     private static final int SEARCH_FILTER = 2;
+
+    // Long and Lat used for Adapter
+    private double adapterLongitude;
+    private double adapterLatitude;
 
     // Filter button
     private ImageView filterButton;
@@ -53,7 +55,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search results list view
     private ListView searchList;
-    private ArrayList<ParkingSpot> searchResults;
+    private ArrayList<ParkingSpotPost> searchResults;
     private SearchListAdapter searchResultsAdapter;
 
     // Search parameters
@@ -106,7 +108,7 @@ public class SeekerMainActivity extends TemplateActivity {
         ));
 
         // Add adapter to ListView
-        searchResults = new ArrayList<ParkingSpot>();
+        searchResults = new ArrayList<ParkingSpotPost>();
         searchResultsAdapter = new SearchListAdapter(SeekerMainActivity.this, searchResults);
         searchList.setAdapter(searchResultsAdapter);
 
@@ -166,14 +168,6 @@ public class SeekerMainActivity extends TemplateActivity {
             });
     }
 
-    // Call this function to update the search results view
-    private void loadSearchResults(ArrayList<ParkingSpot> parkingSpots) {
-
-        searchResultsAdapter.clear();
-        searchResultsAdapter.addAll(parkingSpots);
-        searchResultsAdapter.notifyDataSetChanged();
-    }
-
     private void addListeners() {
 
         // Called when search filter button is pressed
@@ -215,7 +209,10 @@ public class SeekerMainActivity extends TemplateActivity {
                 try {
                     addressInfo = coder.getFromLocationName(address, 5);
                     Address location = addressInfo.get(0);
-                    executeSearch(address, location.getLatitude(), location.getLongitude());
+                    // Store into variables that are used later
+                    adapterLatitude = location.getLatitude();
+                    adapterLongitude = location.getLongitude();
+                    executeSearch(address, adapterLatitude, adapterLongitude);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -250,59 +247,65 @@ public class SeekerMainActivity extends TemplateActivity {
         }
     }
 
-    protected class SearchListAdapter extends ArrayAdapter<ParkingSpot> {
+    protected class SearchListAdapter extends ArrayAdapter<ParkingSpotPost> {
 
-        public SearchListAdapter(Context context, ArrayList<ParkingSpot> results) {
+        public SearchListAdapter(Context context, ArrayList<ParkingSpotPost> results) {
             super(context, 0, results);
-        }
-
-        // View lookup cache
-        private class ViewHolder {
-            ImageView image;
-            TextView address;
-            TextView dateTimeRange;
-            TextView size;
-            TextView handicap;
-            TextView price;
-            TextView distance;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            // Get data item
-            ParkingSpot parkingSpot = getItem(position);
-
-            // Check if an existing view is being reused, otherwise inflate the view
-            ViewHolder viewHolder;
             if (convertView == null) {
-                viewHolder = new ViewHolder();
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.seeker_search_list_item, parent, false);
-                viewHolder.image = (ImageView) findViewById(R.id.image);
-                viewHolder.address = (TextView) findViewById(R.id.address);
-                viewHolder.dateTimeRange = (TextView) findViewById(R.id.date_time_range);
-                viewHolder.size = (TextView) findViewById(R.id.size);
-                viewHolder.handicap = (TextView) findViewById(R.id.handicap);
-                viewHolder.price = (TextView) findViewById(R.id.price);
-                viewHolder.distance = (TextView) findViewById(R.id.distance);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_search_list_item, parent, false);
+            }
+            // Get data item
+            ParkingSpotPost parkingSpotPost = getItem(position);
+
+            // Set image
+            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.image);
+            spotImageView.setImageResource(0);
+//TODO: @tiff
+//            Picasso.with(getContext())
+//                    .load(/*TIFF ADD parkingSpotPost.getPhotoUrl HERE*/)
+//                    .placeholder(R.drawable.progress_animation)
+//                    .resize(150, 150)
+//                    .centerCrop()
+//                    .into(spotImageView);
+            // Set Address
+            TextView addrText = (TextView) convertView.findViewById(R.id.address);
+            addrText.setText(parkingSpotPost.getAddress());
+
+            // Set date/time
+            TextView dateText = (TextView) convertView.findViewById(R.id.date_time_range);
+            dateText.setText(parkingSpotPost.getStartTime() + " - " + parkingSpotPost.getEndTime());
+
+            // Set Size
+            TextView sizeText = (TextView) convertView.findViewById(R.id.size);
+            sizeText.setText(parkingSpotPost.getSize());
+
+            // Set Handicap (hide if not handicap)
+            if (!parkingSpotPost.getIsHandicap())
+            {
+                TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
+                handiText.setVisibility(View.GONE);
             }
 
-            // Populate data into the views
-            //viewHolder.image.setImageBitmap(parkinigSpot.get);       // Need the image bitmap in ParkingSpot class
-            viewHolder.address.setText(parkingSpot.getAddress());
-            //viewHolder.dateTimeRange.setText(parkingSpot.get);       // Need date time range
-            viewHolder.size.setText(parkingSpot.getSize());
-            if (!parkingSpot.isHandicapped()) {
-                viewHolder.handicap.setVisibility(View.INVISIBLE);
-            }
-            //viewHolder.price.setText(parkingSpot.get);               // Need spot price
-            //viewHolder.distance.setText();                           // Need distance from entered location
+            // Set Price
+            TextView priceText = (TextView) convertView.findViewById(R.id.price);
+            priceText.setText("$" + parkingSpotPost.getPrice());
 
-            // Return completed view
+            TextView distText = (TextView) convertView.findViewById(R.id.distance);
+            distText.setText(
+                    Utility.distance(parkingSpotPost.getLatitude(),
+                            parkingSpotPost.getLongitude(),
+                            adapterLatitude,
+                            adapterLongitude,
+                            "M")
+                    + "mi"
+            );
+
+
+
             return convertView;
         }
 
