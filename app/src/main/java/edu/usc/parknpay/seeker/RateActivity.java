@@ -7,21 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import edu.usc.parknpay.R;
 
-/**
- * Created by Bobo on 10/27/2016.
- */
-
 public class RateActivity extends AppCompatActivity {
     ImageView spotPhoto;
     TextView address, date, time;
     RatingBar spotRatingBar, ownerRatingBar;
     Button doneButton;
+    EditText additionalNotesField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +57,7 @@ public class RateActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time);
         date = (TextView) findViewById(R.id.date);
         doneButton = (Button) findViewById(R.id.button);
+        additionalNotesField = (EditText) findViewById(R.id.additionalNotesField);
     }
 
     protected void addListeners() {

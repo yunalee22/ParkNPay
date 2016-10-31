@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorAccent"
+        android:background="?attr/colorPrimaryDark"
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
         android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Rate your experience"
+            android:text="Rate Your Experience"
             android:gravity = "center"
             android:id="@+id/toolbar_title"
             android:textSize="24sp"
@@ -34,11 +34,10 @@
         android:layout_below="@+id/toolbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginLeft="55dp"
         android:layout_marginTop="32dp"
-        android:layout_width="130dp"
-        android:layout_height="130dp" />
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
 
     <TextView
         android:text="Address goes here"
@@ -71,11 +70,11 @@
         android:layout_centerHorizontal="true"
         android:numStars="5"
         android:stepSize="1"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/ratingBarSpot" />
 
     <TextView
-        android:text="Rate this owner"
+        android:text="Rate this spot's owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ratingBarSpot"
@@ -87,23 +86,13 @@
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/ratingBarOwner"
         android:numStars="5"
         android:stepSize="1"
         android:layout_below="@+id/textView19"
         android:layout_alignLeft="@+id/ratingBarSpot"
         android:layout_alignStart="@+id/ratingBarSpot" />
-
-    <Button
-        android:text="submit"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/ratingBarOwner"
-        android:layout_alignRight="@+id/date"
-        android:layout_alignEnd="@+id/date"
-        android:layout_marginTop="30dp"
-        android:id="@+id/button"
-        android:layout_height="40dp" />
 
     <TextView
         android:text="2PM - 5PM"
@@ -115,15 +104,39 @@
         android:layout_alignLeft="@+id/date"
         android:layout_alignStart="@+id/date" />
 
-    <TextView
+    <TextView android:id="@+id/date"
         android:text="12/12/16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date"
         android:textSize="16sp"
         android:layout_above="@+id/time"
         android:layout_alignLeft="@+id/address"
         android:layout_alignStart="@+id/address"
         android:layout_marginBottom="8dp" />
+
+    <TextView android:id="@+id/additionalNotesLabel"
+        android:text="Additional Notes"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingBarOwner"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText android:id="@+id/additionalNotesField"
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/additionalNotesLabel"
+        android:background="@drawable/text_edit_border"
+        android:layout_centerHorizontal="true"/>
+
+    <Button android:id="@+id/button"
+        android:text="submit"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/additionalNotesField"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
