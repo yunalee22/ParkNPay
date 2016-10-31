@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
@@ -28,6 +29,8 @@ public class TemplateActivity extends AppCompatActivity {
         drawerList = (ListView) findViewById(R.id.left_drawer);
         addDrawerItems();
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        Toast.makeText(TemplateActivity.this,"Temp Activity being added",Toast.LENGTH_LONG).show();
     }
 
     private void addDrawerItems() {
@@ -36,7 +39,7 @@ public class TemplateActivity extends AppCompatActivity {
                 "History",
                 "Payment",
                 "Settings",
-                u.isSeeker() ? "Use App as Owner" : "Use App as Seeker",
+                "Switch Role",
                 "Log Out"
         };
         drawerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems);
@@ -75,11 +78,19 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 4:     // Use App as Owner
                 {
-                    if (u.isSeeker()) {
+                    if (u.getIsCurrentlySeeker()) {
+                        Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
+                        u.setIsCurrentlySeeker(false);
+                        drawerLayout.closeDrawers();
+
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
                     } else {
+                        u.setIsCurrentlySeeker(true);
+                        Toast.makeText(TemplateActivity.this, "currentlySeeker False to True", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
