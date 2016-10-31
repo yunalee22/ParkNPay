@@ -15,12 +15,15 @@ public class ParkingSpotPost {
     private int size;
     private int cancellationPolicy;
     private boolean isHandicap;
+    private String address;
 
     public ParkingSpotPost() {
     }
 
     public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
-                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") int size, @JsonProperty("cancellationPolicy") int cancellationPolicy, @JsonProperty("isHandicap") boolean isHandicap)
+                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") int size, @JsonProperty("cancellationPolicy") int cancellationPolicy, @JsonProperty("isHandicap") boolean isHandicap,
+                           @JsonProperty("address") String address
+    )
     {
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
@@ -32,6 +35,7 @@ public class ParkingSpotPost {
         this.size = size;
         this.cancellationPolicy = cancellationPolicy;
         this.isHandicap = isHandicap;
+        this.address = address;
     }
 
 
@@ -119,4 +123,13 @@ public class ParkingSpotPost {
     public String toString() {
         return "ParkingSpotPost: OwnerUserId: " + ownerUserId + " ParkingSpotId: " + parkingSpotId;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

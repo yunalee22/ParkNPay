@@ -32,12 +32,14 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <ListView android:id="@+id/history_list"
-            android:layout_width="360dp"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+    <ListView android:id="@+id/history_list"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
         <!-- The navigation drawer -->
