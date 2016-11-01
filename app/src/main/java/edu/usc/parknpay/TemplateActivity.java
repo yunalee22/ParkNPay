@@ -128,8 +128,8 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 4:     // Use App as Owner
                 {
-                    u.changeBalance(10);
-                    refreshBalanceView();
+                    //u.changeBalance(10);
+                    //refreshBalanceView();
 
 
                     if (u.getIsCurrentlySeeker()) {
