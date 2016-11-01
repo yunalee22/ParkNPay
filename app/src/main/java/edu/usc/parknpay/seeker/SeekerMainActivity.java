@@ -1,5 +1,7 @@
 package edu.usc.parknpay.seeker;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -11,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
@@ -44,6 +49,8 @@ import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
 
+    private static final int START_DATE_PICKER = 0;
+    private static final int END_DATE_PICKER = 2;
     public static final double RADIUS_LIMIT = 3;
     private static final int SEARCH_FILTER = 2;
 
@@ -70,6 +77,10 @@ public class SeekerMainActivity extends TemplateActivity {
     private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
     private String address, startDate, startTime, endDate, endTime;
 
+    //date stuff
+    private Spinner startSpinner, endSpinner;
+    private Button startDateButton, endDateButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +99,25 @@ public class SeekerMainActivity extends TemplateActivity {
         String date = dateFormat.format(today);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String time = timeFormat.format(today);
+        //
+        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
+        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
+        startDateButton = (Button) findViewById(R.id.start_date_button);
+        endDateButton = (Button) findViewById(R.id.end_date_button);
+
+        List<String> timeSpinner =  new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            if(i <10)
+                timeSpinner.add("0"+Integer.toString(i));
+            else
+                timeSpinner.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, timeSpinner);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endSpinner.setAdapter(timeAdapter);
+        startSpinner.setAdapter(timeAdapter);
+
 
         // Set default search parameters
         minPrice = 0;
@@ -103,6 +133,9 @@ public class SeekerMainActivity extends TemplateActivity {
         startTime = time;
         endDate = date;
         endTime = "23:59";
+
+        startDateButton.setText(startDate);
+        endDateButton.setText(endDate);
 
         // Add search text field and geocoder
         coder = new Geocoder(this);
@@ -199,6 +232,25 @@ public class SeekerMainActivity extends TemplateActivity {
 
     private void addListeners() {
 
+                // Called when user clicks start date button
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Prompt user to pick a date
+                showDialog(START_DATE_PICKER);
+            }
+        });
+
+
+        // Called when user clicks end date button
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Prompt user to pick a date
+                showDialog(END_DATE_PICKER);
+            }
+        });
+
         // Called when search filter button is pressed
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,6 +328,58 @@ public class SeekerMainActivity extends TemplateActivity {
             executeSearch();
         }
     }
+
+        @Override
+    protected Dialog onCreateDialog(int id) {
+
+        switch (id) {
+
+            case START_DATE_PICKER:
+            {
+                // Get current date
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, startDatePickerListener, year, month, day);
+            }
+
+
+            case END_DATE_PICKER:
+            {
+                // Get current date
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, endDatePickerListener, year, month, day);
+            }
+
+
+            default:
+            {
+                return null;
+            }
+        }
+    }
+
+    private DatePickerDialog.OnDateSetListener startDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            startDateButton.setText(year + "-" + month + "-" + dayOfMonth);
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener endDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            endDateButton.setText(year + "-" + month + "-" + dayOfMonth);
+        }
+    };
 
     protected class SearchListAdapter extends ArrayAdapter<ParkingSpotPost> {
 
