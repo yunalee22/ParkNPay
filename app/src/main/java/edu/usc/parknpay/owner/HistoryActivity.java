@@ -1,14 +1,12 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,7 +55,7 @@ public class HistoryActivity extends TemplateActivity {
 
         String userId = User.getInstance().getId();
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-        Ref.child("Transactions").orderByChild("seekerId").equalTo(userId).addValueEventListener(new ValueEventListener() {
+        Ref.child("Transactions").orderByChild("ownerId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
@@ -71,19 +69,6 @@ public class HistoryActivity extends TemplateActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
-        });
-
-        historyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Transaction t = history.get(position);
-                if(!t.isRated()) {
-                    Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.RateActivity.class);
-                    intent.putExtra("transaction", t);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                }
-            }
         });
     }
 
