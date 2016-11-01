@@ -127,14 +127,6 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"/>
 
-    <Button android:id="@+id/button"
-        android:text="submit"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/additionalNotesField"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"/>
-
     <EditText android:id="@+id/additionalNotesField"
         android:layout_marginTop="9dp"
         android:layout_width="300dp"
@@ -145,5 +137,12 @@
         android:layout_below="@+id/additionalNotesLabel"
         android:layout_centerHorizontal="true" />
 
+    <Button android:id="@+id/button"
+        android:text="submit"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/additionalNotesField"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
