@@ -1,4 +1,4 @@
-package edu.usc.parknpay.seeker;
+package edu.usc.parknpay.owner;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +29,14 @@ import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
 
-public class HistoryActivity extends TemplateActivity {
+/**
+ * Created by Bobo on 10/31/2016.
+ */
 
+public class HistoryActivity extends TemplateActivity {
     private ListView historyList;
     private ArrayList<Transaction> history;
-    private HistoryListAdapter historyListAdapter;
+    private edu.usc.parknpay.owner.HistoryActivity.HistoryListAdapter historyListAdapter;
     private DatabaseReference Ref;
 
     @Override
@@ -49,7 +52,7 @@ public class HistoryActivity extends TemplateActivity {
         // Add adapter to ListView
         // Add adapter to ListView
         history = new ArrayList<Transaction>();
-        historyListAdapter = new HistoryListAdapter(HistoryActivity.this, history);
+        historyListAdapter = new edu.usc.parknpay.owner.HistoryActivity.HistoryListAdapter(edu.usc.parknpay.owner.HistoryActivity.this, history);
         historyList.setAdapter(historyListAdapter);
 
         String userId = User.getInstance().getId();
@@ -122,7 +125,7 @@ public class HistoryActivity extends TemplateActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_history_item, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.owner_history_item, parent, false);
             }
             // Get data item
             Transaction transaction = getItem(position);
@@ -149,13 +152,9 @@ public class HistoryActivity extends TemplateActivity {
             TextView dateText = (TextView) convertView.findViewById(R.id.history_dates);
             dateText.setText(transaction.getStartTime() + " - " + transaction.getEndTime());
 
-            TextView ownerText = (TextView) convertView.findViewById(R.id.history_ownerr);
-            ownerText.setText(transaction.getOwnerName());
+            TextView seekerText = (TextView) convertView.findViewById(R.id.history_seeker);
+            seekerText.setText(transaction.getSeekerName());
 
-            if(transaction.isRated()) {
-                TextView rateText = (TextView) convertView.findViewById(R.id.history_rate);
-                rateText.setVisibility(View.GONE);
-            }
 
             return convertView;
         }

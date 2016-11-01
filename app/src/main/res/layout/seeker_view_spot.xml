@@ -75,13 +75,32 @@
                 android:layout_toRightOf="@id/size"
                 android:layout_marginLeft="10dp" />
 
+
+
+            <TextView android:id="@+id/cancellationPolicyLabel"
+                android:text="Cancellation Policy"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/handicap"
+                android:layout_marginTop="30dp"/>
+
+            <TextView android:id="@+id/cancellationPolicy"
+                android:text="Insert additional notes here"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cancellationPolicyLabel"
+                android:layout_marginTop="10dp"/>
+
             <TextView android:id="@+id/additionalNotesLabel"
                 android:text="Additional Notes"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/parkingSpotImage"
+                android:layout_below="@id/cancellationPolicy"
                 android:layout_marginTop="30dp"/>
 
             <TextView android:id="@+id/additionalNotes"

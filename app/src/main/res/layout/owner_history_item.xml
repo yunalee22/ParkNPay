@@ -40,7 +40,7 @@
         android:layout_toEndOf="@+id/history_image" />
 
     <TextView
-        android:text="Owner: "
+        android:text="Seeker: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/history_owner"
@@ -55,7 +55,7 @@
         android:layout_below="@+id/history_dates"
         android:layout_alignLeft="@+id/history_dates"
         android:layout_alignStart="@+id/history_dates"
-        android:id="@+id/history_ownerr"
+        android:id="@+id/history_seeker"
         android:layout_alignRight="@+id/history_dates"
         android:layout_alignEnd="@+id/history_dates" />
 
@@ -87,14 +87,5 @@
         android:layout_above="@+id/history_dates"
         android:layout_toRightOf="@+id/history_owner"
         android:layout_toEndOf="@+id/history_owner" />
-
-    <TextView
-        android:text="(tap to rate)"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/history_rate" />
 
 </RelativeLayout>

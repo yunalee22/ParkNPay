@@ -54,7 +54,7 @@
 
 
     <TextView
-        android:text="Rate this parking spot"
+        android:text="Rate this spot's owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/time"
@@ -71,13 +71,13 @@
         android:numStars="5"
         android:stepSize="1"
         android:layout_marginTop="10dp"
-        android:id="@+id/ratingBarSpot" />
+        android:id="@+id/ratingBarOwner" />
 
     <TextView
-        android:text="Rate this spot's owner"
+        android:text="Rate this parking spot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ratingBarSpot"
+        android:layout_below="@+id/ratingBarOwner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:textSize="18sp"
@@ -87,12 +87,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/ratingBarOwner"
+        android:id="@+id/ratingBarSpot"
         android:numStars="5"
         android:stepSize="1"
         android:layout_below="@+id/textView19"
-        android:layout_alignLeft="@+id/ratingBarSpot"
-        android:layout_alignStart="@+id/ratingBarSpot" />
+        android:layout_alignLeft="@+id/ratingBarOwner"
+        android:layout_alignStart="@+id/ratingBarOwner" />
 
     <TextView
         android:text="2PM - 5PM"
@@ -119,7 +119,7 @@
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBarOwner"
+        android:layout_below="@id/ratingBarSpot"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"/>
 

@@ -22,6 +22,7 @@ public class ViewSpotActivity extends TemplateActivity{
     private TextView address;
     private RatingBar spotRatingBar;
     private TextView size, handicap;
+    private TextView cancellationPolicy;
     private TextView additionalNotes;
     private ImageView ownerImage;
     private TextView ownerName;
@@ -41,6 +42,7 @@ public class ViewSpotActivity extends TemplateActivity{
         spotRatingBar = (RatingBar) findViewById(R.id.spotRatingBar);
         size = (TextView) findViewById(R.id.size);
         handicap = (TextView) findViewById(R.id.handicap);
+        cancellationPolicy = (TextView) findViewById(R.id.cancellationPolicy);
         additionalNotes = (TextView) findViewById(R.id.additionalNotes);
         ownerImage = (ImageView) findViewById(R.id.ownerImage);
         ownerName = (TextView) findViewById(R.id.ownerName);

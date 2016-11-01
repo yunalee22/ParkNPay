@@ -1,10 +1,13 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +18,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,17 +42,25 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.Utility;
 
 public class AddSpotActivity extends TemplateActivity {
 
-    EditText street, city, state, zipCode, notes;
+    EditText notes;
     CheckBox handicapped;
-    Spinner size, cancel;
+    Spinner size;
     Button doneButton;
     ImageView parkingSpotPhoto;
     Uri selectedImage;
     ParkingSpot spot;
     DatabaseReference Ref;
+    String address;
+    double latitude, longitude;
+    // Search autocomplete text field
+    private PlaceAutocompleteFragment autocompleteFragment;
+    private Geocoder coder;
+    private static final String LOG_TAG = "PlaceSelectionListener";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +71,19 @@ public class AddSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
         setSpinners();
+
+        //address bar stuff
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        // Add search text field and geocoder
+        coder = new Geocoder(this);
+        autocompleteFragment.setHint("Enter an address");
+        autocompleteFragment.setBoundsBias(new LatLngBounds(
+                new LatLng(34.0224, -118.2851),
+                new LatLng(34.0224, -118.2851)
+        ));
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -74,14 +105,11 @@ public class AddSpotActivity extends TemplateActivity {
 
 
     protected void initializeEdits() {
-        street = (EditText) findViewById(R.id.streetEdit);
-        city = (EditText) findViewById(R.id.cityEdit);
-        state = (EditText) findViewById(R.id.stateEdit);
-        zipCode = (EditText) findViewById(R.id.zipEdit);
         notes = (EditText) findViewById(R.id.notesEdit);
         handicapped = (CheckBox) findViewById(R.id.checkBox);
         size = (Spinner) findViewById(R.id.sizeSpinner);
-        cancel = (Spinner) findViewById(R.id.cancelSpinner);
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         doneButton = (Button) findViewById(R.id.button);
         parkingSpotPhoto = (ImageView) findViewById(R.id.spotPhoto);
         // Clear the photo
@@ -117,15 +145,6 @@ public class AddSpotActivity extends TemplateActivity {
                 this, android.R.layout.simple_spinner_item, sizeArray);
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         size.setAdapter(sizeAdapter);
-
-        List<String> cancelArray =  new ArrayList<>();
-        cancelArray.add("Policy 1");
-        cancelArray.add("Policy 2");
-        cancelArray.add("Policy 3");
-        ArrayAdapter<String> cancelAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, cancelArray);
-        cancelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cancel.setAdapter(cancelAdapter);
     }
 
     public void addSpot(View view) {
@@ -133,10 +152,14 @@ public class AddSpotActivity extends TemplateActivity {
             Toast.makeText(AddSpotActivity.this, "Please upload a photo.", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (address == null) {
+            Toast.makeText(AddSpotActivity.this, "Please enter an address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        String notesFinal = notes.getText().toString();
+        //address string should hold the address typed into the google search bar
+        String notesFinal = notes.getText().toString().trim();
         String sizeFinal = size.getSelectedItem().toString();
-        String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
 
         Ref = FirebaseDatabase.getInstance().getReference();
@@ -145,7 +168,7 @@ public class AddSpotActivity extends TemplateActivity {
 
 
         // Create parking spot
-        spot = new ParkingSpot(userId, "address-here", sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal);
+        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude);
         spot.setParkingId(parkingSpotID);
 
         // handle image
@@ -183,6 +206,28 @@ public class AddSpotActivity extends TemplateActivity {
                 startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
             }
 
+        });
+
+        // Called when user types into search field
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                address = place.getName().toString();
+
+                List<Address> addr;
+                try {
+                    addr = coder.getFromLocationName(address, 5);
+                    Address location = addr.get(0);
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(Status status) {
+                Log.e(LOG_TAG, "onError: Status = " + status.toString());
+            }
         });
     }
 }

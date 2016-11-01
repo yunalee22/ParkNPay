@@ -44,7 +44,7 @@
         android:layout_marginLeft="20dp"/>
 
     <TextView android:id="@+id/handicap"
-        android:text="Handicap"
+        android:text="Handicap Spot"
         android:textSize="16sp"
         android:textColor="@color/blue"
         android:layout_width="wrap_content"

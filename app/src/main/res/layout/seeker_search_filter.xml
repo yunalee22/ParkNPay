@@ -163,38 +163,6 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp">
 
-                <TableRow android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <CheckBox android:id="@+id/normal_checkbox"
-                        android:text="Normal"
-                        android:textSize="20sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <CheckBox android:id="@+id/compact_checkbox"
-                        android:text="Compact"
-                        android:textSize="20sp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <CheckBox android:id="@+id/suv_checkbox"
-                        android:text="SUV"
-                        android:textSize="20sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <CheckBox android:id="@+id/truck_checkbox"
-                        android:text="Truck"
-                        android:textSize="20sp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
             </TableLayout>
 
             <TextView android:id="@+id/dates_available_label"
@@ -203,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_below="@+id/size_checkbox_table"
+                android:layout_below="@+id/size_label"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp" />
 
@@ -224,7 +192,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.5"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginRight="10dp"/>
                     <Button android:id="@+id/start_date_button"
                         android:text="2016-10-28"
@@ -233,14 +201,12 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textAllCaps="false"/>
-                    <Button android:id="@+id/start_time_button"
-                        android:text="00:00"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
+
+                    <Spinner
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textAllCaps="false"
-                        android:layout_marginLeft="20dp"/>
+                        android:id="@+id/spinnerStart" />
+
                 </TableRow>
 
                 <TableRow
@@ -252,7 +218,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.5"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginRight="10dp"/>
                     <Button android:id="@+id/end_date_button"
                         android:text="2016-10-28"
@@ -261,14 +227,10 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textAllCaps="false"/>
-                    <Button android:id="@+id/end_time_button"
-                        android:text="23:59"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                    <Spinner
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textAllCaps="false"
-                        android:layout_marginLeft="20dp"/>
+                        android:id="@+id/spinnerEnd" />
                 </TableRow>
 
             </TableLayout>
@@ -284,6 +246,25 @@
                 android:layout_marginTop="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="30dp"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeSpinner"
+                android:layout_alignBaseline="@+id/size_label"
+                android:layout_alignBottom="@+id/size_label"
+                android:layout_alignLeft="@+id/search_button"
+                android:layout_alignStart="@+id/search_button" />
+
+            <TextView
+                android:text="*Smaller sizes include larger ones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/size_label"
+                android:layout_alignLeft="@+id/dates_available_label"
+                android:layout_alignStart="@+id/dates_available_label"
+                android:id="@+id/textView20"
+                android:textSize="12sp" />
 
         </RelativeLayout>
     </ScrollView>

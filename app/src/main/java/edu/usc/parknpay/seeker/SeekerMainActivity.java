@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +24,19 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
-import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.utility.Utility;
 
@@ -42,6 +44,10 @@ public class SeekerMainActivity extends TemplateActivity {
 
     public static final double RADIUS_LIMIT = 3;
     private static final int SEARCH_FILTER = 2;
+
+    // Long and Lat used for Adapter
+    private double adapterLongitude;
+    private double adapterLatitude;
 
     // Filter button
     private ImageView filterButton;
@@ -53,15 +59,14 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Search results list view
     private ListView searchList;
-    private ArrayList<ParkingSpot> searchResults;
+    private ArrayList<ParkingSpotPost> searchResults;
     private SearchListAdapter searchResultsAdapter;
 
     // Search parameters
     private double minPrice, maxPrice;
-    private float minOwnerRating, minSpotRating;
-    private boolean handicapOnly;
-    private boolean showNormal, showCompact, showSuv, showTruck;
-    private String startDate, startTime, endDate, endTime;
+    private float minOwnerRating, minSpotRating, size;
+    private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
+    private String address, startDate, startTime, endDate, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +111,7 @@ public class SeekerMainActivity extends TemplateActivity {
         ));
 
         // Add adapter to ListView
-        searchResults = new ArrayList<ParkingSpot>();
+        searchResults = new ArrayList<ParkingSpotPost>();
         searchResultsAdapter = new SearchListAdapter(SeekerMainActivity.this, searchResults);
         searchList.setAdapter(searchResultsAdapter);
 
@@ -114,64 +119,69 @@ public class SeekerMainActivity extends TemplateActivity {
         addListeners();
     }
 
-
-    private void executeSearch(String address, final double latitude, final double longitude) {
+    private void executeSearch() {
 
         searchResults.clear();
 
-        System.out.println("Executing search: " + address + " at (" + latitude + ", " + longitude + ")");
+        System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
-        // TODO: YUNA: Set these variables as well as filters?
-        final double sLatitude = 34.0224;
-        final double sLongitude = 118.2851;
-        final String sStartTime = "1997-07-16T19:20+01:00";
-        final String sEndTime = "1997-07-16T19:25+01:00";
-        // filters?
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
 
-        // TODO: Show error popup if bad input?
-        if(sStartTime.compareTo(sEndTime) > 0) {
-            System.out.println("Start time is later than end time");
-        }
+        try {
+            Date date = df.parse(startDate + " " + startTime);
+            final String sStartTime = df.format(date);
+            date = df.parse(endDate + " " + endTime);
+            final String sEndTime = df.format(date);
 
-        DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
-        browseRef.orderByChild("startTime").equalTo(sStartTime).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+            // TODO: Show error popup if bad input?
+            if(sStartTime.compareTo(sEndTime) > 0)
+                System.out.println("ERROR");
 
-                ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-                // check end time
-                System.out.println("Found with start time");
-
-                if(sEndTime.compareTo(post.getEndTime()) <= 0) {
-                    // check distance
-                    System.out.println("Found with end time");
-                    // TODO: change the first two parameters when the maps is fixed (longitude is negative?)
-                    double distance = Utility.distance(sLatitude, sLongitude, post.getLatitude(), post.getLongitude(), "M");
-                    if(distance < RADIUS_LIMIT) {
-                        // TODO: check filters
-                        // if(insert filters)
-                            // display dynamically
-                        System.out.println("SPOT WITHIN 3 MILES: " + post.toString());
+            DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
+            // order by endtimes at or later
+            browseRef.orderByChild("endTime").startAt(sEndTime).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+                    System.out.println("END TIME STARTING OR LATER: " + sEndTime);
+                    ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
+                    // check start time is earlier
+                    if(sStartTime.compareTo(post.getStartTime()) >= 0) {
+                        // check distance
+                        System.out.println("START TIME WITHIN: " + sStartTime);
+                        double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
+                        if(distance < RADIUS_LIMIT) {
+                            System.out.println("WITHIN DISTANCE");
+                            if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                System.out.println("WITHIN PRICE");
+                                int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                int postSize = Utility.convertSize(post.getSize());
+                                if(postSize >= size && post.isHandicap() == handicapOnly) {
+                                    System.out.println("WITHIN SIZE AND HANDICAP");
+                                    if(post.getOwnerRating() >= minOwnerRating) {
+                                        System.out.println("Got spot: " + post.getAddress());
+                                        searchResults.add(post);
+                                        searchResultsAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            @Override
-            public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-            @Override
-            public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
-            @Override
-            public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
+                @Override
+                public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+                @Override
+                public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) { }
+                @Override
+                public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) { }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
             });
-    }
 
-    // Call this function to update the search results view
-    private void loadSearchResults(ArrayList<ParkingSpot> parkingSpots) {
-
-        searchResultsAdapter.clear();
-        searchResultsAdapter.addAll(parkingSpots);
-        searchResultsAdapter.notifyDataSetChanged();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addListeners() {
@@ -210,12 +220,16 @@ public class SeekerMainActivity extends TemplateActivity {
 
                 Log.i(LOG_TAG, "Place Selected: " + place.getName());
                 List<Address> addressInfo;
-                String address = place.getName().toString();
 
                 try {
+                    address = place.getName().toString();
                     addressInfo = coder.getFromLocationName(address, 5);
                     Address location = addressInfo.get(0);
-                    executeSearch(address, location.getLatitude(), location.getLongitude());
+
+                    // Store into variables that are used later
+                    adapterLatitude = location.getLatitude();
+                    adapterLongitude = location.getLongitude();
+                    executeSearch();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -234,7 +248,6 @@ public class SeekerMainActivity extends TemplateActivity {
         if (requestCode == SEARCH_FILTER && resultCode == RESULT_OK && data != null) {
             // Update search parameters
             minPrice = data.getDoubleExtra("minPrice", 0);
-            System.out.println("Min price is updated to " + minPrice);
             maxPrice = data.getDoubleExtra("maxPrice", 100000000);                   // What is the max price?????
             minOwnerRating = data.getFloatExtra("minOwnerRating", 0.0f);
             minSpotRating = data.getFloatExtra("minSpotRating", 0.0f);
@@ -247,62 +260,72 @@ public class SeekerMainActivity extends TemplateActivity {
             startTime = data.getStringExtra("startTime");
             endDate = data.getStringExtra("endDate");
             endTime = data.getStringExtra("endTime");
+            executeSearch();
         }
     }
 
-    protected class SearchListAdapter extends ArrayAdapter<ParkingSpot> {
+    protected class SearchListAdapter extends ArrayAdapter<ParkingSpotPost> {
 
-        public SearchListAdapter(Context context, ArrayList<ParkingSpot> results) {
+        public SearchListAdapter(Context context, ArrayList<ParkingSpotPost> results) {
             super(context, 0, results);
-        }
-
-        // View lookup cache
-        private class ViewHolder {
-            ImageView image;
-            TextView address;
-            TextView dateTimeRange;
-            TextView size;
-            TextView handicap;
-            TextView price;
-            TextView distance;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            // Get data item
-            ParkingSpot parkingSpot = getItem(position);
-
-            // Check if an existing view is being reused, otherwise inflate the view
-            ViewHolder viewHolder;
             if (convertView == null) {
-                viewHolder = new ViewHolder();
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.seeker_search_list_item, parent, false);
-                viewHolder.image = (ImageView) findViewById(R.id.image);
-                viewHolder.address = (TextView) findViewById(R.id.address);
-                viewHolder.dateTimeRange = (TextView) findViewById(R.id.date_time_range);
-                viewHolder.size = (TextView) findViewById(R.id.size);
-                viewHolder.handicap = (TextView) findViewById(R.id.handicap);
-                viewHolder.price = (TextView) findViewById(R.id.price);
-                viewHolder.distance = (TextView) findViewById(R.id.distance);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_search_list_item, parent, false);
+            }
+            // Get data item
+            ParkingSpotPost parkingSpotPost = getItem(position);
+
+            // Set image
+            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.image);
+            spotImageView.setImageResource(0);
+
+            Picasso.with(getContext())
+                    .load(parkingSpotPost.getPhotoUrl())
+                    .placeholder(R.drawable.progress_animation)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(spotImageView);
+
+            // @TODO: Avery fix pls
+            System.out.println("PHOTO URL: " + parkingSpotPost.getPhotoUrl());
+            // Set Address
+            TextView addrText = (TextView) convertView.findViewById(R.id.address);
+            addrText.setText(parkingSpotPost.getAddress());
+
+            // Set date/time
+            TextView dateText = (TextView) convertView.findViewById(R.id.date_time_range);
+            dateText.setText(parkingSpotPost.getStartTime() + " - " + parkingSpotPost.getEndTime());
+
+            // Set Size
+            TextView sizeText = (TextView) convertView.findViewById(R.id.size);
+            sizeText.setText(parkingSpotPost.getSize());
+
+            // Set Handicap (hide if not handicap)
+            if (!parkingSpotPost.isHandicap())
+            {
+                TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
+                handiText.setVisibility(View.GONE);
             }
 
-            // Populate data into the views
-            //viewHolder.image.setImageBitmap(parkinigSpot.get);       // Need the image bitmap in ParkingSpot class
-            viewHolder.address.setText(parkingSpot.getAddress());
-            //viewHolder.dateTimeRange.setText(parkingSpot.get);       // Need date time range
-            viewHolder.size.setText(parkingSpot.getSize());
-            if (!parkingSpot.isHandicapped()) {
-                viewHolder.handicap.setVisibility(View.INVISIBLE);
-            }
-            //viewHolder.price.setText(parkingSpot.get);               // Need spot price
-            //viewHolder.distance.setText();                           // Need distance from entered location
+            // Set Price
+            TextView priceText = (TextView) convertView.findViewById(R.id.price);
+            priceText.setText("$" + parkingSpotPost.getPrice());
 
-            // Return completed view
+            TextView distText = (TextView) convertView.findViewById(R.id.distance);
+            distText.setText(
+                    Utility.distance(parkingSpotPost.getLatitude(),
+                            parkingSpotPost.getLongitude(),
+                            adapterLatitude,
+                            adapterLongitude,
+                            "M")
+                    + " mi"
+            );
+
+
+
             return convertView;
         }
 
