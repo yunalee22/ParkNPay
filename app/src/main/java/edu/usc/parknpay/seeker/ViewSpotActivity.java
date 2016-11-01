@@ -3,6 +3,8 @@ package edu.usc.parknpay.seeker;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,9 +17,16 @@ import edu.usc.parknpay.TemplateActivity;
  */
 
 public class ViewSpotActivity extends TemplateActivity{
-    ImageView spotPhoto, addButton, ownerPhoto;
-    TextView address, spotType, additionalNotes, handicapped, cancellationPolicy, ownerName;
-    RatingBar spotRatingBar, ownerRatingBar;
+
+    private ImageView parkingSpotImage;
+    private TextView address;
+    private RatingBar spotRatingBar;
+    private TextView size, handicap;
+    private TextView additionalNotes;
+    private ImageView ownerImage;
+    private TextView ownerName;
+    private RatingBar ownerRatingBar;
+    private Button reserveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +34,20 @@ public class ViewSpotActivity extends TemplateActivity{
         setContentView(R.layout.seeker_view_spot);
         super.onCreateDrawer();
         toolbarSetup();
-        initializeEdits();
-        addListeners();
 
+        // Get references to UI views
+        parkingSpotImage = (ImageView) findViewById(R.id.parkingSpotImage);
+        address = (TextView) findViewById(R.id.address);
+        spotRatingBar = (RatingBar) findViewById(R.id.spotRatingBar);
+        size = (TextView) findViewById(R.id.size);
+        handicap = (TextView) findViewById(R.id.handicap);
+        additionalNotes = (TextView) findViewById(R.id.additionalNotes);
+        ownerImage = (ImageView) findViewById(R.id.ownerImage);
+        ownerName = (TextView) findViewById(R.id.ownerName);
+        ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);
+        reserveButton = (Button) findViewById(R.id.reserveButton);
+
+        addListeners();
     }
 
     protected void toolbarSetup() {
@@ -47,22 +67,17 @@ public class ViewSpotActivity extends TemplateActivity{
         return false;
     }
 
-    protected void initializeEdits() {
-        spotPhoto = (ImageView) findViewById(R.id.imageView);
-        ownerPhoto = (ImageView) findViewById(R.id.pic);
-        addButton = (ImageView) findViewById(R.id.addAvail);
-        address = (TextView) findViewById(R.id.address);
-        spotType = (TextView) findViewById(R.id.spotType);
-        additionalNotes = (TextView) findViewById(R.id.notes);
-        spotRatingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ownerRatingBar = (RatingBar) findViewById(R.id.ratingBar2);
-        handicapped = (TextView) findViewById(R.id.time);
-        cancellationPolicy = (TextView) findViewById(R.id.date);
-        ownerName = (TextView) findViewById(R.id.owner);
-    }
-
     protected void addListeners() {
 
-    }
+        // Called when reserve button is clicked
+        reserveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                // Add spot reservation to database
 
+            }
+        });
+
+    }
 }
