@@ -51,16 +51,33 @@ public class TemplateActivity extends AppCompatActivity {
             switch(position) {
                 case 0:     // Reservations
                 {
+                    if (u.isSeeker()) {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.ReservationsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.ReservationsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    }
                     break;
                 }
                 case 1:     // History
                 {
+                    if (u.isSeeker()) {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.HistoryActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.HistoryActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    }
                     break;
                 }
                 case 2:     // Payment
                 {
                     intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
-                    //intent.putExtra("shopCash", cash);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     break;
@@ -68,7 +85,6 @@ public class TemplateActivity extends AppCompatActivity {
                 case 3:     // Settings
                 {
                     intent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
-                    //intent.putExtra("shopCash", cash);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     break;
