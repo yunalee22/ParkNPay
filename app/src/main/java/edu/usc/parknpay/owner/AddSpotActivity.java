@@ -48,7 +48,7 @@ public class AddSpotActivity extends TemplateActivity {
 
     EditText notes;
     CheckBox handicapped;
-    Spinner size, cancel;
+    Spinner size;
     Button doneButton;
     ImageView parkingSpotPhoto;
     Uri selectedImage;
@@ -108,7 +108,6 @@ public class AddSpotActivity extends TemplateActivity {
         notes = (EditText) findViewById(R.id.notesEdit);
         handicapped = (CheckBox) findViewById(R.id.checkBox);
         size = (Spinner) findViewById(R.id.sizeSpinner);
-        cancel = (Spinner) findViewById(R.id.cancelSpinner);
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         doneButton = (Button) findViewById(R.id.button);
@@ -161,7 +160,6 @@ public class AddSpotActivity extends TemplateActivity {
         //address string should hold the address typed into the google search bar
         String notesFinal = notes.getText().toString().trim();
         String sizeFinal = size.getSelectedItem().toString();
-        String cancelFinal = cancel.getSelectedItem().toString();
         boolean handicappedFinal = handicapped.isChecked();
 
         Ref = FirebaseDatabase.getInstance().getReference();
@@ -170,7 +168,7 @@ public class AddSpotActivity extends TemplateActivity {
 
 
         // Create parking spot
-        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, cancelFinal, latitude, longitude);
+        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude);
         spot.setParkingId(parkingSpotID);
 
         // handle image
