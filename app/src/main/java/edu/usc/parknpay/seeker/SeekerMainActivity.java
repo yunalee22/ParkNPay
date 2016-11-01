@@ -157,21 +157,16 @@ public class SeekerMainActivity extends TemplateActivity {
             browseRef.orderByChild("endTime").startAt(sEndTime).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-                    System.out.println("END TIME STARTING OR LATER: " + sEndTime);
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check start time is earlier
                     if(sStartTime.compareTo(post.getStartTime()) >= 0) {
                         // check distance
-                        System.out.println("START TIME WITHIN: " + sStartTime);
                         double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
                         if(distance < RADIUS_LIMIT) {
-                            System.out.println("WITHIN DISTANCE");
                             if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                System.out.println("WITHIN PRICE");
                                 int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
                                 int postSize = Utility.convertSize(post.getSize());
                                 if(postSize >= size && post.isHandicap() == handicapOnly) {
-                                    System.out.println("WITHIN SIZE AND HANDICAP");
                                     if(post.getOwnerRating() >= minOwnerRating) {
                                         System.out.println("Got spot: " + post.getAddress());
                                         searchResults.add(post);
