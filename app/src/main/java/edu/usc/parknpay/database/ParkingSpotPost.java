@@ -2,12 +2,14 @@ package edu.usc.parknpay.database;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by tiffanyhuang on 10/23/16.
  */
 
 
-public class ParkingSpotPost {
+public class ParkingSpotPost implements Serializable{
     private String ownerUserId, parkingSpotId;
     private String startTime, endTime;
     private double latitude, longitude;
