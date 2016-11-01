@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
+                                progress.dismiss();
                             }
                         }
 
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        progress.dismiss();
     }
 
     /** Called when the user selects the authentication_registration option. */
@@ -149,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                             //if (User.getInstance().isSeeker()) {
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
+                                progress.dismiss();
                             //} else {
                             //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                             //    startActivity(ownerIntent);
@@ -198,8 +201,10 @@ public class LoginActivity extends AppCompatActivity {
                             //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                             //    startActivity(seekerIntent);
                             //} else {
+
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
+                                progress.dismiss();
                             //}
                         }
 
