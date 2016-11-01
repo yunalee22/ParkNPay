@@ -70,10 +70,14 @@ public class LoginActivity extends AppCompatActivity {
                             User.createUser(user);
 
                             // If authentication is successful, proceed to default (owner/seeker) main view.
-                            if (User.getInstance().isSeeker()) {
+                            if (User.getInstance().getIsCurrentlySeeker()) {
+                                User.getInstance().setIsCurrentlySeeker(false);
+
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
                             } else {
+                                User.getInstance().setIsCurrentlySeeker(true);
+
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
                             }
@@ -117,14 +121,17 @@ public class LoginActivity extends AppCompatActivity {
                             User user = snapshot.getValue(User.class);
                             User.createUser(user);
 
+                            (User.getInstance()).setIsCurrentlySeeker(true);
+
                             // If authentication is successful, proceed to default (owner/seeker) main view.
-                            if (User.getInstance().isSeeker()) {
+
+                            //if (User.getInstance().isSeeker()) {
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
-                            } else {
-                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
-                                startActivity(ownerIntent);
-                            }
+                            //} else {
+                            //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+                            //    startActivity(ownerIntent);
+                            //}
                         }
 
                         @Override
@@ -158,14 +165,16 @@ public class LoginActivity extends AppCompatActivity {
                             User user = snapshot.getValue(User.class);
                             User.createUser(user);
 
+                            User.getInstance().setIsCurrentlySeeker(false);
+
                             // If authentication is successful, proceed to default (owner/seeker) main view.
-                            if (User.getInstance().isSeeker()) {
-                                Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
-                                startActivity(seekerIntent);
-                            } else {
+                            //if (User.getInstance().isSeeker()) {
+                            //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+                            //    startActivity(seekerIntent);
+                            //} else {
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
-                            }
+                            //}
                         }
 
                         @Override
