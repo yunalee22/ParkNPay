@@ -1,10 +1,7 @@
 package edu.usc.parknpay.seeker;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +14,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import edu.usc.parknpay.R;
@@ -190,6 +185,8 @@ public class SearchFilterActivity extends TemplateActivity {
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
                 output.putExtra("startDate", startDateButton.getText());
                 output.putExtra("endDate", endDateButton.getText());
+                output.putExtra("startTime", startSpinner.getSelectedItem().toString() + ":00");
+                output.putExtra("endTime", endSpinner.getSelectedItem().toString() + ":00");
 
                 setResult(RESULT_OK, output);
                 finish();
