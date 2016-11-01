@@ -141,13 +141,13 @@ public class SeekerMainActivity extends TemplateActivity {
             }
 
             DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
-            browseRef.orderByChild("startTime").startAt(sStartTime).addChildEventListener(new ChildEventListener() {
+            // order by endtimes at or later
+            browseRef.orderByChild("endTime").startAt(sEndTime).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
-                    // check end time
-                    if(sEndTime.compareTo(post.getEndTime()) <= 0) {
+                    // check start time is earlier
+                    if(sStartTime.compareTo(post.getStartTime()) >= 0) {
                         // check distance
                         double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
                         if(distance < RADIUS_LIMIT) {
@@ -244,7 +244,6 @@ public class SeekerMainActivity extends TemplateActivity {
         if (requestCode == SEARCH_FILTER && resultCode == RESULT_OK && data != null) {
             // Update search parameters
             minPrice = data.getDoubleExtra("minPrice", 0);
-            System.out.println("Min price is updated to " + minPrice);
             maxPrice = data.getDoubleExtra("maxPrice", 100000000);                   // What is the max price?????
             minOwnerRating = data.getFloatExtra("minOwnerRating", 0.0f);
             minSpotRating = data.getFloatExtra("minSpotRating", 0.0f);

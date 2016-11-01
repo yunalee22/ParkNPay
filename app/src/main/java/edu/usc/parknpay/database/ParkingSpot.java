@@ -18,7 +18,6 @@ public class ParkingSpot implements Serializable{
     private double rating;
     private boolean isHandicapped;
     private String description;
-    private String cancellationPolicy;
     private String parkingId;
     private String photoURL;
 
@@ -37,15 +36,13 @@ public class ParkingSpot implements Serializable{
     }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("cancellationPolicy") String cancellationPolicy,
-                       @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude) {
+                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude) {
         this.ownerUserId = ownerUserId;
         this.address = address;
         this.size = size;
         this.rating = rating;
         this.isHandicapped = isHandicapped;
         this.description = description;
-        this.cancellationPolicy = cancellationPolicy;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -56,14 +53,6 @@ public class ParkingSpot implements Serializable{
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getCancellationPolicy() {
-        return cancellationPolicy;
-    }
-
-    public void setCancellationPolicy(String cancellationPolicy) {
-        this.cancellationPolicy = cancellationPolicy;
     }
 
     public String getDescription() {
