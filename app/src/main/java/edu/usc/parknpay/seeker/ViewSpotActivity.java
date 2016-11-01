@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.database.ParkingSpotPost;
 
 /**
  * Created by Bobo on 10/27/2016.
@@ -48,6 +51,15 @@ public class ViewSpotActivity extends TemplateActivity{
         ownerName = (TextView) findViewById(R.id.ownerName);
         ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);
         reserveButton = (Button) findViewById(R.id.reserveButton);
+
+        // Get parking spot post
+        Serializable object = getIntent().getSerializableExtra("Parking spot post");
+        ParkingSpotPost parkingSpotPost = (ParkingSpotPost) object;
+
+        // TO DO: Update all the view information using the parkingSpotPost object.
+
+
+
 
         addListeners();
     }

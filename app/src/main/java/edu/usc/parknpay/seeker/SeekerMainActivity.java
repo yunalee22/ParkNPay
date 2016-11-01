@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -114,6 +116,16 @@ public class SeekerMainActivity extends TemplateActivity {
         searchResults = new ArrayList<ParkingSpotPost>();
         searchResultsAdapter = new SearchListAdapter(SeekerMainActivity.this, searchResults);
         searchList.setAdapter(searchResultsAdapter);
+
+        searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object parkingSpotPost = (ParkingSpotPost) searchList.getItemAtPosition(position);
+                Intent intent = new Intent(SeekerMainActivity.this, ViewSpotActivity.class);
+                intent.putExtra("Parking spot post", (Serializable)parkingSpotPost);
+            }
+        });
 
         // Add view listeners
         addListeners();
