@@ -75,7 +75,7 @@ public class TemplateActivity extends AppCompatActivity {
                 "Switch Role",
                 "Log Out"
         };
-        drawerAdapter = new ArrayAdapter<String>(this, R.layout.drawer_item, menuItems);
+        drawerAdapter = new ArrayAdapter<String>(TemplateActivity.this, R.layout.drawer_item, menuItems);
         drawerList.setAdapter(drawerAdapter);
     }
 
