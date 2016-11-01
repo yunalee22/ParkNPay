@@ -22,6 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="View Spot"
+                android:layout_marginRight="?attr/actionBarSize"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity = "center"
                 android:textSize="24sp"
                 android:textStyle="bold" />

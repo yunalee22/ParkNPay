@@ -69,7 +69,7 @@ public class RateActivity extends AppCompatActivity {
         address = (TextView) findViewById(R.id.address);
         spotRatingBar = (RatingBar) findViewById(R.id.ratingBarOwner);
         ownerRatingBar = (RatingBar) findViewById(R.id.ratingBarSpot);
-        time = (TextView) findViewById(R.id.time);
+        time = (TextView) findViewById(R.id.handicap);
         date = (TextView) findViewById(R.id.date);
         doneButton = (Button) findViewById(R.id.button);
         additionalNotesField = (EditText) findViewById(R.id.additionalNotesField);
