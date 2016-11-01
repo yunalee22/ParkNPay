@@ -30,7 +30,7 @@ public class TemplateActivity extends AppCompatActivity {
         addDrawerItems();
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        Toast.makeText(TemplateActivity.this,"Temp Activity being added",Toast.LENGTH_LONG).show();
+        //Toast.makeText(TemplateActivity.this,"Temp Activity being added",Toast.LENGTH_LONG).show();
     }
 
     private void addDrawerItems() {
@@ -79,7 +79,7 @@ public class TemplateActivity extends AppCompatActivity {
                 case 4:     // Use App as Owner
                 {
                     if (u.getIsCurrentlySeeker()) {
-                        Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
                         u.setIsCurrentlySeeker(false);
                         drawerLayout.closeDrawers();
 
@@ -88,7 +88,7 @@ public class TemplateActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         u.setIsCurrentlySeeker(true);
-                        Toast.makeText(TemplateActivity.this, "currentlySeeker False to True", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(TemplateActivity.this, "currentlySeeker False to True", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
 
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
