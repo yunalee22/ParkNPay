@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,7 @@ public class ReservationsActivity extends TemplateActivity {
             ImageView parkingSpotImage;
             TextView address;
             TextView dateTimeRange;
+            ImageView emailButton;
             ImageView callButton;
             ImageView deleteButton;
         }
@@ -101,6 +103,7 @@ public class ReservationsActivity extends TemplateActivity {
                 viewHolder.parkingSpotImage = (ImageView) findViewById(R.id.parking_spot_image);
                 viewHolder.address = (TextView) findViewById(R.id.address);
                 viewHolder.dateTimeRange = (TextView) findViewById(R.id.date_time_range);
+                viewHolder.emailButton = (ImageView) findViewById(R.id.email_button);
                 viewHolder.callButton = (ImageView) findViewById(R.id.call_button);
                 viewHolder.deleteButton = (ImageView) findViewById(R.id.delete_button);
                 convertView.setTag(viewHolder);
@@ -113,8 +116,25 @@ public class ReservationsActivity extends TemplateActivity {
             //viewHolder.address.setText(parkingSpotPost.get);
             //viewHolder.dateTimeRange.setText(parkingSpotPost.get);
 
-            // Get owner's phone number
+            // Get owner's phone number and email address
+            final String emailAddress = "yunalee@usc.edu";
             final String ownerPhoneNumber = "4087717264";
+
+            // Called when email button is pressed
+            viewHolder.emailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.setType("message/rfc822");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send email"));
+                    } catch(android.content.ActivityNotFoundException e) {
+                        Toast.makeText(ReservationsActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            );
 
             // Called when call button is pressed
             viewHolder.callButton.setOnClickListener(new View.OnClickListener() {

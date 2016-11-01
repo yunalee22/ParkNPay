@@ -40,7 +40,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/parking_spot_image"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="22dp">
+        android:layout_marginTop="20dp">
+
+        <ImageView android:id="@+id/email_button"
+            android:src="@drawable/email"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <ImageView android:id="@+id/call_button"
             android:src="@drawable/phone"
@@ -49,7 +58,8 @@
             android:maxHeight="30dp"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"/>
 
         <ImageView android:id="@+id/delete_button"
             android:src="@drawable/delete"
