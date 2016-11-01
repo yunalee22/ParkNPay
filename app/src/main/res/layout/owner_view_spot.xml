@@ -26,6 +26,7 @@
                 android:gravity = "center"
                 android:id="@+id/toolbar_title"
                 android:textSize="24sp"
+                android:layout_marginRight="?attr/actionBarSize"
                 android:fontFamily="sans-serif-smallcaps"
                 android:textStyle="normal|bold" />
 
@@ -132,7 +133,7 @@
             android:layout_marginTop="10dp"
             android:layout_alignLeft="@+id/spotType"
             android:layout_alignStart="@+id/spotType"
-            android:id="@+id/time" />
+            android:id="@+id/handicap" />
 
         <TextView
             android:text="Cancellation Policy"

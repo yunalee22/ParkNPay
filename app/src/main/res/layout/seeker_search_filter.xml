@@ -21,6 +21,8 @@
             android:layout_height="match_parent"
             android:text="Filter Search"
             android:gravity = "center"
+            android:layout_marginRight="?attr/actionBarSize"
+            android:fontFamily="sans-serif-smallcaps"
             android:id="@+id/toolbar_title"
             android:textSize="24sp"
             android:textStyle="normal|bold" />

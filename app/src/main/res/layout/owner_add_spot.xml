@@ -27,6 +27,8 @@
                     android:text="Add a Space"
                     android:gravity = "center"
                     android:id="@+id/toolbar_title"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_marginRight="?attr/actionBarSize"
                     android:textSize="24sp"
                     android:textStyle="normal|bold" />
 

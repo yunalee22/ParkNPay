@@ -25,6 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Reservations"
+                android:layout_marginRight="?attr/actionBarSize"
+                android:fontFamily="sans-serif-smallcaps"
                 android:gravity = "center"
                 android:id="@+id/toolbar_title"
                 android:textSize="24sp"

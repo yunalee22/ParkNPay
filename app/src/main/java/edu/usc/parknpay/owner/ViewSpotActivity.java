@@ -137,7 +137,7 @@ public class ViewSpotActivity extends TemplateActivity {
         additionalNotes = (TextView) findViewById(R.id.notes);
         availabilities = (ListView) findViewById(R.id.availabilities);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        handicapped = (TextView) findViewById(R.id.time);
+        handicapped = (TextView) findViewById(R.id.handicap);
         cancellationPolicy = (TextView) findViewById(R.id.date);
     }
 
