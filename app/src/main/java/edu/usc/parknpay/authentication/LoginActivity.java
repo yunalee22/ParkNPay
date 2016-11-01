@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        progress.dismiss();
+        //progress.dismiss();
     }
 
     /** Called when the user selects the authentication_registration option. */
