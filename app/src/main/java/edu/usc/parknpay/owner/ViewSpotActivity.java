@@ -10,14 +10,21 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.User;
 
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
@@ -55,7 +62,45 @@ public class ViewSpotActivity extends TemplateActivity {
                 .centerCrop()
                 .into(spotPhoto);
         ratingBar.setRating((float) parkingSpot.getRating());
+
+        availabilitiesList = new ArrayList<ParkingSpotPost>();
+        availabilityListAdapter = new AddAvailabilityAdapter(ViewSpotActivity.this, availabilitiesList);
+        availabilities.setAdapter(availabilityListAdapter);
+
+        String userId = User.getInstance().getId();
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref.child("Browse").orderByChild("ownerUserId").equalTo(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) {return;}
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    ParkingSpotPost t = snapshot.getValue(ParkingSpotPost.class);
+                    processParkingSpots(t);
+                    availabilityListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+
     }
+
+    private void processParkingSpots(ParkingSpotPost t) {
+        for (int i = 0; i < availabilitiesList.size(); ++i) {
+            // If item exists, replace it
+            if (availabilitiesList.get(i).getParkingSpotId().equals(t.getParkingSpotId()))
+            {
+                availabilitiesList.set(i, t);
+                return;
+            }
+        }
+        // transaction was not part of array
+        availabilitiesList.add(t);
+    }
+
 
     // Call this function to update the availabilites view
     private void loadReservations(ArrayList<ParkingSpotPost> avails) {

@@ -46,7 +46,7 @@ public class AddAvailabilityAdapter extends ArrayAdapter<ParkingSpotPost> {
         endTime = temp2.substring(5,7) + "/" + temp2.substring(8, 10) + "/" + temp2.substring(0,4)+ "    " + temp2.substring(11, 16);
         startDate.setText(startTime);
         endDate.setText(endTime);
-        price.setText(Double.toString(parkingSpotPost.getPrice()));
+        price.setText("$" + Double.toString(parkingSpotPost.getPrice()));
 
         return convertView;
     }
