@@ -1,5 +1,6 @@
 package edu.usc.parknpay.authentication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         // Get references to UI views
         editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait logging in...");
+        progress.setCancelable(false);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        progress.dismiss();
     }
 
     /** Called when the user clicks the authentication_login button. */
@@ -49,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter your email and/or password", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        progress.show();
 
         // Authenticate user through database
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -103,7 +119,12 @@ public class LoginActivity extends AppCompatActivity {
 
     // TESTING
     public void SeekerTestLogin(View view){
+
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        progress.show();
+
         firebaseAuth.signInWithEmailAndPassword("s@s.com", "sssssss").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
@@ -148,10 +169,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void HostTestLogin(View view){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        progress.show();
+
+
         firebaseAuth.signInWithEmailAndPassword("h@h.com", "hhhhhhh").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
 
                 if(task.isSuccessful()) {
 

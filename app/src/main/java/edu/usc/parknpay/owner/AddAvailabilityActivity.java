@@ -14,20 +14,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -167,7 +164,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
 
                 ParkingSpotPost post = new ParkingSpotPost(User.getInstance().getId(), parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
-                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating(), parkingSpot.getPhotoURL());
+                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId);
 
                 Ref.child("Browse").child(postId).setValue(post);
 

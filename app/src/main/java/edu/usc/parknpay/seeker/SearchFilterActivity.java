@@ -24,16 +24,10 @@ import edu.usc.parknpay.TemplateActivity;
 
 public class SearchFilterActivity extends TemplateActivity {
 
-    private static final int START_DATE_PICKER = 0;
-    private static final int START_TIME_PICKER = 1;
-    private static final int END_DATE_PICKER = 2;
-    private static final int END_TIME_PICKER = 3;
-
     private EditText minPriceField, maxPriceField;
     private RatingBar ownerRatingBar, spotRatingBar;
     private CheckBox handicapOnlyCheckbox;
-    private Spinner sizeSpinner, startSpinner, endSpinner;
-    private Button startDateButton, endDateButton;
+    private Spinner sizeSpinner;
     private Button searchButton;
 
     @Override
@@ -49,10 +43,6 @@ public class SearchFilterActivity extends TemplateActivity {
         spotRatingBar = (RatingBar) findViewById(R.id.spot_rating_bar);
         handicapOnlyCheckbox = (CheckBox) findViewById(R.id.handicap_only_checkbox);
         sizeSpinner = (Spinner) findViewById(R.id.sizeSpinner);
-        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
-        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
-        startDateButton = (Button) findViewById(R.id.start_date_button);
-        endDateButton = (Button) findViewById(R.id.end_date_button);
         searchButton = (Button) findViewById(R.id.search_button);
         setSpinners();
         // Get initial values
@@ -62,10 +52,6 @@ public class SearchFilterActivity extends TemplateActivity {
         float minOwnerRating = extras.getFloat("minOwnerRating");
         float minSpotRating = extras.getFloat("minSpotRating");
         boolean handicapOnly = extras.getBoolean("handicapOnly");
-        boolean showNormal = extras.getBoolean("showNormal");
-        boolean showCompact = extras.getBoolean("showCompact");
-        boolean showSuv = extras.getBoolean("showSuv");
-        boolean showTruck = extras.getBoolean("showTruck");
         String startDate = extras.getString("startDate");
         String startTime = extras.getString("startTime");
         String endDate = extras.getString("endDate");
@@ -77,8 +63,6 @@ public class SearchFilterActivity extends TemplateActivity {
         ownerRatingBar.setRating(minOwnerRating);
         spotRatingBar.setRating(minSpotRating);
         handicapOnlyCheckbox.setChecked(handicapOnly);
-        startDateButton.setText(startDate);
-        endDateButton.setText(endDate);
 
         // Add view listeners
         addListeners();
@@ -94,18 +78,6 @@ public class SearchFilterActivity extends TemplateActivity {
                 this, android.R.layout.simple_spinner_item, sizeArray);
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sizeSpinner.setAdapter(sizeAdapter);
-        List<String> timeSpinner =  new ArrayList<>();
-        for(int i=0; i<24; i++) {
-            if(i <10)
-                timeSpinner.add("0"+Integer.toString(i));
-            else
-                timeSpinner.add(Integer.toString(i));
-        }
-        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, timeSpinner);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        endSpinner.setAdapter(timeAdapter);
-        startSpinner.setAdapter(timeAdapter);
     }
 
     protected void toolbarSetup() {
@@ -145,31 +117,11 @@ public class SearchFilterActivity extends TemplateActivity {
         ownerRatingBar.setRating(minOwnerRating);
         spotRatingBar.setRating(minSpotRating);
         handicapOnlyCheckbox.setChecked(handicapOnly);
-        startDateButton.setText(startDate);
-        endDateButton.setText(endDate);
+//        startDateButton.setText(startDate);
+//        endDateButton.setText(endDate);
     }
 
     private void addListeners() {
-
-        // Called when user clicks start date button
-        startDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Prompt user to pick a date
-                showDialog(START_DATE_PICKER);
-            }
-        });
-
-
-        // Called when user clicks end date button
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Prompt user to pick a date
-                showDialog(END_DATE_PICKER);
-            }
-        });
-
 
         // Called when user clicks search button
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -183,10 +135,10 @@ public class SearchFilterActivity extends TemplateActivity {
                 output.putExtra("minOwnerRating", ownerRatingBar.getRating());
                 output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
-                output.putExtra("startDate", startDateButton.getText());
-                output.putExtra("endDate", endDateButton.getText());
-                output.putExtra("startTime", startSpinner.getSelectedItem().toString() + ":00");
-                output.putExtra("endTime", endSpinner.getSelectedItem().toString() + ":00");
+//                output.putExtra("startDate", startDateButton.getText());
+//                output.putExtra("endDate", endDateButton.getText());
+//                output.putExtra("startTime", startSpinner.getSelectedItem().toString() + ":00");
+//                output.putExtra("endTime", endSpinner.getSelectedItem().toString() + ":00");
 
                 setResult(RESULT_OK, output);
                 finish();
@@ -194,56 +146,6 @@ public class SearchFilterActivity extends TemplateActivity {
         });
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
 
-        switch (id) {
-
-            case START_DATE_PICKER:
-            {
-                // Get current date
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                return new DatePickerDialog(this, startDatePickerListener, year, month, day);
-            }
-
-
-            case END_DATE_PICKER:
-            {
-                // Get current date
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                return new DatePickerDialog(this, endDatePickerListener, year, month, day);
-            }
-
-
-            default:
-            {
-                return null;
-            }
-        }
-    }
-
-    private DatePickerDialog.OnDateSetListener startDatePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            startDateButton.setText(year + "-" + month + "-" + dayOfMonth);
-        }
-    };
-
-    private DatePickerDialog.OnDateSetListener endDatePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            endDateButton.setText(year + "-" + month + "-" + dayOfMonth);
-        }
-    };
 
 }

@@ -160,96 +160,6 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp" />
 
-            <TableLayout android:id="@+id/size_checkbox_table"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/size_label"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp">
-
-            </TableLayout>
-
-            <TextView android:id="@+id/dates_available_label"
-                android:text="Date Range"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/size_label"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp" />
-
-            <TableLayout android:id="@+id/date_range_table"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dates_available_label"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="15dp"
-                android:stretchColumns="*">
-
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <TextView android:id="@+id/start_label"
-                        android:text="Start"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_marginRight="10dp"/>
-                    <Button android:id="@+id/start_date_button"
-                        android:text="2016-10-28"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textAllCaps="false"/>
-
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spinnerStart" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView android:id="@+id/end_label"
-                        android:text="End"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_marginRight="10dp"/>
-                    <Button android:id="@+id/end_date_button"
-                        android:text="2016-10-28"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textAllCaps="false"/>
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spinnerEnd" />
-                </TableRow>
-
-            </TableLayout>
-
-            <Button android:id="@+id/search_button"
-                android:text="Search"
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_below="@id/date_range_table"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"/>
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -265,10 +175,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/size_label"
-                android:layout_alignLeft="@+id/dates_available_label"
-                android:layout_alignStart="@+id/dates_available_label"
+                android:layout_alignLeft="@+id/size_label"
+                android:layout_alignStart="@+id/size_label"
                 android:id="@+id/textView20"
                 android:textSize="12sp" />
+
+            <Button android:id="@+id/search_button"
+                android:text="Search"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@id/sizeSpinner"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"/>
 
         </RelativeLayout>
     </ScrollView>
