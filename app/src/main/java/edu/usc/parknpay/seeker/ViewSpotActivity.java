@@ -89,7 +89,6 @@ public class ViewSpotActivity extends TemplateActivity{
                         .resize(450, 450)
                         .centerCrop()
                         .into(ownerImage);
-
                 // TODO: owner rating bar
             }
 
@@ -97,14 +96,6 @@ public class ViewSpotActivity extends TemplateActivity{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-        // read from firebase the owner
-
-        // get the image
-        // get the name
-        // get the rating
-
 
         addListeners();
     }
