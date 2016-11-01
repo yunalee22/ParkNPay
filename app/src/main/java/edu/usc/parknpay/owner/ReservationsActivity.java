@@ -49,6 +49,11 @@ public class ReservationsActivity extends TemplateActivity {
 
         // Add adapter to ListView
         reservations = new ArrayList<ParkingSpotPost>();
+
+        //POPULATE HERE?
+
+
+
         reservationsListAdapter = new edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter(edu.usc.parknpay.owner.ReservationsActivity.this, reservations);
         reservationsList.setAdapter(reservationsListAdapter);
     }
