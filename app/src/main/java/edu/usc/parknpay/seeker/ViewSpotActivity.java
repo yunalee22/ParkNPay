@@ -9,11 +9,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 import java.io.Serializable;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.User;
 
 /**
  * Created by Bobo on 10/27/2016.
@@ -57,8 +66,44 @@ public class ViewSpotActivity extends TemplateActivity{
         ParkingSpotPost parkingSpotPost = (ParkingSpotPost) object;
 
         // TO DO: Update all the view information using the parkingSpotPost object.
+        Picasso.with(this)
+                .load(parkingSpotPost.getPhotoUrl())
+                .resize(450, 450)
+                .centerCrop()
+                .into(parkingSpotImage);
+        address.setText(parkingSpotPost.getAddress());
+        // TODO: parking spot rating bar
+        size.setText(parkingSpotPost.getSize());
+        handicap.setText(parkingSpotPost.isHandicap() ? "Handicap" : "Not Handicap");
+        cancellationPolicy.setText(parkingSpotPost.getCancellationPolicy());
+        additionalNotes.setText(parkingSpotPost.getDescription());
+
+        DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Users/" + parkingSpotPost.getOwnerUserId());
+        browseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User owner = dataSnapshot.getValue(User.class);
+                ownerName.setText(owner.getFirstName() + " " + owner.getLastName());
+                Picasso.with(ViewSpotActivity.this)
+                        .load(owner.getProfilePhotoURL())
+                        .resize(450, 450)
+                        .centerCrop()
+                        .into(ownerImage);
+
+                // TODO: owner rating bar
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
+        // read from firebase the owner
+
+        // get the image
+        // get the name
+        // get the rating
 
 
         addListeners();
