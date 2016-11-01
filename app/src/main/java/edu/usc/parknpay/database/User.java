@@ -18,6 +18,8 @@ public class User {
     private String licenseNumber;
     private boolean isSeeker;
 
+    private boolean isCurrentlySeeker;
+
     private String profilePhotoURL;
 
     private double balance;
@@ -198,5 +200,13 @@ public class User {
         this.profilePhotoURL = profilePhotoURL;
     }
 
+    public void setIsCurrentlySeeker(boolean b)
+    {
+        this.isCurrentlySeeker = b;
+    }
 
+    public boolean getIsCurrentlySeeker()
+    {
+        return isCurrentlySeeker;
+    }
 }
