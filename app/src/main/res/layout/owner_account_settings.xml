@@ -98,7 +98,7 @@
                 android:src="@drawable/progress_image" />
 
             <ImageView
-                android:id="@+id/circle_crop"
+                android:id="@+id/circle_crop2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/circle_crop" />
@@ -225,12 +225,12 @@
                 android:layout_height="80dp"
                 android:background="#00A8AB"
                 android:padding="8dp">
-                <ImageView android:id="@+id/pic"
+                <ImageView android:id="@+id/drawer_pic"
                     android:layout_width="match_parent"
                     android:scaleType="centerCrop"
                     android:layout_height="match_parent"
                     android:src="@drawable/default_pic" />
-                <ImageView android:id="@+id/circle_crop2"
+                <ImageView android:id="@+id/circle_crop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/circle_crop_drawer" />
@@ -244,6 +244,7 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/drawer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -252,6 +253,7 @@
                     android:textColor="#FFFFFF"/>
 
                 <TextView
+                    android:id="@+id/drawer_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

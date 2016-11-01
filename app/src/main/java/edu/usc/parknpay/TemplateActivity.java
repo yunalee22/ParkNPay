@@ -6,8 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.text.DecimalFormat;
 
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
@@ -16,6 +22,8 @@ import edu.usc.parknpay.database.User;
 public class TemplateActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private TextView userName, balance;
+    private ImageView userPic;
     private ListView drawerList;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
@@ -24,6 +32,9 @@ public class TemplateActivity extends AppCompatActivity {
         u = User.getInstance();
         // R.id.drawer_layout should be in every activity with exactly the same id.
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        userName = (TextView) findViewById(R.id.drawer_name);
+        balance = (TextView) findViewById(R.id.drawer_balance);
+        userPic = (ImageView) findViewById(R.id.drawer_pic);
 
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -31,6 +42,15 @@ public class TemplateActivity extends AppCompatActivity {
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         //Toast.makeText(TemplateActivity.this,"Temp Activity being added",Toast.LENGTH_LONG).show();
+        userName.setText(u.getFirstName() + " " + u.getLastName());
+        DecimalFormat df = new DecimalFormat("#.00");
+        balance.setText("$ " + df.format(u.getBalance()));
+
+        // Load profile image
+        Picasso.with(this)
+                .load(u.getProfilePhotoURL())
+                .placeholder(R.drawable.progress_animation)
+                .into(userPic);
     }
 
     private void addDrawerItems() {
@@ -39,7 +59,7 @@ public class TemplateActivity extends AppCompatActivity {
                 "History",
                 "Payment",
                 "Settings",
-                "Switch Role",
+                (User.getInstance().getIsCurrentlySeeker()) ? "Switch to Owner" : "Switch to Seeker",
                 "Log Out"
         };
         drawerAdapter = new ArrayAdapter<String>(this, R.layout.drawer_item, menuItems);
