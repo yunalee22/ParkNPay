@@ -88,6 +88,8 @@
             <RatingBar android:id="@+id/owner_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:progressTint="#FFCC00"
+                android:secondaryProgressTint="#FFCC00"
                 android:layout_below="@+id/owner_rating_label"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"/>
@@ -115,6 +117,8 @@
             <RatingBar android:id="@+id/spot_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:progressTint="#FFCC00"
+                android:secondaryProgressTint="#FFCC00"
                 android:layout_below="@+id/spot_rating_label"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"/>

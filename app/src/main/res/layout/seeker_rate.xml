@@ -67,6 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
+        android:progressTint="#FFCC00"
+        android:secondaryProgressTint="#FFCC00"
         android:layout_centerHorizontal="true"
         android:numStars="5"
         android:stepSize="1"
@@ -82,17 +84,6 @@
         android:layout_marginTop="30dp"
         android:textSize="18sp"
         android:id="@+id/textView19" />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/ratingBarSpot"
-        android:numStars="5"
-        android:stepSize="1"
-        android:layout_below="@+id/textView19"
-        android:layout_alignLeft="@+id/ratingBarOwner"
-        android:layout_alignStart="@+id/ratingBarOwner" />
 
     <TextView
         android:text="2PM - 5PM"
@@ -114,6 +105,19 @@
         android:layout_alignStart="@+id/address"
         android:layout_marginBottom="8dp" />
 
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:id="@+id/ratingBarSpot"
+        android:progressTint="#FFCC00"
+        android:secondaryProgressTint="#FFCC00"
+        android:numStars="5"
+        android:stepSize="1"
+        android:layout_below="@+id/textView19"
+        android:layout_alignLeft="@+id/ratingBarOwner"
+        android:layout_alignStart="@+id/ratingBarOwner" />
+
     <TextView android:id="@+id/additionalNotesLabel"
         android:text="Additional Notes"
         android:textSize="18sp"
@@ -123,14 +127,6 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"/>
 
-    <EditText android:id="@+id/additionalNotesField"
-        android:layout_marginTop="10dp"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/additionalNotesLabel"
-        android:background="@drawable/text_edit_border"
-        android:layout_centerHorizontal="true"/>
-
     <Button android:id="@+id/button"
         android:text="submit"
         android:layout_width="200dp"
@@ -138,5 +134,16 @@
         android:layout_below="@id/additionalNotesField"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"/>
+
+    <EditText android:id="@+id/additionalNotesField"
+        android:layout_marginTop="9dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:background="@drawable/text_edit_border"
+        android:layout_below="@+id/additionalNotesLabel"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

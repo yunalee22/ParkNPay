@@ -61,6 +61,8 @@
             android:numStars="5"
             android:scaleX="0.5"
             android:scaleY="0.5"
+            android:progressTint="#FFCC00"
+            android:secondaryProgressTint="#FFCC00"
             android:layout_gravity="top|start"
             android:id="@+id/ratingBar"
             android:layout_height="wrap_content"
