@@ -76,8 +76,10 @@ public class ViewSpotActivity extends TemplateActivity {
                 if (spots == null) {return;}
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     ParkingSpotPost t = snapshot.getValue(ParkingSpotPost.class);
-                    processParkingSpots(t);
-                    availabilityListAdapter.notifyDataSetChanged();
+                    if (parkingSpot.getParkingId().equals(t.getParkingSpotId())) {
+                        processParkingSpots(t);
+                        availabilityListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
