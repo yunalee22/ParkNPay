@@ -39,7 +39,7 @@ public class TemplateActivity extends AppCompatActivity {
                 u.isSeeker() ? "Use App as Owner" : "Use App as Seeker",
                 "Log Out"
         };
-        drawerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems);
+        drawerAdapter = new ArrayAdapter<String>(this, R.layout.drawer_item, menuItems);
         drawerList.setAdapter(drawerAdapter);
     }
 
@@ -85,6 +85,7 @@ public class TemplateActivity extends AppCompatActivity {
                 case 3:     // Settings
                 {
                     intent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
+
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     break;

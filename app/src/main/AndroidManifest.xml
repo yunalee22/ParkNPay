@@ -31,6 +31,8 @@
         <!-- Owner activities -->
         <activity android:name=".owner.AddSpotActivity" />
         <activity android:name=".owner.OwnerMainActivity" />
+        <activity android:name=".owner.ReservationsActivity" />
+        <activity android:name=".owner.HistoryActivity" />
         <activity android:name=".owner.AddAvailabilityActivity" />
         <activity android:name=".owner.ViewSpotActivity" />
 
