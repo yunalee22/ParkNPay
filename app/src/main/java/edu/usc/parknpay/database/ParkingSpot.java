@@ -20,6 +20,7 @@ public class ParkingSpot implements Serializable{
     private String description;
     private String parkingId;
     private String photoURL;
+    private int numRatings;
 
     public enum Size {
         Compact(0), Normal(1), Suv(2), Truck(3);
@@ -36,7 +37,7 @@ public class ParkingSpot implements Serializable{
     }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude) {
+                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings) {
         this.ownerUserId = ownerUserId;
         this.address = address;
         this.size = size;
@@ -45,6 +46,7 @@ public class ParkingSpot implements Serializable{
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.numRatings = numRatings;
     }
 
     public String getAddress() {
@@ -137,4 +139,19 @@ public class ParkingSpot implements Serializable{
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
+    }
+
+    public void updateRating(int rating) {
+        numRatings++;
+        this.rating += ((double)rating) / numRatings;
+        // update these values in firebase
+    }
+
 }
