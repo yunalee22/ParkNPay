@@ -1,5 +1,7 @@
 package edu.usc.parknpay.database;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class User {
     private static User instance = null;
 
@@ -190,6 +192,13 @@ public class User {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public void changeBalance(double change)
+    {
+        this.balance+=change;
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(id).setValue(this);
     }
 
     public String getProfilePhotoURL() {

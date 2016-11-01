@@ -28,6 +28,19 @@ public class TemplateActivity extends AppCompatActivity {
     private ArrayAdapter<String> drawerAdapter;
     private User u;
 
+    @Override
+    public void onNewIntent(Intent intent)
+    {
+        DecimalFormat df = new DecimalFormat("#.00");
+        balance.setText("$ " + df.format(u.getBalance()));
+    }
+
+    public void refreshBalanceView()
+    {
+        DecimalFormat df = new DecimalFormat("#.00");
+        balance.setText("$ " + df.format(u.getBalance()));
+    }
+
     protected void onCreateDrawer() {
         u = User.getInstance();
         // R.id.drawer_layout should be in every activity with exactly the same id.
@@ -115,6 +128,10 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 4:     // Use App as Owner
                 {
+                    u.changeBalance(10);
+                    refreshBalanceView();
+
+
                     if (u.getIsCurrentlySeeker()) {
                         //Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
                         u.setIsCurrentlySeeker(false);
