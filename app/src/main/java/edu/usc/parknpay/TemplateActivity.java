@@ -39,7 +39,7 @@ public class TemplateActivity extends AppCompatActivity {
                 "History",
                 "Payment",
                 "Settings",
-                "Switch Role",
+                (User.getInstance().getIsCurrentlySeeker()) ? "Switch to Owner" : "Switch to Seeker",
                 "Log Out"
         };
         drawerAdapter = new ArrayAdapter<String>(this, R.layout.drawer_item, menuItems);
