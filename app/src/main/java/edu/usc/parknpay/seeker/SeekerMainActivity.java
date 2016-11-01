@@ -169,6 +169,13 @@ public class SeekerMainActivity extends TemplateActivity {
 
         searchResults.clear();
 
+        startTime = startSpinner.getSelectedItem().toString() + ":00";
+        endTime = endSpinner.getSelectedItem().toString() + ":00";
+        startDate = startDateButton.getText().toString();
+        endDate = endDateButton.getText().toString();
+
+
+
         System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
         TimeZone tz = TimeZone.getTimeZone("UTC");
