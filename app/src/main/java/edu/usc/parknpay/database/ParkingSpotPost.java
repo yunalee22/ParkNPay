@@ -20,13 +20,14 @@ public class ParkingSpotPost implements Serializable{
     private double ownerRating;
     private String address;
     private String photoUrl;
+    private String postId;
 
     public ParkingSpotPost() {
     }
 
     public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("address") String address, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
                            @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") String size, @JsonProperty("cancellationPolicy") String cancellationPolicy,
-                           @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating, @JsonProperty("photoUrl") String photoUrl)
+                           @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating, @JsonProperty("photoUrl") String photoUrl, @JsonProperty("postId") String postId)
     {
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
@@ -41,6 +42,7 @@ public class ParkingSpotPost implements Serializable{
         this.ownerRating = ownerRating;
         this.address = address;
         this.photoUrl = photoUrl;
+        this.postId = postId;
     }
 
 
@@ -151,6 +153,14 @@ public class ParkingSpotPost implements Serializable{
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
 }
