@@ -112,21 +112,15 @@
             android:layout_alignStart="@+id/scroll"
             android:textSize="15sp" />
 
-        <ScrollView
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_below="@+id/textView17"
-            android:layout_alignLeft="@+id/scroll"
-            android:layout_alignStart="@+id/scroll"
-            android:id="@+id/scrollView2">
 
             <ListView
-                android:layout_width="match_parent"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/textView17"
+                android:layout_alignLeft="@+id/scroll"
+                android:layout_alignStart="@+id/scroll"
                 android:orientation="vertical"
                 android:id="@+id/availabilities"/>
-        </ScrollView>
 
         <TextView
             android:text="Handicapped?"
@@ -163,9 +157,9 @@
             android:layout_height="30dp"
             app:srcCompat="@drawable/add_spot"
             android:id="@+id/addAvail"
-            android:layout_above="@+id/scrollView2"
-            android:layout_alignRight="@+id/scrollView2"
-            android:layout_alignEnd="@+id/scrollView2" />
+            android:layout_above="@+id/availabilities"
+            android:layout_alignRight="@+id/availabilities"
+            android:layout_alignEnd="@+id/availabilities" />
 
 
 

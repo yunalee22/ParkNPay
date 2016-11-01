@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.usc.parknpay.R;
@@ -46,7 +47,8 @@ public class AddAvailabilityAdapter extends ArrayAdapter<ParkingSpotPost> {
         endTime = temp2.substring(5,7) + "/" + temp2.substring(8, 10) + "/" + temp2.substring(0,4)+ "    " + temp2.substring(11, 16);
         startDate.setText(startTime);
         endDate.setText(endTime);
-        price.setText("$" + Double.toString(parkingSpotPost.getPrice()));
+        DecimalFormat df = new DecimalFormat("#.00");
+        price.setText("$" + df.format(parkingSpotPost.getPrice()));
 
         return convertView;
     }
