@@ -89,24 +89,25 @@ public class SeekerMainActivity extends TemplateActivity {
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(intent.getStringExtra("page").equals("viewspot")) {
-            adapterLatitude = intent.getDoubleExtra("lat", 0);
-            adapterLongitude = intent.getDoubleExtra("long", 0);
-            address = intent.getStringExtra("addr");
-            executeSearch();
-        }
+        if(intent.getExtras() != null) {
+            if (intent.getStringExtra("page").equals("viewspot")) {
+                adapterLatitude = intent.getDoubleExtra("lat", 0);
+                adapterLongitude = intent.getDoubleExtra("long", 0);
+                address = intent.getStringExtra("addr");
+                executeSearch();
+            }
 
-        if(intent.getStringExtra("page").equals("filter")) {
-            minPrice = intent.getDoubleExtra("minPrice", 0);
-            maxPrice = intent.getDoubleExtra("maxPrice", 10000);
-            minOwnerRating = intent.getFloatExtra("minOwnerRating", 0);
-            minSpotRating = intent.getFloatExtra("minSpotRating", 0);
-            handicapOnly = intent.getBooleanExtra("handicapOnly", false);
-            size = intent.getIntExtra("size", 1);
+            if (intent.getStringExtra("page").equals("filter")) {
+                minPrice = intent.getDoubleExtra("minPrice", 0);
+                maxPrice = intent.getDoubleExtra("maxPrice", 10000);
+                minOwnerRating = intent.getFloatExtra("minOwnerRating", 0);
+                minSpotRating = intent.getFloatExtra("minSpotRating", 0);
+                handicapOnly = intent.getBooleanExtra("handicapOnly", false);
+                size = intent.getIntExtra("size", 1);
 
-            executeSearch();
+                executeSearch();
+            }
         }
-        //searchResults.clear();
     }
 
     @Override

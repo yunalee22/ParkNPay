@@ -33,7 +33,7 @@ import edu.usc.parknpay.database.User;
 
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
-    TextView address, spotType, additionalNotes, handicapped, cancellationPolicy;
+    TextView address, spotType, additionalNotes, handicapped;
     ListView availabilities;
     private ArrayList<ParkingSpotPost> availabilitiesList;
     private AddAvailabilityAdapter availabilityListAdapter;
@@ -138,7 +138,6 @@ public class ViewSpotActivity extends TemplateActivity {
         availabilities = (ListView) findViewById(R.id.availabilities);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         handicapped = (TextView) findViewById(R.id.handicap);
-        cancellationPolicy = (TextView) findViewById(R.id.cancellationPolicy);
         deleteButton = (Button) findViewById(R.id.deleteButton);
     }
 

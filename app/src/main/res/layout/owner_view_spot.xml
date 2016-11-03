@@ -102,29 +102,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"/>
 
-            <TextView android:id="@+id/cancellationPolicyLabel"
-                android:text="Cancellation Policy"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/deleteButton"
-                android:layout_marginTop="20dp"/>
-
-            <TextView android:id="@+id/cancellationPolicy"
-                android:text="Cancellation policy description goes here"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cancellationPolicyLabel"
-                android:layout_marginTop="10dp" />
 
             <TextView android:id="@+id/additionalNotesLabel"
                 android:text="Additional Notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="70dp"
                 android:textSize="15sp"
                 android:textStyle="normal|bold"
-                android:layout_below="@+id/cancellationPolicy"
+                android:layout_below="@+id/parkingSpotImage"
                 android:layout_alignLeft="@id/parkingSpotImage"
                 android:layout_alignStart="@id/parkingSpotImage" />
 
@@ -220,6 +206,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Gregory Johnson"
+                    android:textStyle="normal|bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"/>
 

@@ -68,13 +68,13 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:background="#00A8AB"
+            android:background="@color/blue"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="#00A8AB"
+                android:background="@color/blue"
                 android:padding="8dp">
                 <ImageView android:id="@+id/drawer_pic"
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                 <ImageView android:id="@+id/circle_crop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_drawer" />
+                    android:src="@drawable/circle_crop_registration" />
             </FrameLayout>
 
             <LinearLayout
@@ -100,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Gregory Johnson"
+                    android:textStyle="normal|bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"/>
 
