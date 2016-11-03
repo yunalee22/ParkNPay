@@ -372,7 +372,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            startDateButton.setText(year + "-" + month + "-" + dayOfMonth);
+            startDateButton.setText(year + "-" + (month+1) + "-" + dayOfMonth);
         }
     };
 
@@ -380,7 +380,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            endDateButton.setText(year + "-" + month + "-" + dayOfMonth);
+            endDateButton.setText(year + "-" + (month+1) + "-" + dayOfMonth);
         }
     };
 
