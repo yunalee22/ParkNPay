@@ -1,11 +1,14 @@
 package edu.usc.parknpay.seeker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,11 +27,13 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
 
@@ -52,8 +57,8 @@ public class ViewSpotActivity extends TemplateActivity{
     String tempAddr;
 
     private ListView reviewsListView;
-    private ArrayList<String> reviews;
-    private ArrayAdapter<String> reviewsListAdapter;
+    private ArrayList<Review> reviews;
+    private ReviewAdapter reviewsListAdapter;
 
     private ParkingSpotPost parkingSpotPost;
 
@@ -79,14 +84,14 @@ public class ViewSpotActivity extends TemplateActivity{
         reviewsListView = (ListView) findViewById(R.id.reviewsListView);
 
         // Add adapter to ListView
-        reviews = new ArrayList<String>();
-        reviewsListAdapter = new ArrayAdapter<String>(ViewSpotActivity.this,
-                android.R.layout.simple_list_item_1, reviews);
+        reviews = new ArrayList<Review>();
+        reviewsListAdapter = new ReviewAdapter(ViewSpotActivity.this, reviews);
         reviewsListView.setAdapter(reviewsListAdapter);
 
         // Get parking spot post
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
         parkingSpotPost = (ParkingSpotPost) object;
+        ownerRatingBar.setRating((float) parkingSpotPost.getOwnerRating());
 
         //for search pag
         tempLat = getIntent().getDoubleExtra("lat", 0);
@@ -118,7 +123,6 @@ public class ViewSpotActivity extends TemplateActivity{
                         .resize(450, 450)
                         .centerCrop()
                         .into(ownerImage);
-                // TODO: owner rating bar
             }
 
             @Override
@@ -126,7 +130,38 @@ public class ViewSpotActivity extends TemplateActivity{
             }
         });
 
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref.child("Parking-Spot-Reviews").child(parkingSpotPost.getParkingSpotId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) {return;}
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Review t = snapshot.getValue(Review.class);
+                    processReview(t);
+                    reviewsListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+
         addListeners();
+    }
+
+    private void processReview(Review t) {
+        /*for (int i = 0; i < reviews.size(); ++i) {
+            // If item exists, replace it
+            if (reviews.get(i).getDate().equals(t.getDate()))
+            {
+                reviews.set(i, t);
+                return;
+            }
+        }*/
+        // review was not part of array
+        reviews.add(t);
     }
 
     protected void toolbarSetup() {
@@ -223,5 +258,48 @@ public class ViewSpotActivity extends TemplateActivity{
             }
         });
 
+    }
+
+
+    protected class ReviewAdapter extends ArrayAdapter<Review> {
+
+        public ReviewAdapter(Context context, ArrayList<Review> results) {
+            super(context, 0, results);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_review_item, parent, false);
+            }
+            // Get data item
+            Review r = getItem(position);
+
+            // Set image
+            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.seeker_photo);
+            spotImageView.setImageResource(0);
+            Picasso.with(getContext())
+                    .load(r.getSeekerProfilePhotoURL())
+                    .placeholder(R.drawable.progress_animation)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(spotImageView);
+
+            // Set Address
+            TextView Date = (TextView) convertView.findViewById(R.id.date);
+            Date.setText(r.getDate());
+
+            // Set comments
+            TextView reviewText = (TextView) convertView.findViewById(R.id.review);
+            reviewText.setText(r.getComments());
+
+            // Set review
+            TextView seekerText = (TextView) convertView.findViewById(R.id.seeker_name);
+            seekerText.setText(r.getSeekerName());
+
+            RatingBar rate = (RatingBar) convertView.findViewById(R.id.ratingBar2);
+            rate.setRating((int) r.getRating());
+
+            return convertView;
+        }
     }
 }
