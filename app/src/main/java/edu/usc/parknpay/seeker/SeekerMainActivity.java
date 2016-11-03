@@ -201,18 +201,20 @@ public class SeekerMainActivity extends TemplateActivity {
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check start time is earlier
-                    if(sStartTime.compareTo(post.getStartTime()) >= 0) {
-                        // check distance
-                        double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
-                        if(distance < RADIUS_LIMIT) {
-                            if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
-                                int postSize = Utility.convertSize(post.getSize());
-                                if(postSize >= size && post.isHandicap() == handicapOnly) {
-                                    if(post.getOwnerRating() >= minOwnerRating) {
-                                        System.out.println("Got spot: " + post.getAddress());
-                                        searchResults.add(post);
-                                        searchResultsAdapter.notifyDataSetChanged();
+                    if(!post.isReserved()) {
+                        if (sStartTime.compareTo(post.getStartTime()) >= 0) {
+                            // check distance
+                            double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
+                            if (distance < RADIUS_LIMIT) {
+                                if (post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                    int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                    int postSize = Utility.convertSize(post.getSize());
+                                    if (postSize >= size && post.isHandicap() == handicapOnly) {
+                                        if (post.getOwnerRating() >= minOwnerRating) {
+                                            System.out.println("Got spot: " + post.getAddress());
+                                            searchResults.add(post);
+                                            searchResultsAdapter.notifyDataSetChanged();
+                                        }
                                     }
                                 }
                             }
