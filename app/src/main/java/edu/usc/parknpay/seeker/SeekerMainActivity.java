@@ -89,22 +89,17 @@ public class SeekerMainActivity extends TemplateActivity {
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        //Toast.makeText(SeekerMainActivity.this, "This function is run", Toast.LENGTH_SHORT).show();
-//        adapterLatitude = getIntent().getDoubleExtra("lat", 0);
-//        adapterLongitude = getIntent().getDoubleExtra("long", 0);
-//        address = getIntent().getStringExtra("addr");
-//        executeSearch();
 
-        if(getIntent().getStringExtra("page") == "filter") {
-            minPrice = getIntent().getDoubleExtra("minPrice", 0);
-            maxPrice = getIntent().getDoubleExtra("maxPrice", 10000);
-            minOwnerRating = getIntent().getFloatExtra("minOwnerRating", 0);
-            minSpotRating = getIntent().getFloatExtra("minSpotRating", 0);
-            handicapOnly = getIntent().getBooleanExtra("handicapOnly", false);
-            size = getIntent().getIntExtra("size", 1);
+        if(intent.getStringExtra("page").equals("filter")) {
+            minPrice = intent.getDoubleExtra("minPrice", 0);
+            maxPrice = intent.getDoubleExtra("maxPrice", 10000);
+            minOwnerRating = intent.getFloatExtra("minOwnerRating", 0);
+            minSpotRating = intent.getFloatExtra("minSpotRating", 0);
+            handicapOnly = intent.getBooleanExtra("handicapOnly", false);
+            size = intent.getIntExtra("size", 1);
+
             executeSearch();
         }
-        //searchResults.clear();
     }
 
     @Override

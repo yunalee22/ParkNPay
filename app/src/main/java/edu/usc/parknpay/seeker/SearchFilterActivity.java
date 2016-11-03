@@ -129,7 +129,7 @@ public class SearchFilterActivity extends TemplateActivity {
             @Override
             public void onClick(View v) {
                 Intent output = new Intent(SearchFilterActivity.this, SeekerMainActivity.class);
-
+                output.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 // Add return data to intent
                 output.putExtra("page", "filter");
                 output.putExtra("minPrice", Double.parseDouble(minPriceField.getText().toString()));
