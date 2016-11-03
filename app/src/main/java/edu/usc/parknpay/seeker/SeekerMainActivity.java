@@ -34,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -432,15 +433,16 @@ public class SeekerMainActivity extends TemplateActivity {
 
             // Set Price
             TextView priceText = (TextView) convertView.findViewById(R.id.price);
-            priceText.setText("$" + parkingSpotPost.getPrice());
+            DecimalFormat df = new DecimalFormat("#.00");
+            priceText.setText("$" + df.format(parkingSpotPost.getPrice()));
 
             TextView distText = (TextView) convertView.findViewById(R.id.distance);
             distText.setText(
-                    Utility.distance(parkingSpotPost.getLatitude(),
+                    df.format(Utility.distance(parkingSpotPost.getLatitude(),
                             parkingSpotPost.getLongitude(),
                             adapterLatitude,
                             adapterLongitude,
-                            "M")
+                            "M"))
                     + " mi"
             );
 
