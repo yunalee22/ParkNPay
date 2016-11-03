@@ -150,7 +150,6 @@ public class ViewSpotActivity extends TemplateActivity{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
-
                         // Add spot reservation to database
                         String TransactionId = UUID.randomUUID().toString();
                         User u = User.getInstance();
@@ -185,6 +184,9 @@ public class ViewSpotActivity extends TemplateActivity{
                     }
 
                 });
+
+                // set as reserved spot
+                FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getPostId()).child("reserved").setValue(true);
             }
         });
 
