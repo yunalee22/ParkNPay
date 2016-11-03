@@ -1,6 +1,7 @@
 package edu.usc.parknpay.owner;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
     TextView startDate, endDate;
     EditText prices;
     Button doneButton;
+    ProgressDialog progress;
     Spinner cancellationSpinner, endSpinner, startSpinner;
     Calendar startCalendar;
     Calendar endCalendar;
@@ -53,6 +55,11 @@ public class AddAvailabilityActivity extends TemplateActivity {
         setSpinners();
         addListeners();
 
+        //progress dialog
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait logging in...");
+        progress.setCancelable(false);
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
     }
 
@@ -153,6 +160,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     return;
                 }
 
+                progress.show();
 
                 cancellation = cancellationSpinner.getSelectedItem().toString();
                 //should be sending to database here
@@ -176,6 +184,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+                finish();
 
             }
 

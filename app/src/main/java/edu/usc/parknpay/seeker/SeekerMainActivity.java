@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -45,6 +46,7 @@ import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.authentication.RegistrationActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.utility.Utility;
 
@@ -84,10 +86,12 @@ public class SeekerMainActivity extends TemplateActivity {
 
     @Override
     public void onNewIntent(Intent intent) {
-        adapterLatitude = getIntent().getDoubleExtra("lat", 0);
-        adapterLongitude = getIntent().getDoubleExtra("long", 0);
-        address = getIntent().getStringExtra("addr");
-        executeSearch();
+        super.onNewIntent(intent);
+        //Toast.makeText(SeekerMainActivity.this, "This function is run", Toast.LENGTH_SHORT).show();
+//        adapterLatitude = getIntent().getDoubleExtra("lat", 0);
+//        adapterLongitude = getIntent().getDoubleExtra("long", 0);
+//        address = getIntent().getStringExtra("addr");
+//        executeSearch();
     }
 
     @Override

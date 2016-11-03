@@ -1,5 +1,6 @@
 package edu.usc.parknpay.owner;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -55,6 +56,7 @@ public class AddSpotActivity extends TemplateActivity {
     DatabaseReference Ref;
     String address;
     double latitude, longitude;
+    ProgressDialog progress;
     // Search autocomplete text field
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
@@ -70,6 +72,12 @@ public class AddSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
         setSpinners();
+
+        //progress dialog
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait logging in...");
+        progress.setCancelable(false);
 
         //address bar stuff
 
@@ -155,7 +163,7 @@ public class AddSpotActivity extends TemplateActivity {
             Toast.makeText(AddSpotActivity.this, "Please enter an address.", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        progress.show();
         //address string should hold the address typed into the google search bar
         String notesFinal = notes.getText().toString().trim();
         String sizeFinal = size.getSelectedItem().toString();
@@ -186,6 +194,7 @@ public class AddSpotActivity extends TemplateActivity {
                 Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
