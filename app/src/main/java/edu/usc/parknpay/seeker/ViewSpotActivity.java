@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
@@ -45,7 +48,12 @@ public class ViewSpotActivity extends TemplateActivity{
     private TextView ownerName;
     private RatingBar ownerRatingBar;
     private Button reserveButton;
-    ParkingSpotPost parkingSpotPost;
+
+    private ListView reviewsListView;
+    private ArrayList<String> reviews;
+    private ArrayAdapter<String> reviewsListAdapter;
+
+    private ParkingSpotPost parkingSpotPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,13 @@ public class ViewSpotActivity extends TemplateActivity{
         ownerName = (TextView) findViewById(R.id.ownerName);
         ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);
         reserveButton = (Button) findViewById(R.id.reserveButton);
+        reviewsListView = (ListView) findViewById(R.id.reviewsListView);
+
+        // Add adapter to ListView
+        reviews = new ArrayList<String>();
+        reviewsListAdapter = new ArrayAdapter<String>(ViewSpotActivity.this,
+                android.R.layout.simple_list_item_1, reviews);
+        reviewsListView.setAdapter(reviewsListAdapter);
 
         // Get parking spot post
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
