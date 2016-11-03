@@ -1,6 +1,7 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,7 @@ public class OwnerMainActivity extends TemplateActivity {
     ImageView addSpotButton;
     OwnerMainSpotAdapter parkingSpotAdapter;
     DatabaseReference parkingSpotRef;
+    ImageView menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class OwnerMainActivity extends TemplateActivity {
         super.onCreateDrawer();
         initializeComponents();
         addListeners();
-        toolbarSetup();
 
         parkingSpotArray = new ArrayList<ParkingSpot>();
         parkingSpotAdapter = new OwnerMainSpotAdapter(this, parkingSpotArray);
@@ -72,13 +73,6 @@ public class OwnerMainActivity extends TemplateActivity {
 
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        //mToolBar.setNavigationIcon(R.drawable.parknpay);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
     protected void initializeComponents() {
         parkingSpots = (GridView) findViewById(R.id.gridView);
         addSpotButton = (ImageView) findViewById(R.id.addSpot);
@@ -104,6 +98,7 @@ public class OwnerMainActivity extends TemplateActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     // Proccess parking spot - checks if parking spot already exists on UI

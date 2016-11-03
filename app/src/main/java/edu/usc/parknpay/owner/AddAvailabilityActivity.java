@@ -50,7 +50,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_add_availability);
         super.onCreateDrawer();
-        toolbarSetup();
         initializeEdits();
         setSpinners();
         addListeners();
@@ -242,13 +241,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
         startSpinner.setAdapter(timeAdapter);
         endSpinner.setSelection(1);
 
-    }
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Add an Availability");
     }
 
     @Override

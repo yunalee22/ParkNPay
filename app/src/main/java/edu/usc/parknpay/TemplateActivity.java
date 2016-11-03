@@ -21,13 +21,14 @@ import edu.usc.parknpay.owner.PaymentInfoActivity;
 
 public class TemplateActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
+    protected DrawerLayout drawerLayout;
     private TextView userName, balance;
     private ImageView userPic;
     private ListView drawerList;
-    private LinearLayout drawer;
+    protected LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
+    private ImageView menuButton;
 
     @Override
     public void onNewIntent(Intent intent)
@@ -50,6 +51,14 @@ public class TemplateActivity extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.drawer_name);
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
+        menuButton = (ImageView) findViewById(R.id.menu);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                drawerLayout.openDrawer(drawer);
+            }
+
+        });
 
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);

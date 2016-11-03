@@ -35,7 +35,6 @@ public class SearchFilterActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_search_filter);
-        toolbarSetup();
 
         // Get references to UI views
         minPriceField = (EditText) findViewById(R.id.min_price_field);
@@ -79,12 +78,6 @@ public class SearchFilterActivity extends TemplateActivity {
                 this, android.R.layout.simple_spinner_item, sizeArray);
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sizeSpinner.setAdapter(sizeAdapter);
-    }
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

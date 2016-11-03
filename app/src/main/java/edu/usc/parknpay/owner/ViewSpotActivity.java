@@ -46,7 +46,6 @@ public class ViewSpotActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_view_spot);
         super.onCreateDrawer();
-        toolbarSetup();
         initializeEdits();
         addListeners();
 
@@ -118,12 +117,6 @@ public class ViewSpotActivity extends TemplateActivity {
         availabilityListAdapter.notifyDataSetChanged();
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("View Spot");
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

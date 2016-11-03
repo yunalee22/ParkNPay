@@ -32,7 +32,6 @@ public class RateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_rate);
-        toolbarSetup();
         initializeEdits();
         addListeners();
 
@@ -48,12 +47,6 @@ public class RateActivity extends AppCompatActivity {
         Ref = FirebaseDatabase.getInstance().getReference();
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("View Spot");
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

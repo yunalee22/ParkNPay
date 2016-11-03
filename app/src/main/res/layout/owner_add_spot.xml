@@ -14,22 +14,32 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorAccent"
+                android:background="@color/toolbarColor"
                 android:theme="?attr/actionBarTheme"
                 android:minHeight="?attr/actionBarSize"
+                android:id="@+id/toolbar"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/toolbar" >
+                android:layout_alignParentStart="true">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/hamburger"
+                    android:layout_alignBottom="@+id/toolbar"
+                    android:layout_gravity = "center|left"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/menu" />
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Add a Space"
-                    android:gravity = "center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add a Spot"
+                    android:layout_gravity = "center"
                     android:id="@+id/toolbar_title"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:layout_marginRight="?attr/actionBarSize"
                     android:textSize="24sp"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:textStyle="normal|bold" />
 
             </android.support.v7.widget.Toolbar>

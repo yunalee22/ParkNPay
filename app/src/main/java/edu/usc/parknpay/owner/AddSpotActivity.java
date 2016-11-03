@@ -68,7 +68,6 @@ public class AddSpotActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_add_spot);
         super.onCreateDrawer();
-        toolbarSetup();
         initializeEdits();
         addListeners();
         setSpinners();
@@ -100,13 +99,6 @@ public class AddSpotActivity extends TemplateActivity {
                 return true;
         }
         return false;
-    }
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Add a Space");
     }
 
 

@@ -43,7 +43,6 @@ public class ReservationsActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_reservations);
         super.onCreateDrawer();
-        toolbarSetup();
 
         // Get references to UI views
         reservationsList = (ListView) findViewById(R.id.reservations_list);
@@ -91,11 +90,6 @@ public class ReservationsActivity extends TemplateActivity {
         reservations.add(t);
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

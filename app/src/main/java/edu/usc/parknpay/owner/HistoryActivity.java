@@ -42,7 +42,6 @@ public class HistoryActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_history);
         super.onCreateDrawer();
-        toolbarSetup();
 
         // Get references to UI views
         historyList = (ListView) findViewById(R.id.history_list);
@@ -72,12 +71,6 @@ public class HistoryActivity extends TemplateActivity {
         });
     }
 
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -47,7 +47,6 @@ public class AccountSettingsActivity extends TemplateActivity {
         setContentView(R.layout.owner_account_settings);
         super.onCreateDrawer();
         u = User.getInstance();
-        toolbarSetup();
         setSpinners();
         initializeEdits();
         addListeners();
@@ -61,12 +60,6 @@ public class AccountSettingsActivity extends TemplateActivity {
                 return true;
         }
         return false;
-    }
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected void initializeEdits(){
@@ -114,6 +107,7 @@ public class AccountSettingsActivity extends TemplateActivity {
             }
 
         });
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             //Submitting all the data that user entered for parking spot here.

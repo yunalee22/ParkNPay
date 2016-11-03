@@ -48,7 +48,6 @@ public class ReservationsActivity extends TemplateActivity {
         //using same layout as seeker reservations because its the same thing
         setContentView(R.layout.seeker_reservations);
         super.onCreateDrawer();
-        toolbarSetup();
 
         // Get references to UI views
         reservationsList = (ListView) findViewById(R.id.reservations_list);
@@ -97,11 +96,6 @@ public class ReservationsActivity extends TemplateActivity {
     }
 
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
