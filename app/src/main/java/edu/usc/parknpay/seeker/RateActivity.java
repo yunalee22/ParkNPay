@@ -12,7 +12,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.database.Transaction;
 
 public class RateActivity extends AppCompatActivity {
     ImageView spotPhoto;
@@ -20,6 +25,8 @@ public class RateActivity extends AppCompatActivity {
     RatingBar spotRatingBar, ownerRatingBar;
     Button doneButton;
     EditText additionalNotesField;
+    Transaction t;
+    DatabaseReference Ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,15 @@ public class RateActivity extends AppCompatActivity {
         addListeners();
 
         //update the components: address, date, time, photo
-
+        t = (Transaction) getIntent().getSerializableExtra("transaction");
+        address.setText(t.getAddress());
+        date.setText(t.getStartTime() + " - " + t.getEndTime());
+        Picasso.with(this)
+                .load(t.getPhotoUrl())
+                .resize(350, 350)
+                .centerCrop()
+                .into(spotPhoto);
+        Ref = FirebaseDatabase.getInstance().getReference();
     }
 
     protected void toolbarSetup() {
@@ -54,7 +69,7 @@ public class RateActivity extends AppCompatActivity {
         address = (TextView) findViewById(R.id.address);
         spotRatingBar = (RatingBar) findViewById(R.id.ratingBarOwner);
         ownerRatingBar = (RatingBar) findViewById(R.id.ratingBarSpot);
-        time = (TextView) findViewById(R.id.time);
+        time = (TextView) findViewById(R.id.handicap);
         date = (TextView) findViewById(R.id.date);
         doneButton = (Button) findViewById(R.id.button);
         additionalNotesField = (EditText) findViewById(R.id.additionalNotesField);

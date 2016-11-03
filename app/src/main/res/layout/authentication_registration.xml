@@ -35,25 +35,20 @@
             android:src="@drawable/circle_crop" />
     </FrameLayout>
 
-    <TextView android:id="@+id/edit_button"
-        android:text="@string/edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frame"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
 
     <EditText android:id="@+id/edit_first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:hint="@string/first_name"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/edit_button"
+        android:layout_below="@+id/frame"
         android:layout_centerHorizontal="true" />
 
     <EditText android:id="@+id/edit_last_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:hint="@string/last_name"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/edit_first_name"

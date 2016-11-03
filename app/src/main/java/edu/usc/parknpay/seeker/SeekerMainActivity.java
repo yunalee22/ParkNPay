@@ -1,5 +1,7 @@
 package edu.usc.parknpay.seeker;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -11,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
@@ -29,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +50,8 @@ import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
 
+    private static final int START_DATE_PICKER = 0;
+    private static final int END_DATE_PICKER = 2;
     public static final double RADIUS_LIMIT = 3;
     private static final int SEARCH_FILTER = 2;
 
@@ -70,6 +78,10 @@ public class SeekerMainActivity extends TemplateActivity {
     private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
     private String address, startDate, startTime, endDate, endTime;
 
+    //date stuff
+    private Spinner startSpinner, endSpinner;
+    private Button startDateButton, endDateButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +101,26 @@ public class SeekerMainActivity extends TemplateActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String time = timeFormat.format(today);
 
+        // Add time and date selectors
+        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
+        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
+        startDateButton = (Button) findViewById(R.id.start_date_button);
+        endDateButton = (Button) findViewById(R.id.end_date_button);
+
+        List<String> timeSpinner =  new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            if(i <10)
+                timeSpinner.add("0"+Integer.toString(i));
+            else
+                timeSpinner.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, timeSpinner);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endSpinner.setAdapter(timeAdapter);
+        startSpinner.setAdapter(timeAdapter);
+        endSpinner.setSelection(1);
+
         // Set default search parameters
         minPrice = 0;
         maxPrice = 100000000;                   // What is the max price?????
@@ -103,6 +135,9 @@ public class SeekerMainActivity extends TemplateActivity {
         startTime = time;
         endDate = date;
         endTime = "23:59";
+
+        startDateButton.setText(startDate);
+        endDateButton.setText(endDate);
 
         // Add search text field and geocoder
         coder = new Geocoder(this);
@@ -136,6 +171,13 @@ public class SeekerMainActivity extends TemplateActivity {
 
         searchResults.clear();
 
+        startTime = startSpinner.getSelectedItem().toString() + ":00";
+        endTime = endSpinner.getSelectedItem().toString() + ":00";
+        startDate = startDateButton.getText().toString();
+        endDate = endDateButton.getText().toString();
+
+
+
         System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
         TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -157,25 +199,22 @@ public class SeekerMainActivity extends TemplateActivity {
             browseRef.orderByChild("endTime").startAt(sEndTime).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-                    System.out.println("END TIME STARTING OR LATER: " + sEndTime);
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check start time is earlier
-                    if(sStartTime.compareTo(post.getStartTime()) >= 0) {
-                        // check distance
-                        System.out.println("START TIME WITHIN: " + sStartTime);
-                        double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
-                        if(distance < RADIUS_LIMIT) {
-                            System.out.println("WITHIN DISTANCE");
-                            if(post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                System.out.println("WITHIN PRICE");
-                                int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
-                                int postSize = Utility.convertSize(post.getSize());
-                                if(postSize >= size && post.isHandicap() == handicapOnly) {
-                                    System.out.println("WITHIN SIZE AND HANDICAP");
-                                    if(post.getOwnerRating() >= minOwnerRating) {
-                                        System.out.println("Got spot: " + post.getAddress());
-                                        searchResults.add(post);
-                                        searchResultsAdapter.notifyDataSetChanged();
+                    if(!post.isReserved()) {
+                        if (sStartTime.compareTo(post.getStartTime()) >= 0) {
+                            // check distance
+                            double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
+                            if (distance < RADIUS_LIMIT) {
+                                if (post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
+                                    int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                    int postSize = Utility.convertSize(post.getSize());
+                                    if (postSize >= size && post.isHandicap() == handicapOnly) {
+                                        if (post.getOwnerRating() >= minOwnerRating) {
+                                            System.out.println("Got spot: " + post.getAddress());
+                                            searchResults.add(post);
+                                            searchResultsAdapter.notifyDataSetChanged();
+                                        }
                                     }
                                 }
                             }
@@ -198,6 +237,25 @@ public class SeekerMainActivity extends TemplateActivity {
     }
 
     private void addListeners() {
+
+                // Called when user clicks start date button
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Prompt user to pick a date
+                showDialog(START_DATE_PICKER);
+            }
+        });
+
+
+        // Called when user clicks end date button
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Prompt user to pick a date
+                showDialog(END_DATE_PICKER);
+            }
+        });
 
         // Called when search filter button is pressed
         filterButton.setOnClickListener(new View.OnClickListener() {
@@ -277,6 +335,60 @@ public class SeekerMainActivity extends TemplateActivity {
         }
     }
 
+        @Override
+    protected Dialog onCreateDialog(int id) {
+
+        switch (id) {
+
+            case START_DATE_PICKER:
+            {
+                // Get current date
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, startDatePickerListener, year, month, day);
+            }
+
+
+            case END_DATE_PICKER:
+            {
+                // Get current date
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, endDatePickerListener, year, month, day);
+            }
+
+
+            default:
+            {
+                return null;
+            }
+        }
+    }
+
+    private DatePickerDialog.OnDateSetListener startDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            startDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            startDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener endDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            endDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            endDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+        }
+    };
+
     protected class SearchListAdapter extends ArrayAdapter<ParkingSpotPost> {
 
         public SearchListAdapter(Context context, ArrayList<ParkingSpotPost> results) {
@@ -325,15 +437,16 @@ public class SeekerMainActivity extends TemplateActivity {
 
             // Set Price
             TextView priceText = (TextView) convertView.findViewById(R.id.price);
-            priceText.setText("$" + parkingSpotPost.getPrice());
+            DecimalFormat df = new DecimalFormat("#.00");
+            priceText.setText("$" + df.format(parkingSpotPost.getPrice()));
 
             TextView distText = (TextView) convertView.findViewById(R.id.distance);
             distText.setText(
-                    Utility.distance(parkingSpotPost.getLatitude(),
+                    df.format(Utility.distance(parkingSpotPost.getLatitude(),
                             parkingSpotPost.getLongitude(),
                             adapterLatitude,
                             adapterLongitude,
-                            "M")
+                            "M"))
                     + " mi"
             );
 

@@ -1,5 +1,6 @@
 package edu.usc.parknpay.authentication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         // Get references to UI views
         editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait logging in...");
+        progress.setCancelable(false);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        progress.dismiss();
     }
 
     /** Called when the user clicks the authentication_login button. */
@@ -49,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter your email and/or password", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        progress.show();
 
         // Authenticate user through database
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -70,16 +86,17 @@ public class LoginActivity extends AppCompatActivity {
                             User.createUser(user);
 
                             // If authentication is successful, proceed to default (owner/seeker) main view.
-                            if (User.getInstance().getIsCurrentlySeeker()) {
-                                User.getInstance().setIsCurrentlySeeker(false);
+                            if (User.getInstance().isSeeker()) {
+                                User.getInstance().setIsCurrentlySeeker(true);
 
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
                             } else {
-                                User.getInstance().setIsCurrentlySeeker(true);
+                                User.getInstance().setIsCurrentlySeeker(false);
 
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
+                                //progress.dismiss();
                             }
                         }
 
@@ -90,9 +107,11 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
             }
         });
+        //progress.dismiss();
     }
 
     /** Called when the user selects the authentication_registration option. */
@@ -103,7 +122,12 @@ public class LoginActivity extends AppCompatActivity {
 
     // TESTING
     public void SeekerTestLogin(View view){
+
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        progress.show();
+
         firebaseAuth.signInWithEmailAndPassword("s@s.com", "sssssss").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
@@ -128,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                             //if (User.getInstance().isSeeker()) {
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
+                                progress.dismiss();
                             //} else {
                             //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                             //    startActivity(ownerIntent);
@@ -148,10 +173,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void HostTestLogin(View view){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        progress.show();
+
+
         firebaseAuth.signInWithEmailAndPassword("h@h.com", "hhhhhhh").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
 
                 if(task.isSuccessful()) {
 
@@ -172,8 +202,10 @@ public class LoginActivity extends AppCompatActivity {
                             //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                             //    startActivity(seekerIntent);
                             //} else {
+
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
+                                progress.dismiss();
                             //}
                         }
 

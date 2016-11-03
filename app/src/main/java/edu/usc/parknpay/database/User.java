@@ -4,13 +4,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class User {
     private static User instance = null;
-
     private String firstName;
-
-    public static void setInstance(User instance) {
-        User.instance = instance;
-    }
-
     private String lastName;
     private String email;
     private String id;
@@ -19,12 +13,13 @@ public class User {
     private String phoneNumber;
     private String licenseNumber;
     private boolean isSeeker;
-
     private boolean isCurrentlySeeker;
-
     private String profilePhotoURL;
-
     private double balance;
+
+    public static void setInstance(User instance) {
+        User.instance = instance;
+    }
 
     public synchronized static User getInstance() {
         return instance;
@@ -218,4 +213,6 @@ public class User {
     {
         return isCurrentlySeeker;
     }
+
+    public String getFullName() { return firstName + " " + lastName;}
 }

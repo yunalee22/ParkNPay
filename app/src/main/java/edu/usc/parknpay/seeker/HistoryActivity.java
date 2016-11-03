@@ -21,7 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import edu.usc.parknpay.R;
@@ -74,7 +77,13 @@ public class HistoryActivity extends TemplateActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Transaction t = history.get(position);
-                if(!t.isRated()) {
+
+                // Get current date and time
+                Date today = Calendar.getInstance().getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String currTime = dateFormat.format(today);
+
+                if(!t.isRated() && currTime.compareTo(t.getEndTime()) >= 0) {
                     Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.RateActivity.class);
                     intent.putExtra("transaction", t);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

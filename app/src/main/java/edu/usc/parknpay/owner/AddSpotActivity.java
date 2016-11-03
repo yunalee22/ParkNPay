@@ -42,7 +42,6 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
-import edu.usc.parknpay.utility.Utility;
 
 public class AddSpotActivity extends TemplateActivity {
 
@@ -164,11 +163,13 @@ public class AddSpotActivity extends TemplateActivity {
 
         Ref = FirebaseDatabase.getInstance().getReference();
         String parkingSpotID = UUID.randomUUID().toString();
-        String userId = User.getInstance().getId();
-
+        User user = User.getInstance();
+        String userId = user.getId();
+        String userFullName = user.getFullName();
+        String userPhoneNumber = user.getPhoneNumber();
 
         // Create parking spot
-        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude);
+        spot = new ParkingSpot(user.getId(), user.getFullName(), userPhoneNumber, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude, 0);
         spot.setParkingId(parkingSpotID);
 
         // handle image

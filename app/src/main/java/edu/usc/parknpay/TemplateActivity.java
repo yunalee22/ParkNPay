@@ -8,16 +8,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 
+import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
-import edu.usc.parknpay.database.User;
 
 public class TemplateActivity extends AppCompatActivity {
 
@@ -72,10 +71,10 @@ public class TemplateActivity extends AppCompatActivity {
                 "History",
                 "Payment",
                 "Settings",
-                (User.getInstance().getIsCurrentlySeeker()) ? "Switch to Owner" : "Switch to Seeker",
+                "Switch Role",
                 "Log Out"
         };
-        drawerAdapter = new ArrayAdapter<String>(this, R.layout.drawer_item, menuItems);
+        drawerAdapter = new ArrayAdapter<String>(TemplateActivity.this, R.layout.drawer_item, menuItems);
         drawerList.setAdapter(drawerAdapter);
     }
 
@@ -87,7 +86,7 @@ public class TemplateActivity extends AppCompatActivity {
             switch(position) {
                 case 0:     // Reservations
                 {
-                    if (u.isSeeker()) {
+                    if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.ReservationsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
@@ -100,7 +99,7 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 1:     // History
                 {
-                    if (u.isSeeker()) {
+                    if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.HistoryActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
@@ -128,25 +127,23 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 4:     // Use App as Owner
                 {
-                    u.changeBalance(10);
-                    refreshBalanceView();
+                    //u.changeBalance(10);
+                    //refreshBalanceView();
 
 
                     if (u.getIsCurrentlySeeker()) {
                         //Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
                         u.setIsCurrentlySeeker(false);
-                        drawerLayout.closeDrawers();
-
+                        //drawerLayout.closeDrawers();
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
                         u.setIsCurrentlySeeker(true);
                         //Toast.makeText(TemplateActivity.this, "currentlySeeker False to True", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawers();
-
+                        //drawerLayout.closeDrawers();
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                     break;
@@ -155,7 +152,7 @@ public class TemplateActivity extends AppCompatActivity {
                 {
                     User.setInstance(null);
                     intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;
                 }
