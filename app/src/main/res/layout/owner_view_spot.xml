@@ -5,171 +5,155 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
+
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
+            android:background="@color/toolbarColor"
             android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/toolbar" >
-            <TextView
+            android:minHeight="?attr/actionBarSize">
+
+            <TextView android:id="@+id/toolbar_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="View Spot"
-                android:gravity = "center"
-                android:id="@+id/toolbar_title"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
                 android:textSize="24sp"
-                android:layout_marginRight="?attr/actionBarSize"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
+                android:textStyle="bold" />
 
         </android.support.v7.widget.Toolbar>
 
-        <ImageView
-            app:srcCompat="@drawable/default_pic"
-            android:id="@+id/imageView"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="36dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="32dp"
-            android:layout_width="130dp"
-            android:layout_height="130dp" />
-
-        <TextView
-            android:text="Address goes here"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:id="@+id/address"
-            android:layout_width="190dp"
-            android:textSize="18sp"
-            android:layout_alignTop="@+id/imageView"
-            android:layout_toRightOf="@+id/imageView"
-            android:layout_toEndOf="@+id/imageView"
-            android:textStyle="normal|bold" />
-
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:numStars="5"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:progressTint="#FFCC00"
-            android:secondaryProgressTint="#FFCC00"
-            android:layout_gravity="top|start"
-            android:id="@+id/ratingBar"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_alignTop="@+id/imageView"
-            android:layout_alignRight="@+id/address"
-            android:layout_alignEnd="@+id/address"
-            android:layout_marginRight="12dp"
-            android:layout_marginEnd="12dp"
-            android:isIndicator="true"
-            android:stepSize="0.1"/>
-
-        <ScrollView
-            android:id="@+id/scroll"
-            android:layout_height="80dp"
-            android:layout_below="@+id/textView15"
-            android:layout_alignLeft="@+id/textView15"
-            android:layout_alignStart="@+id/textView15"
-            android:layout_marginTop="9dp"
-            android:layout_width="340dp">
-            <TextView
-                android:text="WEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
-                android:id="@+id/notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-        <TextView
-            android:text="Additional Notes"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/textView15"
-            android:textSize="15sp"
-            android:textStyle="normal|bold"
-            android:layout_below="@+id/imageView"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView" />
+            android:layout_below="@id/toolbar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp">
 
-        <TextView
-            android:text="Availabilites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/textView17"
-            android:textStyle="normal|bold"
-            android:layout_below="@+id/scroll"
-            android:layout_alignLeft="@+id/scroll"
-            android:layout_alignStart="@+id/scroll"
-            android:textSize="15sp" />
+            <ImageView android:id="@+id/parkingSpotImage"
+                android:src="@drawable/default_pic"
+                android:layout_width="130dp"
+                android:layout_height="130dp" />
 
-
-            <ListView
-                android:layout_width="340dp"
+            <TextView android:id="@+id/address"
+                android:text="Address"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView17"
-                android:layout_alignLeft="@+id/scroll"
-                android:layout_alignStart="@+id/scroll"
-                android:orientation="vertical"
-                android:id="@+id/availabilities"/>
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_toRightOf="@id/parkingSpotImage" />
 
-        <TextView
-            android:text="Handicapped?"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/date"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/spotType"
-            android:layout_alignStart="@+id/spotType"
-            android:id="@+id/handicap" />
+            <RatingBar android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:progressTint="#FFCC00"
+                android:secondaryProgressTint="#FFCC00"
+                android:stepSize="0.5"
+                android:isIndicator="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="83dp" />
 
-        <TextView
-            android:text="Cancellation Policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/spotType"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/spotType"
-            android:layout_alignStart="@+id/spotType"
-            android:id="@+id/date" />
+            <TextView android:id="@+id/spotType"
+                android:text="Parking Spot Type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingBar"
+                android:layout_alignLeft="@+id/address" />
 
-        <TextView
-            android:text="Parking Spot Type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spotType"
-            android:textSize="15sp"
-            android:layout_below="@+id/ratingBar"
-            android:layout_alignLeft="@+id/address"
-            android:layout_alignStart="@+id/address" />
+            <TextView android:id="@+id/handicap"
+                android:text="Handicapped"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spotType"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/spotType" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:srcCompat="@drawable/add_spot"
-            android:id="@+id/addAvail"
-            android:layout_above="@+id/availabilities"
-            android:layout_alignRight="@+id/availabilities"
-            android:layout_alignEnd="@+id/availabilities" />
+            <Button android:id="@+id/deleteButton"
+                android:text="Delete Reservation"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/parkingSpotImage"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
 
+            <TextView android:id="@+id/cancellationPolicyLabel"
+                android:text="Cancellation Policy"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/deleteButton"
+                android:layout_marginTop="20dp"/>
 
+            <TextView android:id="@+id/cancellationPolicy"
+                android:text="Cancellation policy description goes here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cancellationPolicyLabel"
+                android:layout_marginTop="10dp" />
 
+            <TextView android:id="@+id/additionalNotesLabel"
+                android:text="Additional Notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="15sp"
+                android:textStyle="normal|bold"
+                android:layout_below="@+id/cancellationPolicy"
+                android:layout_alignLeft="@id/parkingSpotImage"
+                android:layout_alignStart="@id/parkingSpotImage" />
 
+            <ScrollView android:id="@+id/additionalNotes"
+                android:layout_height="80dp"
+                android:layout_below="@+id/additionalNotesLabel"
+                android:layout_alignLeft="@+id/additionalNotesLabel"
+                android:layout_alignStart="@+id/additionalNotesLabel"
+                android:layout_marginTop="9dp"
+                android:layout_width="340dp">
+
+                <TextView android:id="@+id/notes"
+                    android:text="Additional notes go here"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </ScrollView>
+
+            <TextView android:id="@+id/availabilitiesLabel"
+                android:text="Availabilites"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/additionalNotes" />
+
+            <ImageView android:id="@+id/addAvail"
+                android:src="@drawable/add_spot"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/availabilities"
+                android:layout_alignRight="@+id/availabilities"
+                android:layout_alignEnd="@+id/availabilities" />
+
+            <ListView android:id="@+id/availabilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/availabilitiesLabel" />
+
+        </RelativeLayout>
     </RelativeLayout>
-    <!-- Listview to display slider menu -->
 
+    <!-- Listview to display slider menu -->
     <LinearLayout
         android:id="@+id/drawerll"
         android:layout_width="240dp"

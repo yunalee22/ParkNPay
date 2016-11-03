@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -34,6 +35,7 @@ public class ViewSpotActivity extends TemplateActivity {
     private AddAvailabilityAdapter availabilityListAdapter;
     RatingBar ratingBar;
     ParkingSpot parkingSpot;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +132,16 @@ public class ViewSpotActivity extends TemplateActivity {
     }
 
     protected void initializeEdits() {
-        spotPhoto = (ImageView) findViewById(R.id.imageView);
+        spotPhoto = (ImageView) findViewById(R.id.parkingSpotImage);
         addButton = (ImageView) findViewById(R.id.addAvail);
         address = (TextView) findViewById(R.id.address);
         spotType = (TextView) findViewById(R.id.spotType);
-        additionalNotes = (TextView) findViewById(R.id.notes);
+        additionalNotes = (TextView) findViewById(R.id.additionalNotes);
         availabilities = (ListView) findViewById(R.id.availabilities);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         handicapped = (TextView) findViewById(R.id.handicap);
-        cancellationPolicy = (TextView) findViewById(R.id.date);
+        cancellationPolicy = (TextView) findViewById(R.id.cancellationPolicy);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
     }
 
     protected void addListeners() {
