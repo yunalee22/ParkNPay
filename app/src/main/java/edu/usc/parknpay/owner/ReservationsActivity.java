@@ -1,13 +1,7 @@
 package edu.usc.parknpay.owner;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,11 +12,23 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
-import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.Transaction;
+import edu.usc.parknpay.database.User;
 
 /**
  * Created by Bobo on 10/31/2016.
@@ -33,8 +39,8 @@ public class ReservationsActivity extends TemplateActivity {
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
     private ListView reservationsList;
-    private ArrayList<ParkingSpotPost> reservations;
-    private edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter reservationsListAdapter;
+    private ArrayList<Transaction> reservations;
+    private ReservationsListAdapter reservationsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +54,49 @@ public class ReservationsActivity extends TemplateActivity {
         reservationsList = (ListView) findViewById(R.id.reservations_list);
 
         // Add adapter to ListView
-        reservations = new ArrayList<ParkingSpotPost>();
+        reservations = new ArrayList<Transaction>();
         reservationsListAdapter = new edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter(edu.usc.parknpay.owner.ReservationsActivity.this, reservations);
         reservationsList.setAdapter(reservationsListAdapter);
+
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref.child("Transactions").orderByChild("ownerId").equalTo(User.getInstance().getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) {return;}
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Transaction t = snapshot.getValue(Transaction.class);
+                    processTransaction(t);
+                    reservationsListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
+
+    private void processTransaction(Transaction t) {
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String currTime = dateFormat.format(today);
+        if (currTime.compareTo(t.getEndTime()) > 0) {
+            return;
+        }
+
+        for (int i = 0; i < reservations.size(); ++i) {
+            // If item exists, replace it
+            if (reservations.get(i).getTransactionId().equals(t.getTransactionId()))
+            {
+                reservations.set(i, t);
+                return;
+            }
+        }
+        // transaction was not part of array
+        reservations.add(t);
+    }
+
+
     protected void toolbarSetup() {
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
@@ -68,99 +113,52 @@ public class ReservationsActivity extends TemplateActivity {
         return false;
     }
     // Call this function to update the reservations view
-    private void loadReservations(ArrayList<ParkingSpotPost> reservations) {
+    private void loadReservations(ArrayList<Transaction> reservations) {
 
         reservationsListAdapter.clear();
         reservationsListAdapter.addAll(reservations);
         reservationsListAdapter.notifyDataSetChanged();
     }
 
-    protected class ReservationsListAdapter extends ArrayAdapter<ParkingSpotPost> {
+    protected class ReservationsListAdapter extends ArrayAdapter<Transaction> {
 
-        public ReservationsListAdapter(Context context, ArrayList<ParkingSpotPost> results) {
+        public ReservationsListAdapter(Context context, ArrayList<Transaction> results) {
             super(context, 0, results);
-        }
-
-        // View lookup cache
-        private class ViewHolder {
-            ImageView parkingSpotImage;
-            TextView address;
-            TextView dateTimeRange;
-            ImageView callButton;
-            ImageView deleteButton;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            // Get data item
-            ParkingSpotPost parkingSpotPost = getItem(position);
-
-            // Check if an existing view is being reused, otherwise inflate the view
-            edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter.ViewHolder viewHolder;
             if (convertView == null) {
-                viewHolder = new edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter.ViewHolder();
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.seeker_reservation_item, parent, false);
-                viewHolder.parkingSpotImage = (ImageView) findViewById(R.id.parking_spot_image);
-                viewHolder.address = (TextView) findViewById(R.id.address);
-                viewHolder.dateTimeRange = (TextView) findViewById(R.id.date_time_range);
-                viewHolder.callButton = (ImageView) findViewById(R.id.call_button);
-                viewHolder.deleteButton = (ImageView) findViewById(R.id.delete_button);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = ( edu.usc.parknpay.owner.ReservationsActivity.ReservationsListAdapter.ViewHolder) convertView.getTag();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_reservation_item, parent, false);
             }
 
-            // Populate data into the views
-            //viewHolder.parkingSpotImage.setImageBitmap(parkingSpotPost.get);
-            //viewHolder.address.setText(parkingSpotPost.get);
-            //viewHolder.dateTimeRange.setText(parkingSpotPost.get);
+            // Get data item
+            Transaction transaction = getItem(position);
 
-            // Get owner's phone number
-            final String ownerPhoneNumber = "4087717264";
+            // Set image
+            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.parking_spot_image);
+            spotImageView.setImageResource(0);
 
-            // Called when call button is pressed
-            viewHolder.callButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            Picasso.with(getContext())
+                    .load(transaction.getPhotoUrl())
+                    .placeholder(R.drawable.progress_animation)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(spotImageView);
 
-                    if (ContextCompat.checkSelfPermission(edu.usc.parknpay.owner.ReservationsActivity.this,
-                            Manifest.permission.CALL_PHONE ) != PackageManager.PERMISSION_GRANTED ) {
+            // Set date/time
+            TextView dateText = (TextView) convertView.findViewById(R.id.date_time_range);
+            dateText.setText(transaction.getStartTime() + " - " + transaction.getEndTime());
 
-                        ActivityCompat.requestPermissions(edu.usc.parknpay.owner.ReservationsActivity.this,
-                                new String[] {android.Manifest.permission.CALL_PHONE},
-                                MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                    }
+            // Set Address
+            TextView addrText = (TextView) convertView.findViewById(R.id.address);
+            addrText.setText("Seeker: " + transaction.getSeekerName());
 
-                    if (ContextCompat.checkSelfPermission(edu.usc.parknpay.owner.ReservationsActivity.this,
-                            android.Manifest.permission.CALL_PHONE ) == PackageManager.PERMISSION_GRANTED) {
-
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + ownerPhoneNumber));
-                        startActivity(callIntent);
-                    }
-                }
-            });
-
-            // Called when delete button is pressed
-            final int positionToRemove = position;
-            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // Delete reservation from database, add spot back to available/searchable spots
-
-
-
-                    // Remove reservation from ListView
-                    reservations.remove(positionToRemove);
-                    reservationsListAdapter.notifyDataSetChanged();
-
-                }
-            });
-
-            // Return completed view
+            ImageView call = (ImageView) convertView.findViewById(R.id.call_button);
+            call.setVisibility(View.GONE);
+            ImageView delete = (ImageView) convertView.findViewById(R.id.delete_button);
+            delete.setVisibility(View.GONE);
+            
             return convertView;
         }
     }
