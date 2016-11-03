@@ -113,7 +113,8 @@
                 android:layout_alignLeft="@id/parkingSpotImage"
                 android:layout_alignStart="@id/parkingSpotImage" />
 
-            <ScrollView android:id="@+id/additionalNotes"
+            <ScrollView
+                android:id="@+id/additionalNotes"
                 android:layout_height="80dp"
                 android:layout_below="@+id/additionalNotesLabel"
                 android:layout_alignLeft="@+id/additionalNotesLabel"
@@ -123,8 +124,9 @@
 
                 <TextView android:id="@+id/notes"
                     android:text="Additional notes go here"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:gravity="top|left"
+                    android:layout_width="340dp"
+                    android:layout_height="80dp" />
 
             </ScrollView>
 

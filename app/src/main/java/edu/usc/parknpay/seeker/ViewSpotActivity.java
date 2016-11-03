@@ -48,6 +48,8 @@ public class ViewSpotActivity extends TemplateActivity{
     private TextView ownerName;
     private RatingBar ownerRatingBar;
     private Button reserveButton;
+    double tempLat, tempLong;
+    String tempAddr;
 
     private ListView reviewsListView;
     private ArrayList<String> reviews;
@@ -69,7 +71,7 @@ public class ViewSpotActivity extends TemplateActivity{
         size = (TextView) findViewById(R.id.size);
         handicap = (TextView) findViewById(R.id.handicap);
         cancellationPolicy = (TextView) findViewById(R.id.cancellationPolicy);
-        additionalNotes = (TextView) findViewById(R.id.additionalNotes);
+        additionalNotes = (TextView) findViewById(R.id.notes);
         ownerImage = (ImageView) findViewById(R.id.ownerImage);
         ownerName = (TextView) findViewById(R.id.ownerName);
         ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);
@@ -85,6 +87,12 @@ public class ViewSpotActivity extends TemplateActivity{
         // Get parking spot post
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
         parkingSpotPost = (ParkingSpotPost) object;
+
+        //for search pag
+        tempLat = getIntent().getDoubleExtra("lat", 0);
+        tempLong = getIntent().getDoubleExtra("long", 0);
+        tempAddr = getIntent().getStringExtra("addr");
+
 
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
@@ -173,6 +181,9 @@ public class ViewSpotActivity extends TemplateActivity{
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                intent.putExtra("lat", tempLat);
+                                intent.putExtra("long", tempLong);
+                                intent.putExtra("addr", tempAddr);
                                 startActivity(intent);
                             }
                         });

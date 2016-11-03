@@ -83,6 +83,14 @@ public class SeekerMainActivity extends TemplateActivity {
     private Button startDateButton, endDateButton;
 
     @Override
+    public void onNewIntent(Intent intent) {
+        adapterLatitude = getIntent().getDoubleExtra("lat", 0);
+        adapterLongitude = getIntent().getDoubleExtra("long", 0);
+        address = getIntent().getStringExtra("addr");
+        executeSearch();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_main);
@@ -159,6 +167,9 @@ public class SeekerMainActivity extends TemplateActivity {
                 Object parkingSpotPost = (ParkingSpotPost) searchList.getItemAtPosition(position);
                 Intent intent = new Intent(SeekerMainActivity.this, ViewSpotActivity.class);
                 intent.putExtra("Parking spot post", (Serializable)parkingSpotPost);
+                intent.putExtra("lat", adapterLatitude);
+                intent.putExtra("long", adapterLongitude);
+                intent.putExtra("addr", address);
                 startActivity(intent);
             }
         });
@@ -437,7 +448,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
             // Set Price
             TextView priceText = (TextView) convertView.findViewById(R.id.price);
-            DecimalFormat df = new DecimalFormat("#.00");
+            DecimalFormat df = new DecimalFormat("0.00");
             priceText.setText("$" + df.format(parkingSpotPost.getPrice()));
 
             TextView distText = (TextView) convertView.findViewById(R.id.distance);
