@@ -12,11 +12,13 @@ import java.io.Serializable;
 
 public class ParkingSpot implements Serializable{
     private String ownerUserId;
+    private String ownerFullName;
+    private String ownerPhoneNumber;
     private String address;
     private double latitude, longitude;
     private String size;
     private double rating;
-    private boolean isHandicapped;
+    private boolean isHandicap;
     private String description;
     private String parkingId;
     private String photoURL;
@@ -36,13 +38,15 @@ public class ParkingSpot implements Serializable{
     public ParkingSpot() {
     }
 
-    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings) {
+    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("ownerFullName") String ownerFullName, @JsonProperty("ownerPhoneNumber") String ownerPhoneNumber, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
+                       @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings) {
         this.ownerUserId = ownerUserId;
+        this.ownerFullName = ownerFullName;
+        this.ownerPhoneNumber = ownerPhoneNumber;
         this.address = address;
         this.size = size;
         this.rating = rating;
-        this.isHandicapped = isHandicapped;
+        this.isHandicap = isHandicap;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -65,12 +69,12 @@ public class ParkingSpot implements Serializable{
         this.description = description;
     }
 
-    public boolean isHandicapped() {
-        return isHandicapped;
+    public boolean isHandicap() {
+        return isHandicap;
     }
 
-    public void setHandicapped(boolean handicapped) {
-        isHandicapped = handicapped;
+    public void setHandicap(boolean handicapped) {
+        isHandicap = handicapped;
     }
 
     public String getOwnerUserId() {
@@ -154,4 +158,19 @@ public class ParkingSpot implements Serializable{
         // update these values in firebase
     }
 
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
+    }
+
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
+    }
 }

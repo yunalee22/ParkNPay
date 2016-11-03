@@ -163,11 +163,13 @@ public class AddSpotActivity extends TemplateActivity {
 
         Ref = FirebaseDatabase.getInstance().getReference();
         String parkingSpotID = UUID.randomUUID().toString();
-        String userId = User.getInstance().getId();
-
+        User user = User.getInstance();
+        String userId = user.getId();
+        String userFullName = user.getFullName();
+        String userPhoneNumber = user.getPhoneNumber();
 
         // Create parking spot
-        spot = new ParkingSpot(userId, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude, 0);
+        spot = new ParkingSpot(user.getId(), user.getFullName(), userPhoneNumber, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude, 0);
         spot.setParkingId(parkingSpotID);
 
         // handle image
