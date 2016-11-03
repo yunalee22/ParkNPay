@@ -10,6 +10,7 @@ public class Transaction implements Serializable {
     private String seekerName;
     private String startTime;
     private String endTime;
+    private String ownerPhoneNumber;
     private String parkingId;
     private String address;
     private String transactionId;
@@ -19,7 +20,7 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(String ownerId, String seekerId, String photoUrl, String ownerName, String seekerName, String startTime, String endTime, String parkingId, String address, String transactionId, double price, boolean rated) {
+    public Transaction(String ownerId, String seekerId, String photoUrl, String ownerName, String seekerName, String startTime, String endTime, String ownerPhoneNumber, String parkingId, String address, String transactionId, double price, boolean rated) {
         this.ownerId = ownerId;
         this.seekerId = seekerId;
         this.photoUrl = photoUrl;
@@ -27,6 +28,7 @@ public class Transaction implements Serializable {
         this.seekerName = seekerName;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.ownerPhoneNumber = ownerPhoneNumber;
         this.parkingId = parkingId;
         this.address = address;
         this.transactionId = transactionId;
@@ -129,4 +131,13 @@ public class Transaction implements Serializable {
     public void setRated(boolean rated) {
         this.rated = rated;
     }
+
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
+    }
+
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
+    }
+
 }
