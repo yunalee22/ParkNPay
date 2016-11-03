@@ -79,7 +79,7 @@
                 android:layout_alignLeft="@+id/spotType" />
 
             <Button android:id="@+id/deleteButton"
-                android:text="Delete Reservation"
+                android:text="Delete Parking Spot"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
