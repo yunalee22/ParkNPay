@@ -135,18 +135,16 @@ public class TemplateActivity extends AppCompatActivity {
                     if (u.getIsCurrentlySeeker()) {
                         //Toast.makeText(TemplateActivity.this, "currentlySeeker True to False", Toast.LENGTH_SHORT).show();
                         u.setIsCurrentlySeeker(false);
-                        drawerLayout.closeDrawers();
-
+                        //drawerLayout.closeDrawers();
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
                         u.setIsCurrentlySeeker(true);
                         //Toast.makeText(TemplateActivity.this, "currentlySeeker False to True", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawers();
-
+                        //drawerLayout.closeDrawers();
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                     break;
@@ -155,7 +153,7 @@ public class TemplateActivity extends AppCompatActivity {
                 {
                     User.setInstance(null);
                     intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;
                 }

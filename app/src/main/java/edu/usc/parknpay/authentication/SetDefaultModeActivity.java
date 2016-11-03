@@ -25,6 +25,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
 
         // Set user's default mode to seeker
         User.getInstance().setSeeker(true);
+        User.getInstance().setIsCurrentlySeeker(true);
     }
 
     /** Called when the user clicks the owner button. */
@@ -34,6 +35,7 @@ public class SetDefaultModeActivity extends AppCompatActivity {
 
         // Set user's default mode to owner
         User.getInstance().setSeeker(false);
+        User.getInstance().setIsCurrentlySeeker(false);
 
     }
 }

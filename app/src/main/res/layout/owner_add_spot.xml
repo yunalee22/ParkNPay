@@ -127,17 +127,6 @@
                 android:layout_below="@+id/addressTextView"
                 android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
 
-            <ImageView
-                android:layout_width="230dp"
-                android:layout_height="230dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/add_photo"
-                android:layout_marginTop="14dp"
-                android:id="@+id/spotPhoto"
-                android:layout_below="@+id/textView24"
-                android:layout_alignLeft="@+id/textView24"
-                android:layout_alignStart="@+id/textView24" />
-
             <Button
                 android:text="done"
                 android:id="@+id/button"
@@ -150,15 +139,6 @@
                 android:layout_below="@+id/notesEdit"
                 android:layout_centerHorizontal="true" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox"
-                android:layout_alignBaseline="@+id/handicappedTextView"
-                android:layout_alignBottom="@+id/handicappedTextView"
-                android:layout_alignRight="@+id/cancelTextView"
-                android:layout_alignEnd="@+id/cancelTextView" />
-
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,6 +148,25 @@
                 android:layout_toEndOf="@+id/sizeTextView"
                 android:layout_marginLeft="17dp"
                 android:layout_marginStart="17dp" />
+
+            <ImageView
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/add_photo"
+                android:layout_marginTop="20dp"
+                android:id="@+id/spotPhoto"
+                android:layout_below="@+id/textView24"
+                android:layout_centerHorizontal="true" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox"
+                android:layout_alignBaseline="@+id/handicappedTextView"
+                android:layout_alignBottom="@+id/handicappedTextView"
+                android:layout_alignRight="@+id/textView24"
+                android:layout_alignEnd="@+id/textView24" />
 
 
         </RelativeLayout>
