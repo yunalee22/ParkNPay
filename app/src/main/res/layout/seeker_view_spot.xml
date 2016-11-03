@@ -8,6 +8,7 @@
     <RelativeLayout android:id="@+id/seeker_view_spot"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
@@ -57,7 +58,7 @@
                 android:layout_marginRight="30dp">
 
                 <ImageView android:id="@+id/parkingSpotImage"
-                    android:src="@drawable/default_pic"
+                    android:src="@drawable/progress_animation"
                     android:layout_marginTop="30dp"
                     android:layout_width="130dp"
                     android:layout_height="130dp" />
@@ -133,44 +134,41 @@
                     android:layout_below="@id/additionalNotes"
                     android:layout_marginTop="30dp"/>
 
-                <ImageView android:id="@+id/ownerImage"
-                    android:src="@drawable/default_pic"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                <FrameLayout android:id="@+id/frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/ownerInformationLabel"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_margin="7dp"
+                    android:paddingRight="15dp">
+                    <ImageView android:id="@+id/ownerImage"
+                        android:src="@drawable/progress_animation"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+                    <ImageView android:id="@+id/circle_crop_owner"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/circle_crop" />
+                </FrameLayout>
 
                 <TextView android:id="@+id/ownerName"
                     android:text="Owner Name"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ownerImage"
-                    android:layout_toRightOf="@id/ownerImage"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_alignTop="@id/frame"
+                    android:layout_toRightOf="@id/frame" />
 
                 <RatingBar android:id="@+id/ownerRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="0.5"
                     android:scaleY="0.5"
-                    android:progressTint="#FFCC00"
-                    android:secondaryProgressTint="#FFCC00"
-                    android:layout_alignTop="@id/ownerImage"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="50dp"/>
-
-                <RatingBar android:id="@+id/spotRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.5"
-                    android:progressTint="#FFCC00"
-                    android:secondaryProgressTint="#FFCC00"
-                    android:scaleY="0.5"
-                    android:layout_marginTop="3dp"
-                    android:layout_below="@+id/address"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:isIndicator="true"
+                    android:progressTint="@color/blue"
+                    android:secondaryProgressTint="@color/blue"
+                    android:layout_alignTop="@id/frame"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="60dp"/>
 
                 <TextView android:id="@+id/reviewsLabel"
                     android:text="User Reviews"
@@ -178,7 +176,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ownerImage"
+                    android:layout_below="@id/frame"
                     android:layout_marginTop="30dp"/>
 
                 <ListView android:id="@+id/reviewsListView"
@@ -196,6 +194,20 @@
                     android:layout_below="@id/reviewsListView"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"/>
+
+                <RatingBar android:id="@+id/spotRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.5"
+                    android:progressTint="@color/blue"
+                    android:secondaryProgressTint="@color/blue"
+                    android:scaleY="0.5"
+                    android:isIndicator="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignTop="@+id/parkingSpotImage"
+                    android:layout_alignLeft="@+id/ownerRatingBar"
+                    android:layout_alignStart="@+id/ownerRatingBar" />
 
             </RelativeLayout>
         </ScrollView>

@@ -5,37 +5,40 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="88dp"
-        android:layout_height="85dp"
-        app:srcCompat="@drawable/default_pic"
-        android:id="@+id/seeker_photo" />
-
-    <TextView
-        android:layout_width="174dp"
+    <FrameLayout android:id="@+id/frame"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/seeker_name"
-        android:layout_alignBottom="@+id/ratingBar2"
-        android:layout_toRightOf="@+id/seeker_photo"
-        android:layout_toEndOf="@+id/seeker_photo" />
+        android:layout_margin="7dp"
+        android:paddingRight="15dp">
+        <ImageView android:id="@+id/seeker_photo"
+            android:layout_width="80dp"
+            android:scaleType="centerCrop"
+            android:layout_height="80dp"
+            android:src="@drawable/progress_animation" />
+        <ImageView android:id="@+id/circle_crop"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/circle_crop" />
+    </FrameLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/date"
         tools:text="date"
-        android:layout_alignBottom="@+id/seeker_photo"
-        android:layout_toRightOf="@+id/seeker_photo"
-        android:layout_toEndOf="@+id/seeker_photo" />
+        android:layout_alignBottom="@+id/frame"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_toEndOf="@+id/frame" />
 
     <TextView
         android:text="REVIEWS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/review"
-        android:layout_below="@+id/seeker_photo"
+        android:layout_below="@+id/frame"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -46,11 +49,22 @@
         android:scaleY="0.5"
         android:id="@+id/ratingBar2"
         android:isIndicator="true"
-        android:progressTint="#FFCC00"
-        android:secondaryProgressTint="#FFCC00"
+        android:progressTint="@color/blue"
+        android:secondaryProgressTint="@color/blue"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp" />
+        android:layout_alignLeft="@+id/review"
+        android:layout_alignStart="@+id/review" />
+
+    <TextView
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/seeker_name"
+        android:layout_marginBottom="3dp"
+        android:layout_above="@+id/date"
+        android:layout_alignLeft="@+id/date"
+        android:layout_alignStart="@+id/date" />
 </RelativeLayout>

@@ -71,12 +71,12 @@
                 android:layout_height="wrap_content"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:progressTint="#FFCC00"
-                android:secondaryProgressTint="#FFCC00"
+                android:progressTint="@color/blue"
+                android:secondaryProgressTint="@color/blue"
                 android:stepSize="0.5"
                 android:isIndicator="true"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="83dp" />
+                android:layout_marginLeft="93dp" />
 
             <TextView android:id="@+id/spotType"
                 android:text="Parking Spot Type"

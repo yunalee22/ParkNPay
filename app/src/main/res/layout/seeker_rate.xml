@@ -39,17 +39,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        app:srcCompat="@drawable/default_pic"
-        android:id="@+id/imageView"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="32dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
-
 
     <TextView
         android:text="Rate this spot's owner"
@@ -65,8 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
-        android:progressTint="#FFCC00"
-        android:secondaryProgressTint="#FFCC00"
+        android:progressTint="@color/blue"
+        android:secondaryProgressTint="@color/blue"
         android:layout_centerHorizontal="true"
         android:numStars="5"
         android:stepSize="1"
@@ -108,8 +97,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:id="@+id/ratingBarSpot"
-        android:progressTint="#FFCC00"
-        android:secondaryProgressTint="#FFCC00"
+        android:progressTint="@color/blue"
+        android:secondaryProgressTint="@color/blue"
         android:numStars="5"
         android:stepSize="1"
         android:layout_below="@+id/textView19"
@@ -153,5 +142,15 @@
         android:layout_above="@+id/date"
         android:layout_alignRight="@+id/ratingBarOwner"
         android:layout_alignEnd="@+id/ratingBarOwner" />
+
+    <ImageView
+        app:srcCompat="@drawable/default_pic"
+        android:id="@+id/imageView"
+        android:layout_marginTop="32dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignLeft="@+id/additionalNotesField"
+        android:layout_alignStart="@+id/additionalNotesField" />
 
 </RelativeLayout>
