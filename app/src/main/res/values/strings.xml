@@ -2,24 +2,23 @@
     <string name="app_name">ParkNPay</string>
 
     <!-- Login screen -->
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login">Log In</string>
-    <string name="register_option">Don\'t have an account? Register</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="button_login">Log In</string>
+    <string name="button_register_option">Don\'t have an account? <u>Register</u></string>
 
     <!-- Registration screen -->
     <string name="edit">Edit</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="drivers_license">Driver\'s License Number</string>
-    <string name="register">Register Account</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_drivers_license">Driver\'s License Number</string>
+    <string name="button_register">Register Account</string>
 
     <!-- Choose seeker or owner screen -->
-    <string name="select_owner">"I\'m letting out a spot.</string>
-    <string name="select_seeker">I\'m looking for a spot.</string>
-    <color name="white">#FFFFFF</color>
+    <string name="button_select_owner">"I\'m letting out a spot.</string>
+    <string name="button_select_seeker">I\'m looking for a spot.</string>
 
     <!-- Seeker main/search screen -->
     <string name="search_hint">Search for a spot</string>

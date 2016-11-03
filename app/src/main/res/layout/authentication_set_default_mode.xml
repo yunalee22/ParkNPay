@@ -9,13 +9,13 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_seeker"
+        android:text="@string/button_select_seeker"
         android:onClick="setDefaultToSeeker"/>
     <Button
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_owner"
+        android:text="@string/button_select_owner"
         android:onClick="setDefaultToOwner"/>
 
 </LinearLayout>

@@ -4,10 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.OwnerMainActivity;
@@ -27,6 +33,7 @@ import edu.usc.parknpay.seeker.SeekerMainActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
+    private TextView registerButton;
 
     ProgressDialog progress;
 
@@ -38,7 +45,20 @@ public class LoginActivity extends AppCompatActivity {
         // Get references to UI views
         editEmail = (EditText) findViewById(R.id.edit_email);
         editPassword = (EditText) findViewById(R.id.edit_password);
+        registerButton = (TextView) findViewById(R.id.register_button);
 
+        // Add register button listener
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Proceed to registration screen
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Initialize progress dialog
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Please wait logging in...");
@@ -101,9 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
+                        public void onCancelled(DatabaseError databaseError) {}
                     });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
@@ -111,18 +129,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        //progress.dismiss();
-    }
-
-    /** Called when the user selects the authentication_registration option. */
-    public void displayRegistrationScreen(View view) {
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
     }
 
     // TESTING
     public void SeekerTestLogin(View view){
-
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 

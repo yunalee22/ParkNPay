@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -64,7 +66,11 @@ public class RegistrationActivity extends AppCompatActivity {
         editPhoneNumber = (EditText) findViewById(R.id.edit_phone_number);
         editDriversLicense = (EditText) findViewById(R.id.edit_drivers_license);
 
-        //progress dialog
+        // Add text changed listeners
+        editEmail.addTextChangedListener(new LoginTextWatcher(editEmail));
+        editPassword.addTextChangedListener(new LoginTextWatcher(editPassword));
+
+        // Initialize progress dialog
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Please wait logging in...");
@@ -208,6 +214,38 @@ public class RegistrationActivity extends AppCompatActivity {
                     profilePicture.setImageURI(selectedImage);
                 }
                 break;
+        }
+    }
+
+    private boolean validateEmail() {
+        return true;
+    }
+
+    private boolean validatePassword() {
+        return true;
+    }
+
+    private class LoginTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private LoginTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.edit_email:
+                    validateEmail();
+                    break;
+                case R.id.edit_password:
+                    validatePassword();
+                    break;
+            }
         }
     }
 }

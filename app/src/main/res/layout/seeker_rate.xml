@@ -119,7 +119,7 @@
         android:layout_alignStart="@+id/ratingBarOwner" />
 
     <TextView android:id="@+id/additionalNotesLabel"
-        android:text="Additional Notes"
+        android:text="Additional feedback?"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

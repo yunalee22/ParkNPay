@@ -253,7 +253,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
     private void addListeners() {
 
-                // Called when user clicks start date button
+        // Called when user clicks start date button
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

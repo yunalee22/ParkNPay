@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Primary colors-->
-    <color name="colorPrimary">#00BBD8</color>
-    <color name="colorPrimaryDark">#3B424C</color>
+    <color name="colorPrimary">#3B424C</color>
+    <color name="colorPrimaryDark">#28303A</color>
     <color name="colorAccent">#00BBD8</color>
     <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
 
     <!--Text colors-->
     <color name="textColorPrimary">#FFFFFF</color>
@@ -19,4 +20,5 @@
     <color name="green">#24C1B1</color>
     <color name="blue">#00BBD8</color>
     <color name="darkGray">#3B424C</color>
+    <color name="white">#FFFFFF</color>
 </resources>
