@@ -8,16 +8,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 
+import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
-import edu.usc.parknpay.database.User;
 
 public class TemplateActivity extends AppCompatActivity {
 
@@ -87,7 +86,7 @@ public class TemplateActivity extends AppCompatActivity {
             switch(position) {
                 case 0:     // Reservations
                 {
-                    if (u.isSeeker()) {
+                    if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.ReservationsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
@@ -100,7 +99,7 @@ public class TemplateActivity extends AppCompatActivity {
                 }
                 case 1:     // History
                 {
-                    if (u.isSeeker()) {
+                    if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.HistoryActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
