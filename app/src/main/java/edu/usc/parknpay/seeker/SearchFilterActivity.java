@@ -21,6 +21,7 @@ import java.util.List;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.Utility;
 
 public class SearchFilterActivity extends TemplateActivity {
 
@@ -135,7 +136,7 @@ public class SearchFilterActivity extends TemplateActivity {
                 output.putExtra("minOwnerRating", ownerRatingBar.getRating());
                 output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
-                output.putExtra("size", Integer.parseInt(sizeSpinner.getSelectedItem().toString()));
+                output.putExtra("size", Utility.convertSize(sizeSpinner.getSelectedItem().toString()));
 
                 setResult(RESULT_OK, output);
                 finish();
