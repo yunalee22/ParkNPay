@@ -29,17 +29,6 @@
         android:textSize="16sp" />
 
     <TextView
-        android:text="$ Price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="26dp"
-        android:layout_marginEnd="26dp"
-        android:id="@+id/price"
-        android:layout_below="@+id/textView7" />
-
-    <TextView
         android:text="start date and time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,4 +48,26 @@
         android:layout_alignBottom="@+id/textView18"
         android:layout_alignLeft="@+id/start"
         android:layout_alignStart="@+id/start" />
+
+    <TextView
+        android:text="$ Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/price"
+        android:layout_alignTop="@+id/textView18"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="(Reserved)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:id="@+id/reserved"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignLeft="@+id/price"
+        android:layout_alignStart="@+id/price"
+        android:layout_alignBottom="@+id/textView7" />
 </RelativeLayout>
