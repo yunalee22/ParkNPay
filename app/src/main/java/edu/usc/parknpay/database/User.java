@@ -146,7 +146,7 @@ public class User {
     public void updateRating(int rating) {
         rawRating += rating;
         numRatings++;
-        // update these values in firebase
+        FirebaseDatabase.getInstance().getReference().child("Users").child(id).setValue(this);
     }
 
     public void setFirstName(String firstName) {
