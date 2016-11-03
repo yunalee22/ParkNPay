@@ -50,6 +50,12 @@ public class AddAvailabilityAdapter extends ArrayAdapter<ParkingSpotPost> {
         DecimalFormat df = new DecimalFormat("#.00");
         price.setText("$" + df.format(parkingSpotPost.getPrice()));
 
+        // If not reserved, hide the reserved tag
+        TextView reserved = (TextView) convertView.findViewById(R.id.reserved);
+        if (!parkingSpotPost.isReserved()) {
+            reserved.setVisibility(View.GONE);
+        }
+
         return convertView;
     }
 }

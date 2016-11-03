@@ -21,6 +21,7 @@ import java.util.List;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.Utility;
 
 public class SearchFilterActivity extends TemplateActivity {
 
@@ -34,7 +35,6 @@ public class SearchFilterActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_search_filter);
-        toolbarSetup();
 
         // Get references to UI views
         minPriceField = (EditText) findViewById(R.id.min_price_field);
@@ -80,12 +80,6 @@ public class SearchFilterActivity extends TemplateActivity {
         sizeSpinner.setAdapter(sizeAdapter);
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -127,20 +121,18 @@ public class SearchFilterActivity extends TemplateActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent output = new Intent();
-
+                Intent output = new Intent(SearchFilterActivity.this, SeekerMainActivity.class);
+                output.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 // Add return data to intent
+                output.putExtra("page", "filter");
                 output.putExtra("minPrice", Double.parseDouble(minPriceField.getText().toString()));
                 output.putExtra("maxPrice", Double.parseDouble(maxPriceField.getText().toString()));
                 output.putExtra("minOwnerRating", ownerRatingBar.getRating());
                 output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
-//                output.putExtra("startDate", startDateButton.getText());
-//                output.putExtra("endDate", endDateButton.getText());
-//                output.putExtra("startTime", startSpinner.getSelectedItem().toString() + ":00");
-//                output.putExtra("endTime", endSpinner.getSelectedItem().toString() + ":00");
-
-                setResult(RESULT_OK, output);
+                output.putExtra("size", Utility.convertSize(sizeSpinner.getSelectedItem().toString()));
+                startActivity(output);
+               // setResult(RESULT_OK, output);
                 finish();
             }
         });

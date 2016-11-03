@@ -2,6 +2,7 @@ package edu.usc.parknpay.owner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +46,6 @@ public class ViewSpotActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_view_spot);
         super.onCreateDrawer();
-        toolbarSetup();
         initializeEdits();
         addListeners();
 
@@ -97,7 +100,7 @@ public class ViewSpotActivity extends TemplateActivity {
             // If item exists, replace it
             if (availabilitiesList.get(i).getPostId().equals(t.getPostId()))
             {
-                availabilitiesList.set(i, t);
+                //availabilitiesList.set(i, t);
                 return;
             }
         }
@@ -114,12 +117,6 @@ public class ViewSpotActivity extends TemplateActivity {
         availabilityListAdapter.notifyDataSetChanged();
     }
 
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("View Spot");
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -154,7 +151,29 @@ public class ViewSpotActivity extends TemplateActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
+        });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots").child(User.getInstance().getId()).child(parkingSpot.getParkingId()).setValue(false)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ViewSpotActivity.this, "Parking spot successfully deleted.",
+                                        Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ViewSpotActivity.this, "Could not delete parking spot.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
         });
     }
 

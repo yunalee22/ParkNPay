@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,12 +21,14 @@ import edu.usc.parknpay.owner.PaymentInfoActivity;
 
 public class TemplateActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
+    protected DrawerLayout drawerLayout;
     private TextView userName, balance;
     private ImageView userPic;
     private ListView drawerList;
+    protected LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
+    private ImageView menuButton;
 
     @Override
     public void onNewIntent(Intent intent)
@@ -44,9 +47,18 @@ public class TemplateActivity extends AppCompatActivity {
         u = User.getInstance();
         // R.id.drawer_layout should be in every activity with exactly the same id.
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (LinearLayout) findViewById(R.id.drawerll);
         userName = (TextView) findViewById(R.id.drawer_name);
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
+        menuButton = (ImageView) findViewById(R.id.menu);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                drawerLayout.openDrawer(drawer);
+            }
+
+        });
 
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -82,6 +94,7 @@ public class TemplateActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            drawerLayout.closeDrawer(drawer);
             Intent intent;
             switch(position) {
                 case 0:     // Reservations

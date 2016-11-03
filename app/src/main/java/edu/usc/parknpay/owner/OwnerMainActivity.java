@@ -1,6 +1,7 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,7 @@ public class OwnerMainActivity extends TemplateActivity {
     ImageView addSpotButton;
     OwnerMainSpotAdapter parkingSpotAdapter;
     DatabaseReference parkingSpotRef;
+    ImageView menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class OwnerMainActivity extends TemplateActivity {
         super.onCreateDrawer();
         initializeComponents();
         addListeners();
-        toolbarSetup();
 
         parkingSpotArray = new ArrayList<ParkingSpot>();
         parkingSpotAdapter = new OwnerMainSpotAdapter(this, parkingSpotArray);
@@ -50,11 +51,12 @@ public class OwnerMainActivity extends TemplateActivity {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
                 if (spots == null) {return;}
                 for(Map.Entry<String, Object> entry : spots.entrySet()) {
+                    final boolean exists = (boolean) entry.getValue();
                     parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);
-                            processSpot(spot);
+                            processSpot(spot, exists);
                             parkingSpotAdapter.notifyDataSetChanged();
                         }
 
@@ -69,13 +71,6 @@ public class OwnerMainActivity extends TemplateActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-    }
-
-    protected void toolbarSetup() {
-        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        //mToolBar.setNavigationIcon(R.drawable.parknpay);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected void initializeComponents() {
@@ -103,21 +98,27 @@ public class OwnerMainActivity extends TemplateActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     // Proccess parking spot - checks if parking spot already exists on UI
     // If so, replace it
     // If not, add the spot
     // Ask Avery for more details
-    public void processSpot(ParkingSpot spot) {
+    public void processSpot(ParkingSpot spot, boolean exists) {
         for (int i = 0; i < parkingSpotArray.size(); ++i) {
             // If item exists, replace it
             if (parkingSpotArray.get(i).getParkingId().equals(spot.getParkingId()))
             {
-                parkingSpotArray.set(i, spot);
+                if (exists) {
+                    parkingSpotArray.set(i, spot);
+                } else {
+                    parkingSpotArray.remove(i);
+                }
                 return;
             }
         }
+        if (!exists) {return;}
         // Spot was not part of array
         parkingSpotArray.add(spot);
     }

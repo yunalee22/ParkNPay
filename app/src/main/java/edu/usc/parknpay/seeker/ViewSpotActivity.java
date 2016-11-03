@@ -154,7 +154,7 @@ public class ViewSpotActivity extends TemplateActivity{
             public void onClick(View v)
             {
                 // Add spot reservation to database
-                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
@@ -169,6 +169,7 @@ public class ViewSpotActivity extends TemplateActivity{
                                 u.getFirstName(),
                                 parkingSpotPost.getStartTime(),
                                 parkingSpotPost.getEndTime(),
+                                parkingSpotPost.getOwnerPhoneNumber(),
                                 parkingSpotPost.getParkingSpotId(),
                                 parkingSpotPost.getAddress(),
                                 TransactionId,
@@ -176,11 +177,32 @@ public class ViewSpotActivity extends TemplateActivity{
                                 false
                         );
 
+                        //deduct your money
+                        u.changeBalance(-parkingSpotPost.getPrice());
+
+                        //get the other user and add to their moneys
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                // Create user
+
+                                User userToBePaid = snapshot.getValue(User.class);
+                                userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                         FirebaseDatabase.getInstance().getReference().child("Transactions").child(TransactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                intent.putExtra("page", "viewspot");
                                 intent.putExtra("lat", tempLat);
                                 intent.putExtra("long", tempLong);
                                 intent.putExtra("addr", tempAddr);
