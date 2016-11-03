@@ -128,17 +128,18 @@ public class SearchFilterActivity extends TemplateActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent output = new Intent();
+                Intent output = new Intent(SearchFilterActivity.this, SeekerMainActivity.class);
 
                 // Add return data to intent
+                output.putExtra("page", "filter");
                 output.putExtra("minPrice", Double.parseDouble(minPriceField.getText().toString()));
                 output.putExtra("maxPrice", Double.parseDouble(maxPriceField.getText().toString()));
                 output.putExtra("minOwnerRating", ownerRatingBar.getRating());
                 output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
                 output.putExtra("size", Utility.convertSize(sizeSpinner.getSelectedItem().toString()));
-
-                setResult(RESULT_OK, output);
+                startActivity(output);
+               // setResult(RESULT_OK, output);
                 finish();
             }
         });

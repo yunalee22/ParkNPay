@@ -94,7 +94,17 @@ public class SeekerMainActivity extends TemplateActivity {
 //        adapterLongitude = getIntent().getDoubleExtra("long", 0);
 //        address = getIntent().getStringExtra("addr");
 //        executeSearch();
-        searchResults.clear();
+
+        if(getIntent().getStringExtra("page") == "filter") {
+            minPrice = getIntent().getDoubleExtra("minPrice", 0);
+            maxPrice = getIntent().getDoubleExtra("maxPrice", 10000);
+            minOwnerRating = getIntent().getFloatExtra("minOwnerRating", 0);
+            minSpotRating = getIntent().getFloatExtra("minSpotRating", 0);
+            handicapOnly = getIntent().getBooleanExtra("handicapOnly", false);
+            size = getIntent().getIntExtra("size", 1);
+            executeSearch();
+        }
+        //searchResults.clear();
     }
 
     @Override
