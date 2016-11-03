@@ -71,7 +71,7 @@ public class ViewSpotActivity extends TemplateActivity{
         size = (TextView) findViewById(R.id.size);
         handicap = (TextView) findViewById(R.id.handicap);
         cancellationPolicy = (TextView) findViewById(R.id.cancellationPolicy);
-        additionalNotes = (TextView) findViewById(R.id.notes);
+        additionalNotes = (TextView) findViewById(R.id.additionalNotes);
         ownerImage = (ImageView) findViewById(R.id.ownerImage);
         ownerName = (TextView) findViewById(R.id.ownerName);
         ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);

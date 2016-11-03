@@ -136,7 +136,7 @@ public class ViewSpotActivity extends TemplateActivity {
         addButton = (ImageView) findViewById(R.id.addAvail);
         address = (TextView) findViewById(R.id.address);
         spotType = (TextView) findViewById(R.id.spotType);
-        additionalNotes = (TextView) findViewById(R.id.additionalNotes);
+        additionalNotes = (TextView) findViewById(R.id.notes);
         availabilities = (ListView) findViewById(R.id.availabilities);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         handicapped = (TextView) findViewById(R.id.handicap);
