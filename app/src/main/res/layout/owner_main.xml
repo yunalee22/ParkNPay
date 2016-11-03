@@ -47,40 +47,12 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/add_spot"
-            android:id="@+id/addSpot"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:text="My Parking Spots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/addSpot"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="8dp"
-            android:id="@+id/textView4"
-            android:textStyle="normal|bold"
-            android:textSize="26sp"
-            android:fontFamily="sans-serif" />
-
         <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/addSpot"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="18dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:horizontalSpacing="15dp"
@@ -90,6 +62,30 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/add_spot"
+            android:id="@+id/addSpot"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignRight="@+id/gridView"
+            android:layout_alignEnd="@+id/gridView" />
+
+        <TextView
+            android:text="My Parking Spots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:textStyle="normal|bold"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:layout_alignTop="@+id/addSpot"
+            android:layout_alignLeft="@+id/gridView"
+            android:layout_alignStart="@+id/gridView" />
 
 
     </RelativeLayout>
