@@ -99,7 +99,8 @@ public class SeekerMainActivity extends TemplateActivity {
         String date = dateFormat.format(today);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String time = timeFormat.format(today);
-        //
+
+        // Add time and date selectors
         startSpinner = (Spinner) findViewById(R.id.spinnerStart);
         endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
         startDateButton = (Button) findViewById(R.id.start_date_button);
@@ -118,7 +119,6 @@ public class SeekerMainActivity extends TemplateActivity {
         endSpinner.setAdapter(timeAdapter);
         startSpinner.setAdapter(timeAdapter);
         endSpinner.setSelection(1);
-
 
         // Set default search parameters
         minPrice = 0;
