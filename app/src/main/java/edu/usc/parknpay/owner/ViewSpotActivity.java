@@ -101,7 +101,7 @@ public class ViewSpotActivity extends TemplateActivity {
             // If item exists, replace it
             if (availabilitiesList.get(i).getPostId().equals(t.getPostId()))
             {
-                availabilitiesList.set(i, t);
+                //availabilitiesList.set(i, t);
                 return;
             }
         }
