@@ -76,7 +76,7 @@ public class AddSpotActivity extends TemplateActivity {
         //progress dialog
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
-        progress.setMessage("Please wait logging in...");
+        progress.setMessage("Please wait, adding spot...");
         progress.setCancelable(false);
 
         //address bar stuff
@@ -191,9 +191,6 @@ public class AddSpotActivity extends TemplateActivity {
                 // Add to User with list of parking spots table
                 Ref.child("Owner-To-Spots").child(spot.getOwnerUserId()).child(spot.getParkingId()).setValue(true);
 
-                Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {

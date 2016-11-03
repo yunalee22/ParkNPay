@@ -124,7 +124,7 @@
 
                 <TextView android:id="@+id/notes"
                     android:text="Additional notes go here"
-                    android:gravity="top|left"
+                    android:gravity="top"
                     android:layout_width="340dp"
                     android:layout_height="80dp" />
 

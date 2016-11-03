@@ -92,6 +92,7 @@ public class SeekerMainActivity extends TemplateActivity {
 //        adapterLongitude = getIntent().getDoubleExtra("long", 0);
 //        address = getIntent().getStringExtra("addr");
 //        executeSearch();
+        searchResults.clear();
     }
 
     @Override

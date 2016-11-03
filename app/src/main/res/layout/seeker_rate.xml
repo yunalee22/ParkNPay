@@ -39,19 +39,6 @@
         android:layout_width="70dp"
         android:layout_height="70dp" />
 
-    <TextView
-        android:text="Address goes here"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:id="@+id/address"
-        android:layout_width="190dp"
-        android:textSize="18sp"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
-        android:textStyle="normal|bold" />
-
 
     <TextView
         android:text="Rate this spot's owner"
@@ -144,5 +131,16 @@
         android:layout_below="@id/additionalNotesField"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:text="Address goes here"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:layout_width="190dp"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_above="@+id/date"
+        android:layout_alignRight="@+id/ratingBarOwner"
+        android:layout_alignEnd="@+id/ratingBarOwner" />
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class TemplateActivity extends AppCompatActivity {
     private TextView userName, balance;
     private ImageView userPic;
     private ListView drawerList;
+    private LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
 
@@ -44,6 +46,7 @@ public class TemplateActivity extends AppCompatActivity {
         u = User.getInstance();
         // R.id.drawer_layout should be in every activity with exactly the same id.
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (LinearLayout) findViewById(R.id.drawerll);
         userName = (TextView) findViewById(R.id.drawer_name);
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
@@ -82,6 +85,7 @@ public class TemplateActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            drawerLayout.closeDrawer(drawer);
             Intent intent;
             switch(position) {
                 case 0:     // Reservations

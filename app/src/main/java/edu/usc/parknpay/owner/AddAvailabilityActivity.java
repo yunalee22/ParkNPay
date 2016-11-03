@@ -58,7 +58,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
         //progress dialog
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
-        progress.setMessage("Please wait logging in...");
+        progress.setMessage("Please wait, adding availability...");
         progress.setCancelable(false);
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
     }
@@ -180,10 +180,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                         parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId, parkingSpot.getDescription(), false);
 
                 Ref.child("Browse").child(postId).setValue(post);
-
-                Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                progress.dismiss();
                 finish();
 
             }
