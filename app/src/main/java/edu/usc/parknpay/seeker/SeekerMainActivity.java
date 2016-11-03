@@ -219,21 +219,14 @@ public class SeekerMainActivity extends TemplateActivity {
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check start time is earlier
-                    System.out.println(post.getAddress() + " is within endtime");
                     if(!post.isReserved()) {
-                        System.out.println(post.getAddress() + " is not reserved");
                         if (sStartTime.compareTo(post.getStartTime()) >= 0) {
-                            System.out.println(post.getAddress() + " is within start time");
                             // check distance
                             double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
                             if (distance < RADIUS_LIMIT) {
-                                System.out.println(post.getAddress() + " is within radius");
                                 if (post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                    System.out.println(post.getAddress() + " is within price");
                                     int postSize = Utility.convertSize(post.getSize());
-                                    System.out.println("Filter size: " + size + " Post size: " + postSize);
                                     if (postSize >= size && post.isHandicap() == handicapOnly) {
-                                        System.out.println(post.getAddress() + " is within size and handicap");
                                         if (post.getOwnerRating() >= minOwnerRating) {
                                             System.out.println("Got spot: " + post.getAddress());
                                             searchResults.add(post);
@@ -432,8 +425,6 @@ public class SeekerMainActivity extends TemplateActivity {
                     .centerCrop()
                     .into(spotImageView);
 
-            // @TODO: Avery fix pls
-            System.out.println("PHOTO URL: " + parkingSpotPost.getPhotoUrl());
             // Set Address
             TextView addrText = (TextView) convertView.findViewById(R.id.address);
             addrText.setText(parkingSpotPost.getAddress());
