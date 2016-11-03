@@ -89,6 +89,12 @@ public class SeekerMainActivity extends TemplateActivity {
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        if(intent.getStringExtra("page").equals("viewspot")) {
+            adapterLatitude = intent.getDoubleExtra("lat", 0);
+            adapterLongitude = intent.getDoubleExtra("long", 0);
+            address = intent.getStringExtra("addr");
+            executeSearch();
+        }
 
         if(intent.getStringExtra("page").equals("filter")) {
             minPrice = intent.getDoubleExtra("minPrice", 0);
@@ -100,6 +106,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
             executeSearch();
         }
+        //searchResults.clear();
     }
 
     @Override

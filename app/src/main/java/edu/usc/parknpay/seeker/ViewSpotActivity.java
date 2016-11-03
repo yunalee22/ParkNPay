@@ -181,6 +181,7 @@ public class ViewSpotActivity extends TemplateActivity{
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                intent.putExtra("page", "viewspot");
                                 intent.putExtra("lat", tempLat);
                                 intent.putExtra("long", tempLong);
                                 intent.putExtra("addr", tempAddr);

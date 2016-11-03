@@ -35,11 +35,9 @@
         </android.support.v7.widget.Toolbar>
 
         <ListView android:id="@+id/reservations_list"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_below="@+id/toolbar" />
 
     </RelativeLayout>
     <!-- Listview to display slider menu -->
