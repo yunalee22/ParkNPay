@@ -57,17 +57,6 @@
                     android:layout_toRightOf="@id/parkingSpotImage"
                     android:layout_marginLeft="20dp"/>
 
-                <RatingBar android:id="@+id/spotRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.5"
-                    android:progressTint="#FFCC00"
-                    android:secondaryProgressTint="#FFCC00"
-                    android:scaleY="0.5"
-                    android:layout_alignTop="@id/parkingSpotImage"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="78dp"/>
-
                 <TextView android:id="@+id/size"
                     android:text="Normal"
                     android:layout_width="wrap_content"
@@ -165,6 +154,18 @@
                     android:layout_below="@id/ownerImage"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="40dp"/>
+
+                <RatingBar android:id="@+id/spotRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.5"
+                    android:progressTint="#FFCC00"
+                    android:secondaryProgressTint="#FFCC00"
+                    android:scaleY="0.5"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@+id/address"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
         </ScrollView>
