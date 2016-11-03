@@ -50,11 +50,12 @@ public class OwnerMainActivity extends TemplateActivity {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
                 if (spots == null) {return;}
                 for(Map.Entry<String, Object> entry : spots.entrySet()) {
+                    final boolean exists = (boolean) entry.getValue();
                     parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);
-                            processSpot(spot);
+                            processSpot(spot, exists);
                             parkingSpotAdapter.notifyDataSetChanged();
                         }
 
@@ -109,15 +110,20 @@ public class OwnerMainActivity extends TemplateActivity {
     // If so, replace it
     // If not, add the spot
     // Ask Avery for more details
-    public void processSpot(ParkingSpot spot) {
+    public void processSpot(ParkingSpot spot, boolean exists) {
         for (int i = 0; i < parkingSpotArray.size(); ++i) {
             // If item exists, replace it
             if (parkingSpotArray.get(i).getParkingId().equals(spot.getParkingId()))
             {
-                parkingSpotArray.set(i, spot);
+                if (exists) {
+                    parkingSpotArray.set(i, spot);
+                } else {
+                    parkingSpotArray.remove(i);
+                }
                 return;
             }
         }
+        if (!exists) {return;}
         // Spot was not part of array
         parkingSpotArray.add(spot);
     }
