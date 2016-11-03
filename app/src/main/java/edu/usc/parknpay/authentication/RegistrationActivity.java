@@ -1,5 +1,6 @@
 package edu.usc.parknpay.authentication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.DatabaseTalker;
 import edu.usc.parknpay.database.User;
@@ -32,7 +36,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private static final int PICK_PHOTO = 1;
     private Uri selectedImage;
     private ImageView profilePicture;
-    private TextView editButton;
     private EditText editFirstName, editLastName, editEmail,
             editPassword, editConfirmPassword,
             editPhoneNumber, editDriversLicense;
@@ -40,6 +43,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private DatabaseTalker databaseTalker;
     private User user;
     DatabaseReference Ref;
+
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // Get references to UI views
         profilePicture = (ImageView) findViewById(R.id.pic);
-        editButton = (TextView) findViewById(R.id.edit_button);
         editFirstName = (EditText) findViewById(R.id.edit_first_name);
         editLastName = (EditText) findViewById(R.id.edit_last_name);
         editEmail = (EditText) findViewById(R.id.edit_email);
@@ -60,12 +64,20 @@ public class RegistrationActivity extends AppCompatActivity {
         editPhoneNumber = (EditText) findViewById(R.id.edit_phone_number);
         editDriversLicense = (EditText) findViewById(R.id.edit_drivers_license);
 
+        //progress dialog
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait logging in...");
+        progress.setCancelable(false);
+
         // Add view listeners
         addListeners();
     }
 
     /** Called when the user clicks the register account button. */
     public void registerUser(View view) {
+
+        progress.show();
 
         // Communicate with Firebase to authenticate the user.
         String firstName = editFirstName.getText().toString().trim();
@@ -85,6 +97,23 @@ public class RegistrationActivity extends AppCompatActivity {
             || TextUtils.isEmpty(phoneNumber)
             || TextUtils.isEmpty(driversLicense)) {
             Toast.makeText(RegistrationActivity.this, "Please do not leave any fields empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check for password reqs
+        // 10 char, 1 special char
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(password);
+        boolean b = m.find();
+        //check for special character
+        if(!b) {
+            Toast.makeText(RegistrationActivity.this, "Password requires a special non-alphanumerical character", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check for password length
+        if(password.length() < 10) {
+            Toast.makeText(RegistrationActivity.this, "Password should be 10 or more characters long", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -159,7 +188,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     protected void addListeners() {
-        editButton.setOnClickListener(new View.OnClickListener() {
+        profilePicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
