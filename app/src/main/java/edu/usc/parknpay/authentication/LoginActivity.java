@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
             }
         });

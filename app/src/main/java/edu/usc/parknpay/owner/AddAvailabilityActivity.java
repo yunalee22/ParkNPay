@@ -234,6 +234,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         endSpinner.setAdapter(timeAdapter);
         startSpinner.setAdapter(timeAdapter);
+        endSpinner.setSelection(1);
 
     }
 
