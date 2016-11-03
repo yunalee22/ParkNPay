@@ -2,6 +2,7 @@ package edu.usc.parknpay.owner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -35,6 +36,7 @@ public class OwnerMainActivity extends TemplateActivity {
         super.onCreateDrawer();
         initializeComponents();
         addListeners();
+        toolbarSetup();
 
         parkingSpotArray = new ArrayList<ParkingSpot>();
         parkingSpotAdapter = new OwnerMainSpotAdapter(this, parkingSpotArray);
@@ -67,6 +69,13 @@ public class OwnerMainActivity extends TemplateActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+    }
+
+    protected void toolbarSetup() {
+        Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
+        //mToolBar.setNavigationIcon(R.drawable.parknpay);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected void initializeComponents() {
