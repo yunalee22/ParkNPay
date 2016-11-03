@@ -11,6 +11,8 @@ import java.io.Serializable;
 
 public class ParkingSpotPost implements Serializable{
     private String ownerUserId, parkingSpotId;
+    private String ownerFullName;
+    private String ownerPhoneNumber;
     private String startTime, endTime;
     private double latitude, longitude;
     private double price;
@@ -21,18 +23,20 @@ public class ParkingSpotPost implements Serializable{
     private String address;
     private String photoUrl;
     private String postId;
-
     private String description;
+    private boolean reserved;
 
     public ParkingSpotPost() {
     }
 
-    public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("address") String address, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
+    public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("ownerFullName") String ownerFullName, @JsonProperty("ownerPhoneNumber") String ownerPhoneNumber, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("address") String address, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
                            @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") String size, @JsonProperty("cancellationPolicy") String cancellationPolicy,
                            @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating, @JsonProperty("photoUrl") String photoUrl, @JsonProperty("postId") String postId, @JsonProperty("description") String description)
     {
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
+        this.ownerFullName = ownerFullName;
+        this.ownerPhoneNumber = ownerPhoneNumber;
         this.startTime = startTime;
         this.endTime = endTime;
         this.latitude = latitude;
@@ -172,6 +176,30 @@ public class ParkingSpotPost implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
+    }
+
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
     }
 
 }

@@ -12,6 +12,8 @@ import java.io.Serializable;
 
 public class ParkingSpot implements Serializable{
     private String ownerUserId;
+    private String ownerFullName;
+    private String ownerPhoneNumber;
     private String address;
     private double latitude, longitude;
     private String size;
@@ -36,9 +38,11 @@ public class ParkingSpot implements Serializable{
     public ParkingSpot() {
     }
 
-    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
+    public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("ownerFullName") String ownerFullName, @JsonProperty("ownerPhoneNumber") String ownerPhoneNumber, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
                        @JsonProperty("isHandicapped") boolean isHandicapped, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings) {
         this.ownerUserId = ownerUserId;
+        this.ownerFullName = ownerFullName;
+        this.ownerPhoneNumber = ownerPhoneNumber;
         this.address = address;
         this.size = size;
         this.rating = rating;
@@ -154,4 +158,19 @@ public class ParkingSpot implements Serializable{
         // update these values in firebase
     }
 
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
+    }
+
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
+    }
 }

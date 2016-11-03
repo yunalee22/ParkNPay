@@ -163,7 +163,12 @@ public class AddAvailabilityActivity extends TemplateActivity {
 
                 DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
 
-                ParkingSpotPost post = new ParkingSpotPost(User.getInstance().getId(), parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
+                User user = User.getInstance();
+                String userId = user.getId();
+                String userFullName = user.getFullName();
+                String userPhoneNumber = user.getPhoneNumber();
+
+                ParkingSpotPost post = new ParkingSpotPost(userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
                         parkingSpot.getSize(), cancellation, parkingSpot.isHandicapped(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId, parkingSpot.getDescription());
 
                 Ref.child("Browse").child(postId).setValue(post);
