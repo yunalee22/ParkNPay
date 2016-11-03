@@ -86,17 +86,17 @@ public class LoginActivity extends AppCompatActivity {
                             User.createUser(user);
 
                             // If authentication is successful, proceed to default (owner/seeker) main view.
-                            if (User.getInstance().getIsCurrentlySeeker()) {
-                                User.getInstance().setIsCurrentlySeeker(false);
+                            if (User.getInstance().isSeeker()) {
+                                User.getInstance().setIsCurrentlySeeker(true);
 
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
                             } else {
-                                User.getInstance().setIsCurrentlySeeker(true);
+                                User.getInstance().setIsCurrentlySeeker(false);
 
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
-                                progress.dismiss();
+                                //progress.dismiss();
                             }
                         }
 
