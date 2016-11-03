@@ -135,10 +135,7 @@ public class SearchFilterActivity extends TemplateActivity {
                 output.putExtra("minOwnerRating", ownerRatingBar.getRating());
                 output.putExtra("minSpotRating", spotRatingBar.getRating());
                 output.putExtra("handicapOnly", handicapOnlyCheckbox.isChecked());
-//                output.putExtra("startDate", startDateButton.getText());
-//                output.putExtra("endDate", endDateButton.getText());
-//                output.putExtra("startTime", startSpinner.getSelectedItem().toString() + ":00");
-//                output.putExtra("endTime", endSpinner.getSelectedItem().toString() + ":00");
+                output.putExtra("size", Integer.parseInt(sizeSpinner.getSelectedItem().toString()));
 
                 setResult(RESULT_OK, output);
                 finish();

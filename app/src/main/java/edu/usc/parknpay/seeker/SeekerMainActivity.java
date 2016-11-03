@@ -47,6 +47,7 @@ import java.util.TimeZone;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.authentication.RegistrationActivity;
+import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.utility.Utility;
 
@@ -75,8 +76,9 @@ public class SeekerMainActivity extends TemplateActivity {
     private SearchListAdapter searchResultsAdapter;
 
     // Search parameters
+    private int size;
     private double minPrice, maxPrice;
-    private float minOwnerRating, minSpotRating, size;
+    private float minOwnerRating, minSpotRating;
     private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
     private String address, startDate, startTime, endDate, endTime;
 
@@ -139,10 +141,7 @@ public class SeekerMainActivity extends TemplateActivity {
         minOwnerRating = 0.0f;
         minSpotRating = 0.0f;
         handicapOnly = false;
-        showNormal = true;
-        showCompact = true;
-        showSuv = true;
-        showTruck = true;
+        size = ParkingSpot.Size.Normal.getValue();
         startDate = date;
         startTime = time;
         endDate = date;
@@ -205,6 +204,10 @@ public class SeekerMainActivity extends TemplateActivity {
             date = df.parse(endDate + " " + endTime);
             final String sEndTime = df.format(date);
 
+
+            System.out.println("startTime: " + sStartTime);
+            System.out.println("endTime: " + sEndTime);
+
             // TODO: Show error popup if bad input?
             if(sStartTime.compareTo(sEndTime) > 0)
                 System.out.println("ERROR");
@@ -216,15 +219,21 @@ public class SeekerMainActivity extends TemplateActivity {
                 public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
                     ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
                     // check start time is earlier
+                    System.out.println(post.getAddress() + " is within endtime");
                     if(!post.isReserved()) {
+                        System.out.println(post.getAddress() + " is not reserved");
                         if (sStartTime.compareTo(post.getStartTime()) >= 0) {
+                            System.out.println(post.getAddress() + " is within start time");
                             // check distance
                             double distance = Utility.distance(adapterLatitude, adapterLongitude, post.getLatitude(), post.getLongitude(), "M");
                             if (distance < RADIUS_LIMIT) {
+                                System.out.println(post.getAddress() + " is within radius");
                                 if (post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
-                                    int size = Utility.convertSize(showCompact, showNormal, showSuv, showTruck);
+                                    System.out.println(post.getAddress() + " is within price");
                                     int postSize = Utility.convertSize(post.getSize());
+                                    System.out.println("Filter size: " + size + " Post size: " + postSize);
                                     if (postSize >= size && post.isHandicap() == handicapOnly) {
+                                        System.out.println(post.getAddress() + " is within size and handicap");
                                         if (post.getOwnerRating() >= minOwnerRating) {
                                             System.out.println("Got spot: " + post.getAddress());
                                             searchResults.add(post);
@@ -286,10 +295,6 @@ public class SeekerMainActivity extends TemplateActivity {
                 intent.putExtra("minOwnerRating", minOwnerRating);
                 intent.putExtra("minSpotRating", minSpotRating);
                 intent.putExtra("handicapOnly", handicapOnly);
-                intent.putExtra("showNormal", showNormal);
-                intent.putExtra("showCompact", showCompact);
-                intent.putExtra("showSuv", showSuv);
-                intent.putExtra("showTruck", showTruck);
                 intent.putExtra("startDate", startDate);
                 intent.putExtra("startTime", startTime);
                 intent.putExtra("endDate", endDate);
@@ -390,8 +395,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            startDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-            startDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            startDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
         }
     };
 
@@ -399,8 +403,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            endDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-            endDateButton.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            endDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
         }
     };
 
