@@ -1,5 +1,3 @@
-// To be used by Activities when building up a query to the DatabaseTalker
-
 package edu.usc.parknpay.database;
 
 import android.net.Uri;

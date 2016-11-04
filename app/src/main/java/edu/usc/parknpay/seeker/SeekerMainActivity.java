@@ -1,12 +1,15 @@
 package edu.usc.parknpay.seeker;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +54,7 @@ import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.authentication.RegistrationActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
@@ -57,6 +63,7 @@ public class SeekerMainActivity extends TemplateActivity {
     private static final int END_DATE_PICKER = 2;
     public static final double RADIUS_LIMIT = 3;
     private static final int SEARCH_FILTER = 2;
+    private static final int HOURS_IN_DAY = 24;
 
     // Long and Lat used for Adapter
     private double adapterLongitude;
@@ -136,9 +143,9 @@ public class SeekerMainActivity extends TemplateActivity {
         endDateButton = (Button) findViewById(R.id.end_date_button);
 
         List<String> timeSpinner =  new ArrayList<>();
-        for(int i=0; i<24; i++) {
-            if(i <10)
-                timeSpinner.add("0"+Integer.toString(i));
+        for(int i = 0; i < HOURS_IN_DAY; i++) {
+            if(i < 10)
+                timeSpinner.add("0" + Integer.toString(i));
             else
                 timeSpinner.add(Integer.toString(i));
         }
@@ -199,12 +206,11 @@ public class SeekerMainActivity extends TemplateActivity {
 
         searchResults.clear();
 
+        // temporary values
         startTime = startSpinner.getSelectedItem().toString() + ":00";
         endTime = endSpinner.getSelectedItem().toString() + ":00";
         startDate = startDateButton.getText().toString();
         endDate = endDateButton.getText().toString();
-
-
 
         System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
@@ -218,13 +224,11 @@ public class SeekerMainActivity extends TemplateActivity {
             date = df.parse(endDate + " " + endTime);
             final String sEndTime = df.format(date);
 
-
-            System.out.println("startTime: " + sStartTime);
-            System.out.println("endTime: " + sEndTime);
-
-            // TODO: Show error popup if bad input?
-            if(sStartTime.compareTo(sEndTime) > 0)
-                System.out.println("ERROR");
+            if(sStartTime.compareTo(sEndTime) >= 0) {
+                Toast.makeText(SeekerMainActivity.this, "Please enter valid dates",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
             // order by endtimes at or later

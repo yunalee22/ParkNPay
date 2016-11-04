@@ -143,15 +143,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-                    final String startTime =  df.format(date1);
-                    final String endTIme = df.format(date2);
-
-                    System.out.println("OWNER START STRING 1: "+ startTime);
-                    System.out.println("OWNER END STRING 1: "+ endTIme);
-
-
-
                 } catch(ParseException e) {
                     //Exception handling
                     Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
@@ -176,7 +167,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 String userPhoneNumber = user.getPhoneNumber();
 
                 ParkingSpotPost post = new ParkingSpotPost(userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
-                        parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId, parkingSpot.getDescription(), false);
+                        parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId, parkingSpot.getDescription(), false);
 
                 Ref.child("Browse").child(postId).setValue(post);
                 progress.dismiss();

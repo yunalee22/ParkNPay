@@ -204,6 +204,12 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onClick(View v)
             {
+            // Check if valid time
+
+
+
+
+
                 // Add spot reservation to database
                 FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -221,6 +227,7 @@ public class ViewSpotActivity extends TemplateActivity{
                                 parkingSpotPost.getStartTime(),
                                 parkingSpotPost.getEndTime(),
                                 parkingSpotPost.getOwnerPhoneNumber(),
+                                user.getPhoneNumber(),
                                 parkingSpotPost.getParkingSpotId(),
                                 parkingSpotPost.getAddress(),
                                 TransactionId,

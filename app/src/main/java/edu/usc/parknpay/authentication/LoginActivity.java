@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progress.show();
 
-        firebaseAuth.signInWithEmailAndPassword("s@s.com", "sssssss").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword("seeker@seeker.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
         progress.show();
 
 
-        firebaseAuth.signInWithEmailAndPassword("h@h.com", "hhhhhhhhhh@").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword("host@host.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
