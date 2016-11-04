@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextInputLayout firstNameInputLayout, lastNameInputLayout,
         emailInputLayout, passwordInputLayout, confirmPasswordInputLayout,
         phoneInputLayout, licenseInputLayout;
+    private Button registerButton;
 
     private DatabaseTalker databaseTalker;
     private User user;
@@ -85,6 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void initializeViews() {
         profilePicture = (ImageView) findViewById(R.id.pic);
+        registerButton = (Button) findViewById(R.id.register_button);
 
         // Text fields
         editFirstName = (EditText) findViewById(R.id.edit_first_name);
@@ -107,6 +110,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     // Called when the user clicks the register account button.
     private void submitForm() {
+        System.out.println("Poop!");
         if(!validateFirstName(true)) return;
         if(!validateLastName(true)) return;
         if (!validateEmail(true)) return;
@@ -114,10 +118,13 @@ public class RegistrationActivity extends AppCompatActivity {
         if (!validateConfirmPassword(true)) return;
         if (!validatePhoneNumber(true)) return;
         if (!validateDriversLicense(true)) return;
+        System.out.println("Here!");
         registerUser();
     }
 
     private void registerUser() {
+
+        System.out.println("Registering user");
 
         progress.show();
 
@@ -203,6 +210,13 @@ public class RegistrationActivity extends AppCompatActivity {
             }
 
         });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    submitForm();
+                }
+            }
+        );
 
         // Add text changed listeners
         editFirstName.addTextChangedListener(new RegistrationTextWatcher(editFirstName));
