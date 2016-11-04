@@ -42,9 +42,7 @@
         <activity android:name=".seeker.ReservationsActivity" />
         <activity android:name=".seeker.HistoryActivity" />
         <activity android:name=".seeker.ViewSpotActivity" />
-        <activity android:name=".seeker.RateActivity">
-
-        </activity>
+        <activity android:name=".seeker.RateActivity" />
 
         <!-- Google places integration -->
         <meta-data

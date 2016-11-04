@@ -16,6 +16,17 @@
     <string name="hint_drivers_license">Driver\'s License Number</string>
     <string name="button_register">Register Account</string>
 
+    <!-- Registration error messages -->
+    <string name="err_msg_first_name">Enter your first name</string>
+    <string name="err_msg_last_name">Enter your last name</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_password_1">"Please enter a password"</string>
+    <string name="err_msg_password_2">"Password requires a special non-alphanumerical character"</string>
+    <string name="err_msg_password_3">"Password should be 10 or more characters long"</string>
+    <string name="err_msg_confirm_password">Passwords do not match</string>
+    <string name="err_msg_phone_number">Enter a 10 digit phone number</string>
+    <string name="err_msg_license">Enter your driver\'s license number</string>
+
     <!-- Choose seeker or owner screen -->
     <string name="button_select_owner">"I\'m letting out a spot.</string>
     <string name="button_select_seeker">I\'m looking for a spot.</string>
