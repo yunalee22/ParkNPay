@@ -221,6 +221,7 @@ public class ViewSpotActivity extends TemplateActivity{
                                 parkingSpotPost.getStartTime(),
                                 parkingSpotPost.getEndTime(),
                                 parkingSpotPost.getOwnerPhoneNumber(),
+                                user.getPhoneNumber(),
                                 parkingSpotPost.getParkingSpotId(),
                                 parkingSpotPost.getAddress(),
                                 TransactionId,

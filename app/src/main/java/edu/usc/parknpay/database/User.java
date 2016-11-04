@@ -4,8 +4,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class User {
     private static User instance = null;
-    private String firstName;
-    private String lastName;
+    private String firstName, lastName, fullName;
     private String email;
     private String id;
     private int rawRating;
@@ -105,10 +104,6 @@ public class User {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String FullName() {
-        return firstName + " " + lastName;
     }
 
     public String getEmail() {
@@ -215,4 +210,6 @@ public class User {
     }
 
     public String getFullName() { return firstName + " " + lastName;}
+
+    private void setFullName(String fullName) { this.fullName = fullName;}
 }
