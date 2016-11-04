@@ -110,7 +110,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     // Called when the user clicks the register account button.
     private void submitForm() {
-        System.out.println("Poop!");
         if(!validateFirstName(true)) return;
         if(!validateLastName(true)) return;
         if (!validateEmail(true)) return;
@@ -118,14 +117,10 @@ public class RegistrationActivity extends AppCompatActivity {
         if (!validateConfirmPassword(true)) return;
         if (!validatePhoneNumber(true)) return;
         if (!validateDriversLicense(true)) return;
-        System.out.println("Here!");
         registerUser();
     }
 
     private void registerUser() {
-
-        System.out.println("Registering user");
-
         progress.show();
 
         // Communicate with Firebase to authenticate the user.
