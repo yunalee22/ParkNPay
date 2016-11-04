@@ -41,7 +41,6 @@ import java.util.regex.Pattern;
 
 import edu.usc.parknpay.Manifest;
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.database.DatabaseTalker;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.seeker.ReservationsActivity;
 
@@ -57,8 +56,6 @@ public class RegistrationActivity extends AppCompatActivity {
         emailInputLayout, passwordInputLayout, confirmPasswordInputLayout,
         phoneInputLayout, licenseInputLayout;
     private Button registerButton;
-
-    private DatabaseTalker databaseTalker;
     private User user;
     DatabaseReference Ref;
 
@@ -68,9 +65,6 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authentication_registration);
-
-        // Get database talker instance
-        databaseTalker = DatabaseTalker.getInstance();
 
         // Get references to UI views
         initializeViews();
