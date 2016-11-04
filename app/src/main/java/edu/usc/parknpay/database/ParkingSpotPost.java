@@ -16,6 +16,7 @@ public class ParkingSpotPost implements Serializable{
     private String startTime, endTime;
     private double latitude, longitude;
     private double price;
+    private double rating;
     private String size;
     private String cancellationPolicy;
     private boolean isHandicap;
@@ -29,9 +30,9 @@ public class ParkingSpotPost implements Serializable{
     public ParkingSpotPost() {
     }
 
-    public ParkingSpotPost(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("ownerFullName") String ownerFullName, @JsonProperty("ownerPhoneNumber") String ownerPhoneNumber, @JsonProperty("parkingSpotId") String parkingSpotId, @JsonProperty("address") String address, @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime,
-                           @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude, @JsonProperty("price") double price, @JsonProperty("size") String size, @JsonProperty("cancellationPolicy") String cancellationPolicy,
-                           @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("ownerRating") double ownerRating, @JsonProperty("photoUrl") String photoUrl, @JsonProperty("postId") String postId, @JsonProperty("description") String description, @JsonProperty("reserved") boolean reserved)
+    public ParkingSpotPost(String ownerUserId, String ownerFullName, String ownerPhoneNumber, String parkingSpotId, String address, String startTime, String endTime,
+                           double latitude, double longitude, double price, double rating, String size, String cancellationPolicy,
+                           boolean isHandicap, double ownerRating, String photoUrl, String postId, String description, boolean reserved)
     {
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
@@ -42,6 +43,7 @@ public class ParkingSpotPost implements Serializable{
         this.latitude = latitude;
         this.longitude = longitude;
         this.price = price;
+        this.rating = rating;
         this.size = size;
         this.cancellationPolicy = cancellationPolicy;
         this.isHandicap = isHandicap;
@@ -201,6 +203,14 @@ public class ParkingSpotPost implements Serializable{
 
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.ownerPhoneNumber = ownerPhoneNumber;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
 }
