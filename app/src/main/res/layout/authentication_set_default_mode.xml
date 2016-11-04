@@ -5,17 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
+    <ImageButton
+        android:src="@drawable/seeker_text"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_select_seeker"
+        android:background="@color/green"
+        android:scaleType="fitCenter"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:onClick="setDefaultToSeeker"/>
-    <Button
+    <ImageButton
+        android:src="@drawable/owner_text"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_select_owner"
+        android:background="@color/orange"
+        android:scaleType="fitCenter"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:onClick="setDefaultToOwner"/>
 
 </LinearLayout>
