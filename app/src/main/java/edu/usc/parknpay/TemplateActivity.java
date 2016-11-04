@@ -79,6 +79,7 @@ public class TemplateActivity extends AppCompatActivity {
 
     private void addDrawerItems() {
         String[] menuItems = {
+                "Home",
                 "Reservations",
                 "History",
                 "Payment",
@@ -97,7 +98,20 @@ public class TemplateActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(drawer);
             Intent intent;
             switch(position) {
-                case 0:     // Reservations
+                case 0: //Home
+                {
+                    if (u.getIsCurrentlySeeker()) {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    } else {
+                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    }
+                    break;
+                }
+                case 1:     // Reservations
                 {
                     if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.ReservationsActivity.class);
@@ -110,7 +124,7 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 1:     // History
+                case 2:     // History
                 {
                     if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.HistoryActivity.class);
@@ -123,14 +137,14 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 2:     // Payment
+                case 3:     // Payment
                 {
                     intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     break;
                 }
-                case 3:     // Settings
+                case 4:     // Settings
                 {
                     intent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
 
@@ -138,7 +152,7 @@ public class TemplateActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case 4:     // Use App as Owner
+                case 5:     // Use App as Owner
                 {
                     //u.changeBalance(10);
                     //refreshBalanceView();
@@ -161,7 +175,7 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 5:     // Log Out
+                case 6:     // Log Out
                 {
                     User.setInstance(null);
                     intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);

@@ -3,7 +3,6 @@ package edu.usc.parknpay.seeker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -155,7 +154,13 @@ public class HistoryActivity extends TemplateActivity {
             TextView ownerText = (TextView) convertView.findViewById(R.id.history_ownerr);
             ownerText.setText(transaction.getOwnerName());
 
-            if(transaction.isRated()) {
+            // Get current date and time
+            Date today = Calendar.getInstance().getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String currTime = dateFormat.format(today);
+
+            // If transaction is rated or has not expired, hide (tap to rate)
+            if(transaction.isRated() || currTime.compareTo(transaction.getEndTime()) < 0) {
                 TextView rateText = (TextView) convertView.findViewById(R.id.history_rate);
                 rateText.setVisibility(View.GONE);
             }

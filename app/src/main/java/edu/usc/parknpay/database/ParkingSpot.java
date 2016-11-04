@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.Serializable;
@@ -153,9 +154,10 @@ public class ParkingSpot implements Serializable{
     }
 
     public void updateRating(int rating) {
+        double tempRating = this.rating * numRatings;
         numRatings++;
-        this.rating += ((double)rating) / numRatings;
-        // update these values in firebase
+        this.rating = (tempRating + ((double)rating)) / numRatings;
+        FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingId).setValue(this);
     }
 
     public String getOwnerFullName() {

@@ -53,8 +53,8 @@
         android:text="$ Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:id="@+id/price"
         android:layout_alignTop="@+id/textView18"
         android:layout_alignParentRight="true"
@@ -66,8 +66,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:id="@+id/reserved"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_alignLeft="@+id/price"
-        android:layout_alignStart="@+id/price"
-        android:layout_alignBottom="@+id/textView7" />
+        android:layout_alignBottom="@+id/start"
+        android:layout_alignRight="@+id/price"
+        android:layout_alignEnd="@+id/price" />
 </RelativeLayout>

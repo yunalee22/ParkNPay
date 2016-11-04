@@ -7,6 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -32,9 +38,11 @@ import com.google.firebase.storage.UploadTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.usc.parknpay.Manifest;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.DatabaseTalker;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.seeker.ReservationsActivity;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -124,6 +132,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if (selectedImage == null) {
             Toast.makeText(RegistrationActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
@@ -165,11 +174,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             // Get correct firebase ref
                             Ref.child("Users").child(user.getId()).setValue(user);
-
                             User.createUser(user);
 
                             // Proceed to default mode selection view
                             Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
                             Intent intent = new Intent(RegistrationActivity.this, SetDefaultModeActivity.class);
                             startActivity(intent);
                             finish();
@@ -177,6 +186,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
                 }
             });
@@ -207,22 +217,19 @@ public class RegistrationActivity extends AppCompatActivity {
         editFirstName.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editFirstName));
         editLastName.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editLastName));
         editEmail.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editEmail));
-        editPassword.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editFirstName));
+        editPassword.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editPassword));
         editConfirmPassword.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editConfirmPassword));
         editPhoneNumber.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editPhoneNumber));
         editDriversLicense.setOnFocusChangeListener(new RegistrationOnFocusChangeListener(editDriversLicense));
     }
 
     private boolean validateFirstName(boolean onFocusChange) {
-        System.out.println("Validating first name!!");
         if (editFirstName.getText().toString().trim().isEmpty()) {
             firstNameInputLayout.setError(getString(R.string.err_msg_first_name));
-            System.out.println("Set error");
             if (!onFocusChange) requestFocus(editFirstName);
             return false;
         }
         editFirstName.getBackground().clearColorFilter();
-        System.out.println("Cleared color filter");
         firstNameInputLayout.setErrorEnabled(false);
         return true;
     }

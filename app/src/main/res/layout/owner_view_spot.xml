@@ -71,12 +71,12 @@
                 android:layout_height="wrap_content"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:progressTint="#FFCC00"
-                android:secondaryProgressTint="#FFCC00"
+                android:progressTint="@color/blue"
+                android:secondaryProgressTint="@color/blue"
                 android:stepSize="0.5"
                 android:isIndicator="true"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="83dp" />
+                android:layout_marginLeft="93dp" />
 
             <TextView android:id="@+id/spotType"
                 android:text="Parking Spot Type"
@@ -102,29 +102,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"/>
 
-            <TextView android:id="@+id/cancellationPolicyLabel"
-                android:text="Cancellation Policy"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/deleteButton"
-                android:layout_marginTop="20dp"/>
-
-            <TextView android:id="@+id/cancellationPolicy"
-                android:text="Cancellation policy description goes here"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cancellationPolicyLabel"
-                android:layout_marginTop="10dp" />
 
             <TextView android:id="@+id/additionalNotesLabel"
                 android:text="Additional Notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="70dp"
                 android:textSize="15sp"
                 android:textStyle="normal|bold"
-                android:layout_below="@+id/cancellationPolicy"
+                android:layout_below="@+id/parkingSpotImage"
                 android:layout_alignLeft="@id/parkingSpotImage"
                 android:layout_alignStart="@id/parkingSpotImage" />
 
@@ -145,19 +131,10 @@
 
             </ScrollView>
 
-            <TextView android:id="@+id/availabilitiesLabel"
-                android:text="Availabilites"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/additionalNotes" />
-
             <ImageView android:id="@+id/addAvail"
                 android:src="@drawable/add_spot"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_above="@+id/availabilities"
                 android:layout_alignRight="@+id/availabilities"
                 android:layout_alignEnd="@+id/availabilities" />
@@ -165,7 +142,21 @@
             <ListView android:id="@+id/availabilities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/availabilitiesLabel" />
+                android:layout_below="@+id/availabilitiesLabel"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="11dp" />
+
+            <TextView android:id="@+id/availabilitiesLabel"
+                android:text="Availabilites"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_below="@+id/additionalNotes"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -215,6 +206,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Gregory Johnson"
+                    android:textStyle="normal|bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"/>
 

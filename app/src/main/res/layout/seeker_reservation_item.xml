@@ -19,35 +19,37 @@
         android:text="Address"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/parking_spot_image"
         android:layout_alignTop="@id/parking_spot_image"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <TextView android:id="@+id/date_time_range"
         android:text="Date time range"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/parking_spot_image"
         android:layout_alignBottom="@id/parking_spot_image"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignBottom="@+id/date_time_range"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/parking_spot_image"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_alignParentEnd="true">
 
         <ImageView android:id="@+id/call_button"
             android:src="@drawable/phone"
             android:adjustViewBounds="true"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
+            android:maxWidth="20dp"
+            android:maxHeight="20dp"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,8 +58,8 @@
         <ImageView android:id="@+id/delete_button"
             android:src="@drawable/delete"
             android:adjustViewBounds="true"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
+            android:maxWidth="20dp"
+            android:maxHeight="20dp"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
