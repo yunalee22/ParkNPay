@@ -1,7 +1,14 @@
 package edu.usc.parknpay.seeker;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +36,7 @@ import edu.usc.parknpay.R;
 import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.owner.AccountSettingsActivity;
 
 public class ReservationsActivity extends TemplateActivity {
 
@@ -100,6 +109,8 @@ public class ReservationsActivity extends TemplateActivity {
         return false;
     }
 
+
+
     protected class ReservationsListAdapter extends ArrayAdapter<Transaction> {
 
         public ReservationsListAdapter(Context context, ArrayList<Transaction> results) {
@@ -113,7 +124,7 @@ public class ReservationsActivity extends TemplateActivity {
             }
 
             // Get data item
-            Transaction transaction = getItem(position);
+            final Transaction transaction = getItem(position);
 
             // Set image
             ImageView spotImageView = (ImageView) convertView.findViewById(R.id.parking_spot_image);
@@ -133,6 +144,29 @@ public class ReservationsActivity extends TemplateActivity {
             // Set Address
             TextView addrText = (TextView) convertView.findViewById(R.id.address);
             addrText.setText(transaction.getAddress());
+
+            // Call Button
+            ImageView callButton = (ImageView) convertView.findViewById(R.id.call_button);
+            callButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    if(transaction.getOwnerPhoneNumber() == null) {
+                        Toast.makeText(ReservationsActivity.this, "Failed to retrieve phone number from server", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    callIntent.setData(Uri.parse("tel:" + transaction.getOwnerPhoneNumber()));
+
+                    if (ContextCompat.checkSelfPermission(ReservationsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ReservationsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                        startActivity(callIntent);
+                    }
+                    else {
+                        startActivity(callIntent);
+                    }
+                }
+
+            });
+
 
             return convertView;
         }

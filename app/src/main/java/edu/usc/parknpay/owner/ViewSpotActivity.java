@@ -1,9 +1,12 @@
 package edu.usc.parknpay.owner;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -153,25 +156,36 @@ public class ViewSpotActivity extends TemplateActivity {
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots").child(User.getInstance().getId()).child(parkingSpot.getParkingId()).setValue(false)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ViewSpotActivity.this, "Parking spot successfully deleted.",
-                                        Toast.LENGTH_SHORT).show();
-                                finish();
+            public void onClick(View v) {
+                new AlertDialog.Builder(ViewSpotActivity.this)
+                        .setTitle( "Delete Spot" )
+                        .setMessage( "Are you sure you want to delete your spot?" )
+                        .setPositiveButton( "No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d( "AlertDialog", "Negative" );
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ViewSpotActivity.this, "Could not delete parking spot.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
+                        } )
+                        .setNegativeButton( "Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots").child(User.getInstance().getId()).child(parkingSpot.getParkingId()).setValue(false)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(ViewSpotActivity.this, "Parking spot successfully deleted.",
+                                                Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ViewSpotActivity.this, "Could not delete parking spot.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                Log.d( "AlertDialog", "Positive" );
+                            }
+                        })
+                        .show();
             }
         });
     }

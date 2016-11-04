@@ -103,6 +103,7 @@ public class RegistrationActivity extends AppCompatActivity {
             || TextUtils.isEmpty(phoneNumber)
             || TextUtils.isEmpty(driversLicense)) {
             Toast.makeText(RegistrationActivity.this, "Please do not leave any fields empty", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
@@ -114,28 +115,33 @@ public class RegistrationActivity extends AppCompatActivity {
         //check for special character
         if(!b) {
             Toast.makeText(RegistrationActivity.this, "Password requires a special non-alphanumerical character", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
         // Check for password length
         if(password.length() < 10) {
             Toast.makeText(RegistrationActivity.this, "Password should be 10 or more characters long", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
         // Check if passwords match
         if (!password.equals(confirmPassword)) {
             Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
         if (phoneNumber.length() != 10) {
             Toast.makeText(RegistrationActivity.this, "Please enter a phone number of length 10", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
         if (selectedImage == null) {
             Toast.makeText(RegistrationActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
 
@@ -189,6 +195,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
                 }
             });
