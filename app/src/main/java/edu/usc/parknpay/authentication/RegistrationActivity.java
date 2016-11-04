@@ -2,9 +2,12 @@ package edu.usc.parknpay.authentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -29,9 +32,11 @@ import com.google.firebase.storage.UploadTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.usc.parknpay.Manifest;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.DatabaseTalker;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.seeker.ReservationsActivity;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -187,7 +192,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             User.createUser(user);
 
                             // Proceed to default mode selection view
+
                             Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
                             Intent intent = new Intent(RegistrationActivity.this, SetDefaultModeActivity.class);
                             startActivity(intent);
                             finish();
@@ -215,6 +222,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        //if a phone uses it for the first time, then we might have to ask for permission
+        if (ContextCompat.checkSelfPermission(RegistrationActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RegistrationActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
         switch(requestCode) {
             case PICK_PHOTO:
                 if(resultCode == RESULT_OK){
