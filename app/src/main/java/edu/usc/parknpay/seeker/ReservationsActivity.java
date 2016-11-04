@@ -167,6 +167,10 @@ public class ReservationsActivity extends TemplateActivity {
 
             });
 
+            // Delete button (cancel reservation)
+            ImageView cancelButton = (ImageView) convertView.findViewById(R.id.call_button);
+
+
 
             return convertView;
         }
