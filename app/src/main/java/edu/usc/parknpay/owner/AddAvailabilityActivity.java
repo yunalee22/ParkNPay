@@ -143,15 +143,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-                    final String startTime =  df.format(date1);
-                    final String endTIme = df.format(date2);
-
-                    System.out.println("OWNER START STRING 1: "+ startTime);
-                    System.out.println("OWNER END STRING 1: "+ endTIme);
-
-
-
                 } catch(ParseException e) {
                     //Exception handling
                     Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
