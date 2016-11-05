@@ -166,8 +166,8 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 String userFullName = user.getFullName();
                 String userPhoneNumber = user.getPhoneNumber();
 
-                ParkingSpotPost post = new ParkingSpotPost(userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
-                        parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), postId, parkingSpot.getDescription(), false);
+                ParkingSpotPost post = new ParkingSpotPost(postId, userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
+                        parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), parkingSpot.getDescription(), false);
 
                 Ref.child("Browse").child(postId).setValue(post);
                 progress.dismiss();

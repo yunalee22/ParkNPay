@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 
 public class ParkingSpotPost implements Serializable{
+    private String parkingSpotPostId;
     private String ownerUserId, parkingSpotId;
     private String ownerFullName;
     private String ownerPhoneNumber;
@@ -23,17 +24,17 @@ public class ParkingSpotPost implements Serializable{
     private double ownerRating;
     private String address;
     private String photoUrl;
-    private String postId;
     private String description;
     private boolean reserved;
 
     public ParkingSpotPost() {
     }
 
-    public ParkingSpotPost(String ownerUserId, String ownerFullName, String ownerPhoneNumber, String parkingSpotId, String address, String startTime, String endTime,
+    public ParkingSpotPost(String parkingSpotPostId, String ownerUserId, String ownerFullName, String ownerPhoneNumber, String parkingSpotId, String address, String startTime, String endTime,
                            double latitude, double longitude, double price, double rating, String size, String cancellationPolicy,
-                           boolean isHandicap, double ownerRating, String photoUrl, String postId, String description, boolean reserved)
+                           boolean isHandicap, double ownerRating, String photoUrl, String description, boolean reserved)
     {
+        this.parkingSpotPostId = parkingSpotPostId;
         this.ownerUserId = ownerUserId;
         this.parkingSpotId = parkingSpotId;
         this.ownerFullName = ownerFullName;
@@ -50,7 +51,6 @@ public class ParkingSpotPost implements Serializable{
         this.ownerRating = ownerRating;
         this.address = address;
         this.photoUrl = photoUrl;
-        this.postId = postId;
         this.description = description;
         this.reserved = reserved;
     }
@@ -165,14 +165,6 @@ public class ParkingSpotPost implements Serializable{
         this.photoUrl = photoUrl;
     }
 
-    public String getPostId() {
-        return postId;
-    }
-
-    public void setPostId(String postId) {
-        this.postId = postId;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -211,6 +203,14 @@ public class ParkingSpotPost implements Serializable{
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getParkingSpotPostId() {
+        return parkingSpotPostId;
+    }
+
+    public void setParkingSpotPostId(String parkingSpotPostId) {
+        this.parkingSpotPostId = parkingSpotPostId;
     }
 
 }
