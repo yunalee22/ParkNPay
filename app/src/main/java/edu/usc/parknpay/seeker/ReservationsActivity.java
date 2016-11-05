@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,10 +32,9 @@ import java.util.Date;
 import java.util.Map;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
-import edu.usc.parknpay.owner.AccountSettingsActivity;
 
 public class ReservationsActivity extends TemplateActivity {
 

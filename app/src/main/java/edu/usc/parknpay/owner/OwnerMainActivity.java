@@ -1,14 +1,11 @@
 package edu.usc.parknpay.owner;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -25,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
 

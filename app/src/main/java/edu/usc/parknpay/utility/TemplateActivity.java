@@ -1,14 +1,14 @@
-package edu.usc.parknpay;
+package edu.usc.parknpay.utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +24,16 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.AccountSettingsActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
 
 public class TemplateActivity extends AppCompatActivity {
 
+    // Navigation drawer
     protected DrawerLayout drawerLayout;
     private TextView userName, balance;
     private ImageView userPic;
@@ -38,7 +41,6 @@ public class TemplateActivity extends AppCompatActivity {
     protected LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
-//    private ImageView menuButton;
 
     @Override
     protected void onNewIntent(Intent intent)
@@ -62,14 +64,6 @@ public class TemplateActivity extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.drawer_name);
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
-//        menuButton = (ImageView) findViewById(R.id.menu);
-//        menuButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v)
-//            {
-//                drawerLayout.openDrawer(drawer);
-//            }
-//
-//        });
 
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -89,18 +83,65 @@ public class TemplateActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] menuItems = {
-                "Home",
-                "Reservations",
-                "History",
-                "Payment",
-                "Settings",
-                "Switch Role",
-                "Log Out"
-        };
-        drawerAdapter = new ArrayAdapter<String>(TemplateActivity.this, R.layout.drawer_item, menuItems);
+
+        ArrayList<String> menuItems = new ArrayList<String>();
+        menuItems.add("Reservations");
+        menuItems.add("History");
+        menuItems.add("Payment");
+        menuItems.add("Settings");
+        menuItems.add("Switch Role");
+        menuItems.add("Log Out");
+
+        drawerAdapter = new DrawerAdapter(TemplateActivity.this, menuItems);
         drawerList.setAdapter(drawerAdapter);
     }
+
+    private class DrawerAdapter extends ArrayAdapter<String> {
+
+        public DrawerAdapter(Context context, ArrayList<String> items) {
+            super(context, 0, items);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.drawer_item, parent, false);
+            }
+
+            // Set item text
+            String text = getItem(position);
+            TextView itemTextView = (TextView) convertView.findViewById(R.id.drawer_item_text);
+            itemTextView.setText(text);
+
+            // Set item icon
+            ImageView itemIcon = (ImageView) convertView.findViewById(R.id.drawer_item_icon);
+            Bitmap bm;
+            switch (text) {
+                case "Reservations":
+                    itemIcon.setImageResource(R.drawable.reservations);
+                    break;
+                case "History":
+                    itemIcon.setImageResource(R.drawable.history);
+                    break;
+                case "Payment":
+                    itemIcon.setImageResource(R.drawable.payment);
+                    break;
+                case "Settings":
+                    itemIcon.setImageResource(R.drawable.settings);
+                    break;
+                case "Switch Role":
+                    itemIcon.setImageResource(R.drawable.switch_role);
+                    break;
+                case "Log Out":
+                    itemIcon.setImageResource(R.drawable.logout);
+                    break;
+            }
+
+            return convertView;
+        }
+    }
+
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
@@ -109,20 +150,7 @@ public class TemplateActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(drawer);
             Intent intent;
             switch(position) {
-                case 0: //Home
-                {
-                    if (u.getIsCurrentlySeeker()) {
-                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.SeekerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-                    } else {
-                        intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-                    }
-                    break;
-                }
-                case 1:     // Reservations
+                case 0:     // Reservations
                 {
                     if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.ReservationsActivity.class);
@@ -135,7 +163,7 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 2:     // History
+                case 1:     // History
                 {
                     if (u.getIsCurrentlySeeker()) {
                         intent = new Intent(getApplicationContext(), edu.usc.parknpay.seeker.HistoryActivity.class);
@@ -148,14 +176,14 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 3:     // Payment
+                case 2:     // Payment
                 {
                     intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     break;
                 }
-                case 4:     // Settings
+                case 3:     // Settings
                 {
                     intent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
 
@@ -163,7 +191,7 @@ public class TemplateActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case 5:     // Use App as Owner
+                case 4:     // Use App as Owner
                 {
                     //u.changeBalance(10);
                     //refreshBalanceView();
@@ -186,7 +214,7 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 6:     // Log Out
+                case 5:     // Log Out
                 {
                     User.setInstance(null);
                     intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);

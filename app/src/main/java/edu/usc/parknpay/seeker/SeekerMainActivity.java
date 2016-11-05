@@ -3,12 +3,10 @@ package edu.usc.parknpay.seeker;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,8 +31,6 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,12 +49,9 @@ import java.util.List;
 import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
-import edu.usc.parknpay.authentication.RegistrationActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
-import edu.usc.parknpay.database.User;
-import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {

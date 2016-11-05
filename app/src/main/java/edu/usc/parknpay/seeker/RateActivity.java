@@ -1,9 +1,6 @@
 package edu.usc.parknpay.seeker;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.Transaction;

@@ -1,15 +1,12 @@
 package edu.usc.parknpay.owner;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.User;
 
 public class PaymentInfoActivity extends TemplateActivity {

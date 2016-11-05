@@ -3,8 +3,6 @@ package edu.usc.parknpay.seeker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +27,7 @@ import java.util.Date;
 import java.util.Map;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.TemplateActivity;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
 

@@ -126,7 +126,7 @@
 
         <LinearLayout android:id="@+id/drawerr"
             android:layout_width="240dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_gravity="start"
             android:background="@color/green"
             android:gravity="center_vertical"
@@ -155,20 +155,18 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView android:id="@+id/drawer_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:text="First Last"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/white"
                     android:textStyle="normal|bold" />
                 <TextView android:id="@+id/drawer_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:gravity="center"
                     android:text="Balance: $500"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="@color/white"/>
             </LinearLayout>
         </LinearLayout>
