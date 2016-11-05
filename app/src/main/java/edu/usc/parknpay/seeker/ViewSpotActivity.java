@@ -124,6 +124,7 @@ public class ViewSpotActivity extends TemplateActivity{
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
                 .load(parkingSpotPost.getPhotoUrl())
+                .placeholder(R.drawable.progress_animation)
                 .resize(450, 450)
                 .centerCrop()
                 .into(parkingSpotImage);
@@ -142,6 +143,7 @@ public class ViewSpotActivity extends TemplateActivity{
                 ownerName.setText(owner.getFirstName() + " " + owner.getLastName());
                 Picasso.with(ViewSpotActivity.this)
                         .load(owner.getProfilePhotoURL())
+                        .placeholder(R.drawable.progress_animation)
                         .resize(450, 450)
                         .centerCrop()
                         .into(ownerImage);

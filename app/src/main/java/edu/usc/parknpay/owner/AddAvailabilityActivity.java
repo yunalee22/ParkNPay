@@ -108,6 +108,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
             //Submitting all the data that user entered for parking spot here.
             @Override
             public void onClick(View arg0) {
+                progress.show();
                 int priceFinal;
                 String startString, endString;
                 String cancellation;
@@ -118,12 +119,15 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     //error message for bad format input
                     Toast.makeText(AddAvailabilityActivity.this, "Please enter a numerical value for price.",
                             Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                     return;
                 }
                 if(priceFinal < 0) {
                     //error for negative number
                     Toast.makeText(AddAvailabilityActivity.this, "Price cannot be negative.",
                             Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+
                     return;
                 }
 
@@ -141,16 +145,17 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     if(!date1.before(date2)) {
                         Toast.makeText(AddAvailabilityActivity.this, "Please enter valid dates",
                                 Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
                         return;
                     }
                 } catch(ParseException e) {
                     //Exception handling
                     Toast.makeText(AddAvailabilityActivity.this, "Parsing Error!",
                             Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                     return;
                 }
 
-                progress.show();
 
                 cancellation = cancellationSpinner.getSelectedItem().toString();
                 //should be sending to database here

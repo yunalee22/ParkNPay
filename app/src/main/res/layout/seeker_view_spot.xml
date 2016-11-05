@@ -138,8 +138,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ownerInformationLabel"
-                    android:layout_margin="7dp"
-                    android:paddingRight="15dp">
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="7dp">
                     <ImageView android:id="@+id/ownerImage"
                         android:src="@drawable/progress_animation"
                         android:layout_width="100dp"
@@ -149,14 +149,6 @@
                         android:layout_height="100dp"
                         android:src="@drawable/circle_crop" />
                 </FrameLayout>
-
-                <TextView android:id="@+id/ownerName"
-                    android:text="Owner Name"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/frame"
-                    android:layout_toRightOf="@id/frame" />
 
                 <RatingBar android:id="@+id/ownerRatingBar"
                     android:layout_width="wrap_content"
@@ -176,14 +168,15 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/frame"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/frame"
+                    android:layout_alignStart="@+id/frame" />
 
                 <ListView android:id="@+id/reviewsListView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/reviewsLabel"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="4dp"/>
 
                 <Button android:id="@+id/reserveButton"
                     android:text="Reserve"
@@ -203,11 +196,18 @@
                     android:secondaryProgressTint="@color/blue"
                     android:scaleY="0.5"
                     android:isIndicator="true"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_alignTop="@+id/parkingSpotImage"
-                    android:layout_alignLeft="@+id/ownerRatingBar"
+                    android:layout_marginBottom="8dp"
+                    android:layout_above="@+id/cancellationPolicyLabel"
                     android:layout_alignStart="@+id/ownerRatingBar" />
+
+                <TextView android:id="@+id/ownerName"
+                    android:text="Owner Name"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/frame"
+                    android:layout_toEndOf="@+id/additionalNotesLabel" />
 
             </RelativeLayout>
         </ScrollView>

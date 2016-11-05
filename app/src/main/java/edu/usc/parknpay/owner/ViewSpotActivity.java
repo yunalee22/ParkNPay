@@ -66,6 +66,7 @@ public class ViewSpotActivity extends TemplateActivity {
         handicapped.setText(parkingSpot.isHandicap() ? "Handicapped Spot" : "Not A Handicapped Spot");
         Picasso.with(this)
                 .load(parkingSpot.getPhotoURL())
+                .placeholder(R.drawable.progress_animation)
                 .resize(450, 450)
                 .centerCrop()
                 .into(spotPhoto);
@@ -173,7 +174,9 @@ public class ViewSpotActivity extends TemplateActivity {
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ViewSpotActivity.this, "Parking spot successfully deleted.",
                                                 Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override

@@ -92,7 +92,10 @@ public class AccountSettingsActivity extends TemplateActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         defaultLogin = (Spinner) findViewById(R.id.loginSpinner);
         defaultLogin.setAdapter(adapter);
-        if(!u.isSeeker()) {
+        if(u.isSeeker()) {
+            defaultLogin.setSelection(0);
+        }
+        else {
             defaultLogin.setSelection(1);
         }
     }

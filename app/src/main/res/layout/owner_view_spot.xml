@@ -75,23 +75,24 @@
                 android:secondaryProgressTint="@color/blue"
                 android:stepSize="0.5"
                 android:isIndicator="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="38dp"
                 android:layout_marginLeft="93dp" />
 
             <TextView android:id="@+id/spotType"
                 android:text="Parking Spot Type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ratingBar"
+                android:layout_above="@+id/handicap"
+                android:layout_marginBottom="4dp"
                 android:layout_alignLeft="@+id/address" />
 
             <TextView android:id="@+id/handicap"
                 android:text="Handicapped"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spotType"
-                android:layout_marginTop="10dp"
-                android:layout_alignLeft="@+id/spotType" />
+                android:layout_marginTop="3dp"
+                android:layout_alignLeft="@+id/spotType"
+                android:layout_alignBottom="@+id/parkingSpotImage"/>
 
             <Button android:id="@+id/deleteButton"
                 android:text="Delete Parking Spot"

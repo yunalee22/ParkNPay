@@ -147,15 +147,17 @@ public class AddSpotActivity extends TemplateActivity {
     }
 
     public void addSpot(View view) {
+        progress.show();
         if (selectedImage == null) {
             Toast.makeText(AddSpotActivity.this, "Please upload a photo.", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
         if (address == null) {
             Toast.makeText(AddSpotActivity.this, "Please enter an address.", Toast.LENGTH_SHORT).show();
+            progress.dismiss();
             return;
         }
-        progress.show();
         //address string should hold the address typed into the google search bar
         String notesFinal = notes.getText().toString().trim();
         String sizeFinal = size.getSelectedItem().toString();
@@ -182,13 +184,14 @@ public class AddSpotActivity extends TemplateActivity {
 
                 // Add to User with list of parking spots table
                 Ref.child("Owner-To-Spots").child(spot.getOwnerUserId()).child(spot.getParkingId()).setValue(true);
-
+                progress.dismiss();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(AddSpotActivity.this, "Failed to create parking spot.", Toast.LENGTH_SHORT).show();
+                progress.dismiss();
             }
         });
 
