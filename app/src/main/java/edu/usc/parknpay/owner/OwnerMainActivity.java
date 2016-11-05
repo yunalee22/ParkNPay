@@ -51,14 +51,14 @@ public class OwnerMainActivity extends TemplateActivity {
 
         String userId = User.getInstance().getId();
         parkingSpotRef = FirebaseDatabase.getInstance().getReference();
-        parkingSpotRef.child("Owner-To-Spots").child(userId).addValueEventListener(new ValueEventListener() {
+        parkingSpotRef.child("Owner-To-Spots").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
                 if (spots == null) return;
                 for (Map.Entry<String, Object> entry : spots.entrySet()) {
                     final boolean exists = (boolean) entry.getValue();
-                    parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addValueEventListener(new ValueEventListener() {
+                    parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);

@@ -53,7 +53,7 @@ public class HistoryActivity extends TemplateActivity {
 
         String userId = User.getInstance().getId();
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-        Ref.child("Transactions").orderByChild("ownerId").equalTo(userId).addValueEventListener(new ValueEventListener() {
+        Ref.child("Transactions").orderByChild("ownerId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
