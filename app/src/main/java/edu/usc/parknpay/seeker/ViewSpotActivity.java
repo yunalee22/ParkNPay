@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -115,6 +113,7 @@ public class ViewSpotActivity extends TemplateActivity{
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
         parkingSpotPost = (ParkingSpotPost) object;
         ownerRatingBar.setRating((float) parkingSpotPost.getOwnerRating());
+        spotRatingBar.setRating((float) parkingSpotPost.getRating());
 
         //for search pag
         tempLat = getIntent().getDoubleExtra("lat", 0);
