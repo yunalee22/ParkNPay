@@ -12,18 +12,6 @@
         android:background="#FFFFFF">
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:layout_marginTop="17dp"
-            android:id="@+id/imageView2"
-            android:layout_below="@+id/textView"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_marginLeft="9dp"
-            android:layout_marginStart="9dp" />
-
         <TextView
             android:text="Just kidding we don't have it set up YET"
             android:layout_width="wrap_content"
@@ -91,6 +79,26 @@
                 android:textStyle="normal|bold" />
 
         </android.support.v7.widget.Toolbar>
+
+        <Button
+            android:text="Cash Out"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:id="@+id/cash_out"
+            android:layout_below="@+id/add_money"
+            android:layout_alignStart="@+id/add_money"
+            android:layout_marginTop="51dp"
+            android:onClick="cashOut"/>
+
+        <Button
+            android:text="Add Money To Account"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:id="@+id/add_money"
+            android:layout_below="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_marginTop="35dp"
+            android:onClick="addMoney"/>
     </RelativeLayout>
     <!-- Listview to display slider menu -->
 
