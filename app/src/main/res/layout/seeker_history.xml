@@ -1,48 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/seeker_view_spot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/seeker_view_spot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
+    android:layout_height="match_parent"
+    tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarColor"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburger"
-                android:layout_alignBottom="@+id/toolbar"
-                android:layout_gravity = "center|left"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/menu" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="History"
-                android:layout_gravity = "center"
-                android:id="@+id/toolbar_title"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
-
-        </android.support.v7.widget.Toolbar>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ListView android:id="@+id/history_list"
         android:layout_width="360dp"
@@ -53,75 +19,4 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
-    <!-- Listview to display slider menu -->
-
-    <LinearLayout
-        android:id="@+id/drawerll"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/drawerr"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="@color/blue"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@color/blue"
-                android:padding="8dp">
-                <ImageView android:id="@+id/drawer_pic"
-                    android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/default_pic" />
-                <ImageView android:id="@+id/circle_crop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_registration" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/drawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/drawer_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Gregory Johnson"
-                    android:textStyle="normal|bold"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"/>
-
-                <TextView
-                    android:id="@+id/drawer_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="Balance: $500"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/left_drawer"
-            android:background="#323232"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp" />
-    </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

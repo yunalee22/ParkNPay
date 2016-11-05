@@ -42,7 +42,6 @@ public class HistoryActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_history);
-        super.onCreateDrawer();
 
         // Get references to UI views
         historyList = (ListView) findViewById(R.id.history_list);

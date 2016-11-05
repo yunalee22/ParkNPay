@@ -34,4 +34,7 @@
     <!-- Seeker main/search screen -->
     <string name="search_hint">Search for a spot</string>
 
+    <!--Drawer open and close-->
+    <string name="drawer_open">Navigation drawer open</string>
+    <string name="drawer_close">Navigation drawer close</string>
 </resources>

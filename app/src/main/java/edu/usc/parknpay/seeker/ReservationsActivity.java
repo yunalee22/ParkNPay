@@ -50,7 +50,6 @@ public class ReservationsActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_reservations);
-        super.onCreateDrawer();
 
         // Get references to UI views
         reservationsList = (ListView) findViewById(R.id.reservations_list);

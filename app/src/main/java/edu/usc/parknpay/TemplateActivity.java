@@ -1,11 +1,19 @@
 package edu.usc.parknpay;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,16 +36,16 @@ public class TemplateActivity extends AppCompatActivity {
     protected LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
     private User u;
-    private ImageView menuButton;
+//    private ImageView menuButton;
 
     @Override
-    public void onNewIntent(Intent intent)
+    protected void onNewIntent(Intent intent)
     {
         DecimalFormat df = new DecimalFormat("#.00");
         balance.setText("$ " + df.format(u.getBalance()));
     }
 
-    public void refreshBalanceView()
+    private void refreshBalanceView()
     {
         DecimalFormat df = new DecimalFormat("#.00");
         balance.setText("$ " + df.format(u.getBalance()));
@@ -45,20 +53,21 @@ public class TemplateActivity extends AppCompatActivity {
 
     protected void onCreateDrawer() {
         u = User.getInstance();
+
         // R.id.drawer_layout should be in every activity with exactly the same id.
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer = (LinearLayout) findViewById(R.id.drawerll);
         userName = (TextView) findViewById(R.id.drawer_name);
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
-        menuButton = (ImageView) findViewById(R.id.menu);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                drawerLayout.openDrawer(drawer);
-            }
-
-        });
+//        menuButton = (ImageView) findViewById(R.id.menu);
+//        menuButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v)
+//            {
+//                drawerLayout.openDrawer(drawer);
+//            }
+//
+//        });
 
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -188,6 +197,43 @@ public class TemplateActivity extends AppCompatActivity {
         }
     }
 
+    // Calculates four corners of view
+    private Rect getLocationOnScreen(View view) {
+        Rect mRect = new Rect();
+        int[] location = new int[2];
 
+        view.getLocationOnScreen(location);
 
+        mRect.left = location[0];
+        mRect.top = location[1];
+        mRect.right = location[0] + view.getWidth();
+        mRect.bottom = location[1] + view.getHeight();
+
+        return mRect;
+    }
+
+    // Hides the soft keyboard
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        boolean handleReturn = super.dispatchTouchEvent(ev);
+        View view = getCurrentFocus();
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+
+        if(view instanceof EditText){
+            View innerView = getCurrentFocus();
+
+            if (ev.getAction() == MotionEvent.ACTION_UP &&
+                    !getLocationOnScreen(innerView).contains(x, y)) {
+
+                InputMethodManager input = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                input.hideSoftInputFromWindow(getWindow().getCurrentFocus()
+                        .getWindowToken(), 0);
+            }
+        }
+
+        return handleReturn;
+    }
 }

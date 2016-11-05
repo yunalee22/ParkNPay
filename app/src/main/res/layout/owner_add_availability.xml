@@ -1,281 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarColor"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburger"
-                android:layout_alignBottom="@+id/toolbar"
-                android:layout_gravity = "center|left"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/menu" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add an Availability"
-                android:layout_gravity = "center"
-                android:id="@+id/toolbar_title"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-        </android.support.v7.widget.Toolbar>
+    <TextView
+        android:text="Cancellation Policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:id="@+id/cancelTextView"
+        android:textSize="19sp"
+        android:layout_below="@+id/textView11"
+        android:layout_alignLeft="@+id/textView11"
+        android:textStyle="normal|bold" />
 
+    <TextView
+        android:text="Select a reservation cancellation policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelDes"
+        android:textStyle="normal|italic"
+        android:layout_below="@+id/cancelTextView"
+        android:layout_alignLeft="@+id/cancelTextView"
+        android:layout_alignStart="@+id/cancelTextView" />
 
-        <TextView
-            android:text="Cancellation Policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:id="@+id/cancelTextView"
-            android:textSize="19sp"
-            android:layout_below="@+id/textView11"
-            android:layout_alignLeft="@+id/textView11"
-            android:textStyle="normal|bold" />
+    <Spinner
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelSpinner"
+        android:layout_marginTop="9dp"
+        android:layout_below="@+id/cancelDes"
+        android:layout_alignLeft="@+id/cancelDes"
+        android:layout_alignStart="@+id/cancelDes" />
 
-        <TextView
-            android:text="Select a reservation cancellation policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelDes"
-            android:textStyle="normal|italic"
-            android:layout_below="@+id/cancelTextView"
-            android:layout_alignLeft="@+id/cancelTextView"
-            android:layout_alignStart="@+id/cancelTextView" />
+    <Button
+        android:text="Done"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/done"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/cancelSpinner"
+        android:layout_centerHorizontal="true" />
 
-        <Spinner
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelSpinner"
-            android:layout_marginTop="9dp"
-            android:layout_below="@+id/cancelDes"
-            android:layout_alignLeft="@+id/cancelDes"
-            android:layout_alignStart="@+id/cancelDes" />
+    <TextView
+        android:text="End:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/textView14"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView13"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13"
+        android:textStyle="normal|bold" />
 
+    <TextView
+        android:text="$"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:textSize="20sp"
+        android:layout_alignBaseline="@+id/prices"
+        android:layout_alignBottom="@+id/prices"
+        android:layout_toLeftOf="@+id/prices"
+        android:layout_toStartOf="@+id/prices" />
 
-        <Button
-            android:text="Done"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:id="@+id/done"
-            android:layout_marginTop="12dp"
-            android:layout_below="@+id/cancelSpinner"
-            android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/prices"
+        android:hint="Enter price"
+        android:layout_below="@+id/textView11"
+        android:layout_alignLeft="@+id/done"
+        android:layout_alignStart="@+id/done"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
-        <TextView
-            android:text="End:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:id="@+id/textView14"
-            android:textSize="18sp"
-            android:layout_below="@+id/textView13"
-            android:layout_alignLeft="@+id/textView13"
-            android:layout_alignStart="@+id/textView13"
-            android:textStyle="normal|bold" />
+    <TextView
+        android:text="END DATE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDate"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/textView14"
+        android:layout_alignLeft="@+id/startDate"
+        android:layout_alignStart="@+id/startDate" />
 
-        <TextView
-            android:text="$"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView12"
-            android:textSize="20sp"
-            android:layout_alignBaseline="@+id/prices"
-            android:layout_alignBottom="@+id/prices"
-            android:layout_toLeftOf="@+id/prices"
-            android:layout_toStartOf="@+id/prices" />
+    <TextView
+        android:text="Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:textSize="19sp"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/endDate"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13"
+        android:textStyle="normal|bold" />
 
-        <EditText
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/prices"
-            android:hint="Enter price"
-            android:layout_below="@+id/textView11"
-            android:layout_alignLeft="@+id/done"
-            android:layout_alignStart="@+id/done"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp" />
+    <TextView
+        android:text="Start:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView13"
+        android:layout_marginTop="36dp"
+        android:textSize="18sp"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/toolbar"
+        android:layout_toLeftOf="@+id/textView12"
+        android:layout_toStartOf="@+id/textView12" />
 
-        <TextView
-            android:text="END DATE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/endDate"
-            android:textSize="20sp"
-            android:layout_alignTop="@+id/textView14"
-            android:layout_alignLeft="@+id/startDate"
-            android:layout_alignStart="@+id/startDate" />
+    <TextView
+        android:text="Hour:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_toRightOf="@+id/prices"
+        android:layout_toEndOf="@+id/prices"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
-        <TextView
-            android:text="Price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView11"
-            android:textSize="19sp"
-            android:layout_marginTop="34dp"
-            android:layout_below="@+id/endDate"
-            android:layout_alignLeft="@+id/textView13"
-            android:layout_alignStart="@+id/textView13"
-            android:textStyle="normal|bold" />
+    <TextView
+        android:text="Hour:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_alignBaseline="@+id/textView14"
+        android:layout_alignBottom="@+id/textView14"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
-        <TextView
-            android:text="Start:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView13"
-            android:layout_marginTop="36dp"
-            android:textSize="18sp"
-            android:layout_marginRight="36dp"
-            android:layout_marginEnd="36dp"
-            android:textStyle="normal|bold"
-            android:layout_below="@+id/toolbar"
-            android:layout_toLeftOf="@+id/textView12"
-            android:layout_toStartOf="@+id/textView12" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerEnd"
+        android:layout_alignBottom="@+id/textView16"
+        android:layout_alignLeft="@+id/spinnerStart"
+        android:layout_alignStart="@+id/spinnerStart" />
 
-        <TextView
-            android:text="Hour:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            android:layout_alignBottom="@+id/textView13"
-            android:layout_toRightOf="@+id/prices"
-            android:layout_toEndOf="@+id/prices"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:id="@+id/spinnerStart"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
 
-        <TextView
-            android:text="Hour:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView16"
-            android:layout_alignBaseline="@+id/textView14"
-            android:layout_alignBottom="@+id/textView14"
-            android:layout_alignLeft="@+id/textView8"
-            android:layout_alignStart="@+id/textView8"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
+    <TextView
+        android:text="START DATE "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startDate"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/textView13"
+        android:layout_toRightOf="@+id/textView13"
+        android:layout_toEndOf="@+id/textView13" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerEnd"
-            android:layout_alignBottom="@+id/textView16"
-            android:layout_alignLeft="@+id/spinnerStart"
-            android:layout_alignStart="@+id/spinnerStart" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:id="@+id/spinnerStart"
-            android:layout_alignTop="@+id/textView8"
-            android:layout_toRightOf="@+id/textView8"
-            android:layout_toEndOf="@+id/textView8" />
-
-        <TextView
-            android:text="START DATE "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startDate"
-            android:textSize="20sp"
-            android:layout_alignTop="@+id/textView13"
-            android:layout_toRightOf="@+id/textView13"
-            android:layout_toEndOf="@+id/textView13" />
-
-
-    </RelativeLayout>
-    <!-- Listview to display slider menu -->
-
-    <LinearLayout
-        android:id="@+id/drawerll"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/drawerr"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="@color/blue"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@color/blue"
-                android:padding="8dp">
-                <ImageView android:id="@+id/drawer_pic"
-                    android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/default_pic" />
-                <ImageView android:id="@+id/circle_crop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_registration" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/drawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/drawer_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="normal|bold"
-                    android:text="Gregory Johnson"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"/>
-
-                <TextView
-                    android:id="@+id/drawer_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="Balance: $500"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/left_drawer"
-            android:background="#323232"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp" />
-    </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

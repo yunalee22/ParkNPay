@@ -6,39 +6,9 @@
     android:background="#FFFFFF"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/toolbarColor"
-        android:theme="?attr/actionBarTheme"
-        android:minHeight="?attr/actionBarSize"
+    <include
         android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hamburger"
-            android:layout_alignBottom="@+id/toolbar"
-            android:layout_gravity = "center|left"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/menu" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rate Your Experience"
-            android:layout_gravity = "center"
-            android:id="@+id/toolbar_title"
-            android:textSize="24sp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:textStyle="normal|bold" />
-
-    </android.support.v7.widget.Toolbar>
-
+        layout="@layout/toolbar" />
 
     <TextView
         android:text="Rate this spot's owner"

@@ -67,7 +67,6 @@ public class ViewSpotActivity extends TemplateActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_view_spot);
-        super.onCreateDrawer();
 
         // Get references to UI views
         parkingSpotImage = (ImageView) findViewById(R.id.parkingSpotImage);

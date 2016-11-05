@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -57,17 +59,18 @@ public class AddSpotActivity extends TemplateActivity {
     String address;
     double latitude, longitude;
     ProgressDialog progress;
+
     // Search autocomplete text field
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
     private static final String LOG_TAG = "PlaceSelectionListener";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_add_spot);
-        super.onCreateDrawer();
+
+        setUpToolbar();
         initializeEdits();
         addListeners();
         setSpinners();
@@ -89,8 +92,26 @@ public class AddSpotActivity extends TemplateActivity {
                 new LatLng(34.0224, -118.2851),
                 new LatLng(34.0224, -118.2851)
         ));
-
     }
+
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("Add a Parking Spot");
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -100,8 +121,6 @@ public class AddSpotActivity extends TemplateActivity {
         }
         return false;
     }
-
-
 
     protected void initializeEdits() {
         notes = (EditText) findViewById(R.id.notesEdit);

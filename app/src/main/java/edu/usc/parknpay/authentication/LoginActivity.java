@@ -26,11 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.seeker.SeekerMainActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends TemplateActivity {
 
     private EditText editEmail, editPassword;
     private TextView registerButton;

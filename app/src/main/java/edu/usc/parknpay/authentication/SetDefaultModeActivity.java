@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.seeker.SeekerMainActivity;
 
-public class SetDefaultModeActivity extends AppCompatActivity {
+public class SetDefaultModeActivity extends TemplateActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

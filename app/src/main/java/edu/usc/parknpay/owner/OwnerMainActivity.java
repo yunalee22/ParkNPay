@@ -3,11 +3,17 @@ package edu.usc.parknpay.owner;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,13 +35,13 @@ public class OwnerMainActivity extends TemplateActivity {
     ImageView addSpotButton;
     OwnerMainSpotAdapter parkingSpotAdapter;
     DatabaseReference parkingSpotRef;
-    ImageView menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_main);
-        super.onCreateDrawer();
+
+        setUpToolbar();
         initializeComponents();
         addListeners();
 
@@ -49,8 +55,8 @@ public class OwnerMainActivity extends TemplateActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
-                if (spots == null) {return;}
-                for(Map.Entry<String, Object> entry : spots.entrySet()) {
+                if (spots == null) return;
+                for (Map.Entry<String, Object> entry : spots.entrySet()) {
                     final boolean exists = (boolean) entry.getValue();
                     parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -63,17 +69,41 @@ public class OwnerMainActivity extends TemplateActivity {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {}
                     });
-
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
-    protected void initializeComponents() {
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("ParkNPay");
+
+        // Enable navigation icon
+        actionBar.setHomeAsUpIndicator(R.drawable.menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+        // Add navigation drawer
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(OwnerMainActivity.this,
+                drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        super.onCreateDrawer();
+    }
+
+    private void initializeComponents() {
         parkingSpots = (GridView) findViewById(R.id.gridView);
         addSpotButton = (ImageView) findViewById(R.id.addSpot);
     }

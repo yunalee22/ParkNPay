@@ -2,6 +2,7 @@ package edu.usc.parknpay.owner;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,13 +42,11 @@ public class HistoryActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_history);
-        super.onCreateDrawer();
 
-        // Get references to UI views
+        setUpToolbar();
+
+        // Add adapter to ListView
         historyList = (ListView) findViewById(R.id.history_list);
-
-        // Add adapter to ListView
-        // Add adapter to ListView
         history = new ArrayList<Transaction>();
         historyListAdapter = new edu.usc.parknpay.owner.HistoryActivity.HistoryListAdapter(edu.usc.parknpay.owner.HistoryActivity.this, history);
         historyList.setAdapter(historyListAdapter);
@@ -71,6 +70,24 @@ public class HistoryActivity extends TemplateActivity {
         });
     }
 
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("History");
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -80,7 +97,6 @@ public class HistoryActivity extends TemplateActivity {
         }
         return false;
     }
-
 
     private void processTransaction(Transaction t) {
         for (int i = 0; i < history.size(); ++i) {

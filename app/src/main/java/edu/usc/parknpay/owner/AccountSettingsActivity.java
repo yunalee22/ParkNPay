@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,8 @@ public class AccountSettingsActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_account_settings);
-        super.onCreateDrawer();
+
+        setUpToolbar();
         u = User.getInstance();
         setSpinners();
         initializeEdits();
@@ -60,6 +62,24 @@ public class AccountSettingsActivity extends TemplateActivity {
                 return true;
         }
         return false;
+    }
+
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("Settings");
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     protected void initializeEdits(){

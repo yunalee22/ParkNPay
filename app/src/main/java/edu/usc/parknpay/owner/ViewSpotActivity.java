@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -48,9 +49,10 @@ public class ViewSpotActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_view_spot);
-        super.onCreateDrawer();
         initializeEdits();
         addListeners();
+
+        setUpToolbar();
 
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
 
@@ -94,8 +96,6 @@ public class ViewSpotActivity extends TemplateActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-
     }
 
     private void processParkingSpots(ParkingSpotPost t) {
@@ -188,6 +188,24 @@ public class ViewSpotActivity extends TemplateActivity {
                         .show();
             }
         });
+    }
+
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("View Spot");
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 
 }

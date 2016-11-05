@@ -1,6 +1,5 @@
 package edu.usc.parknpay.seeker;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +9,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,45 +90,23 @@ public class SeekerMainActivity extends TemplateActivity {
     private boolean handicapOnly, showNormal, showCompact, showSuv, showTruck;
     private String address, startDate, startTime, endDate, endTime;
 
-    //date stuff
+    // Date selectors
     private Spinner startSpinner, endSpinner;
     private Button startDateButton, endDateButton;
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if(intent.getExtras() != null) {
-            if (intent.getStringExtra("page").equals("viewspot")) {
-                adapterLatitude = intent.getDoubleExtra("lat", 0);
-                adapterLongitude = intent.getDoubleExtra("long", 0);
-                address = intent.getStringExtra("addr");
-                executeSearch();
-            }
-
-            if (intent.getStringExtra("page").equals("filter")) {
-                minPrice = intent.getDoubleExtra("minPrice", 0);
-                maxPrice = intent.getDoubleExtra("maxPrice", 10000);
-                minOwnerRating = intent.getFloatExtra("minOwnerRating", 0);
-                minSpotRating = intent.getFloatExtra("minSpotRating", 0);
-                handicapOnly = intent.getBooleanExtra("handicapOnly", false);
-                size = intent.getIntExtra("size", 1);
-
-                executeSearch();
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_main);
-        super.onCreateDrawer();
+        initializeComponents();
 
-        // Get references to UI views
-        filterButton = (ImageView) findViewById(R.id.filter_button);
-        autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-        searchList = (ListView) findViewById(R.id.search_list);
+        // Set up toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("ParkNPay");
+        actionBar.setHomeAsUpIndicator(R.drawable.menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Get current date and time
         Date today = Calendar.getInstance().getTime();
@@ -137,11 +116,6 @@ public class SeekerMainActivity extends TemplateActivity {
         String time = timeFormat.format(today);
 
         // Add time and date selectors
-        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
-        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
-        startDateButton = (Button) findViewById(R.id.start_date_button);
-        endDateButton = (Button) findViewById(R.id.end_date_button);
-
         List<String> timeSpinner =  new ArrayList<>();
         for(int i = 0; i < HOURS_IN_DAY; i++) {
             if(i < 10)
@@ -183,7 +157,6 @@ public class SeekerMainActivity extends TemplateActivity {
         searchResults = new ArrayList<ParkingSpotPost>();
         searchResultsAdapter = new SearchListAdapter(SeekerMainActivity.this, searchResults);
         searchList.setAdapter(searchResultsAdapter);
-
         searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -200,6 +173,42 @@ public class SeekerMainActivity extends TemplateActivity {
 
         // Add view listeners
         addListeners();
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent.getExtras() != null) {
+            if (intent.getStringExtra("page").equals("viewspot")) {
+                adapterLatitude = intent.getDoubleExtra("lat", 0);
+                adapterLongitude = intent.getDoubleExtra("long", 0);
+                address = intent.getStringExtra("addr");
+                executeSearch();
+            }
+
+            if (intent.getStringExtra("page").equals("filter")) {
+                minPrice = intent.getDoubleExtra("minPrice", 0);
+                maxPrice = intent.getDoubleExtra("maxPrice", 10000);
+                minOwnerRating = intent.getFloatExtra("minOwnerRating", 0);
+                minSpotRating = intent.getFloatExtra("minSpotRating", 0);
+                handicapOnly = intent.getBooleanExtra("handicapOnly", false);
+                size = intent.getIntExtra("size", 1);
+
+                executeSearch();
+            }
+        }
+    }
+
+    private void initializeComponents() {
+
+        filterButton = (ImageView) findViewById(R.id.filter_button);
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        searchList = (ListView) findViewById(R.id.search_list);
+        startSpinner = (Spinner) findViewById(R.id.spinnerStart);
+        endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
+        startDateButton = (Button) findViewById(R.id.start_date_button);
+        endDateButton = (Button) findViewById(R.id.end_date_button);
     }
 
     private void executeSearch() {

@@ -11,38 +11,9 @@
         android:layout_height="match_parent"
         tools:context="edu.usc.parknpay.seeker.SeekerMainActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarColor"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
+        <include
             android:id="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburger"
-                android:layout_alignBottom="@+id/toolbar"
-                android:layout_gravity = "center|left"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/menu" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ParkNPay"
-                android:layout_gravity = "center"
-                android:id="@+id/toolbar_title"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
-
-        </android.support.v7.widget.Toolbar>
+            layout="@layout/toolbar" />
 
         <RelativeLayout android:id="@+id/search_layout"
             android:layout_width="match_parent"
@@ -145,8 +116,8 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
-    <!-- Listview to display slider menu -->
 
+    <!--Navigation drawer-->
     <LinearLayout
         android:id="@+id/drawerll"
         android:layout_width="240dp"
@@ -162,6 +133,7 @@
             android:background="@color/blue"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
+
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -184,17 +156,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical" >
-
                 <TextView
                     android:id="@+id/drawer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Gregory Johnson"
-                    android:textStyle="normal|bold"
                     android:textSize="16sp"
-                    android:textColor="#FFFFFF"/>
-
+                    android:textColor="#FFFFFF"
+                    android:textStyle="normal|bold" />
                 <TextView
                     android:id="@+id/drawer_balance"
                     android:layout_width="wrap_content"

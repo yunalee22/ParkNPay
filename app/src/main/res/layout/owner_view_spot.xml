@@ -1,233 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarColor"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburger"
-                android:layout_alignBottom="@+id/toolbar"
-                android:layout_gravity = "center|left"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/menu" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View Spot"
-                android:layout_gravity = "center"
-                android:id="@+id/toolbar_title"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
+        <ImageView android:id="@+id/parkingSpotImage"
+            android:src="@drawable/default_pic"
+            android:layout_width="130dp"
+            android:layout_height="130dp" />
 
-        </android.support.v7.widget.Toolbar>
+        <TextView android:id="@+id/address"
+            android:text="Address"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/parkingSpotImage" />
 
-        <RelativeLayout
+        <RatingBar android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:progressTint="@color/blue"
+            android:secondaryProgressTint="@color/blue"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="93dp" />
 
-            <ImageView android:id="@+id/parkingSpotImage"
-                android:src="@drawable/default_pic"
-                android:layout_width="130dp"
-                android:layout_height="130dp" />
-
-            <TextView android:id="@+id/address"
-                android:text="Address"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_toRightOf="@id/parkingSpotImage" />
-
-            <RatingBar android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:progressTint="@color/blue"
-                android:secondaryProgressTint="@color/blue"
-                android:stepSize="0.5"
-                android:isIndicator="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="93dp" />
-
-            <TextView android:id="@+id/spotType"
-                android:text="Parking Spot Type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ratingBar"
-                android:layout_alignLeft="@+id/address" />
-
-            <TextView android:id="@+id/handicap"
-                android:text="Handicapped"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spotType"
-                android:layout_marginTop="10dp"
-                android:layout_alignLeft="@+id/spotType" />
-
-            <Button android:id="@+id/deleteButton"
-                android:text="Delete Parking Spot"
-                android:textAllCaps="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/parkingSpotImage"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"/>
-
-
-            <TextView android:id="@+id/additionalNotesLabel"
-                android:text="Additional Notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:textSize="15sp"
-                android:textStyle="normal|bold"
-                android:layout_below="@+id/parkingSpotImage"
-                android:layout_alignLeft="@id/parkingSpotImage"
-                android:layout_alignStart="@id/parkingSpotImage" />
-
-            <ScrollView
-                android:id="@+id/additionalNotes"
-                android:layout_height="80dp"
-                android:layout_below="@+id/additionalNotesLabel"
-                android:layout_alignLeft="@+id/additionalNotesLabel"
-                android:layout_alignStart="@+id/additionalNotesLabel"
-                android:layout_marginTop="9dp"
-                android:layout_width="340dp">
-
-                <TextView android:id="@+id/notes"
-                    android:text="Additional notes go here"
-                    android:gravity="top"
-                    android:layout_width="340dp"
-                    android:layout_height="80dp" />
-
-            </ScrollView>
-
-            <ImageView android:id="@+id/addAvail"
-                android:src="@drawable/add_spot"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_above="@+id/availabilities"
-                android:layout_alignRight="@+id/availabilities"
-                android:layout_alignEnd="@+id/availabilities" />
-
-            <ListView android:id="@+id/availabilities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/availabilitiesLabel"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="11dp" />
-
-            <TextView android:id="@+id/availabilitiesLabel"
-                android:text="Availabilites"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_below="@+id/additionalNotes"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <!-- Listview to display slider menu -->
-    <LinearLayout
-        android:id="@+id/drawerll"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/drawerr"
-            android:layout_width="240dp"
+        <TextView android:id="@+id/spotType"
+            android:text="Parking Spot Type"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="#00A8AB"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="#00A8AB"
-                android:padding="8dp">
-                <ImageView android:id="@+id/drawer_pic"
-                    android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/default_pic" />
-                <ImageView android:id="@+id/circle_crop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_drawer" />
-            </FrameLayout>
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignLeft="@+id/address" />
 
-            <LinearLayout
-                android:id="@+id/drawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
+        <TextView android:id="@+id/handicap"
+            android:text="Handicapped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spotType"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/spotType" />
 
-                <TextView
-                    android:id="@+id/drawer_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Gregory Johnson"
-                    android:textStyle="normal|bold"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"/>
+        <Button android:id="@+id/deleteButton"
+            android:text="Delete Parking Spot"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/parkingSpotImage"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
 
-                <TextView
-                    android:id="@+id/drawer_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="Balance: $500"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
-        </LinearLayout>
 
-        <ListView
-            android:id="@+id/left_drawer"
-            android:background="#323232"
+        <TextView android:id="@+id/additionalNotesLabel"
+            android:text="Additional Notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:textSize="15sp"
+            android:textStyle="normal|bold"
+            android:layout_below="@+id/parkingSpotImage"
+            android:layout_alignLeft="@id/parkingSpotImage"
+            android:layout_alignStart="@id/parkingSpotImage" />
+
+        <ScrollView
+            android:id="@+id/additionalNotes"
+            android:layout_height="80dp"
+            android:layout_below="@+id/additionalNotesLabel"
+            android:layout_alignLeft="@+id/additionalNotesLabel"
+            android:layout_alignStart="@+id/additionalNotesLabel"
+            android:layout_marginTop="9dp"
+            android:layout_width="340dp">
+
+            <TextView android:id="@+id/notes"
+                android:text="Additional notes go here"
+                android:gravity="top"
+                android:layout_width="340dp"
+                android:layout_height="80dp" />
+
+        </ScrollView>
+
+        <ImageView android:id="@+id/addAvail"
+            android:src="@drawable/add_spot"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_above="@+id/availabilities"
+            android:layout_alignRight="@+id/availabilities"
+            android:layout_alignEnd="@+id/availabilities" />
+
+        <ListView android:id="@+id/availabilities"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp" />
-    </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/availabilitiesLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="11dp" />
+
+        <TextView android:id="@+id/availabilitiesLabel"
+            android:text="Availabilites"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/additionalNotes"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+</RelativeLayout>

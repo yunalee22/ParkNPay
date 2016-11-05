@@ -1,285 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout android:id="@+id/seeker_view_spot"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
 
-    <RelativeLayout android:id="@+id/seeker_view_spot"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="#FFFFFF"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="edu.usc.parknpay.seeker.ViewSpotActivity">
+        android:layout_below="@id/toolbar">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarColor"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburger"
-                android:layout_alignBottom="@+id/toolbar"
-                android:layout_gravity = "center|left"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/menu" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View Spot"
-                android:layout_gravity = "center"
-                android:id="@+id/toolbar_title"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:textStyle="normal|bold" />
-
-        </android.support.v7.widget.Toolbar>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp">
-
-                <ImageView android:id="@+id/parkingSpotImage"
-                    android:src="@drawable/progress_animation"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp" />
-
-                <TextView android:id="@+id/address"
-                    android:text="Address"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/parkingSpotImage"
-                    android:layout_toRightOf="@id/parkingSpotImage"
-                    android:layout_marginLeft="20dp"/>
-
-                <TextView android:id="@+id/size"
-                    android:text="Normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/parkingSpotImage"
-                    android:layout_toRightOf="@id/parkingSpotImage"
-                    android:layout_marginLeft="20dp"/>
-
-                <TextView android:id="@+id/handicap"
-                    android:text="Handicap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/parkingSpotImage"
-                    android:layout_toRightOf="@id/size"
-                    android:layout_marginLeft="10dp" />
-
-
-
-                <TextView android:id="@+id/cancellationPolicyLabel"
-                    android:text="Cancellation Policy"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/handicap"
-                    android:layout_marginTop="30dp"/>
-
-                <TextView android:id="@+id/cancellationPolicy"
-                    android:text="Insert additional notes here"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cancellationPolicyLabel"
-                    android:layout_marginTop="10dp"/>
-
-                <TextView android:id="@+id/additionalNotesLabel"
-                    android:text="Additional Notes"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cancellationPolicy"
-                    android:layout_marginTop="30dp"/>
-
-                <TextView android:id="@+id/additionalNotes"
-                    android:text="Insert additional notes here"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/additionalNotesLabel"
-                    android:layout_marginTop="10dp"/>
-
-                <TextView android:id="@+id/ownerInformationLabel"
-                    android:text="Owner Information"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/additionalNotes"
-                    android:layout_marginTop="30dp"/>
-
-                <FrameLayout android:id="@+id/frame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ownerInformationLabel"
-                    android:layout_margin="7dp"
-                    android:paddingRight="15dp">
-                    <ImageView android:id="@+id/ownerImage"
-                        android:src="@drawable/progress_animation"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp" />
-                    <ImageView android:id="@+id/circle_crop_owner"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/circle_crop" />
-                </FrameLayout>
-
-                <TextView android:id="@+id/ownerName"
-                    android:text="Owner Name"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/frame"
-                    android:layout_toRightOf="@id/frame" />
-
-                <RatingBar android:id="@+id/ownerRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    android:isIndicator="true"
-                    android:progressTint="@color/blue"
-                    android:secondaryProgressTint="@color/blue"
-                    android:layout_alignTop="@id/frame"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="60dp"/>
-
-                <TextView android:id="@+id/reviewsLabel"
-                    android:text="User Reviews"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/frame"
-                    android:layout_marginTop="30dp"/>
-
-                <ListView android:id="@+id/reviewsListView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/reviewsLabel"
-                    android:layout_marginTop="10dp"/>
-
-                <Button android:id="@+id/reserveButton"
-                    android:text="Reserve"
-                    android:textSize="18sp"
-                    android:textAllCaps="false"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_below="@id/reviewsListView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"/>
-
-                <RatingBar android:id="@+id/spotRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.5"
-                    android:progressTint="@color/blue"
-                    android:secondaryProgressTint="@color/blue"
-                    android:scaleY="0.5"
-                    android:isIndicator="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_alignTop="@+id/parkingSpotImage"
-                    android:layout_alignLeft="@+id/ownerRatingBar"
-                    android:layout_alignStart="@+id/ownerRatingBar" />
-
-            </RelativeLayout>
-        </ScrollView>
-    </RelativeLayout>
-    <!-- Listview to display slider menu -->
-
-    <LinearLayout
-        android:id="@+id/drawerll"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/drawerr"
-            android:layout_width="240dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="@color/blue"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@color/blue"
-                android:padding="8dp">
-                <ImageView android:id="@+id/drawer_pic"
-                    android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/default_pic" />
-                <ImageView android:id="@+id/circle_crop"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_registration" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
+
+            <ImageView android:id="@+id/parkingSpotImage"
+                android:src="@drawable/default_pic"
+                android:layout_marginTop="30dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp" />
+
+            <TextView android:id="@+id/address"
+                android:text="Address"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/parkingSpotImage"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView android:id="@+id/size"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/parkingSpotImage"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView android:id="@+id/handicap"
+                android:text="Handicap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/parkingSpotImage"
+                android:layout_toRightOf="@id/size"
+                android:layout_marginLeft="10dp" />
+
+            <TextView android:id="@+id/cancellationPolicyLabel"
+                android:text="Cancellation Policy"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/handicap"
+                android:layout_marginTop="30dp"/>
+
+            <TextView android:id="@+id/cancellationPolicy"
+                android:text="Insert additional notes here"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cancellationPolicyLabel"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/additionalNotesLabel"
+                android:text="Additional Notes"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cancellationPolicy"
+                android:layout_marginTop="30dp"/>
+
+            <TextView android:id="@+id/additionalNotes"
+                android:text="Insert additional notes here"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/additionalNotesLabel"
+                android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/ownerInformationLabel"
+                android:text="Owner Information"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/additionalNotes"
+                android:layout_marginTop="30dp"/>
+
+            <FrameLayout android:id="@+id/ownerFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ownerInformationLabel"
+                android:layout_margin="7dp"
+                android:paddingRight="15dp">
+                <ImageView android:id="@+id/ownerImage"
+                    android:src="@drawable/default_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+                <ImageView android:id="@+id/circle_crop_owner"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/circle_crop" />
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/drawer"
+            <TextView android:id="@+id/ownerName"
+                android:text="Owner Name"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
+                android:layout_alignTop="@id/ownerFrame"
+                android:layout_toRightOf="@id/ownerFrame" />
 
-                <TextView
-                    android:id="@+id/drawer_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="normal|bold"
-                    android:text="Gregory Johnson"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"/>
+            <RatingBar android:id="@+id/ownerRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:isIndicator="true"
+                android:progressTint="@color/blue"
+                android:secondaryProgressTint="@color/blue"
+                android:layout_alignTop="@id/ownerFrame"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="60dp"/>
 
-                <TextView
-                    android:id="@+id/drawer_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="Balance: $500"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"/>
-            </LinearLayout>
-        </LinearLayout>
+            <TextView android:id="@+id/reviewsLabel"
+                android:text="User Reviews"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ownerFrame"
+                android:layout_marginTop="30dp"/>
 
-        <ListView
-            android:id="@+id/left_drawer"
-            android:background="#323232"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp" />
-    </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+            <ListView android:id="@+id/reviewsListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reviewsLabel"
+                android:layout_marginTop="10dp"/>
+
+            <Button android:id="@+id/reserveButton"
+                android:text="Reserve"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_below="@id/reviewsListView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"/>
+
+            <RatingBar android:id="@+id/spotRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.5"
+                android:progressTint="@color/blue"
+                android:secondaryProgressTint="@color/blue"
+                android:scaleY="0.5"
+                android:isIndicator="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_alignTop="@+id/parkingSpotImage"
+                android:layout_alignLeft="@+id/ownerRatingBar"
+                android:layout_alignStart="@+id/ownerRatingBar" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

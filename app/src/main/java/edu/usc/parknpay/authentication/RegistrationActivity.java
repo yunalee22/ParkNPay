@@ -41,10 +41,11 @@ import java.util.regex.Pattern;
 
 import edu.usc.parknpay.Manifest;
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.seeker.ReservationsActivity;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends TemplateActivity {
 
     private static final int PICK_PHOTO = 1;
     private Uri selectedImage;
