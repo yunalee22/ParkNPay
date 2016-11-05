@@ -68,8 +68,15 @@ public class ReservationsActivity extends TemplateActivity {
                 if (spots == null) {return;}
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Transaction t = snapshot.getValue(Transaction.class);
-                    processTransaction(t);
-                    reservationsListAdapter.notifyDataSetChanged();
+                    System.out.println("RESERVATION: " + t.getAddress());
+                    if(!t.isCancelled()) {
+                        System.out.println("NOT CANCELLED");
+                        processTransaction(t);
+                        reservationsListAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        System.out.println("CANCELLED");
+                    }
                 }
             }
 
@@ -168,9 +175,18 @@ public class ReservationsActivity extends TemplateActivity {
             });
 
             // Delete button (cancel reservation)
-            ImageView cancelButton = (ImageView) convertView.findViewById(R.id.call_button);
-
-
+            ImageView cancelReservationButton = (ImageView) convertView.findViewById(R.id.delete_button);
+            cancelReservationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+                    Ref.child("Transactions").child(transaction.getTransactionId()).child("cancelled").setValue(true);
+                    // set back to unreserved
+                    Ref.child("Browse").child(transaction.getParkingSpotPostId()).child("reserved").setValue(false);
+                    Toast.makeText(ReservationsActivity.this, "Cancelled successfully",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
             return convertView;
         }

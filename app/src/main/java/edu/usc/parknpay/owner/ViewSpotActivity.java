@@ -101,7 +101,7 @@ public class ViewSpotActivity extends TemplateActivity {
     private void processParkingSpots(ParkingSpotPost t) {
         for (int i = 0; i < availabilitiesList.size(); ++i) {
             // If item exists, replace it
-            if (availabilitiesList.get(i).getPostId().equals(t.getPostId()))
+            if (availabilitiesList.get(i).getParkingSpotPostId().equals(t.getParkingSpotPostId()))
             {
                 //availabilitiesList.set(i, t);
                 return;

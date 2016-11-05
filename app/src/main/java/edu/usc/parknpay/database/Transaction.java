@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Transaction implements Serializable {
     private String ownerId;
     private String seekerId;
+    private String parkingSpotPostId;
     private String photoUrl;
     private String ownerName;
     private String seekerName;
@@ -17,13 +18,16 @@ public class Transaction implements Serializable {
     private String transactionId;
     double price;
     boolean rated;
+    boolean cancelled;
 
     public Transaction() {
     }
 
-    public Transaction(String ownerId, String seekerId, String photoUrl, String ownerName, String seekerName, String startTime, String endTime, String ownerPhoneNumber, String seekerPhoneNumber, String parkingId, String address, String transactionId, double price, boolean rated) {
+    public Transaction(String transactionId, String ownerId, String seekerId, String parkingSpotPostId, String photoUrl, String ownerName, String seekerName, String startTime, String endTime, String ownerPhoneNumber, String seekerPhoneNumber, String parkingId, String address, double price, boolean rated, boolean cancelled) {
+        this.transactionId = transactionId;
         this.ownerId = ownerId;
         this.seekerId = seekerId;
+        this.parkingSpotPostId = parkingSpotPostId;
         this.photoUrl = photoUrl;
         this.ownerName = ownerName;
         this.seekerName = seekerName;
@@ -33,9 +37,9 @@ public class Transaction implements Serializable {
         this.seekerPhoneNumber = seekerPhoneNumber;
         this.parkingId = parkingId;
         this.address = address;
-        this.transactionId = transactionId;
         this.price = price;
         this.rated = rated;
+        this.cancelled = cancelled;
     }
 
     public String getOwnerId() {
@@ -148,6 +152,22 @@ public class Transaction implements Serializable {
 
     public void setSeekerPhoneNumber(String seekerPhoneNumber) {
         this.seekerPhoneNumber = seekerPhoneNumber;
+    }
+
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    public String getParkingSpotPostId() {
+        return parkingSpotPostId;
+    }
+
+    public void setParkingSpotPostId(String parkingSpotPostId) {
+        this.parkingSpotPostId = parkingSpotPostId;
     }
 
 }
