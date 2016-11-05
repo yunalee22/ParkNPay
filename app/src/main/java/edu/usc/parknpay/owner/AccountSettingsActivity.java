@@ -47,7 +47,7 @@ public class AccountSettingsActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_account_settings);
 
-        setUpToolbar();
+        setUpToolbar("Settings");
         u = User.getInstance();
         setSpinners();
         initializeEdits();
@@ -62,24 +62,6 @@ public class AccountSettingsActivity extends TemplateActivity {
                 return true;
         }
         return false;
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Settings");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     protected void initializeEdits(){
@@ -121,6 +103,7 @@ public class AccountSettingsActivity extends TemplateActivity {
     }
 
     protected void addListeners() {
+
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -130,7 +113,6 @@ public class AccountSettingsActivity extends TemplateActivity {
             }
 
         });
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             //Submitting all the data that user entered for parking spot here.
@@ -221,6 +203,4 @@ public class AccountSettingsActivity extends TemplateActivity {
                 break;
         }
     }
-
-
 }

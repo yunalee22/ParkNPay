@@ -24,12 +24,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
 
-public class RateActivity extends AppCompatActivity {
+public class RateActivity extends TemplateActivity {
     ImageView spotPhoto;
     TextView address, date, time;
     RatingBar spotRatingBar, ownerRatingBar;
@@ -44,7 +45,7 @@ public class RateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_rate);
 
-        setUpToolbar();
+        setUpToolbar("Rate Your Experience");
         initializeEdits();
         addListeners();
         u = User.getInstance();
@@ -140,23 +141,5 @@ public class RateActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Rate Your Experience");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 }

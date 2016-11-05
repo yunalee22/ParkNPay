@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -235,5 +237,23 @@ public class TemplateActivity extends AppCompatActivity {
         }
 
         return handleReturn;
+    }
+
+    protected void setUpToolbar(String toolbarTitle) {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText(toolbarTitle);
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 }

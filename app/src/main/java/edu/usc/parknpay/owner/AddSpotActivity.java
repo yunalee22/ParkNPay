@@ -70,7 +70,7 @@ public class AddSpotActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_add_spot);
 
-        setUpToolbar();
+        setUpToolbar("Add a Parking Spot");
         initializeEdits();
         addListeners();
         setSpinners();
@@ -92,24 +92,6 @@ public class AddSpotActivity extends TemplateActivity {
                 new LatLng(34.0224, -118.2851),
                 new LatLng(34.0224, -118.2851)
         ));
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Add a Parking Spot");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     @Override

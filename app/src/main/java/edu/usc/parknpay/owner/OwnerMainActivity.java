@@ -41,7 +41,7 @@ public class OwnerMainActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_main);
 
-        setUpToolbar();
+        setUpToolbar("ParkNPay");
         initializeComponents();
         addListeners();
 
@@ -77,7 +77,8 @@ public class OwnerMainActivity extends TemplateActivity {
         });
     }
 
-    private void setUpToolbar() {
+    @Override
+    protected void setUpToolbar(String toolbarTitle) {
 
         // Set toolbar as action bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,7 +89,7 @@ public class OwnerMainActivity extends TemplateActivity {
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.toolbar);
         TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("ParkNPay");
+        title.setText(toolbarTitle);
 
         // Enable navigation icon
         actionBar.setHomeAsUpIndicator(R.drawable.menu);

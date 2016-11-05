@@ -51,7 +51,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_add_availability);
 
-        setUpToolbar();
+        setUpToolbar("Add an Availability");
         initializeEdits();
         setSpinners();
         addListeners();
@@ -76,24 +76,6 @@ public class AddAvailabilityActivity extends TemplateActivity {
         updateLabel("start");
         endDate = (TextView) findViewById(R.id.endDate);
         updateLabel("end");
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Add an Availability");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     protected void addListeners () {

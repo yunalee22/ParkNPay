@@ -52,7 +52,7 @@ public class ViewSpotActivity extends TemplateActivity {
         initializeEdits();
         addListeners();
 
-        setUpToolbar();
+        setUpToolbar("View Spot");
 
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
 
@@ -192,25 +192,6 @@ public class ViewSpotActivity extends TemplateActivity {
             }
         });
     }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("View Spot");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-    }
-
 }
 
 

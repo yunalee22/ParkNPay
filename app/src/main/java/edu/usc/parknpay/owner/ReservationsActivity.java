@@ -49,7 +49,7 @@ public class ReservationsActivity extends TemplateActivity {
         //using same layout as seeker reservations because its the same thing
         setContentView(R.layout.seeker_reservations);
 
-        setUpToolbar();
+        setUpToolbar("Reservations");
 
         // Get references to UI views
         reservationsList = (ListView) findViewById(R.id.reservations_list);
@@ -157,23 +157,5 @@ public class ReservationsActivity extends TemplateActivity {
             
             return convertView;
         }
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Reservations");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 }

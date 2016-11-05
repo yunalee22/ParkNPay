@@ -19,7 +19,7 @@ public class PaymentInfoActivity extends TemplateActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_payment_info);
 
-        setUpToolbar();
+        setUpToolbar("Payment");
     }
 
     @Override
@@ -30,24 +30,6 @@ public class PaymentInfoActivity extends TemplateActivity {
                 return true;
         }
         return false;
-    }
-
-    private void setUpToolbar() {
-
-        // Set toolbar as action bar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        // Customize toolbar
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.toolbar);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Payment");
-
-        // Enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     public void addMoney(View view) {
