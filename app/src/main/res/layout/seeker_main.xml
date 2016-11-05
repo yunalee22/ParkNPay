@@ -118,31 +118,30 @@
     </RelativeLayout>
 
     <!--Navigation drawer-->
-    <LinearLayout
-        android:id="@+id/drawerll"
+    <LinearLayout android:id="@+id/drawerll"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/drawerr"
+        <LinearLayout android:id="@+id/drawerr"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:background="@color/blue"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@color/blue"
-                android:padding="8dp">
+                android:padding="10dp">
                 <ImageView android:id="@+id/drawer_pic"
                     android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/default_pic" />
                 <ImageView android:id="@+id/circle_crop"
                     android:layout_width="match_parent"
@@ -150,39 +149,36 @@
                     android:src="@drawable/circle_crop_registration" />
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/drawer"
+            <LinearLayout android:id="@+id/drawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
-                <TextView
-                    android:id="@+id/drawer_name"
+                android:orientation="vertical">
+                <TextView android:id="@+id/drawer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Gregory Johnson"
+                    android:text="First Last"
                     android:textSize="16sp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="normal|bold" />
-                <TextView
-                    android:id="@+id/drawer_balance"
+                <TextView android:id="@+id/drawer_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="Balance: $500"
                     android:textSize="14sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="@color/white"/>
             </LinearLayout>
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/left_drawer"
-            android:background="#323232"
+        <ListView android:id="@+id/left_drawer"
+            android:background="@color/darkGray"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
             android:dividerHeight="1dp" />
+
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

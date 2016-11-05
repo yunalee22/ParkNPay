@@ -9,7 +9,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +58,7 @@ import edu.usc.parknpay.authentication.RegistrationActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
@@ -98,15 +101,9 @@ public class SeekerMainActivity extends TemplateActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_main);
-        initializeComponents();
 
-        // Set up toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("ParkNPay");
-        actionBar.setHomeAsUpIndicator(R.drawable.menu);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        setUpToolbar();
+        initializeComponents();
 
         // Get current date and time
         Date today = Calendar.getInstance().getTime();
@@ -173,6 +170,32 @@ public class SeekerMainActivity extends TemplateActivity {
 
         // Add view listeners
         addListeners();
+    }
+
+    private void setUpToolbar() {
+
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("ParkNPay");
+
+        // Enable navigation icon
+        actionBar.setHomeAsUpIndicator(R.drawable.menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+        // Add navigation drawer
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(SeekerMainActivity.this,
+                drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        super.onCreateDrawer();
     }
 
     @Override

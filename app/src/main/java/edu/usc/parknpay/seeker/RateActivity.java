@@ -1,7 +1,9 @@
 package edu.usc.parknpay.seeker;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,9 +43,12 @@ public class RateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_rate);
+
+        setUpToolbar();
         initializeEdits();
         addListeners();
         u = User.getInstance();
+
         //update the components: address, date, time, photo
         t = (Transaction) getIntent().getSerializableExtra("transaction");
         address.setText(t.getAddress());
@@ -137,5 +142,21 @@ public class RateActivity extends AppCompatActivity {
 
     }
 
+    private void setUpToolbar() {
 
+        // Set toolbar as action bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Customize toolbar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.toolbar);
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("Rate Your Experience");
+
+        // Enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+    }
 }
