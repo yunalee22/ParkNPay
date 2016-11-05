@@ -109,15 +109,14 @@ public class LoginActivity extends TemplateActivity {
                             // If authentication is successful, proceed to default (owner/seeker) main view.
                             if (User.getInstance().isSeeker()) {
                                 User.getInstance().setIsCurrentlySeeker(true);
-
+                                progress.dismiss();
                                 Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                                 startActivity(seekerIntent);
                             } else {
                                 User.getInstance().setIsCurrentlySeeker(false);
-
+                                progress.dismiss();
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
-                                //progress.dismiss();
                             }
                         }
 
@@ -161,9 +160,9 @@ public class LoginActivity extends TemplateActivity {
                             // If authentication is successful, proceed to default (owner/seeker) main view.
 
                             //if (User.getInstance().isSeeker()) {
-                                Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
-                                startActivity(seekerIntent);
-                                progress.dismiss();
+                            progress.dismiss();
+                            Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+                            startActivity(seekerIntent);
                             //} else {
                             //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                             //    startActivity(ownerIntent);
@@ -177,6 +176,7 @@ public class LoginActivity extends TemplateActivity {
                     });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
             }
         });
@@ -213,10 +213,9 @@ public class LoginActivity extends TemplateActivity {
                             //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
                             //    startActivity(seekerIntent);
                             //} else {
-
+                            progress.dismiss();
                                 Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
                                 startActivity(ownerIntent);
-                                progress.dismiss();
                             //}
                         }
 
@@ -227,6 +226,7 @@ public class LoginActivity extends TemplateActivity {
                     });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 }
             }
         });

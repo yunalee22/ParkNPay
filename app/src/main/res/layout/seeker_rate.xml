@@ -10,6 +10,16 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <ImageView
+        app:srcCompat="@drawable/default_pic"
+        android:id="@+id/imageView"
+        android:layout_marginTop="32dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignLeft="@+id/additionalNotesField"
+        android:layout_alignStart="@+id/additionalNotesField" />
+
     <TextView
         android:text="Rate this spot's owner"
         android:layout_width="wrap_content"
@@ -112,15 +122,5 @@
         android:layout_above="@+id/date"
         android:layout_alignRight="@+id/ratingBarOwner"
         android:layout_alignEnd="@+id/ratingBarOwner" />
-
-    <ImageView
-        app:srcCompat="@drawable/default_pic"
-        android:id="@+id/imageView"
-        android:layout_marginTop="32dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignLeft="@+id/additionalNotesField"
-        android:layout_alignStart="@+id/additionalNotesField" />
 
 </RelativeLayout>

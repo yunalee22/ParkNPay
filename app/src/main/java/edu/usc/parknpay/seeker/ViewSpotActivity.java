@@ -123,6 +123,7 @@ public class ViewSpotActivity extends TemplateActivity{
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
                 .load(parkingSpotPost.getPhotoUrl())
+                .placeholder(R.drawable.progress_animation)
                 .resize(450, 450)
                 .centerCrop()
                 .into(parkingSpotImage);
@@ -141,6 +142,7 @@ public class ViewSpotActivity extends TemplateActivity{
                 ownerName.setText(owner.getFirstName() + " " + owner.getLastName());
                 Picasso.with(ViewSpotActivity.this)
                         .load(owner.getProfilePhotoURL())
+                        .placeholder(R.drawable.progress_animation)
                         .resize(450, 450)
                         .centerCrop()
                         .into(ownerImage);
@@ -215,11 +217,13 @@ public class ViewSpotActivity extends TemplateActivity{
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
                         // Add spot reservation to database
-                        String TransactionId = UUID.randomUUID().toString();
+                        String transactionId = UUID.randomUUID().toString();
                         User u = User.getInstance();
                         Transaction transaction = new Transaction(
+                                transactionId,
                                 parkingSpotPost.getOwnerUserId(),
                                 u.getId(),
+                                parkingSpotPost.getParkingSpotPostId(),
                                 parkingSpotPost.getPhotoUrl(),
                                 user.getFirstName(),
                                 u.getFirstName(),
@@ -229,9 +233,9 @@ public class ViewSpotActivity extends TemplateActivity{
                                 user.getPhoneNumber(),
                                 parkingSpotPost.getParkingSpotId(),
                                 parkingSpotPost.getAddress(),
-                                TransactionId,
                                 parkingSpotPost.getPrice(),
-                                false
+                                false, // not rated
+                                false // not cancelled
                         );
 
                         //deduct your money
@@ -243,7 +247,6 @@ public class ViewSpotActivity extends TemplateActivity{
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 // Create user
-
                                 User userToBePaid = snapshot.getValue(User.class);
                                 userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
                             }
@@ -254,7 +257,7 @@ public class ViewSpotActivity extends TemplateActivity{
                             }
                         });
 
-                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(TransactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
@@ -276,7 +279,7 @@ public class ViewSpotActivity extends TemplateActivity{
                 });
 
                 // set as reserved spot
-                FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getPostId()).child("reserved").setValue(true);
+                FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
             }
         });
 

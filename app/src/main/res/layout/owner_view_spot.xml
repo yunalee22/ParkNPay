@@ -53,9 +53,9 @@
             android:text="Handicapped"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spotType"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/spotType" />
+            android:layout_marginTop="3dp"
+            android:layout_alignLeft="@+id/spotType"
+            android:layout_alignBottom="@+id/parkingSpotImage"/>
 
         <Button android:id="@+id/deleteButton"
             android:text="Delete Parking Spot"
@@ -65,7 +65,6 @@
             android:layout_below="@id/parkingSpotImage"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"/>
-
 
         <TextView android:id="@+id/additionalNotesLabel"
             android:text="Additional Notes"
@@ -86,13 +85,11 @@
             android:layout_alignStart="@+id/additionalNotesLabel"
             android:layout_marginTop="9dp"
             android:layout_width="340dp">
-
             <TextView android:id="@+id/notes"
                 android:text="Additional notes go here"
                 android:gravity="top"
                 android:layout_width="340dp"
                 android:layout_height="80dp" />
-
         </ScrollView>
 
         <ImageView android:id="@+id/addAvail"

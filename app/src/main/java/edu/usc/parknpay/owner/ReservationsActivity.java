@@ -67,8 +67,10 @@ public class ReservationsActivity extends TemplateActivity {
                 if (spots == null) {return;}
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Transaction t = snapshot.getValue(Transaction.class);
-                    processTransaction(t);
-                    reservationsListAdapter.notifyDataSetChanged();
+                    if(!t.isCancelled()) {
+                        processTransaction(t);
+                        reservationsListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
