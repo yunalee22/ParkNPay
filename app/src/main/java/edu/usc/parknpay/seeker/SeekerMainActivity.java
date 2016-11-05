@@ -214,21 +214,32 @@ public class SeekerMainActivity extends TemplateActivity {
 
         System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
-        TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-        df.setTimeZone(tz);
 
         try {
-            Date date = df.parse(startDate + " " + startTime);
-            final String sStartTime = df.format(date);
-            date = df.parse(endDate + " " + endTime);
-            final String sEndTime = df.format(date);
+            Date sDate = df.parse(startDate + " " + startTime);
+            Date eDate = df.parse(endDate + " " + endTime);
+            df.setTimeZone(TimeZone.getTimeZone("UTC"));
+            // format into utc
+            final String sStartTime = df.format(sDate);
+            final String sEndTime = df.format(eDate);
+            String currentTime = df.format(new Date());
 
             if(sStartTime.compareTo(sEndTime) >= 0) {
-                Toast.makeText(SeekerMainActivity.this, "Please enter valid dates",
+                Toast.makeText(SeekerMainActivity.this, "End time must be later than start time",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            if(sEndTime.compareTo(currentTime) < 0) {
+                Toast.makeText(SeekerMainActivity.this, "Cannot search a past time",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            System.out.println("SSTARTITME SEEKER: " + sStartTime);
+            System.out.println("SENDTIME SEEKER: " + sEndTime);
 
             DatabaseReference browseRef = FirebaseDatabase.getInstance().getReference().child("Browse/");
             // order by endtimes at or later
@@ -266,7 +277,7 @@ public class SeekerMainActivity extends TemplateActivity {
                 public void onCancelled(DatabaseError databaseError) { }
             });
 
-        } catch (ParseException e) {
+        } catch(ParseException e) {
             e.printStackTrace();
         }
     }
@@ -301,7 +312,6 @@ public class SeekerMainActivity extends TemplateActivity {
 
                 // Add initial data to intent
                 intent.putExtra("minPrice", minPrice);
-                System.out.println("Added a parameter min price of " + minPrice);
                 intent.putExtra("maxPrice", maxPrice);
                 intent.putExtra("minOwnerRating", minOwnerRating);
                 intent.putExtra("minSpotRating", minSpotRating);

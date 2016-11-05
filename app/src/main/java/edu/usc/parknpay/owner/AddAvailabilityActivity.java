@@ -127,18 +127,18 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     return;
                 }
 
-                TimeZone tz = TimeZone.getTimeZone("UTC");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-                df.setTimeZone(tz);
-
                 startString = startDate.getText().toString() + " " + startSpinner.getSelectedItem().toString() + ":00";
                 endString = endDate.getText().toString() + " " + endSpinner.getSelectedItem().toString() + ":00";
-
-                Date date1, date2;
+                String sStartTime, sEndTime;
                 try {
-                    date1 = df.parse(startString);
-                    date2 = df.parse(endString);
-                    if(!date1.before(date2)) {
+
+                    Date sDate = df.parse(startString);
+                    Date eDate = df.parse(endString);
+                    df.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    sStartTime = df.format(sDate);
+                    sEndTime = df.format(eDate);
+                    if(sStartTime.compareTo(sEndTime) >= 0) {
                         Toast.makeText(AddAvailabilityActivity.this, "Please enter valid dates",
                                 Toast.LENGTH_SHORT).show();
                         return;
@@ -166,7 +166,11 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 String userFullName = user.getFullName();
                 String userPhoneNumber = user.getPhoneNumber();
 
-                ParkingSpotPost post = new ParkingSpotPost(postId, userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
+                System.out.println("SSTARTITME OWNER: " + sStartTime);
+                System.out.println("SENDTIME OWNER: " + sEndTime);
+
+
+                ParkingSpotPost post = new ParkingSpotPost(postId, userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), sStartTime, sEndTime, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
                         parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), parkingSpot.getDescription(), false);
 
                 Ref.child("Browse").child(postId).setValue(post);
