@@ -101,7 +101,7 @@
         android:gravity="top|left"
         android:inputType="textMultiLine"
         android:background="@drawable/text_edit_border"
-        android:layout_below="@+id/additionalNotesLabel"
+        android:layout_below="@id/additionalNotesLabel"
         android:layout_centerHorizontal="true" />
 
     <Button android:id="@+id/button"
