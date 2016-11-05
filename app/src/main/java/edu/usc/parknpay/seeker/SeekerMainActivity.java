@@ -298,7 +298,25 @@ public class SeekerMainActivity extends TemplateActivity {
     }
 
     private void addListeners() {
+        startSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    executeSearch();
+                }
 
+                    @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+        });
+
+        endSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        executeSearch();
+                   }
+
+                        @Override
+                public void onNothingSelected(AdapterView<?> parentView) {}
+            });
         // Called when user clicks start date button
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -502,9 +520,7 @@ public class SeekerMainActivity extends TemplateActivity {
                             "M"))
                     + " mi"
             );
-
-
-
+            
             return convertView;
         }
 

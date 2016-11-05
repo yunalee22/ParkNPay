@@ -92,7 +92,7 @@ public class LoginActivity extends TemplateActivity {
 
                     // Get the newly generated user
                     String userId = task.getResult().getUser().getUid();
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
@@ -141,7 +141,7 @@ public class LoginActivity extends TemplateActivity {
 
                     // Get the newly generated user
                     String userId = task.getResult().getUser().getUid();
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
@@ -192,7 +192,7 @@ public class LoginActivity extends TemplateActivity {
 
                     // Get the newly generated user
                     String userId = task.getResult().getUser().getUid();
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {

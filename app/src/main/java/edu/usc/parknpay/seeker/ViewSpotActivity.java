@@ -113,6 +113,7 @@ public class ViewSpotActivity extends TemplateActivity{
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
         parkingSpotPost = (ParkingSpotPost) object;
         ownerRatingBar.setRating((float) parkingSpotPost.getOwnerRating());
+        spotRatingBar.setRating((float) parkingSpotPost.getRating());
 
         //for search pag
         tempLat = getIntent().getDoubleExtra("lat", 0);

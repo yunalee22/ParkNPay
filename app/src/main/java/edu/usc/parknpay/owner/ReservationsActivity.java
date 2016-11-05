@@ -58,7 +58,7 @@ public class ReservationsActivity extends TemplateActivity {
         reservationsList.setAdapter(reservationsListAdapter);
 
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-        Ref.child("Transactions").orderByChild("ownerId").equalTo(User.getInstance().getId()).addValueEventListener(new ValueEventListener() {
+        Ref.child("Transactions").orderByChild("ownerId").equalTo(User.getInstance().getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();

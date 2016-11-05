@@ -78,7 +78,7 @@ public class ViewSpotActivity extends TemplateActivity {
 
         String userId = User.getInstance().getId();
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
-        Ref.child("Browse").orderByChild("ownerUserId").equalTo(userId).addValueEventListener(new ValueEventListener() {
+        Ref.child("Browse").orderByChild("ownerUserId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
