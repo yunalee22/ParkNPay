@@ -10,6 +10,8 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -45,6 +47,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:9.6.0'
     compile 'com.android.support:design:23.0.1'
 
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
