@@ -27,6 +27,7 @@
         <!-- Mutual activities -->
         <activity android:name=".owner.PaymentInfoActivity" />
         <activity android:name=".owner.AccountSettingsActivity" />
+        <activity android:name=".owner.HelpActivity" />
 
         <!-- Owner activities -->
         <activity android:name=".owner.AddSpotActivity" />

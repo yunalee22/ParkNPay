@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.AccountSettingsActivity;
+import edu.usc.parknpay.owner.HelpActivity;
 import edu.usc.parknpay.owner.PaymentInfoActivity;
 
 public class TemplateActivity extends AppCompatActivity {
@@ -65,6 +66,7 @@ public class TemplateActivity extends AppCompatActivity {
         balance = (TextView) findViewById(R.id.drawer_balance);
         userPic = (ImageView) findViewById(R.id.drawer_pic);
 
+
         // Add drawer functionality
         drawerList = (ListView) findViewById(R.id.left_drawer);
         addDrawerItems();
@@ -90,6 +92,7 @@ public class TemplateActivity extends AppCompatActivity {
         menuItems.add("Payment");
         menuItems.add("Settings");
         menuItems.add("Switch Role");
+        menuItems.add("Help");
         menuItems.add("Log Out");
 
         drawerAdapter = new DrawerAdapter(TemplateActivity.this, menuItems);
@@ -214,7 +217,14 @@ public class TemplateActivity extends AppCompatActivity {
                     }
                     break;
                 }
-                case 5:     // Log Out
+                case 5: //help
+                {
+                    intent = new Intent(getApplicationContext(), HelpActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    break;
+                }
+                case 6:     // Log Out
                 {
                     User.setInstance(null);
                     intent = new Intent(getApplicationContext(), edu.usc.parknpay.authentication.LoginActivity.class);

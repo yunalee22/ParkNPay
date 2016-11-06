@@ -1,7 +1,15 @@
 package edu.usc.parknpay.owner;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -127,7 +136,7 @@ public class ReservationsActivity extends TemplateActivity {
             }
 
             // Get data item
-            Transaction transaction = getItem(position);
+            final Transaction transaction = getItem(position);
 
             // Set image
             ImageView spotImageView = (ImageView) convertView.findViewById(R.id.parking_spot_image);
@@ -148,8 +157,26 @@ public class ReservationsActivity extends TemplateActivity {
             TextView addrText = (TextView) convertView.findViewById(R.id.address);
             addrText.setText("Seeker: " + transaction.getSeekerName());
 
-            ImageView call = (ImageView) convertView.findViewById(R.id.call_button);
-            call.setVisibility(View.GONE);
+            ImageView callButton = (ImageView) convertView.findViewById(R.id.call_button);
+            callButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    if(transaction.getOwnerPhoneNumber() == null) {
+                        Toast.makeText(edu.usc.parknpay.owner.ReservationsActivity.this, "Failed to retrieve phone number from server", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    callIntent.setData(Uri.parse("tel:" + transaction.getOwnerPhoneNumber()));
+
+                    if (ContextCompat.checkSelfPermission(edu.usc.parknpay.owner.ReservationsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(edu.usc.parknpay.owner.ReservationsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                    }
+                    else {
+                        startActivity(callIntent);
+                    }
+                }
+
+            });
+
             ImageView delete = (ImageView) convertView.findViewById(R.id.delete_button);
             delete.setVisibility(View.GONE);
             

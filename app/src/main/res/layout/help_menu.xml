@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:text="Cancellation Policies"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/smalltext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="*ParkNPay is not responsible for any choices in cancellation policies. If an error has been made, contact the owner directly."
+                android:inputType="textMultiLine"
+                android:layout_below="@+id/cancel" />
+
+            <TextView
+                android:id="@+id/policytwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="15sp"
+                android:text="2) Moderate: Full refund if the reservation is canceled at least 1 hour before the designated start date and time. Any refunds requested afterwards, will only be 50%."
+                android:inputType="textMultiLine"
+                android:layout_below="@+id/policyone"
+                android:layout_alignStart="@+id/policyone" />
+
+            <TextView
+                android:id="@+id/policythree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/policytwo"
+                android:layout_marginTop="12dp"
+                android:textSize="15sp"
+                android:text="3) Flexible: Full refund if the reservation is canceled anytime before the designated start date and time."
+                android:inputType="textMultiLine"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/policytwo" />
+
+            <TextView
+                android:id="@+id/policyone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:textSize="15sp"
+                android:text="1) Strict: 50% refund if the reservation is canceled at least 1 hour before the designated start date and time. Any refunds requested afterwards, will be duly declined."
+                android:inputType="textMultiLine"
+                android:layout_below="@+id/smalltext"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

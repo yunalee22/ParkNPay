@@ -10,21 +10,11 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <ImageView
-        app:srcCompat="@drawable/default_pic"
-        android:id="@+id/imageView"
-        android:layout_marginTop="32dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignLeft="@+id/additionalNotesField"
-        android:layout_alignStart="@+id/additionalNotesField" />
-
     <TextView
         android:text="Rate this spot's owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/handicap"
+        android:layout_below="@+id/date"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:textSize="18sp"
@@ -51,26 +41,6 @@
         android:layout_marginTop="30dp"
         android:textSize="18sp"
         android:id="@+id/textView19" />
-
-    <TextView
-        android:text="2PM - 5PM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/handicap"
-        android:textSize="16sp"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignLeft="@+id/date"
-        android:layout_alignStart="@+id/date" />
-
-    <TextView android:id="@+id/date"
-        android:text="12/12/16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_above="@+id/handicap"
-        android:layout_alignLeft="@+id/address"
-        android:layout_alignStart="@+id/address"
-        android:layout_marginBottom="8dp" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -112,15 +82,31 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"/>
 
+    <ImageView
+        app:srcCompat="@drawable/default_pic"
+        android:id="@+id/imageView"
+        android:layout_marginTop="33dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_toStartOf="@+id/additionalNotesLabel" />
+
+    <TextView android:id="@+id/date"
+        android:text="12/12/16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignStart="@+id/address" />
+
     <TextView
         android:text="Address goes here"
         android:layout_height="wrap_content"
         android:id="@+id/address"
-        android:layout_width="190dp"
+        android:layout_width="220dp"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        android:layout_above="@+id/date"
-        android:layout_alignRight="@+id/ratingBarOwner"
-        android:layout_alignEnd="@+id/ratingBarOwner" />
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignEnd="@+id/additionalNotesField" />
 
 </RelativeLayout>
