@@ -28,8 +28,8 @@ import java.util.ArrayList;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.User;
-import edu.usc.parknpay.owner.AccountSettingsActivity;
-import edu.usc.parknpay.owner.PaymentInfoActivity;
+import edu.usc.parknpay.mutual.AccountSettingsActivity;
+import edu.usc.parknpay.mutual.PaymentInfoActivity;
 
 public class TemplateActivity extends AppCompatActivity {
 

@@ -25,8 +25,8 @@
         <activity android:name=".authentication.SetDefaultModeActivity" />
 
         <!-- Mutual activities -->
-        <activity android:name=".owner.PaymentInfoActivity" />
-        <activity android:name=".owner.AccountSettingsActivity" />
+        <activity android:name=".mutual.PaymentInfoActivity" />
+        <activity android:name=".mutual.AccountSettingsActivity" />
 
         <!-- Owner activities -->
         <activity android:name=".owner.AddSpotActivity" />

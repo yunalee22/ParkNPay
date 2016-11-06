@@ -1,4 +1,4 @@
-package edu.usc.parknpay.owner;
+package edu.usc.parknpay.mutual;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.User;
 

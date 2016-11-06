@@ -1,4 +1,4 @@
-package edu.usc.parknpay.owner;
+package edu.usc.parknpay.mutual;
 
 import android.os.Bundle;
 import android.view.MenuItem;
