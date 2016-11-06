@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -46,6 +47,7 @@ public class ViewSpotActivity extends TemplateActivity{
     private ImageView parkingSpotImage;
     private TextView address;
     private RatingBar spotRatingBar;
+    private TextView price;
     private TextView size, handicap;
     private TextView cancellationPolicy;
     private TextView additionalNotes;
@@ -81,6 +83,7 @@ public class ViewSpotActivity extends TemplateActivity{
         ownerRatingBar = (RatingBar) findViewById(R.id.ownerRatingBar);
         reserveButton = (Button) findViewById(R.id.reserveButton);
         reviewsListView = (ListView) findViewById(R.id.reviewsListView);
+        price = (TextView) findViewById(R.id.price);
         //This function allows for listviews within scrollviews to be scrolled
         reviewsListView.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
@@ -129,7 +132,9 @@ public class ViewSpotActivity extends TemplateActivity{
                 .centerCrop()
                 .into(parkingSpotImage);
         address.setText(parkingSpotPost.getAddress());
-        // TODO: parking spot rating bar
+        spotRatingBar.setRating((float)parkingSpotPost.getRating());
+        DecimalFormat df = new DecimalFormat("0.00");
+        price.setText("$" + df.format(parkingSpotPost.getPrice()));
         size.setText(parkingSpotPost.getSize());
         handicap.setText(parkingSpotPost.isHandicap() ? "Handicap" : "Not Handicap");
         cancellationPolicy.setText(parkingSpotPost.getCancellationPolicy());

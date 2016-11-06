@@ -38,6 +38,15 @@
                 android:layout_toRightOf="@id/parkingSpotImage"
                 android:layout_marginLeft="20dp"/>
 
+            <TextView android:id="@+id/price"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/size"
+                android:layout_toRightOf="@id/parkingSpotImage"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"/>
+
             <TextView android:id="@+id/size"
                 android:text="Normal"
                 android:layout_width="wrap_content"
@@ -151,6 +160,14 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"/>
 
+            <TextView android:id="@+id/ownerName"
+                android:text="Owner Name"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ownerFrame"
+                android:layout_toEndOf="@+id/additionalNotesLabel" />
+
             <RatingBar android:id="@+id/spotRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,16 +178,8 @@
                 android:isIndicator="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="8dp"
-                android:layout_above="@+id/cancellationPolicyLabel"
+                android:layout_alignBottom="@+id/price"
                 android:layout_alignStart="@+id/ownerRatingBar" />
-
-            <TextView android:id="@+id/ownerName"
-                android:text="Owner Name"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ownerFrame"
-                android:layout_toEndOf="@+id/additionalNotesLabel" />
 
         </RelativeLayout>
     </ScrollView>
