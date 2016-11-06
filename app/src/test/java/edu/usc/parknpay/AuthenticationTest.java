@@ -4,6 +4,7 @@ import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
-    public class LoginActivityTest {
+    public class AuthenticationTest {
 
     @Test
     public void testEmptyName() throws Exception {
@@ -37,24 +38,6 @@ import static org.junit.Assert.*;
         boolean b = name.trim().isEmpty();
 
         assertFalse(b);
-    }
-
-    @Test
-    public void testValidEmail() throws Exception {
-        String email = "hwangtim@usc.edu";
-        email = "timothyahwang@gmail.com";
-
-        RegistrationActivity ra = new RegistrationActivity();
-
-        email = email.trim();
-
-        System.out.println(email);
-
-        assertTrue(true);
-        assertTrue(!TextUtils.isEmpty(email));// && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
-//        boolean b = (email.isEmpty() || !ra.isValidEmail(email));
-//
-//        assertFalse(b);
     }
 
     @Test
@@ -113,6 +96,24 @@ import static org.junit.Assert.*;
         String confirmPassword = "differentPassword";
 
         boolean b = (!password.equals(confirmPassword));
+
+        assertTrue(b);
+    }
+
+    @Test
+    public void testValidPhoneNumber() throws Exception {
+        String num="1234567890";
+
+        boolean b = (num.length()!=10);
+
+        assertFalse(b);
+    }
+
+    @Test
+    public void testInvalidPhoneNumber() throws Exception {
+        String num="123";
+
+        boolean b = (num.length()!=10);
 
         assertTrue(b);
     }
