@@ -164,7 +164,6 @@ public class ReservationsActivity extends TemplateActivity {
 
                     if (ContextCompat.checkSelfPermission(ReservationsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(ReservationsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                        startActivity(callIntent);
                     }
                     else {
                         startActivity(callIntent);

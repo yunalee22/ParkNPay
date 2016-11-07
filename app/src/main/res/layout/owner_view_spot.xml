@@ -30,33 +30,6 @@
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@id/parkingSpotImage" />
 
-        <RatingBar android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:progressTint="#FFCC00"
-            android:secondaryProgressTint="#FFCC00"
-            android:stepSize="0.5"
-            android:isIndicator="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="83dp" />
-
-        <TextView android:id="@+id/spotType"
-            android:text="Parking Spot Type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ratingBar"
-            android:layout_alignLeft="@+id/address" />
-
-        <TextView android:id="@+id/handicap"
-            android:text="Handicapped"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/spotType"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/spotType" />
-
         <Button android:id="@+id/deleteButton"
             android:text="Delete Reservation"
             android:textAllCaps="false"
@@ -66,21 +39,6 @@
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"/>
 
-        <TextView android:id="@+id/cancellationPolicyLabel"
-            android:text="Cancellation Policy"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/deleteButton"
-            android:layout_marginTop="20dp"/>
-
-        <TextView android:id="@+id/cancellationPolicy"
-            android:text="Cancellation policy description goes here"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cancellationPolicyLabel"
-            android:layout_marginTop="10dp" />
-
         <TextView android:id="@+id/additionalNotesLabel"
             android:text="Additional Notes"
             android:layout_width="wrap_content"
@@ -88,7 +46,7 @@
             android:layout_marginTop="16dp"
             android:textSize="15sp"
             android:textStyle="normal|bold"
-            android:layout_below="@+id/cancellationPolicy"
+            android:layout_below="@+id/deleteButton"
             android:layout_alignLeft="@id/parkingSpotImage"
             android:layout_alignStart="@id/parkingSpotImage" />
 
@@ -128,6 +86,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/availabilitiesLabel" />
+
+        <TextView android:id="@+id/handicap"
+            android:text="Handicapped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/deleteButton"
+            android:layout_alignStart="@+id/spotType" />
+
+        <TextView android:id="@+id/spotType"
+            android:text="Parking Spot Type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/handicap"
+            android:layout_alignStart="@+id/address" />
+
+        <RatingBar android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:progressTint="#FFCC00"
+            android:secondaryProgressTint="#FFCC00"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:layout_marginLeft="83dp"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@+id/handicap"
+            android:layout_alignEnd="@+id/additionalNotes"
+            android:layout_marginEnd="9dp" />
 
     </RelativeLayout>
 </RelativeLayout>
