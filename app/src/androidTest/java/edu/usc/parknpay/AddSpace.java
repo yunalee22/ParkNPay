@@ -9,6 +9,12 @@ import org.junit.Test;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.owner.AddSpotActivity;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+
 /**
  * Created by yunalee on 11/7/16.
  */
@@ -40,6 +46,8 @@ public class AddSpace {
     @Test
     public void AddSpace() {
 
+        onView(withId(R.id.place_autocomplete_fragment)).perform(typeText("University of Southern California"), closeSoftKeyboard());
+        onView(withId(R.id.checkBox)).perform(click());
+        onView(withId(R.id.button)).perform(click());
     }
-
 }
