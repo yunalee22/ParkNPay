@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <ImageButton
+    <ImageButton android:id="@+id/seeker_button"
         android:src="@drawable/seeker_text"
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:onClick="setDefaultToSeeker"/>
-    <ImageButton
+    <ImageButton android:id="@+id/owner_button"
         android:src="@drawable/owner_text"
         android:layout_weight="1"
         android:layout_width="match_parent"

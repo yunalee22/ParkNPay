@@ -20,23 +20,23 @@ public class NavigationBarTest {
 
     @BeforeClass
     public static void setUpBeforeClass() {
-        // Initialize User
-        User.createUser(new User(
-                "S",
-                "S",
-                "seeker@seeker.com",
-                "ITTwYsLBiza905uAomt9iacFm6R2",
-                "1234567890",
-                "none",
-                5,
-                1,
-                true,
-                500,
-                "https://firebasestorage.googleapis.com/v0/b/parknpay-4c06e.appspot.com/o/ITTwYsLBiza905uAomt9iacFm6R2%2Fprofile?alt=media&token=69aa020a-51b2-4509-ae15-d7e24bd2ea84"
-        ));
+            // Initialize User
+            User.createUser(new User(
+                    "S",
+                    "S",
+                    "seeker@seeker.com",
+                    "ITTwYsLBiza905uAomt9iacFm6R2",
+                    "1234567890",
+                    "none",
+                    5,
+                    1,
+                    true,
+                    500,
+                    "https://firebasestorage.googleapis.com/v0/b/parknpay-4c06e.appspot.com/o/ITTwYsLBiza905uAomt9iacFm6R2%2Fprofile?alt=media&token=69aa020a-51b2-4509-ae15-d7e24bd2ea84"
+            ));
 
 
-    }
+        }
 
     @Test
     public void TestReservationsTab() {
