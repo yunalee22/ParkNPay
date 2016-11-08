@@ -44,7 +44,7 @@ public class AccountSettingsActivity extends TemplateActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.owner_account_settings);
+        setContentView(R.layout.mutual_account_settings);
 
         setUpToolbar("Settings");
         u = User.getInstance();
