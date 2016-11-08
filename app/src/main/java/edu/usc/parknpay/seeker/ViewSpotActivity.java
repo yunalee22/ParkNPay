@@ -193,17 +193,6 @@ public class ViewSpotActivity extends TemplateActivity{
         reviews.add(t);
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
     protected void addListeners() {
 
         // Called when reserve button is clicked

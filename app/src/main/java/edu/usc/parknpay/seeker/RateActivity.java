@@ -59,16 +59,6 @@ public class RateActivity extends TemplateActivity {
         Ref = FirebaseDatabase.getInstance().getReference();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
     protected void initializeEdits() {
         spotPhoto = (ImageView) findViewById(R.id.imageView);
         address = (TextView) findViewById(R.id.address);

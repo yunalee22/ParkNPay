@@ -119,18 +119,6 @@ public class ViewSpotActivity extends TemplateActivity {
         availabilityListAdapter.notifyDataSetChanged();
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                finish();
-                return true;
-        }
-        return false;
-    }
-
     protected void initializeEdits() {
         spotPhoto = (ImageView) findViewById(R.id.parkingSpotImage);
         addButton = (ImageView) findViewById(R.id.addAvail);

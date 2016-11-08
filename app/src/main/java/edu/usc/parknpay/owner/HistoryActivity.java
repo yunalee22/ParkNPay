@@ -68,16 +68,6 @@ public class HistoryActivity extends TemplateActivity {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
     private void processTransaction(Transaction t) {
         for (int i = 0; i < history.size(); ++i) {
             // If item exists, replace it

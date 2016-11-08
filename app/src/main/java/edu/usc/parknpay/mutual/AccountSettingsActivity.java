@@ -53,16 +53,6 @@ public class AccountSettingsActivity extends TemplateActivity {
         addListeners();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
     protected void initializeEdits(){
         edit = (TextView) findViewById(R.id.editView);
         firstName = (EditText) findViewById(R.id.firstName);

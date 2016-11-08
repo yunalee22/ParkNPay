@@ -104,19 +104,6 @@ public class ReservationsActivity extends TemplateActivity {
         reservations.add(t);
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
-
-
     protected class ReservationsListAdapter extends ArrayAdapter<Transaction> {
 
         public ReservationsListAdapter(Context context, ArrayList<Transaction> results) {

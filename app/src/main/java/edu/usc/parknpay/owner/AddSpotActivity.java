@@ -91,16 +91,6 @@ public class AddSpotActivity extends TemplateActivity {
         ));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return false;
-    }
-
     protected void initializeEdits() {
         notes = (EditText) findViewById(R.id.notesEdit);
         handicapped = (CheckBox) findViewById(R.id.checkBox);
