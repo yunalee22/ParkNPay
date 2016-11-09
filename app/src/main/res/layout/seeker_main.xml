@@ -14,26 +14,44 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-
-        <RelativeLayout android:id="@+id/search_layout"
+        <ViewSwitcher
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/toolbar">
-
-            <fragment android:id="@+id/place_autocomplete_fragment"
-                android:layout_width="350dp"
+            <RelativeLayout android:id="@+id/search_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+                android:layout_below="@+id/toolbar">
 
-            <ImageView android:id="@+id/filter_button"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:src="@drawable/filter"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"/>
+                <fragment android:id="@+id/place_autocomplete_fragment"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
 
-        </RelativeLayout>
+                <ImageView android:id="@+id/filter_button"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/filter"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/test_pic"/>
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+
+        </ViewSwitcher>
 
         <TextView android:id="@+id/dates_available_label"
             android:text="Date Range"
@@ -41,7 +59,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_below="@+id/search_layout"
+            android:layout_below="@+id/search_bar"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp" />
 
@@ -90,6 +108,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:layout_marginRight="10dp"/>
+
+
                 <Button android:id="@+id/end_date_button"
                     android:text="2016-10-28"
                     android:layout_width="0dp"
@@ -108,12 +128,21 @@
         <ListView android:id="@+id/search_list"
             android:layout_width="360dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/search_layout"
+            android:layout_below="@+id/search_bar"
             android:layout_marginTop="170dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Switch
+            android:text="Search by Coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/dates_available_label"
+            android:layout_alignEnd="@+id/date_range_table"
+            android:id="@+id/switch1"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
