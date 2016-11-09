@@ -14,20 +14,59 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-        <ViewSwitcher
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/toolbar">
             <RelativeLayout android:id="@+id/search_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/toolbar">
+                <ViewSwitcher
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
 
-                <fragment android:id="@+id/place_autocomplete_fragment"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+                    <fragment android:id="@+id/place_autocomplete_fragment"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="Longitude:"
+                            android:layout_marginLeft="30dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView" />
+
+                        <EditText
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:ems="10"
+                            android:id="@+id/editText2" />
+
+                        <TextView
+                            android:text="Latitude:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView2" />
+
+                        <EditText
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:ems="10"
+                            android:id="@+id/editText" />
+                    </LinearLayout>
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
+
+                </ViewSwitcher>
 
                 <ImageView android:id="@+id/filter_button"
                     android:layout_width="23dp"
@@ -40,18 +79,6 @@
             </RelativeLayout>
 
 
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/test_pic"/>
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-            <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-
-        </ViewSwitcher>
 
         <TextView android:id="@+id/dates_available_label"
             android:text="Date Range"
@@ -59,7 +86,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_below="@+id/search_bar"
+            android:layout_below="@+id/search_layout"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="5dp" />
 
@@ -128,7 +155,7 @@
         <ListView android:id="@+id/search_list"
             android:layout_width="360dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/search_bar"
+            android:layout_below="@+id/search_layout"
             android:layout_marginTop="170dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

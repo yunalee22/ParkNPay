@@ -142,12 +142,14 @@ public class SeekerMainActivity extends TemplateActivity {
         // Add search text field and geocoder
         searchBar = (ViewSwitcher) findViewById(R.id.search_bar);
         switchButton = (Switch) findViewById(R.id.switch1);
+        switchButton.setChecked(false);
         coder = new Geocoder(this);
         autocompleteFragment.setHint("Enter an address");
         autocompleteFragment.setBoundsBias(new LatLngBounds(
             new LatLng(34.0224, -118.2851),
             new LatLng(34.0224, -118.2851)
         ));
+
         switchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 searchBar.showNext();
