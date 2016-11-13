@@ -10,8 +10,61 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <TextView android:id="@+id/accountSummaryLabel"
+        android:text="Account Summary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView android:id="@+id/balanceLabel"
+            android:text="ParkNPay Balance: $"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp" />
+
+        <TextView android:id="@+id/balanceTextView"
+            android:text="amount"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp">
+
+        <Button android:id="@+id/addFundsButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="Add Funds"
+            android:textSize="16dp"
+            android:textAllCaps="false"/>
+
+        <Button android:id="@+id/withdrawFundsButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="Withdraw Funds"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:layout_marginLeft="20dp"/>
+
+    </LinearLayout>
+
     <TextView android:id="@+id/myPaymentMethodLabel"
-        android:text="My Payment Method"
+        android:text="Payment Methods"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -21,7 +74,7 @@
 
     <ListView android:id="@+id/paymentInfoList"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="220dp"
         android:layout_margin="30dp" />
 
     <TextView android:id="@+id/addPaymentMethodButton"

@@ -48,9 +48,15 @@ public class AddPaymentMethodActivity extends TemplateActivity {
             @Override
             public void onClick(View v) {
 
-                // Add new payment method to database
                 // Get spinner choice
+                String paymentMethodType = paymentMethodTypeSpinner.getSelectedItem().toString();
                 String paymentInformation = paymentInformationField.getText().toString();
+
+                // Add new payment method to database
+
+
+
+
 
                 // Proceed to registration screen
                 Intent intent = new Intent(AddPaymentMethodActivity.this, PaymentInfoActivity.class);
