@@ -3,7 +3,6 @@ package edu.usc.parknpay.owner;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,10 +27,10 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.TemplateActivity;
 
 public class AddAvailabilityActivity extends TemplateActivity {
     TextView startDate, endDate;
@@ -170,7 +169,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 String userPhoneNumber = user.getPhoneNumber();
 
                 ParkingSpotPost post = new ParkingSpotPost(postId, userId, userFullName, userPhoneNumber, parkingSpot.getParkingId(), parkingSpot.getAddress(), startString, endString, parkingSpot.getLatitude(), parkingSpot.getLongitude(), priceFinal,
-                        parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), parkingSpot.getRating(), parkingSpot.getPhotoURL(), parkingSpot.getDescription(), false);
+                        parkingSpot.getRating(), parkingSpot.getSize(), cancellation, parkingSpot.isHandicap(), user.Rating(), parkingSpot.getPhotoURL(), parkingSpot.getDescription(), false);
 
                 Ref.child("Browse").child(postId).setValue(post);
                 progress.dismiss();
