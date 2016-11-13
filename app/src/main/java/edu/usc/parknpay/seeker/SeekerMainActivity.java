@@ -22,8 +22,10 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -70,6 +72,8 @@ public class SeekerMainActivity extends TemplateActivity {
     private ImageView filterButton;
 
     // Search autocomplete text field
+    private ViewSwitcher searchBar;
+    private Switch switchButton;
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
     private static final String LOG_TAG = "PlaceSelectionListener";
@@ -136,12 +140,21 @@ public class SeekerMainActivity extends TemplateActivity {
         endDateButton.setText(endDate);
 
         // Add search text field and geocoder
+        searchBar = (ViewSwitcher) findViewById(R.id.search_bar);
+        switchButton = (Switch) findViewById(R.id.switch1);
+        switchButton.setChecked(false);
         coder = new Geocoder(this);
         autocompleteFragment.setHint("Enter an address");
         autocompleteFragment.setBoundsBias(new LatLngBounds(
             new LatLng(34.0224, -118.2851),
             new LatLng(34.0224, -118.2851)
         ));
+
+        switchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                searchBar.showNext();
+            }
+        });
 
         // Add adapter to ListView
         searchResults = new ArrayList<ParkingSpotPost>();

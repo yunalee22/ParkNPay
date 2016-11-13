@@ -125,7 +125,7 @@ public class LoginActivity extends TemplateActivity {
         });
     }
 
-    // TESTING
+
     public void SeekerTestLogin(View view){
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
