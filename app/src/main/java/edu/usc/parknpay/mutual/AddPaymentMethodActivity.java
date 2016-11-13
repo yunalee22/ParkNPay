@@ -38,8 +38,8 @@ public class AddPaymentMethodActivity extends TemplateActivity {
 
         // Set up spinner
         paymentMethods = new ArrayList<String>();
-        paymentMethods.add("Venmo");
         paymentMethods.add("Credit Card");
+        paymentMethods.add("ParkNPay Gift Card");
         spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, paymentMethods);
         paymentMethodTypeSpinner.setAdapter(spinnerAdapter);
 
