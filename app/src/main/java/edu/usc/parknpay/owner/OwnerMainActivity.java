@@ -75,6 +75,37 @@ public class OwnerMainActivity extends TemplateActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        String userId = User.getInstance().getId();
+        parkingSpotRef = FirebaseDatabase.getInstance().getReference();
+        parkingSpotRef.child("Owner-To-Spots").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) return;
+                for (Map.Entry<String, Object> entry : spots.entrySet()) {
+                    final boolean exists = (boolean) entry.getValue();
+                    parkingSpotRef.child("Parking-Spots").child(entry.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ParkingSpot spot = dataSnapshot.getValue(ParkingSpot.class);
+                            processSpot(spot, exists);
+                            parkingSpotAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    @Override
     protected void setUpToolbar(String toolbarTitle) {
 
         // Set toolbar as action bar
@@ -100,6 +131,8 @@ public class OwnerMainActivity extends TemplateActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         super.onCreateDrawer();
     }
+
+
 
     private void initializeComponents() {
         parkingSpots = (GridView) findViewById(R.id.gridView);
