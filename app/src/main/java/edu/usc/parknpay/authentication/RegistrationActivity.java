@@ -129,8 +129,8 @@ public class RegistrationActivity extends TemplateActivity {
                 email,
                 phoneNumber,
                 driversLicense,
-                5,
-                1,
+                0,
+                0,
                 true,
                 500.00
         );
