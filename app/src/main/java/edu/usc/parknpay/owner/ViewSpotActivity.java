@@ -97,6 +97,31 @@ public class ViewSpotActivity extends TemplateActivity {
         });
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        String userId = User.getInstance().getId();
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref.child("Browse").orderByChild("ownerUserId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) {return;}
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    ParkingSpotPost t = snapshot.getValue(ParkingSpotPost.class);
+                    if (t.getParkingSpotId().equals(parkingSpot.getParkingId())) {
+                        processParkingSpots(t);
+                        availabilityListAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
     private void processParkingSpots(ParkingSpotPost t) {
         for (int i = 0; i < availabilitiesList.size(); ++i) {
             // If item exists, replace it
