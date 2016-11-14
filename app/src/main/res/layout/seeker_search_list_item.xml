@@ -12,17 +12,21 @@
         android:layout_height="70dp"
         android:layout_below="@id/toolbar"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView android:id="@+id/address"
         android:text="Address"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_width="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
         android:layout_alignTop="@id/image"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <TextView android:id="@+id/date_time_range"
         android:text="Date time range"
@@ -31,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
         android:layout_below="@id/address"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <TextView android:id="@+id/size"
         android:text="Size"
@@ -41,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/image"
         android:layout_toRightOf="@id/image"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <TextView android:id="@+id/handicap"
         android:text="Handicap Spot"

@@ -608,6 +608,10 @@ public class SeekerMainActivity extends TemplateActivity {
                 TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
                 handiText.setVisibility(View.GONE);
             }
+            else {
+                TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
+                handiText.setText("Handicap");
+            }
 
             // Set Price
             TextView priceText = (TextView) convertView.findViewById(R.id.price);
