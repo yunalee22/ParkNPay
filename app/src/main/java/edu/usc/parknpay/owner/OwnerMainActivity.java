@@ -1,5 +1,6 @@
 package edu.usc.parknpay.owner;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +33,8 @@ public class OwnerMainActivity extends TemplateActivity {
     ImageView addSpotButton;
     OwnerMainSpotAdapter parkingSpotAdapter;
     DatabaseReference parkingSpotRef;
+
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +75,19 @@ public class OwnerMainActivity extends TemplateActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait");
+        progress.setCancelable(false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        progress.dismiss();
+
         String userId = User.getInstance().getId();
         parkingSpotRef = FirebaseDatabase.getInstance().getReference();
         parkingSpotRef.child("Owner-To-Spots").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -143,6 +154,7 @@ public class OwnerMainActivity extends TemplateActivity {
         addSpotButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+                progress.show();
                 Intent intent = new Intent(getApplicationContext(), AddSpotActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -153,6 +165,7 @@ public class OwnerMainActivity extends TemplateActivity {
         parkingSpots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                progress.show();
                 Intent intent = new Intent(getApplicationContext(), ViewSpotActivity.class);
                 intent.putExtra("parkingSpot", parkingSpotArray.get(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
