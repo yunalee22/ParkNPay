@@ -107,13 +107,19 @@ public class AccountSettingsActivity extends TemplateActivity {
             //Submitting all the data that user entered for parking spot here.
             @Override
             public void onClick(View arg0) {
-                //grabbing all the values from the inputs (if all inputs are valid)
+
+                // Get all edit text strings
                 String fName = firstName.getText().toString();
                 String lName = lastName.getText().toString();
                 String license = email.getText().toString();
                 String phoneNumber = phoneNum.getText().toString();
                 int role = defaultLogin.getSelectedItemPosition();
-                //should be sending to database here
+
+                // Check if all inputs are valid
+                if (!validateFirstName(fName)) return;
+                if (!validateLastName(lName)) return;
+                if (!validateLicense(license)) return;
+                if (!validatePhoneNumber(phoneNumber)) return;
 
                 tempUser = new User(
                         fName,
@@ -172,6 +178,42 @@ public class AccountSettingsActivity extends TemplateActivity {
             }
 
         });
+    }
+
+    private boolean validateFirstName(String firstName) {
+        if (firstName.isEmpty()) {
+            Toast.makeText(AccountSettingsActivity.this, "Please enter your first name.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateLastName(String lastName) {
+        if (lastName.isEmpty()) {
+            Toast.makeText(AccountSettingsActivity.this, "Please enter your last name.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateLicense(String license) {
+        if (license.isEmpty()) {
+            Toast.makeText(AccountSettingsActivity.this, "Please enter your license number.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber.length() != 10) {
+            Toast.makeText(AccountSettingsActivity.this, "Please enter a valid 10-digit phone number.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     //function needed to grab photo from phone's gallery
