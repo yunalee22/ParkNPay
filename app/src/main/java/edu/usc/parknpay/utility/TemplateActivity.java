@@ -38,12 +38,12 @@ public class TemplateActivity extends AppCompatActivity {
 
     // Navigation drawer
     protected DrawerLayout drawerLayout;
-    private TextView userName, balance;
+    protected TextView userName, balance;
     private ImageView userPic;
     private ListView drawerList;
     protected LinearLayout drawer;
     private ArrayAdapter<String> drawerAdapter;
-    private User u;
+    protected User u;
 
     @Override
     protected void onNewIntent(Intent intent)

@@ -200,7 +200,10 @@ public class SeekerMainActivity extends TemplateActivity {
     protected void onResume() {
         super.onResume();
         progress.dismiss();
+        DecimalFormat df = new DecimalFormat("#.00");
+        balance.setText("$ " + df.format(u.getBalance()));
     }
+
     @Override
     protected void setUpToolbar(String toolbarTitle) {
 

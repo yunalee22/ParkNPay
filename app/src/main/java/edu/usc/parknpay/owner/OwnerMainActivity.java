@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -87,6 +88,8 @@ public class OwnerMainActivity extends TemplateActivity {
         super.onResume();
 
         progress.dismiss();
+        DecimalFormat df = new DecimalFormat("#.00");
+        balance.setText("$ " + df.format(u.getBalance()));
 
         String userId = User.getInstance().getId();
         parkingSpotRef = FirebaseDatabase.getInstance().getReference();

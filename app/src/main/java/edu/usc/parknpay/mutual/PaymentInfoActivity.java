@@ -55,6 +55,7 @@ public class PaymentInfoActivity extends TemplateActivity {
         paymentInfoList = (ListView) findViewById(R.id.paymentInfoList);
         addPaymentMethodButton = (TextView) findViewById(R.id.addPaymentMethodButton);
         balanceTextView = (TextView) findViewById(R.id.balanceTextView);
+        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
         addFundsButton = (Button) findViewById(R.id.addFundsButton);
         withdrawFundsButton = (Button) findViewById(R.id.withdrawFundsButton);
 
@@ -70,22 +71,21 @@ public class PaymentInfoActivity extends TemplateActivity {
     private void addFunds(double amount) {
 
         // Update database
-        User.getInstance().changeBalance(100);
-        Toast.makeText(PaymentInfoActivity.this, "You've added $100 to your balance", Toast.LENGTH_SHORT).show();
+        User.getInstance().changeBalance(amount);
+        Toast.makeText(PaymentInfoActivity.this, "You've added $" + amount + " to your balance", Toast.LENGTH_SHORT).show();
 
         // Update user's balance in UI
-//        balanceTextView.setText();
+        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
     }
 
     private void withdrawFunds(double amount) {
 
         // Update database
-        double balance = User.getInstance().getBalance();
-        User.getInstance().changeBalance(-1 * balance);
+        User.getInstance().changeBalance(-1 * amount);
         Toast.makeText(PaymentInfoActivity.this, "You withdrew $" + balance + " from your account", Toast.LENGTH_SHORT).show();
 
         // Update user's balance in UI
-//        balanceTextView.setText();
+        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
     }
 
     private void addListeners() {
@@ -161,6 +161,10 @@ public class PaymentInfoActivity extends TemplateActivity {
         dialogBuilder.setTitle("Enter transaction information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                if (amountEditText.getText().toString().matches("")) {
+                    Toast.makeText(PaymentInfoActivity.this, "Please enter an amount", Toast.LENGTH_SHORT).show();;
+                    return;
+                }
                 double amount = Double.parseDouble(amountEditText.getText().toString());
                 PaymentInfoActivity.this.addFunds(amount);
             }
@@ -182,6 +186,10 @@ public class PaymentInfoActivity extends TemplateActivity {
         dialogBuilder.setTitle("Enter transaction information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                if (amountEditText.getText().toString().matches("")) {
+                    Toast.makeText(PaymentInfoActivity.this, "Please enter an amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 double amount = Double.parseDouble(amountEditText.getText().toString());
                 PaymentInfoActivity.this.withdrawFunds(amount);
             }

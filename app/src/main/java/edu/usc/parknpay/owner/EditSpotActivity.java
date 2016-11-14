@@ -58,6 +58,8 @@ public class EditSpotActivity extends TemplateActivity {
         handicap = (TextView)findViewById(R.id.handicap);
         address = (TextView) findViewById(R.id.address);
 
+        setUpToolbar("Edit Spot");
+
         //progress dialog
         progress = new ProgressDialog(this);
         progress.setTitle("Loading");
