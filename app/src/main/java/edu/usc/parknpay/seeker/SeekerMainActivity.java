@@ -2,6 +2,7 @@ package edu.usc.parknpay.seeker;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -100,6 +101,9 @@ public class SeekerMainActivity extends TemplateActivity {
     private Spinner startSpinner, endSpinner;
     private Button startDateButton, endDateButton;
 
+    // Progress dialog
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,14 +180,27 @@ public class SeekerMainActivity extends TemplateActivity {
                 intent.putExtra("lat", adapterLatitude);
                 intent.putExtra("long", adapterLongitude);
                 intent.putExtra("addr", address);
+
+                progress.show();
                 startActivity(intent);
             }
         });
 
         // Add view listeners
         addListeners();
+
+        // Initialize progress dialog
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait...");
+        progress.setCancelable(false);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progress.dismiss();
+    }
     @Override
     protected void setUpToolbar(String toolbarTitle) {
 
@@ -387,6 +404,7 @@ public class SeekerMainActivity extends TemplateActivity {
                 intent.putExtra("startTime", startTime);
                 intent.putExtra("endDate", endDate);
                 intent.putExtra("endTime", endTime);
+
 
                 startActivityForResult(intent, SEARCH_FILTER);
             }
