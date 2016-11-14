@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -51,9 +55,9 @@ import java.util.List;
 import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.utility.Utility;
 
 public class SeekerMainActivity extends TemplateActivity {
@@ -77,6 +81,8 @@ public class SeekerMainActivity extends TemplateActivity {
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
     private static final String LOG_TAG = "PlaceSelectionListener";
+    private EditText LongTextField;
+    private EditText LatTextField;
 
     // Search results list view
     private ListView searchList;
@@ -239,6 +245,8 @@ public class SeekerMainActivity extends TemplateActivity {
         endSpinner = (Spinner) findViewById(R.id.spinnerEnd);
         startDateButton = (Button) findViewById(R.id.start_date_button);
         endDateButton = (Button) findViewById(R.id.end_date_button);
+        LongTextField = (EditText) findViewById(R.id.longEditText);
+        LatTextField = (EditText) findViewById(R.id.latEditText);
     }
 
     private void executeSearch() {
@@ -399,6 +407,58 @@ public class SeekerMainActivity extends TemplateActivity {
                 Log.e(LOG_TAG, "onError: Status = " + status.toString());
             }
         });
+
+        // Long and Lat edit text
+        LongTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!LongTextField.getText().toString().isEmpty() && !LongTextField.getText().toString().equals("-")) {
+                    adapterLongitude = Double.parseDouble(LongTextField.getText().toString());
+                    if (!LatTextField.getText().toString().isEmpty())
+                    {
+                        executeSearch();
+                    }
+                }
+            }
+        });
+
+        LatTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!LatTextField.getText().toString().isEmpty() && !LatTextField.getText().toString().equals("-")) {
+                    adapterLatitude = Double.parseDouble(LatTextField.getText().toString());
+                    if (!LongTextField.getText().toString().isEmpty())
+                    {
+                        executeSearch();
+                    }
+                }
+            }
+        });
+
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                adapterLongitude = 0.0;
+                adapterLatitude = 0.0;
+                LatTextField.setText("");
+                LongTextField.setText("");
+            }
+        });
+
     }
 
     @Override

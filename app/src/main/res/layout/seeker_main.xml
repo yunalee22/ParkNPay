@@ -36,7 +36,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:text="Longitude:"
+                            android:text="Latitude:"
                             android:layout_marginLeft="30dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -45,12 +45,12 @@
                         <EditText
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
+                            android:inputType="numberDecimal|numberSigned"
                             android:ems="10"
-                            android:id="@+id/editText2" />
+                            android:id="@+id/latEditText"/>
 
                         <TextView
-                            android:text="Latitude:"
+                            android:text="Longitude:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView2" />
@@ -58,9 +58,9 @@
                         <EditText
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
+                            android:inputType="numberDecimal|numberSigned"
                             android:ems="10"
-                            android:id="@+id/editText" />
+                            android:id="@+id/longEditText" />
                     </LinearLayout>
                     <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
                     <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
