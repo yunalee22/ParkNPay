@@ -1,6 +1,7 @@
 package edu.usc.parknpay.owner;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,9 +17,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.ParkingSpot;
@@ -36,13 +38,16 @@ public class EditSpotActivity extends TemplateActivity {
     private TextView notes, spotType, handicap, address;
     Uri selectedImage;
     ParkingSpot parkingSpot;
+    boolean pictureChanged = false;
+    User u;
+    ProgressDialog progress;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_edit_spot);
-
+        u = User.getInstance();
         //setting up elements
         parkingSpot = (ParkingSpot) getIntent().getSerializableExtra("parkingSpot");
         parkingSpotPhoto = (ImageView) findViewById(R.id.parkingSpotImage);
@@ -52,6 +57,12 @@ public class EditSpotActivity extends TemplateActivity {
         spotType = (TextView)findViewById(R.id.spotType);
         handicap = (TextView)findViewById(R.id.handicap);
         address = (TextView) findViewById(R.id.address);
+
+        //progress dialog
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait, updating spot...");
+        progress.setCancelable(false);
 
 //        initialize values
         address.setText(parkingSpot.getAddress());
@@ -80,12 +91,45 @@ public class EditSpotActivity extends TemplateActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                //firebase: save edits
-                Intent intent = new Intent(getApplicationContext(), ViewSpotActivity.class);
-                intent.putExtra("newChanges", "yes");
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                finish();
+                progress.show();
+                parkingSpot.setDescription(notes.getText().toString());
+                if (pictureChanged) {
+                    // Insert profile photo into database
+                    StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference().child(u.getId() + "/Spots/" + parkingSpot.getParkingId());
+                    firebaseStorage.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            parkingSpot.setPhotoURL(taskSnapshot.getDownloadUrl().toString());
+
+
+                            // Get correct firebase ref
+                            FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpot.getParkingId()).setValue(parkingSpot);
+                            Intent intent = new Intent(getApplicationContext(), ViewSpotActivity.class);
+                            intent.putExtra("newChanges", "yes");
+                            intent.putExtra("parkingSpot", parkingSpot);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            progress.dismiss();
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditSpotActivity.this, "Failed to save photo", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpot.getParkingId()).setValue(parkingSpot);
+                    progress.dismiss();
+                    Intent intent = new Intent(getApplicationContext(), ViewSpotActivity.class);
+                    intent.putExtra("newChanges", "yes");
+                    intent.putExtra("parkingSpot", parkingSpot);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +184,7 @@ public class EditSpotActivity extends TemplateActivity {
                 if(resultCode == RESULT_OK){
                     selectedImage = imageReturnedIntent.getData();
                     parkingSpotPhoto.setImageURI(selectedImage);
+                    pictureChanged = true;
                 }
                 break;
         }

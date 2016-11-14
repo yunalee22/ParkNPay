@@ -1,22 +1,14 @@
 package edu.usc.parknpay.owner;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,10 +20,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.TemplateActivity;
 
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
@@ -45,7 +37,14 @@ public class ViewSpotActivity extends TemplateActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-
+        parkingSpot = (ParkingSpot) intent.getSerializableExtra("parkingSpot");
+        Picasso.with(this)
+                .load(parkingSpot.getPhotoURL())
+                .placeholder(R.drawable.progress_animation)
+                .resize(450, 450)
+                .centerCrop()
+                .into(spotPhoto);
+        additionalNotes.setText(parkingSpot.getDescription());
     }
 
     @Override
