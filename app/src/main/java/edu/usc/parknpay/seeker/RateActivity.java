@@ -1,5 +1,6 @@
 package edu.usc.parknpay.seeker;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,8 @@ public class RateActivity extends TemplateActivity {
     DatabaseReference Ref;
     User u;
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,11 @@ public class RateActivity extends TemplateActivity {
                 .centerCrop()
                 .into(spotPhoto);
         Ref = FirebaseDatabase.getInstance().getReference();
+
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please Wait");
+        progress.setCancelable(false);
     }
 
     protected void initializeEdits() {
@@ -74,6 +82,7 @@ public class RateActivity extends TemplateActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+                progress.show();
                 //upload the ratings to the database
                 // VALUES ARE INTENTIONALLY FLIPPED cause our ui screwed up
                 final double ownerRating = spotRatingBar.getRating();
