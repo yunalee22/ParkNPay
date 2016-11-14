@@ -38,6 +38,7 @@ public class AddAvailabilityAdapter extends ArrayAdapter<ParkingSpotPost> {
         TextView startDate = (TextView) convertView.findViewById(R.id.start);
         TextView endDate = (TextView) convertView.findViewById(R.id.end);
         TextView price = (TextView) convertView.findViewById(R.id.price);
+        TextView cancel = (TextView) convertView.findViewById(R.id.cancellationPolicy);
 
         // Set the text
         //"yyyy-MM-dd'T'HH:mmZ"
@@ -46,6 +47,7 @@ public class AddAvailabilityAdapter extends ArrayAdapter<ParkingSpotPost> {
         startTime = temp1.substring(5,7) + "/" + temp1.substring(8, 10) + "/" + temp1.substring(0,4)+ "    " + temp1.substring(11, 16);
         endTime = temp2.substring(5,7) + "/" + temp2.substring(8, 10) + "/" + temp2.substring(0,4)+ "    " + temp2.substring(11, 16);
         startDate.setText(startTime);
+        cancel.setText(parkingSpotPost.getCancellationPolicy());
         endDate.setText(endTime);
         DecimalFormat df = new DecimalFormat("#.00");
         price.setText("$" + df.format(parkingSpotPost.getPrice()));

@@ -14,7 +14,8 @@
         android:layout_below="@id/toolbar"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:id="@+id/relativeLayout2">
 
         <ImageView android:id="@+id/parkingSpotImage"
             android:src="@drawable/default_pic"
@@ -30,68 +31,42 @@
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@id/parkingSpotImage" />
 
-        <Button android:id="@+id/deleteButton"
-            android:text="Edit/Delete Parking Spot"
-            android:textAllCaps="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/parkingSpotImage"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
-
         <TextView android:id="@+id/additionalNotesLabel"
             android:text="Additional Notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:textSize="15sp"
             android:textStyle="normal|bold"
-            android:layout_below="@+id/deleteButton"
+            android:layout_below="@+id/parkingSpotImage"
             android:layout_alignLeft="@id/parkingSpotImage"
             android:layout_alignStart="@id/parkingSpotImage" />
 
         <ScrollView android:id="@+id/additionalNotes"
-            android:layout_height="80dp"
+            android:layout_height="280dp"
             android:layout_below="@+id/additionalNotesLabel"
             android:layout_alignLeft="@+id/additionalNotesLabel"
             android:layout_alignStart="@+id/additionalNotesLabel"
             android:layout_marginTop="9dp"
             android:layout_width="340dp">
 
-            <TextView android:id="@+id/notes"
+            <EditText android:id="@+id/notes"
                 android:text="Additional notes go here"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:gravity="top|left"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
         </ScrollView>
 
-        <TextView android:id="@+id/availabilitiesLabel"
-            android:text="Availabilites"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/additionalNotes" />
-
-        <ImageView android:id="@+id/addAvail"
-            android:src="@drawable/add_spot"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/availabilities"
-            android:layout_alignRight="@+id/availabilities"
-            android:layout_alignEnd="@+id/availabilities" />
-
-        <ListView android:id="@+id/availabilities"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/availabilitiesLabel" />
-
         <TextView android:id="@+id/handicap"
-            android:text="Handicapped"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/deleteButton"
+            android:layout_above="@+id/additionalNotes"
+            android:layout_marginBottom="40dp"
             android:layout_alignStart="@+id/spotType" />
 
         <TextView android:id="@+id/spotType"
@@ -99,22 +74,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/handicap"
-            android:layout_alignStart="@+id/address" />
-
-        <RatingBar android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:progressTint="#FFCC00"
-            android:secondaryProgressTint="#FFCC00"
-            android:stepSize="0.5"
-            android:isIndicator="true"
-            android:layout_marginLeft="83dp"
-            android:layout_marginBottom="8dp"
-            android:layout_above="@+id/handicap"
-            android:layout_alignEnd="@+id/additionalNotes"
-            android:layout_marginEnd="9dp" />
+            android:layout_alignStart="@+id/address"
+            android:layout_marginBottom="12dp" />
 
     </RelativeLayout>
+
+    <Button
+        android:text="Delete Spot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dbutton"
+        android:layout_alignBaseline="@+id/doneButton"
+        android:layout_alignBottom="@+id/doneButton"
+        android:layout_toStartOf="@+id/doneButton"
+        android:layout_marginEnd="38dp" />
+
+    <Button
+        android:text="Save Edits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneButton"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignEnd="@+id/relativeLayout2" />
 </RelativeLayout>

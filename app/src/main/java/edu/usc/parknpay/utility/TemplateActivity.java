@@ -48,8 +48,8 @@ public class TemplateActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent)
     {
-        DecimalFormat df = new DecimalFormat("#.00");
-        balance.setText("$ " + df.format(u.getBalance()));
+//        DecimalFormat df = new DecimalFormat("#.00");
+//        balance.setText("$ " + df.format(u.getBalance()));
     }
 
     private void refreshBalanceView()

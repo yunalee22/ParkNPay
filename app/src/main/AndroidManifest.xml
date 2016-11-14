@@ -37,6 +37,7 @@
         <activity android:name=".owner.HistoryActivity" />
         <activity android:name=".owner.AddAvailabilityActivity" />
         <activity android:name=".owner.ViewSpotActivity" />
+        <activity android:name=".owner.EditSpotActivity" ></activity>
 
         <!-- Seeker activities -->
         <activity android:name=".seeker.SeekerMainActivity" />

@@ -128,7 +128,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                     return;
                 }
 
-                TimeZone tz = TimeZone.getTimeZone("UTC");
+                TimeZone tz = TimeZone.getTimeZone("PST");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
                 df.setTimeZone(tz);
 
@@ -136,6 +136,7 @@ public class AddAvailabilityActivity extends TemplateActivity {
                 endString = endDate.getText().toString() + " " + endSpinner.getSelectedItem().toString() + ":00";
 
                 Date date1, date2;
+
                 try {
                     date1 = df.parse(startString);
                     date2 = df.parse(endString);
@@ -213,9 +214,9 @@ public class AddAvailabilityActivity extends TemplateActivity {
 
     protected void setSpinners() {
         List<String> cancelSpinner =  new ArrayList<>();
-        cancelSpinner.add("Cancellation Policy 1");
-        cancelSpinner.add("Cancellation Policy 2");
-        cancelSpinner.add("Cancellation Policy 3");
+        cancelSpinner.add("Strict Cancellation Policy");
+        cancelSpinner.add("Moderate Cancellation Policy");
+        cancelSpinner.add("Flexible Cancellation Policy");
         ArrayAdapter<String> sizeAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, cancelSpinner);
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -44,6 +44,11 @@ public class ViewSpotActivity extends TemplateActivity {
     Button deleteButton;
 
     @Override
+    protected void onNewIntent(Intent intent) {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_view_spot);
@@ -169,37 +174,11 @@ public class ViewSpotActivity extends TemplateActivity {
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new AlertDialog.Builder(ViewSpotActivity.this)
-                        .setTitle( "Delete Spot" )
-                        .setMessage( "Are you sure you want to delete your spot?" )
-                        .setPositiveButton( "No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.d( "AlertDialog", "Negative" );
-                            }
-                        } )
-                        .setNegativeButton( "Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                FirebaseDatabase.getInstance().getReference().child("Owner-To-Spots").child(User.getInstance().getId()).child(parkingSpot.getParkingId()).setValue(false)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ViewSpotActivity.this, "Parking spot successfully deleted.",
-                                                Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), edu.usc.parknpay.owner.OwnerMainActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ViewSpotActivity.this, "Could not delete parking spot.",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                Log.d( "AlertDialog", "Positive" );
-                            }
-                        })
-                        .show();
+                //send data: parkingspot
+                Intent intent = new Intent(getApplicationContext(), EditSpotActivity.class);
+                intent.putExtra("parkingSpot", parkingSpot);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
     }

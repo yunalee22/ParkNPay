@@ -322,6 +322,12 @@ public class SeekerMainActivity extends TemplateActivity {
         startSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    TimeZone tz = TimeZone.getTimeZone("UTC");
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+                    df.setTimeZone(tz);
+
+                    String startString = startDate + " " + startSpinner.getSelectedItem().toString() + ":00";
+                    String endString = endDate + " " + endSpinner.getSelectedItem().toString() + ":00";
                     executeSearch();
                 }
 
@@ -332,6 +338,12 @@ public class SeekerMainActivity extends TemplateActivity {
         endSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        TimeZone tz = TimeZone.getTimeZone("UTC");
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+                        df.setTimeZone(tz);
+
+                        String endString = endDate + " " + endSpinner.getSelectedItem().toString() + ":00";
+
                         executeSearch();
                    }
 
