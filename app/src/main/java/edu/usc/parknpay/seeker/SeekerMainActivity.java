@@ -281,15 +281,20 @@ public class SeekerMainActivity extends TemplateActivity {
 
         System.out.println("Executing search: " + address + " at (" + adapterLatitude + ", " + adapterLongitude + ")");
 
-        TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-        df.setTimeZone(tz);
 
         try {
             Date date = df.parse(startDate + " " + startTime);
+            df.setTimeZone(TimeZone.getDefault());
             final String sStartTime = df.format(date);
             date = df.parse(endDate + " " + endTime);
+            df.setTimeZone(TimeZone.getDefault());
             final String sEndTime = df.format(date);
+
+            System.out.println("Now: " + df.format(new Date()));
+
+            System.out.println("START: "+ sStartTime);
+            System.out.println("END: " + sEndTime);
 
             if(sStartTime.compareTo(sEndTime) >= 0) {
                 Toast.makeText(SeekerMainActivity.this, "Please enter valid dates",
