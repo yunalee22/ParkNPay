@@ -27,6 +27,7 @@ import java.util.List;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.owner.OwnerMainActivity;
+import edu.usc.parknpay.seeker.SeekerMainActivity;
 import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.User;
 
@@ -149,9 +150,16 @@ public class AccountSettingsActivity extends TemplateActivity {
                             User.createUser(tempUser);
 
                             Toast.makeText(AccountSettingsActivity.this, "Changes Saved", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                            startActivity(intent);
+                            if(u.getIsCurrentlySeeker()) {
+                                Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(getApplicationContext(), OwnerMainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                startActivity(intent);
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

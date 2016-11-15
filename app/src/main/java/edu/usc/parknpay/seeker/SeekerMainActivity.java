@@ -274,10 +274,10 @@ public class SeekerMainActivity extends TemplateActivity {
         searchResults.clear();
 
         if(address == null) {
-            Toast.makeText(SeekerMainActivity.this, "Input an address",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
+                       Toast.makeText(SeekerMainActivity.this, "Input an address",
+                               Toast.LENGTH_SHORT).show();
+                      return;
+                }
 
         // temporary values
         startTime = startSpinner.getSelectedItem().toString() + ":00";
@@ -290,23 +290,19 @@ public class SeekerMainActivity extends TemplateActivity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
 
         try {
-            // start time
             Date date = df.parse(startDate + " " + startTime);
             df.setTimeZone(TimeZone.getDefault());
             final String sStartTime = df.format(date);
-            // end time
             date = df.parse(endDate + " " + endTime);
             df.setTimeZone(TimeZone.getDefault());
             final String sEndTime = df.format(date);
 
             String currTime = df.format(new Date());
-
-            // search for past entries
             if(sEndTime.compareTo(currTime) <= 0)  {
-                Toast.makeText(SeekerMainActivity.this, "End time cannot be past",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+                                Toast.makeText(SeekerMainActivity.this, "End time cannot be past",
+                                                Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
             if(sStartTime.compareTo(sEndTime) >= 0) {
                 Toast.makeText(SeekerMainActivity.this, "Please enter valid times",
@@ -359,10 +355,6 @@ public class SeekerMainActivity extends TemplateActivity {
         startSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-
-                    String startString = startDate + " " + startSpinner.getSelectedItem().toString() + ":00";
-                    String endString = endDate + " " + endSpinner.getSelectedItem().toString() + ":00";
                     executeSearch();
                 }
 
@@ -373,11 +365,6 @@ public class SeekerMainActivity extends TemplateActivity {
         endSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-
-                        String startString = startDate + " " + startSpinner.getSelectedItem().toString() + ":00";
-                        String endString = endDate + " " + endSpinner.getSelectedItem().toString() + ":00";
-
                         executeSearch();
                    }
 
