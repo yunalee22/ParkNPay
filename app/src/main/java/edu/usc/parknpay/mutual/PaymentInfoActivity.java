@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class PaymentInfoActivity extends TemplateActivity {
     private ArrayList<String> paymentMethods;
     private ArrayAdapter<String> paymentInfoListAdapter;
 
+    private DecimalFormat decimalFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,8 @@ public class PaymentInfoActivity extends TemplateActivity {
         paymentInfoList = (ListView) findViewById(R.id.paymentInfoList);
         addPaymentMethodButton = (TextView) findViewById(R.id.addPaymentMethodButton);
         balanceTextView = (TextView) findViewById(R.id.balanceTextView);
-        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
+        decimalFormat = new DecimalFormat("#.00");
+        balanceTextView.setText(decimalFormat.format(User.getInstance().getBalance()));
         addFundsButton = (Button) findViewById(R.id.addFundsButton);
         withdrawFundsButton = (Button) findViewById(R.id.withdrawFundsButton);
 
@@ -79,7 +83,7 @@ public class PaymentInfoActivity extends TemplateActivity {
         Toast.makeText(PaymentInfoActivity.this, "You've added $" + amount + " to your balance", Toast.LENGTH_SHORT).show();
 
         // Update user's balance in UI
-        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
+        balanceTextView.setText(decimalFormat.format(User.getInstance().getBalance()));
     }
 
     private void withdrawFunds(double amount) {
@@ -89,7 +93,7 @@ public class PaymentInfoActivity extends TemplateActivity {
         Toast.makeText(PaymentInfoActivity.this, "You withdrew $" + balance + " from your account", Toast.LENGTH_SHORT).show();
 
         // Update user's balance in UI
-        balanceTextView.setText(Double.toString(User.getInstance().getBalance()));
+        balanceTextView.setText(decimalFormat.format(User.getInstance().getBalance()));
     }
 
     private void addListeners() {
@@ -179,7 +183,6 @@ public class PaymentInfoActivity extends TemplateActivity {
         Spinner paymentMethodSpinner = (Spinner) dialogView.findViewById(R.id.paymentMethodSpinner);
         ArrayList<String> paymentMethods = new ArrayList<String>();
         paymentMethods.add("Credit Card");
-        paymentMethods.add("ParkNPay Gift Card");
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, paymentMethods);
         paymentMethodSpinner.setAdapter(spinnerAdapter);
