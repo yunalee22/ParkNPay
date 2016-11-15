@@ -284,20 +284,26 @@ public class SeekerMainActivity extends TemplateActivity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
 
         try {
+            // start time
             Date date = df.parse(startDate + " " + startTime);
             df.setTimeZone(TimeZone.getDefault());
             final String sStartTime = df.format(date);
+            // end time
             date = df.parse(endDate + " " + endTime);
             df.setTimeZone(TimeZone.getDefault());
             final String sEndTime = df.format(date);
 
-            System.out.println("Now: " + df.format(new Date()));
+            String currTime = df.format(new Date());
 
-            System.out.println("START: "+ sStartTime);
-            System.out.println("END: " + sEndTime);
+            // search for past entries
+            if(sEndTime.compareTo(currTime) <= 0)  {
+                Toast.makeText(SeekerMainActivity.this, "End time cannot be past",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if(sStartTime.compareTo(sEndTime) >= 0) {
-                Toast.makeText(SeekerMainActivity.this, "Please enter valid dates",
+                Toast.makeText(SeekerMainActivity.this, "Please enter valid times",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
