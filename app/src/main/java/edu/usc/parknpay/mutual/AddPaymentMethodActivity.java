@@ -51,16 +51,13 @@ public class AddPaymentMethodActivity extends TemplateActivity {
                 // Get spinner choice
                 String paymentMethodType = paymentMethodTypeSpinner.getSelectedItem().toString();
                 String paymentInformation = paymentInformationField.getText().toString();
+                String paymentMethod = paymentMethodType + ": " + paymentInformation;
 
-                // Add new payment method to database
-
-
-
-
-
-                // Proceed to registration screen
+                // Return to payment info screen
                 Intent intent = new Intent(AddPaymentMethodActivity.this, PaymentInfoActivity.class);
-                startActivity(intent);
+                intent.putExtra("payment method", paymentMethod);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ import edu.usc.parknpay.database.User;
 
 public class PaymentInfoActivity extends TemplateActivity {
 
+    final static int ADD_PAYMENT_METHOD = 0;
+
     private TextView balanceTextView;
     private Button addFundsButton;
     private Button withdrawFundsButton;
@@ -41,8 +44,8 @@ public class PaymentInfoActivity extends TemplateActivity {
     private ListView paymentInfoList;
     private TextView addPaymentMethodButton;
 
-    private ArrayList<PaymentMethod> paymentMethods;
-    private PaymentInfoListAdapter paymentInfoListAdapter;
+    private ArrayList<String> paymentMethods;
+    private ArrayAdapter<String> paymentInfoListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,9 @@ public class PaymentInfoActivity extends TemplateActivity {
         withdrawFundsButton = (Button) findViewById(R.id.withdrawFundsButton);
 
         // Set payment info list adapter
-        paymentMethods = new ArrayList<PaymentMethod>();
-        paymentInfoListAdapter = new PaymentInfoListAdapter(PaymentInfoActivity.this, paymentMethods);
+        paymentMethods = new ArrayList<String>();
+        paymentInfoListAdapter = new ArrayAdapter<String>
+                (PaymentInfoActivity.this, android.R.layout.simple_list_item_1, paymentMethods);
         paymentInfoList.setAdapter(paymentInfoListAdapter);
 
         // Add view listeners
@@ -113,39 +117,20 @@ public class PaymentInfoActivity extends TemplateActivity {
 
                 // Proceed to add payment method activity
                 Intent intent = new Intent(PaymentInfoActivity.this, AddPaymentMethodActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ADD_PAYMENT_METHOD);
             }
         });
 
     }
 
-    protected class PaymentInfoListAdapter extends ArrayAdapter<PaymentMethod> {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_PAYMENT_METHOD && resultCode == RESULT_OK && data != null) {
+            String paymentMethod = data.getStringExtra("payment method");
 
-        public PaymentInfoListAdapter(Context context, ArrayList<PaymentMethod> paymentMethods) {
-            super(context, 0, paymentMethods);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.mutual_payment_info_list_item, parent, false);
-            }
-
-            // Get payment method
-            PaymentMethod paymentMethod = getItem(position);
-
-            // Populate list item with data
-            ImageView paymentMethodImage = (ImageView) convertView.findViewById(R.id.paymentMethodImage);
-            paymentMethodImage.setImageDrawable(ContextCompat.getDrawable(PaymentInfoActivity.this, R.drawable.venmo_logo));
-
-            TextView paymentMethodType = (TextView) convertView.findViewById(R.id.paymentMethodType);
-            paymentMethodType.setText(paymentMethod.getPaymentMethodType());
-
-            TextView paymentInformation = (TextView) convertView.findViewById(R.id.paymentInformation);
-            paymentInformation.setText(paymentMethod.getPaymentInformation());
-
-            return convertView;
+            // Add new payment method to list view
+            paymentMethods.add(paymentMethod);
+            paymentInfoListAdapter.notifyDataSetChanged();
         }
     }
 
@@ -155,6 +140,15 @@ public class PaymentInfoActivity extends TemplateActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.mutual_payment_dialog, null);
         dialogBuilder.setView(dialogView);
+
+        // Set up spinner
+        Spinner paymentMethodSpinner = (Spinner) dialogView.findViewById(R.id.paymentMethodSpinner);
+        ArrayList<String> paymentMethods = new ArrayList<String>();
+        paymentMethods.add("Credit Card");
+        paymentMethods.add("ParkNPay Gift Card");
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item, paymentMethods);
+        paymentMethodSpinner.setAdapter(spinnerAdapter);
 
         final EditText amountEditText = (EditText) dialogView.findViewById(R.id.amountEditText);
 
@@ -180,6 +174,15 @@ public class PaymentInfoActivity extends TemplateActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.mutual_payment_dialog, null);
         dialogBuilder.setView(dialogView);
+
+        // Set up spinner
+        Spinner paymentMethodSpinner = (Spinner) dialogView.findViewById(R.id.paymentMethodSpinner);
+        ArrayList<String> paymentMethods = new ArrayList<String>();
+        paymentMethods.add("Credit Card");
+        paymentMethods.add("ParkNPay Gift Card");
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item, paymentMethods);
+        paymentMethodSpinner.setAdapter(spinnerAdapter);
 
         final EditText amountEditText = (EditText) dialogView.findViewById(R.id.amountEditText);
 
