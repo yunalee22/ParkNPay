@@ -1,12 +1,18 @@
 package edu.usc.parknpay.owner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,15 +28,19 @@ import java.util.Map;
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.seeker.ReviewAdapter;
 import edu.usc.parknpay.utility.TemplateActivity;
 
 public class ViewSpotActivity extends TemplateActivity {
     ImageView spotPhoto, addButton;
     TextView address, spotType, additionalNotes, handicapped;
-    ListView availabilities;
+    ListView availabilities, reviewsListView;
     private ArrayList<ParkingSpotPost> availabilitiesList;
     private AddAvailabilityAdapter availabilityListAdapter;
+    private ArrayList<Review> reviews;
+    private ReviewAdapter reviewsListAdapter;
     RatingBar ratingBar;
     ParkingSpot parkingSpot;
     Button deleteButton;
@@ -60,8 +70,73 @@ public class ViewSpotActivity extends TemplateActivity {
 
         //availabilites
         availabilitiesList = new ArrayList<ParkingSpotPost>();
+        //This function allows for listviews within scrollviews to be scrolled
+        availabilities.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
         availabilityListAdapter = new AddAvailabilityAdapter(ViewSpotActivity.this, availabilitiesList);
         availabilities.setAdapter(availabilityListAdapter);
+
+        //reviews
+        reviews = new ArrayList<Review>();
+        reviewsListAdapter = new ReviewAdapter(ViewSpotActivity.this, reviews);
+        reviewsListView.setAdapter(reviewsListAdapter);
+        //This function allows for listviews within scrollviews to be scrolled
+        reviewsListView.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+        Ref.child("Parking-Spot-Reviews").child(parkingSpot.getParkingId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> spots = (Map<String,Object>)dataSnapshot.getValue();
+                if (spots == null) {return;}
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Review t = snapshot.getValue(Review.class);
+                    reviews.add(t);
+                    reviewsListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
         // Set values from passed in parking spot
         address.setText(parkingSpot.getAddress());
@@ -76,12 +151,8 @@ public class ViewSpotActivity extends TemplateActivity {
                 .into(spotPhoto);
         ratingBar.setRating((float) parkingSpot.getRating());
 
-        availabilitiesList = new ArrayList<ParkingSpotPost>();
-        availabilityListAdapter = new AddAvailabilityAdapter(ViewSpotActivity.this, availabilitiesList);
-        availabilities.setAdapter(availabilityListAdapter);
 
         String userId = User.getInstance().getId();
-        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
         Ref.child("Browse").orderByChild("ownerUserId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,6 +229,7 @@ public class ViewSpotActivity extends TemplateActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         handicapped = (TextView) findViewById(R.id.handicap);
         deleteButton = (Button) findViewById(R.id.deleteButton);
+        reviewsListView = (ListView) findViewById(R.id.reviews);
     }
 
     protected void addListeners() {
@@ -181,6 +253,8 @@ public class ViewSpotActivity extends TemplateActivity {
             }
         });
     }
+
+
 }
 
 
