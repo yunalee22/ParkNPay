@@ -193,8 +193,76 @@ public class ViewSpotActivity extends TemplateActivity{
         reviews.add(t);
     }
 
-    private void createPost(ParkingSpotPost post, String startTime, String endTime) {
+    private void createNewPost(ParkingSpotPost post, String startTime, String endTime) {
 
+
+    }
+
+    private void processTransaction() {
+        // Add spot reservation to database
+        FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                // Add spot reservation to database
+                String transactionId = UUID.randomUUID().toString();
+                User u = User.getInstance();
+                Transaction transaction = new Transaction(
+                        transactionId,
+                        parkingSpotPost.getOwnerUserId(),
+                        u.getId(),
+                        parkingSpotPost.getParkingSpotPostId(),
+                        parkingSpotPost.getPhotoUrl(),
+                        user.getFirstName(),
+                        u.getFirstName(),
+                        parkingSpotPost.getStartTime(),
+                        parkingSpotPost.getEndTime(),
+                        parkingSpotPost.getOwnerPhoneNumber(),
+                        user.getPhoneNumber(),
+                        parkingSpotPost.getParkingSpotId(),
+                        parkingSpotPost.getAddress(),
+                        parkingSpotPost.getPrice(),
+                        false, // not rated
+                        false // not cancelled
+                );
+
+                // deduct your money
+                u.changeBalance(-parkingSpotPost.getPrice());
+
+                // get the other user and add to their moneys
+                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        // Create user
+                        User userToBePaid = snapshot.getValue(User.class);
+                        userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.putExtra("page", "viewspot");
+                        intent.putExtra("lat", tempLat);
+                        intent.putExtra("long", tempLong);
+                        intent.putExtra("addr", tempAddr);
+                        startActivity(intent);
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+        // set as reserved spot
+        FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
     }
 
     protected void addListeners() {
@@ -204,9 +272,6 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onClick(View v)
             {
-            // Check if valid time
-
-                // Split booking logic
                 String origStartTime = parkingSpotPost.getStartTime();
                 String origEndTime = parkingSpotPost.getEndTime();
                 String reqStartTime = ""; // later
@@ -217,99 +282,50 @@ public class ViewSpotActivity extends TemplateActivity{
 
                 // reserve entire spot
                 if(compareStart == 0 && compareEnd == 0) {
-
-
+                    processTransaction();
                 }
                 // reserve beginning slot
                 else if(compareStart == 0 && compareEnd < 0) {
+                    // change current post's end time to reqEndTime
+
+                    // create new spot for remainder
 
 
+                    // change the transaction endtime to the requested end
+                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
+
+                    processTransaction();
                 }
                 // reserve ending slot time
                 else if(compareStart > 0 && compareEnd == 0) {
+                    // change current post's start time to reqStartTime
 
+                    // create a new spot for remainder
 
+                    // change the transaction's start time to requested start
+                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("startTime").setValue(reqStartTime);
+
+                    processTransaction();
                 }
                 // reserve middle slot
                 else if(compareStart > 0 && compareEnd < 0){
+                    // change current post's start and end time to reqstarttime and reqendtime
+
+                    // create two new spots from origstart - reqstart and reqend - origend
 
 
+                    // change transaction's start/end times to requested ones
+                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
+                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("startTime").setValue(reqStartTime);
+
+                    processTransaction();
                 }
                 // error -- not within bounds
                 else {
 
 
+
                 }
-
-                // Add spot reservation to database
-                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        // Add spot reservation to database
-                        String transactionId = UUID.randomUUID().toString();
-                        User u = User.getInstance();
-                        Transaction transaction = new Transaction(
-                                transactionId,
-                                parkingSpotPost.getOwnerUserId(),
-                                u.getId(),
-                                parkingSpotPost.getParkingSpotPostId(),
-                                parkingSpotPost.getPhotoUrl(),
-                                user.getFirstName(),
-                                u.getFirstName(),
-                                parkingSpotPost.getStartTime(),
-                                parkingSpotPost.getEndTime(),
-                                parkingSpotPost.getOwnerPhoneNumber(),
-                                user.getPhoneNumber(),
-                                parkingSpotPost.getParkingSpotId(),
-                                parkingSpotPost.getAddress(),
-                                parkingSpotPost.getPrice(),
-                                false, // not rated
-                                false // not cancelled
-                        );
-
-                        //deduct your money
-                        u.changeBalance(-parkingSpotPost.getPrice());
-
-                        //get the other user and add to their moneys
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                // Create user
-                                User userToBePaid = snapshot.getValue(User.class);
-                                userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                intent.putExtra("page", "viewspot");
-                                intent.putExtra("lat", tempLat);
-                                intent.putExtra("long", tempLong);
-                                intent.putExtra("addr", tempAddr);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-
-                });
-
-                // set as reserved spot
-                FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
             }
         });
 
