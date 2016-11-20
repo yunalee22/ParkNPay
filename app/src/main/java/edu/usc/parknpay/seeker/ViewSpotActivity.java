@@ -1,9 +1,12 @@
 package edu.usc.parknpay.seeker;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -11,10 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,11 +34,16 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.mutual.PaymentInfoActivity;
+import edu.usc.parknpay.owner.AddAvailabilityActivity;
 import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.Review;
@@ -54,15 +66,21 @@ public class ViewSpotActivity extends TemplateActivity{
     private ImageView ownerImage;
     private TextView ownerName;
     private RatingBar ownerRatingBar;
-    private Button reserveButton;
-    double tempLat, tempLong;
-    String tempAddr;
 
     private ListView reviewsListView;
     private ArrayList<Review> reviews;
     private ReviewAdapter reviewsListAdapter;
 
     private ParkingSpotPost parkingSpotPost;
+
+    double tempLat, tempLong;
+    String tempAddr;
+
+    private Button reserveButton;
+    String reservationStartDate;
+    String reservationStartTime;
+    String reservationEndDate;
+    String reservationEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +198,118 @@ public class ViewSpotActivity extends TemplateActivity{
         });
     }
 
+    private void processReservation(String startDate, String startTime, String endDate, String endTime) {
+
+        // Check if valid time
+        boolean validTime = false;
+
+
+
+
+        if (!validTime) {
+            Toast.makeText(ViewSpotActivity.this, "Please select a valid reservation time range",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Add spot reservation to database
+        FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                // Add spot reservation to database
+                String transactionId = UUID.randomUUID().toString();
+                User u = User.getInstance();
+                Transaction transaction = new Transaction(
+                        transactionId,
+                        parkingSpotPost.getOwnerUserId(),
+                        u.getId(),
+                        parkingSpotPost.getParkingSpotPostId(),
+                        parkingSpotPost.getPhotoUrl(),
+                        user.getFirstName(),
+                        u.getFirstName(),
+                        parkingSpotPost.getStartTime(),
+                        parkingSpotPost.getEndTime(),
+                        parkingSpotPost.getOwnerPhoneNumber(),
+                        user.getPhoneNumber(),
+                        parkingSpotPost.getParkingSpotId(),
+                        parkingSpotPost.getAddress(),
+                        parkingSpotPost.getPrice(),
+                        false, // not rated
+                        false // not cancelled
+                );
+
+                //deduct your money
+                u.changeBalance(-parkingSpotPost.getPrice());
+
+                //get the other user and add to their moneys
+                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        // Create user
+                        User userToBePaid = snapshot.getValue(User.class);
+                        userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
+
+                FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.putExtra("page", "viewspot");
+                        intent.putExtra("lat", tempLat);
+                        intent.putExtra("long", tempLong);
+                        intent.putExtra("addr", tempAddr);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+        // set as reserved spot
+        FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
+    }
+
+    private void showSeekerReservationDialog() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.seeker_reservation_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        // Set up date selectors
+        Button startDateButton = (Button) dialogView.findViewById(R.id.startDateButton);
+        Button endDateButton = (Button) dialogView.findViewById(R.id.endDateButton);
+
+
+
+        // Set up time spinners
+        Spinner startTimeSpinner = (Spinner) dialogView.findViewById(R.id.startTimeSpinner);
+        Spinner endTimeSpinner = (Spinner) dialogView.findViewById(R.id.endTimeSpinner);
+
+
+
+        dialogBuilder.setTitle("Enter reservation information");
+        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Set start and end date/time information
+
+            }
+        });
+
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
+    }
+
     protected void addListeners() {
 
         // Called when reserve button is clicked
@@ -187,118 +317,14 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onClick(View v)
             {
-                // Check if valid time
+                // Show time selection dialog
+                showSeekerReservationDialog();
 
-
-
-                // Add spot reservation to database
-                FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        // Add spot reservation to database
-                        String transactionId = UUID.randomUUID().toString();
-                        User u = User.getInstance();
-                        Transaction transaction = new Transaction(
-                                transactionId,
-                                parkingSpotPost.getOwnerUserId(),
-                                u.getId(),
-                                parkingSpotPost.getParkingSpotPostId(),
-                                parkingSpotPost.getPhotoUrl(),
-                                user.getFirstName(),
-                                u.getFirstName(),
-                                parkingSpotPost.getStartTime(),
-                                parkingSpotPost.getEndTime(),
-                                parkingSpotPost.getOwnerPhoneNumber(),
-                                user.getPhoneNumber(),
-                                parkingSpotPost.getParkingSpotId(),
-                                parkingSpotPost.getAddress(),
-                                parkingSpotPost.getPrice(),
-                                false, // not rated
-                                false // not cancelled
-                        );
-
-                        //deduct your money
-                        u.changeBalance(-parkingSpotPost.getPrice());
-
-                        //get the other user and add to their moneys
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                // Create user
-                                User userToBePaid = snapshot.getValue(User.class);
-                                userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) { }
-                        });
-
-                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(getApplicationContext(), SeekerMainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                intent.putExtra("page", "viewspot");
-                                intent.putExtra("lat", tempLat);
-                                intent.putExtra("long", tempLong);
-                                intent.putExtra("addr", tempAddr);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
-
-                // set as reserved spot
-                FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
+                // Process the reservation
+                processReservation(reservationStartDate, reservationStartTime,
+                        reservationEndDate, reservationEndTime);
             }
         });
-    }
-
-    protected class ReviewAdapter extends ArrayAdapter<Review> {
-
-        public ReviewAdapter(Context context, ArrayList<Review> results) {
-            super(context, 0, results);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_review_item, parent, false);
-            }
-            // Get data item
-            Review r = getItem(position);
-
-            // Set image
-            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.seeker_photo);
-            spotImageView.setImageResource(0);
-            Picasso.with(getContext())
-                    .load(r.getSeekerProfilePhotoURL())
-                    .placeholder(R.drawable.progress_animation)
-                    .resize(150, 150)
-                    .centerCrop()
-                    .into(spotImageView);
-
-            // Set Address
-            TextView Date = (TextView) convertView.findViewById(R.id.date);
-            Date.setText(r.getDate());
-
-            // Set comments
-            TextView reviewText = (TextView) convertView.findViewById(R.id.review);
-            reviewText.setText(r.getComments());
-
-            // Set review
-            TextView seekerText = (TextView) convertView.findViewById(R.id.seeker_name);
-            seekerText.setText(r.getSeekerName());
-
-            RatingBar rate = (RatingBar) convertView.findViewById(R.id.ratingBar2);
-            rate.setRating((int) r.getRating());
-
-            return convertView;
-        }
     }
 
     // This function allows for listviews within scrollviews to be scrolled

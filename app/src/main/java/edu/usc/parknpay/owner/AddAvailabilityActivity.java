@@ -234,6 +234,5 @@ public class AddAvailabilityActivity extends TemplateActivity {
         endSpinner.setAdapter(timeAdapter);
         startSpinner.setAdapter(timeAdapter);
         endSpinner.setSelection(1);
-
     }
 }
