@@ -1,21 +1,14 @@
 package edu.usc.parknpay.seeker;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -34,21 +27,17 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.mutual.PaymentInfoActivity;
-import edu.usc.parknpay.owner.AddAvailabilityActivity;
-import edu.usc.parknpay.utility.TemplateActivity;
+import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.TemplateActivity;
 
 /**
  * Created by Bobo on 10/27/2016.
@@ -276,6 +265,20 @@ public class ViewSpotActivity extends TemplateActivity{
 
         // set as reserved spot
         FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
+        FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpotPost.getParkingSpotId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Create parking spot
+                ParkingSpot parkingSpot = dataSnapshot.getValue(ParkingSpot.class);
+                parkingSpot.setNumReserved(parkingSpot.getNumRatings() + 1);
+                FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpotPost.getParkingSpotId()).setValue(parkingSpot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void showSeekerReservationDialog() {

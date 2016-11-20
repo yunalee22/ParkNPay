@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,9 +38,9 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.TemplateActivity;
 
 public class AddSpotActivity extends TemplateActivity {
 
@@ -159,7 +158,7 @@ public class AddSpotActivity extends TemplateActivity {
         String userPhoneNumber = user.getPhoneNumber();
 
         // Create parking spot
-        spot = new ParkingSpot(user.getId(), user.getFullName(), userPhoneNumber, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude, 0);
+        spot = new ParkingSpot(user.getId(), user.getFullName(), userPhoneNumber, address, sizeFinal, 0, handicappedFinal, notesFinal, latitude, longitude, 0, 0);
         spot.setParkingId(parkingSpotID);
 
         // handle image
