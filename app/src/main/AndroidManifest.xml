@@ -37,7 +37,7 @@
         <activity android:name=".owner.HistoryActivity" />
         <activity android:name=".owner.AddAvailabilityActivity" />
         <activity android:name=".owner.ViewSpotActivity" />
-        <activity android:name=".owner.EditSpotActivity" ></activity>
+        <activity android:name=".owner.EditSpotActivity" />
 
         <!-- Seeker activities -->
         <activity android:name=".seeker.SeekerMainActivity" />
@@ -52,7 +52,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC8t-gzg-m8_GGaZloKN6Gm-ZPHNnQ-0Mg" />
 
-        <activity android:name=".mutual.AddPaymentMethodActivity"></activity>
+        <activity android:name=".mutual.AddPaymentMethodActivity" />
+        <activity android:name=".seeker.PriorBookingsActivity"></activity>
     </application>
 
 </manifest>

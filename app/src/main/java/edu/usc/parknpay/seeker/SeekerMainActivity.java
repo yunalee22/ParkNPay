@@ -56,8 +56,10 @@ import java.util.List;
 import java.util.TimeZone;
 
 import edu.usc.parknpay.R;
+import edu.usc.parknpay.authentication.LoginActivity;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
+import edu.usc.parknpay.owner.OwnerMainActivity;
 import edu.usc.parknpay.utility.TemplateActivity;
 import edu.usc.parknpay.utility.Utility;
 
@@ -75,6 +77,9 @@ public class SeekerMainActivity extends TemplateActivity {
 
     // Filter button
     private ImageView filterButton;
+
+    // Prior bookings
+    private Button priorBookingsButton;
 
     // Search autocomplete text field
     private ViewSwitcher searchBar;
@@ -267,6 +272,7 @@ public class SeekerMainActivity extends TemplateActivity {
         endDateButton = (Button) findViewById(R.id.end_date_button);
         LongTextField = (EditText) findViewById(R.id.longEditText);
         LatTextField = (EditText) findViewById(R.id.latEditText);
+        priorBookingsButton = (Button) findViewById(R.id.prior_bookings_button);
     }
 
     private void executeSearch() {
@@ -493,6 +499,15 @@ public class SeekerMainActivity extends TemplateActivity {
             }
         });
 
+        priorBookingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start prior bookings activity
+                Intent priorBookingsIntent = new Intent(SeekerMainActivity.this, PriorBookingsActivity.class);
+                startActivity(priorBookingsIntent);
+            }
+        });
+
     }
 
     @Override
@@ -631,7 +646,7 @@ public class SeekerMainActivity extends TemplateActivity {
                             "M"))
                     + " mi"
             );
-            
+
             return convertView;
         }
 
