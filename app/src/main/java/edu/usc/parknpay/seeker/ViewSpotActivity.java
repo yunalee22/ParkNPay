@@ -193,6 +193,10 @@ public class ViewSpotActivity extends TemplateActivity{
         reviews.add(t);
     }
 
+    private void createPost(ParkingSpotPost post, String startTime, String endTime) {
+
+    }
+
     protected void addListeners() {
 
         // Called when reserve button is clicked
@@ -202,9 +206,40 @@ public class ViewSpotActivity extends TemplateActivity{
             {
             // Check if valid time
 
+                // Split booking logic
+                String origStartTime = parkingSpotPost.getStartTime();
+                String origEndTime = parkingSpotPost.getEndTime();
+                String reqStartTime = ""; // later
+                String reqEndTime = ""; // later
+
+                int compareStart = origStartTime.compareTo(reqStartTime);
+                int compareEnd = origEndTime.compareTo(reqEndTime);
+
+                // reserve entire spot
+                if(compareStart == 0 && compareEnd == 0) {
 
 
+                }
+                // reserve beginning slot
+                else if(compareStart == 0 && compareEnd < 0) {
 
+
+                }
+                // reserve ending slot time
+                else if(compareStart > 0 && compareEnd == 0) {
+
+
+                }
+                // reserve middle slot
+                else if(compareStart > 0 && compareEnd < 0){
+
+
+                }
+                // error -- not within bounds
+                else {
+
+
+                }
 
                 // Add spot reservation to database
                 FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
