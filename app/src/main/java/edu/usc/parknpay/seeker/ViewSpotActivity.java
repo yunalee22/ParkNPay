@@ -37,18 +37,18 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import edu.usc.parknpay.R;
-import edu.usc.parknpay.mutual.PaymentInfoActivity;
-import edu.usc.parknpay.owner.AddAvailabilityActivity;
-import edu.usc.parknpay.utility.TemplateActivity;
+import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.Review;
 import edu.usc.parknpay.database.Transaction;
 import edu.usc.parknpay.database.User;
+import edu.usc.parknpay.utility.TemplateActivity;
 
 /**
  * Created by Bobo on 10/27/2016.
@@ -71,16 +71,18 @@ public class ViewSpotActivity extends TemplateActivity{
     private ArrayList<Review> reviews;
     private ReviewAdapter reviewsListAdapter;
 
+    //date
+    Calendar startCalendar;
+    Calendar endCalendar;
+    DatePickerDialog.OnDateSetListener dateStart, dateEnd;
+    Button startDateButton, endDateButton;
+
     private ParkingSpotPost parkingSpotPost;
 
     double tempLat, tempLong;
     String tempAddr;
 
     private Button reserveButton;
-    String reservationStartDate;
-    String reservationStartTime;
-    String reservationEndDate;
-    String reservationEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,6 +278,20 @@ public class ViewSpotActivity extends TemplateActivity{
 
         // set as reserved spot
         FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
+        FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpotPost.getParkingSpotId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Create parking spot
+                ParkingSpot parkingSpot = dataSnapshot.getValue(ParkingSpot.class);
+                parkingSpot.setNumReserved(parkingSpot.getNumRatings() + 1);
+                FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpotPost.getParkingSpotId()).setValue(parkingSpot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void showSeekerReservationDialog() {
@@ -286,21 +302,91 @@ public class ViewSpotActivity extends TemplateActivity{
         dialogBuilder.setView(dialogView);
 
         // Set up date selectors
-        Button startDateButton = (Button) dialogView.findViewById(R.id.startDateButton);
-        Button endDateButton = (Button) dialogView.findViewById(R.id.endDateButton);
+        startDateButton = (Button) dialogView.findViewById(R.id.startDateButton);
+        endDateButton = (Button) dialogView.findViewById(R.id.endDateButton);
+        startCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
+        dateStart = new DatePickerDialog.OnDateSetListener() {
 
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                startCalendar.set(Calendar.YEAR, year);
+                startCalendar.set(Calendar.MONTH, monthOfYear);
+                startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                updateLabel("start");
+            }
+
+        };
+        dateEnd = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                endCalendar.set(Calendar.YEAR, year);
+                endCalendar.set(Calendar.MONTH, monthOfYear);
+                endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel("end");
+            }
+
+        };
+
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(ViewSpotActivity.this, dateStart, startCalendar
+                        .get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
+                        startCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(ViewSpotActivity.this, dateEnd, endCalendar
+                        .get(Calendar.YEAR), endCalendar.get(Calendar.MONTH),
+                        endCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
         // Set up time spinners
-        Spinner startTimeSpinner = (Spinner) dialogView.findViewById(R.id.startTimeSpinner);
-        Spinner endTimeSpinner = (Spinner) dialogView.findViewById(R.id.endTimeSpinner);
+        final Spinner startSpinner = (Spinner) dialogView.findViewById(R.id.startTimeSpinner);
+        final Spinner endSpinner = (Spinner) dialogView.findViewById(R.id.endTimeSpinner);
+        List<String> timeSpinner =  new ArrayList<>();
+        for(int i=0; i<24; i++) {
+            if(i <10)
+                timeSpinner.add("0"+Integer.toString(i));
+            else
+                timeSpinner.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, timeSpinner);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endSpinner.setAdapter(timeAdapter);
+        startSpinner.setAdapter(timeAdapter);
+        //index 11-12 are the hours in start string
 
+        String startHour = parkingSpotPost.getStartTime().substring(11,13);
+        String endHour = parkingSpotPost.getEndTime().substring(11,13);
+        startSpinner.setSelection(Integer.parseInt(startHour));
+        endSpinner.setSelection(Integer.parseInt(endHour));
 
+        startDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
+        endDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
 
         dialogBuilder.setTitle("Enter reservation information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Set start and end date/time information
+                processReservation(startDateButton.getText().toString(), startSpinner.getSelectedItem().toString(),
+                        endDateButton.getText().toString(), endSpinner.getSelectedItem().toString());
 
             }
         });
@@ -320,11 +406,17 @@ public class ViewSpotActivity extends TemplateActivity{
                 // Show time selection dialog
                 showSeekerReservationDialog();
 
-                // Process the reservation
-                processReservation(reservationStartDate, reservationStartTime,
-                        reservationEndDate, reservationEndTime);
             }
         });
+    }
+
+    private void updateLabel(String end) {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        if(end == "end")
+            endDateButton.setText(sdf.format(endCalendar.getTime()));
+        else
+            startDateButton.setText(sdf.format(startCalendar.getTime()));
     }
 
     // This function allows for listviews within scrollviews to be scrolled

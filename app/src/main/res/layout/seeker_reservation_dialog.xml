@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="30dp">
+    android:orientation="vertical">
 
     <TextView android:id="@+id/startLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start:"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
 
     <Button android:id="@+id/startDateButton"
         android:layout_width="wrap_content"
@@ -28,11 +29,14 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_toRightOf="@id/startDateButton"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"/>
 
     <Spinner android:id="@+id/startTimeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/startTimeLabel"/>
 
     <TextView android:id="@+id/endLabel"
@@ -42,7 +46,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_below="@id/startLabel"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"/>
 
     <Button android:id="@+id/endDateButton"
         android:layout_width="wrap_content"
@@ -65,6 +70,7 @@
     <Spinner android:id="@+id/endTimeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/endTimeLabel"
         android:layout_alignTop="@id/endTimeLabel"/>
 

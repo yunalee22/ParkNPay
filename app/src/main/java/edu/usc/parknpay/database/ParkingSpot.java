@@ -22,6 +22,7 @@ public class ParkingSpot implements Serializable{
     private String parkingId;
     private String photoURL;
     private int numRatings;
+    private int numReserved;
 
     public enum Size {
         Compact(0), Normal(1), Suv(2), Truck(3);
@@ -38,7 +39,7 @@ public class ParkingSpot implements Serializable{
     }
 
     public ParkingSpot(@JsonProperty("ownerUserId") String ownerUserId, @JsonProperty("ownerFullName") String ownerFullName, @JsonProperty("ownerPhoneNumber") String ownerPhoneNumber, @JsonProperty("address") String address, @JsonProperty("size") String size, @JsonProperty("rating") double rating,
-                       @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings) {
+                       @JsonProperty("isHandicap") boolean isHandicap, @JsonProperty("description") String description, @JsonProperty("latitude") double latitude, @JsonProperty("longitude") double longitude,  @JsonProperty("numRatings") int numRatings, @JsonProperty("numReserved") int numReserved) {
         this.ownerUserId = ownerUserId;
         this.ownerFullName = ownerFullName;
         this.ownerPhoneNumber = ownerPhoneNumber;
@@ -50,6 +51,7 @@ public class ParkingSpot implements Serializable{
         this.latitude = latitude;
         this.longitude = longitude;
         this.numRatings = numRatings;
+        this.numReserved = numReserved;
     }
 
     public String getAddress() {
@@ -173,4 +175,13 @@ public class ParkingSpot implements Serializable{
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.ownerPhoneNumber = ownerPhoneNumber;
     }
+
+    public int getNumReserved() {
+        return numReserved;
+    }
+
+    public void setNumReserved(int numReserved) {
+        this.numReserved = numReserved;
+    }
+
 }
