@@ -68,7 +68,35 @@ public class ViewSpotActivity extends TemplateActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seeker_view_spot);
+
+        // Set up UI
         setUpToolbar("View Parking Spot");
+        initializeComponents();
+        enableListViewScroll();
+
+        // Add adapter to ListView
+        reviews = new ArrayList<Review>();
+        reviewsListAdapter = new ReviewAdapter(ViewSpotActivity.this, reviews);
+        reviewsListView.setAdapter(reviewsListAdapter);
+
+        loadSpotInformation();
+        addListeners();
+    }
+
+    private void processReview(Review t) {
+        /*for (int i = 0; i < reviews.size(); ++i) {
+            // If item exists, replace it
+            if (reviews.get(i).getDate().equals(t.getDate()))
+            {
+                reviews.set(i, t);
+                return;
+            }
+        }*/
+        // review was not part of array
+        reviews.add(t);
+    }
+
+    private void initializeComponents() {
 
         // Get references to UI views
         parkingSpotImage = (ImageView) findViewById(R.id.parkingSpotImage);
@@ -84,33 +112,9 @@ public class ViewSpotActivity extends TemplateActivity{
         reserveButton = (Button) findViewById(R.id.reserveButton);
         reviewsListView = (ListView) findViewById(R.id.reviewsListView);
         price = (TextView) findViewById(R.id.price);
-        //This function allows for listviews within scrollviews to be scrolled
-        reviewsListView.setOnTouchListener(new ListView.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Disallow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(true);
-                        break;
+    }
 
-                    case MotionEvent.ACTION_UP:
-                        // Allow ScrollView to intercept touch events.
-                        v.getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
-                }
-
-                // Handle ListView touch events.
-                v.onTouchEvent(event);
-                return true;
-            }
-        });
-
-        // Add adapter to ListView
-        reviews = new ArrayList<Review>();
-        reviewsListAdapter = new ReviewAdapter(ViewSpotActivity.this, reviews);
-        reviewsListView.setAdapter(reviewsListAdapter);
+    private void loadSpotInformation() {
 
         // Get parking spot post
         Serializable object = getIntent().getSerializableExtra("Parking spot post");
@@ -122,7 +126,6 @@ public class ViewSpotActivity extends TemplateActivity{
         tempLat = getIntent().getDoubleExtra("lat", 0);
         tempLong = getIntent().getDoubleExtra("long", 0);
         tempAddr = getIntent().getStringExtra("addr");
-
 
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
@@ -175,22 +178,6 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-        addListeners();
-    }
-
-    private void processReview(Review t) {
-        /*for (int i = 0; i < reviews.size(); ++i) {
-            // If item exists, replace it
-            if (reviews.get(i).getDate().equals(t.getDate()))
-            {
-                reviews.set(i, t);
-                return;
-            }
-        }*/
-        // review was not part of array
-        reviews.add(t);
     }
 
     protected void addListeners() {
@@ -200,9 +187,7 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onClick(View v)
             {
-            // Check if valid time
-
-
+                // Check if valid time
 
 
 
@@ -247,9 +232,7 @@ public class ViewSpotActivity extends TemplateActivity{
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
+                            public void onCancelled(DatabaseError databaseError) { }
                         });
 
                         FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -267,19 +250,14 @@ public class ViewSpotActivity extends TemplateActivity{
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-
+                    public void onCancelled(DatabaseError databaseError) { }
                 });
 
                 // set as reserved spot
                 FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
             }
         });
-
     }
-
 
     protected class ReviewAdapter extends ArrayAdapter<Review> {
 
@@ -321,5 +299,31 @@ public class ViewSpotActivity extends TemplateActivity{
 
             return convertView;
         }
+    }
+
+    // This function allows for listviews within scrollviews to be scrolled
+    private void enableListViewScroll() {
+
+        reviewsListView.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
     }
 }
