@@ -194,8 +194,12 @@ public class ViewSpotActivity extends TemplateActivity{
     }
 
     private void createNewPost(String startTime, String endTime) {
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
 
+        ParkingSpotPost post = new ParkingSpotPost(parkingSpotPost.getParkingSpotPostId(), parkingSpotPost.getOwnerUserId(), parkingSpotPost.getOwnerFullName(), parkingSpotPost.getOwnerPhoneNumber(), parkingSpotPost.getParkingSpotId(), parkingSpotPost.getAddress(), startTime, endTime, parkingSpotPost.getLatitude(), parkingSpotPost.getLongitude(), parkingSpotPost.getPrice(),
+                parkingSpotPost.getRating(), parkingSpotPost.getSize(), parkingSpotPost.getCancellationPolicy(), parkingSpotPost.isHandicap(), parkingSpotPost.getOwnerRating(), parkingSpotPost.getPhotoUrl(), parkingSpotPost.getDescription(), false);
 
+        Ref.child("Browse").child(parkingSpotPost.getParkingSpotPostId()).setValue(post);
     }
 
     private void processTransaction() {
