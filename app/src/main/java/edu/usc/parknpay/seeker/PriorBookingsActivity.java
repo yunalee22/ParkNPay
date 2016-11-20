@@ -49,6 +49,8 @@ public class PriorBookingsActivity extends TemplateActivity {
 
         // Add search text field and geocoder
         coder = new Geocoder(this);
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment.setHint("Enter an address");
         autocompleteFragment.setBoundsBias(new LatLngBounds(
             new LatLng(34.0224, -118.2851),
