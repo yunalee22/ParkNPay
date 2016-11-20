@@ -273,7 +273,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         searchResults.clear();
 
-        if(address == null) {
+        if(address == null && isZero(adapterLatitude) && isZero(adapterLongitude)) {
                        Toast.makeText(SeekerMainActivity.this, "Input an address",
                                Toast.LENGTH_SHORT).show();
                       return;
@@ -635,5 +635,9 @@ public class SeekerMainActivity extends TemplateActivity {
             return convertView;
         }
 
+    }
+
+    public boolean isZero(double value){
+        return value >= -0.01f && value <= 0.01f;
     }
 }
