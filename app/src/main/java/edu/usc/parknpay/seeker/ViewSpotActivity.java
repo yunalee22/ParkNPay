@@ -193,7 +193,7 @@ public class ViewSpotActivity extends TemplateActivity{
         reviews.add(t);
     }
 
-    private void createNewPost(ParkingSpotPost post, String startTime, String endTime) {
+    private void createNewPost(String startTime, String endTime) {
 
 
     }
@@ -286,10 +286,8 @@ public class ViewSpotActivity extends TemplateActivity{
                 }
                 // reserve beginning slot
                 else if(compareStart == 0 && compareEnd < 0) {
-                    // change current post's end time to reqEndTime
-
-                    // create new spot for remainder
-
+                    // post from requested end time to original end time
+                    createNewPost(reqEndTime, origEndTime);
 
                     // change the transaction endtime to the requested end
                     FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
@@ -299,8 +297,7 @@ public class ViewSpotActivity extends TemplateActivity{
                 // reserve ending slot time
                 else if(compareStart > 0 && compareEnd == 0) {
                     // change current post's start time to reqStartTime
-
-                    // create a new spot for remainder
+                    createNewPost(origStartTime, reqStartTime);
 
                     // change the transaction's start time to requested start
                     FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("startTime").setValue(reqStartTime);
@@ -309,10 +306,10 @@ public class ViewSpotActivity extends TemplateActivity{
                 }
                 // reserve middle slot
                 else if(compareStart > 0 && compareEnd < 0){
-                    // change current post's start and end time to reqstarttime and reqendtime
 
-                    // create two new spots from origstart - reqstart and reqend - origend
-
+                    // create two new posts
+                    createNewPost(origStartTime, reqStartTime);
+                    createNewPost(reqEndTime, origEndTime);
 
                     // change transaction's start/end times to requested ones
                     FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
@@ -322,8 +319,6 @@ public class ViewSpotActivity extends TemplateActivity{
                 }
                 // error -- not within bounds
                 else {
-
-
 
                 }
             }
