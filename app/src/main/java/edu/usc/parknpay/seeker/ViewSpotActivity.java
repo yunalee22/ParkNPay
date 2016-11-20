@@ -193,6 +193,7 @@ public class ViewSpotActivity extends TemplateActivity{
         reviews.add(t);
     }
 
+    // used for split booking - create new posts with times based on the current spot
     private void createNewPost(String startTime, String endTime) {
         DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
 
@@ -276,6 +277,8 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onClick(View v)
             {
+                DatabaseReference SpotDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId());
+
                 String origStartTime = parkingSpotPost.getStartTime();
                 String origEndTime = parkingSpotPost.getEndTime();
                 String reqStartTime = ""; // later
@@ -294,7 +297,7 @@ public class ViewSpotActivity extends TemplateActivity{
                     createNewPost(reqEndTime, origEndTime);
 
                     // change the transaction endtime to the requested end
-                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
+                    SpotDatabaseRef.child("endTime").setValue(reqEndTime);
 
                     processTransaction();
                 }
@@ -304,7 +307,7 @@ public class ViewSpotActivity extends TemplateActivity{
                     createNewPost(origStartTime, reqStartTime);
 
                     // change the transaction's start time to requested start
-                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("startTime").setValue(reqStartTime);
+                    SpotDatabaseRef.child("startTime").setValue(reqStartTime);
 
                     processTransaction();
                 }
@@ -316,8 +319,8 @@ public class ViewSpotActivity extends TemplateActivity{
                     createNewPost(reqEndTime, origEndTime);
 
                     // change transaction's start/end times to requested ones
-                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("endTime").setValue(reqEndTime);
-                    FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("startTime").setValue(reqStartTime);
+                    SpotDatabaseRef.child("endTime").setValue(reqEndTime);
+                    SpotDatabaseRef.child("startTime").setValue(reqStartTime);
 
                     processTransaction();
                 }
