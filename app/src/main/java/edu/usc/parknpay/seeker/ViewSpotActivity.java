@@ -207,12 +207,12 @@ public class ViewSpotActivity extends TemplateActivity{
         ParkingSpotPost post = new ParkingSpotPost(parkingSpotPost.getParkingSpotPostId(), parkingSpotPost.getOwnerUserId(), parkingSpotPost.getOwnerFullName(), parkingSpotPost.getOwnerPhoneNumber(), parkingSpotPost.getParkingSpotId(), parkingSpotPost.getAddress(), startTime, endTime, parkingSpotPost.getLatitude(), parkingSpotPost.getLongitude(), parkingSpotPost.getPrice(),
                 parkingSpotPost.getRating(), parkingSpotPost.getSize(), parkingSpotPost.getCancellationPolicy(), parkingSpotPost.isHandicap(), parkingSpotPost.getOwnerRating(), parkingSpotPost.getPhotoUrl(), parkingSpotPost.getDescription(), false);
 
-        // generate a different parking spot post
+        // generate a different parking spot post id
         String postId = UUID.randomUUID().toString();
 
         Ref.child("Browse").child(postId).setValue(post);
 
-        System.out.println("CREATED POST " + parkingSpotPost.getAddress() + " " + startTime + " "  + endTime);
+        System.out.println("CREATED NEW POST " + parkingSpotPost.getAddress() + " " + startTime + " "  + endTime);
     }
 
 
@@ -224,25 +224,15 @@ public class ViewSpotActivity extends TemplateActivity{
         String reqStartTime = startDate + " " + startTime + ":00";
         String reqEndTime = endDate + " " + endTime + ":00";
 
-
-        System.out.println("ORIGINAL: start: " + origStartTime + " end: " + origEndTime);
-        System.out.println("REQUESTED: start: " + reqStartTime + " end " + reqEndTime);
-
         int compareStart = reqStartTime.compareTo(origStartTime);
         int compareEnd = reqEndTime.compareTo(origEndTime);
 
-        System.out.println("compareStart: " + compareStart);
-        System.out.println("compareEnd: " + compareEnd);
-
-
         // reserve entire spot
         if(compareStart == 0 && compareEnd == 0) {
-            System.out.println("CASE 1: COMPLETE MATCH");
             processTransaction();
         }
         // reserve beginning slot
         else if(compareStart == 0 && compareEnd < 0) {
-            System.out.println("CASE 2: SAME START, EARLIER END");
             // post from requested end time to original end time
             createNewPost(reqEndTime, origEndTime);
 
@@ -255,7 +245,6 @@ public class ViewSpotActivity extends TemplateActivity{
         }
         // reserve ending slot time
         else if(compareStart > 0 && compareEnd == 0) {
-            System.out.println("CASE 3: LATER START, SAME END");
             // change current post's start time to reqStartTime
             createNewPost(origStartTime, reqStartTime);
 
@@ -268,15 +257,13 @@ public class ViewSpotActivity extends TemplateActivity{
         }
         // reserve middle slot
         else if(compareStart > 0 && compareEnd < 0){
-            System.out.println("CASE 4: MID-SPLIT");
-
             // create two new posts
             createNewPost(origStartTime, reqStartTime);
             createNewPost(reqEndTime, origEndTime);
 
             // change transaction's start/end times to requested ones
-            SpotDatabaseRef.child("endTime").setValue(reqEndTime);
             SpotDatabaseRef.child("startTime").setValue(reqStartTime);
+            SpotDatabaseRef.child("endTime").setValue(reqEndTime);
 
             parkingSpotPost.setStartTime(reqStartTime);
             parkingSpotPost.setEndTime(reqEndTime);
@@ -285,14 +272,10 @@ public class ViewSpotActivity extends TemplateActivity{
         }
         // error -- not within bounds
         else {
-            System.out.println("CASE 5: GG");
             Toast.makeText(ViewSpotActivity.this, "Requested time not within spot's bounds",
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-        System.out.println("POST IS NOW " + parkingSpotPost.getAddress() + " " + parkingSpotPost.getStartTime() + " " + parkingSpotPost.getEndTime());
     }
 
     private void processTransaction() {
@@ -361,7 +344,8 @@ public class ViewSpotActivity extends TemplateActivity{
         });
 
         // set as reserved spot
-        FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).child("reserved").setValue(true);
+        parkingSpotPost.setReserved(true);
+        FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId()).setValue(parkingSpotPost);
         FirebaseDatabase.getInstance().getReference().child("Parking-Spots").child(parkingSpotPost.getParkingSpotId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
