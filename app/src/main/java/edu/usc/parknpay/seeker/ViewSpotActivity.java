@@ -379,7 +379,7 @@ public class ViewSpotActivity extends TemplateActivity{
         endSpinner.setSelection(Integer.parseInt(endHour));
 
         startDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
-        endDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
+        endDateButton.setText(parkingSpotPost.getEndTime().substring(0,10));
 
         dialogBuilder.setTitle("Enter reservation information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
