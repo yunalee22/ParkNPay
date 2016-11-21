@@ -586,59 +586,87 @@ public class SeekerMainActivity extends TemplateActivity {
 
     protected class SearchListAdapter extends ArrayAdapter<ParkingSpotPost> {
 
+        // View lookup cache
+        private class ViewHolder {
+            ImageView spotImageView;
+            TextView addressText;
+            TextView dateText;
+            TextView sizeText;
+            TextView handicapText;
+            TextView priceText;
+            TextView distanceText;
+        }
+
         public SearchListAdapter(Context context, ArrayList<ParkingSpotPost> results) {
             super(context, 0, results);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.seeker_search_list_item, parent, false);
-            }
+
             // Get data item
             ParkingSpotPost parkingSpotPost = getItem(position);
 
-            // Set image
-            ImageView spotImageView = (ImageView) convertView.findViewById(R.id.image);
-            spotImageView.setImageResource(0);
+            // View lookup cache
+            ViewHolder viewHolder;
 
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.seeker_search_list_item, parent, false);
+
+                // Set cache members
+                viewHolder.spotImageView = (ImageView) convertView.findViewById(R.id.image);
+                viewHolder.addressText = (TextView) convertView.findViewById(R.id.address);
+                viewHolder.dateText = (TextView) convertView.findViewById(R.id.date_time_range);
+                viewHolder.sizeText = (TextView) convertView.findViewById(R.id.size);
+                viewHolder.handicapText = (TextView) convertView.findViewById(R.id.handicap);
+                viewHolder.priceText = (TextView) convertView.findViewById(R.id.price);
+                viewHolder.distanceText = (TextView) convertView.findViewById(R.id.distance);
+
+                // Cache the viewHolder object inside the fresh view
+                convertView.setTag(viewHolder);
+            }
+            else {
+                // View is being recycled, retrieve the viewHolder object from tag
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+
+            // Set image
+            viewHolder.spotImageView.setImageResource(0);
             Picasso.with(getContext())
                     .load(parkingSpotPost.getPhotoUrl())
                     .placeholder(R.drawable.progress_animation)
                     .resize(150, 150)
                     .centerCrop()
-                    .into(spotImageView);
+                    .into(viewHolder.spotImageView);
 
-            // Set Address
-            TextView addrText = (TextView) convertView.findViewById(R.id.address);
-            addrText.setText(parkingSpotPost.getAddress());
+            // Set address
+            viewHolder.addressText.setText(parkingSpotPost.getAddress());
 
             // Set date/time
-            TextView dateText = (TextView) convertView.findViewById(R.id.date_time_range);
-            dateText.setText(parkingSpotPost.getStartTime() + " - " + parkingSpotPost.getEndTime());
+            viewHolder.dateText.setText(parkingSpotPost.getStartTime() + " - " + parkingSpotPost.getEndTime());
 
-            // Set Size
-            TextView sizeText = (TextView) convertView.findViewById(R.id.size);
-            sizeText.setText(parkingSpotPost.getSize());
+            // Set size
+            viewHolder.sizeText.setText(parkingSpotPost.getSize());
 
-            // Set Handicap (hide if not handicap)
+            // Set handicap (hide if not handicap)
             if (!parkingSpotPost.isHandicap())
             {
-                TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
-                handiText.setVisibility(View.GONE);
+                viewHolder.handicapText.setVisibility(View.GONE);
             }
             else {
-                TextView handiText = (TextView) convertView.findViewById(R.id.handicap);
-                handiText.setText("Handicap");
+                viewHolder.handicapText.setText("Handicap");
             }
 
-            // Set Price
-            TextView priceText = (TextView) convertView.findViewById(R.id.price);
+            // Set price
             DecimalFormat df = new DecimalFormat("0.00");
-            priceText.setText("$" + df.format(parkingSpotPost.getPrice()));
+            viewHolder.priceText.setText("$" + df.format(parkingSpotPost.getPrice()));
 
-            TextView distText = (TextView) convertView.findViewById(R.id.distance);
-            distText.setText(
+            // Set distance
+            viewHolder.distanceText.setText(
                     df.format(Utility.distance(parkingSpotPost.getLatitude(),
                             parkingSpotPost.getLongitude(),
                             adapterLatitude,
@@ -647,9 +675,9 @@ public class SeekerMainActivity extends TemplateActivity {
                     + " mi"
             );
 
+            // Return the completed view to render on screen
             return convertView;
         }
-
     }
 
     public boolean isZero(double value){
