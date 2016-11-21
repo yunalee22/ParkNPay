@@ -316,14 +316,12 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 startCalendar.set(Calendar.YEAR, year);
                 startCalendar.set(Calendar.MONTH, monthOfYear);
                 startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 updateLabel("start");
             }
-
         };
         dateEnd = new DatePickerDialog.OnDateSetListener() {
 
@@ -342,7 +340,6 @@ public class ViewSpotActivity extends TemplateActivity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(ViewSpotActivity.this, dateStart, startCalendar
                         .get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
                         startCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -353,7 +350,6 @@ public class ViewSpotActivity extends TemplateActivity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(ViewSpotActivity.this, dateEnd, endCalendar
                         .get(Calendar.YEAR), endCalendar.get(Calendar.MONTH),
                         endCalendar.get(Calendar.DAY_OF_MONTH)).show();
