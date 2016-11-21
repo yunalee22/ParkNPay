@@ -200,20 +200,72 @@ public class ViewSpotActivity extends TemplateActivity{
         });
     }
 
+    // used for split booking - create new posts with times based on the current spot
+    private void createNewPost(String startTime, String endTime) {
+        DatabaseReference Ref = FirebaseDatabase.getInstance().getReference();
+
+        ParkingSpotPost post = new ParkingSpotPost(parkingSpotPost.getParkingSpotPostId(), parkingSpotPost.getOwnerUserId(), parkingSpotPost.getOwnerFullName(), parkingSpotPost.getOwnerPhoneNumber(), parkingSpotPost.getParkingSpotId(), parkingSpotPost.getAddress(), startTime, endTime, parkingSpotPost.getLatitude(), parkingSpotPost.getLongitude(), parkingSpotPost.getPrice(),
+                parkingSpotPost.getRating(), parkingSpotPost.getSize(), parkingSpotPost.getCancellationPolicy(), parkingSpotPost.isHandicap(), parkingSpotPost.getOwnerRating(), parkingSpotPost.getPhotoUrl(), parkingSpotPost.getDescription(), false);
+
+        Ref.child("Browse").child(parkingSpotPost.getParkingSpotPostId()).setValue(post);
+    }
+
+
     private void processReservation(String startDate, String startTime, String endDate, String endTime) {
+        DatabaseReference SpotDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Browse").child(parkingSpotPost.getParkingSpotPostId());
 
-        // Check if valid time
-        boolean validTime = false;
+        String origStartTime = parkingSpotPost.getStartTime();
+        String origEndTime = parkingSpotPost.getEndTime();
+        String reqStartTime = ""; // later
+        String reqEndTime = ""; // later
 
+        int compareStart = origStartTime.compareTo(reqStartTime);
+        int compareEnd = origEndTime.compareTo(reqEndTime);
 
-
-
-        if (!validTime) {
-            Toast.makeText(ViewSpotActivity.this, "Please select a valid reservation time range",
-                    Toast.LENGTH_SHORT).show();
-            return;
+        // reserve entire spot
+        if(compareStart == 0 && compareEnd == 0) {
+            processTransaction();
         }
+        // reserve beginning slot
+        else if(compareStart == 0 && compareEnd < 0) {
+            // post from requested end time to original end time
+            createNewPost(reqEndTime, origEndTime);
 
+            // change the transaction endtime to the requested end
+            SpotDatabaseRef.child("endTime").setValue(reqEndTime);
+
+            processTransaction();
+        }
+        // reserve ending slot time
+        else if(compareStart > 0 && compareEnd == 0) {
+            // change current post's start time to reqStartTime
+            createNewPost(origStartTime, reqStartTime);
+
+            // change the transaction's start time to requested start
+            SpotDatabaseRef.child("startTime").setValue(reqStartTime);
+
+            processTransaction();
+        }
+        // reserve middle slot
+        else if(compareStart > 0 && compareEnd < 0){
+
+            // create two new posts
+            createNewPost(origStartTime, reqStartTime);
+            createNewPost(reqEndTime, origEndTime);
+
+            // change transaction's start/end times to requested ones
+            SpotDatabaseRef.child("endTime").setValue(reqEndTime);
+            SpotDatabaseRef.child("startTime").setValue(reqStartTime);
+
+            processTransaction();
+        }
+        // error -- not within bounds
+        else {
+
+        }
+    }
+
+    private void processTransaction() {
         // Add spot reservation to database
         FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -241,21 +293,22 @@ public class ViewSpotActivity extends TemplateActivity{
                         false // not cancelled
                 );
 
-                //deduct your money
+                // deduct your money
                 u.changeBalance(-parkingSpotPost.getPrice());
 
-                //get the other user and add to their moneys
+                // get the other user and add to their moneys
                 FirebaseDatabase.getInstance().getReference().child("Users").child(parkingSpotPost.getOwnerUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         // Create user
                         User userToBePaid = snapshot.getValue(User.class);
-                        userToBePaid.changeBalance( parkingSpotPost.getPrice() *.9);
+                        userToBePaid.changeBalance(parkingSpotPost.getPrice() * .9);
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) { }
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
 
                 FirebaseDatabase.getInstance().getReference().child("Transactions").child(transactionId).setValue(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -273,7 +326,8 @@ public class ViewSpotActivity extends TemplateActivity{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
 
         // set as reserved spot
@@ -289,13 +343,11 @@ public class ViewSpotActivity extends TemplateActivity{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
     private void showSeekerReservationDialog() {
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.seeker_reservation_dialog, null);
@@ -393,7 +445,6 @@ public class ViewSpotActivity extends TemplateActivity{
 
         AlertDialog b = dialogBuilder.create();
         b.show();
-
     }
 
     protected void addListeners() {
