@@ -207,7 +207,12 @@ public class ViewSpotActivity extends TemplateActivity{
         ParkingSpotPost post = new ParkingSpotPost(parkingSpotPost.getParkingSpotPostId(), parkingSpotPost.getOwnerUserId(), parkingSpotPost.getOwnerFullName(), parkingSpotPost.getOwnerPhoneNumber(), parkingSpotPost.getParkingSpotId(), parkingSpotPost.getAddress(), startTime, endTime, parkingSpotPost.getLatitude(), parkingSpotPost.getLongitude(), parkingSpotPost.getPrice(),
                 parkingSpotPost.getRating(), parkingSpotPost.getSize(), parkingSpotPost.getCancellationPolicy(), parkingSpotPost.isHandicap(), parkingSpotPost.getOwnerRating(), parkingSpotPost.getPhotoUrl(), parkingSpotPost.getDescription(), false);
 
-        Ref.child("Browse").child(parkingSpotPost.getParkingSpotPostId()).setValue(post);
+        // generate a different parking spot post
+        String postId = UUID.randomUUID().toString();
+
+        Ref.child("Browse").child(postId).setValue(post);
+
+        System.out.println("CREATED POST " + parkingSpotPost.getAddress() + " " + startTime + " "  + endTime);
     }
 
 
@@ -216,38 +221,54 @@ public class ViewSpotActivity extends TemplateActivity{
 
         String origStartTime = parkingSpotPost.getStartTime();
         String origEndTime = parkingSpotPost.getEndTime();
-        String reqStartTime = ""; // later
-        String reqEndTime = ""; // later
+        String reqStartTime = startDate + " " + startTime + ":00";
+        String reqEndTime = endDate + " " + endTime + ":00";
 
-        int compareStart = origStartTime.compareTo(reqStartTime);
-        int compareEnd = origEndTime.compareTo(reqEndTime);
+
+        System.out.println("ORIGINAL: start: " + origStartTime + " end: " + origEndTime);
+        System.out.println("REQUESTED: start: " + reqStartTime + " end " + reqEndTime);
+
+        int compareStart = reqStartTime.compareTo(origStartTime);
+        int compareEnd = reqEndTime.compareTo(origEndTime);
+
+        System.out.println("compareStart: " + compareStart);
+        System.out.println("compareEnd: " + compareEnd);
+
 
         // reserve entire spot
         if(compareStart == 0 && compareEnd == 0) {
+            System.out.println("CASE 1: COMPLETE MATCH");
             processTransaction();
         }
         // reserve beginning slot
         else if(compareStart == 0 && compareEnd < 0) {
+            System.out.println("CASE 2: SAME START, EARLIER END");
             // post from requested end time to original end time
             createNewPost(reqEndTime, origEndTime);
 
             // change the transaction endtime to the requested end
             SpotDatabaseRef.child("endTime").setValue(reqEndTime);
 
+            parkingSpotPost.setEndTime(reqEndTime);
+
             processTransaction();
         }
         // reserve ending slot time
         else if(compareStart > 0 && compareEnd == 0) {
+            System.out.println("CASE 3: LATER START, SAME END");
             // change current post's start time to reqStartTime
             createNewPost(origStartTime, reqStartTime);
 
             // change the transaction's start time to requested start
             SpotDatabaseRef.child("startTime").setValue(reqStartTime);
 
+            parkingSpotPost.setStartTime(reqStartTime);
+
             processTransaction();
         }
         // reserve middle slot
         else if(compareStart > 0 && compareEnd < 0){
+            System.out.println("CASE 4: MID-SPLIT");
 
             // create two new posts
             createNewPost(origStartTime, reqStartTime);
@@ -257,12 +278,21 @@ public class ViewSpotActivity extends TemplateActivity{
             SpotDatabaseRef.child("endTime").setValue(reqEndTime);
             SpotDatabaseRef.child("startTime").setValue(reqStartTime);
 
+            parkingSpotPost.setStartTime(reqStartTime);
+            parkingSpotPost.setEndTime(reqEndTime);
+
             processTransaction();
         }
         // error -- not within bounds
         else {
-
+            System.out.println("CASE 5: GG");
+            Toast.makeText(ViewSpotActivity.this, "Requested time not within spot's bounds",
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
+
+
+        System.out.println("POST IS NOW " + parkingSpotPost.getAddress() + " " + parkingSpotPost.getStartTime() + " " + parkingSpotPost.getEndTime());
     }
 
     private void processTransaction() {
@@ -431,7 +461,7 @@ public class ViewSpotActivity extends TemplateActivity{
         endSpinner.setSelection(Integer.parseInt(endHour));
 
         startDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
-        endDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
+        endDateButton.setText(parkingSpotPost.getEndTime().substring(0,10));
 
         dialogBuilder.setTitle("Enter reservation information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
