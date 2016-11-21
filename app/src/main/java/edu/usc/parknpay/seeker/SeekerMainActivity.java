@@ -182,6 +182,10 @@ public class SeekerMainActivity extends TemplateActivity {
                 Object parkingSpotPost = (ParkingSpotPost) searchList.getItemAtPosition(position);
                 Intent intent = new Intent(SeekerMainActivity.this, ViewSpotActivity.class);
                 intent.putExtra("Parking spot post", (Serializable)parkingSpotPost);
+                intent.putExtra("startDate", startDate);
+                intent.putExtra("startTime", startTime);
+                intent.putExtra("endDate", endDate);
+                intent.putExtra("endTime", endTime);
                 intent.putExtra("lat", adapterLatitude);
                 intent.putExtra("long", adapterLongitude);
                 intent.putExtra("addr", address);

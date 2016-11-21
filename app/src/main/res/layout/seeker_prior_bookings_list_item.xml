@@ -28,15 +28,6 @@
         android:layout_alignTop="@id/image"
         android:layout_marginLeft="15dp"/>
 
-    <TextView android:id="@+id/date_time_range"
-        android:text="Date time range"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/image"
-        android:layout_below="@id/address"
-        android:layout_marginLeft="15dp"/>
-
     <TextView android:id="@+id/size"
         android:text="Size"
         android:textSize="16sp"

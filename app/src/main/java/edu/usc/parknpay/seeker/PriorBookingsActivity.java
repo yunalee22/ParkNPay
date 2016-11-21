@@ -20,19 +20,26 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.ParkingSpot;
 import edu.usc.parknpay.utility.TemplateActivity;
+import edu.usc.parknpay.utility.Utility;
 
 public class PriorBookingsActivity extends TemplateActivity {
 
     private ListView priorBookingsList;
     private ArrayList<ParkingSpot> priorBookings;
     private PriorBookingsAdapter priorBookingsAdapter;
+
+    // Long and Lat used for Adapter
+    private double adapterLongitude;
+    private double adapterLatitude;
 
     private PlaceAutocompleteFragment autocompleteFragment;
     private Geocoder coder;
@@ -110,14 +117,43 @@ public class PriorBookingsActivity extends TemplateActivity {
             // Get data item
             ParkingSpot parkingSpot = getItem(position);
 
+            int numRes = parkingSpot.getNumReserved();
+
             // Fill in list item view with data
             ImageView image = (ImageView) convertView.findViewById(R.id.image);
             TextView address = (TextView) convertView.findViewById(R.id.address);
-            TextView date_time_range = (TextView) convertView.findViewById(R.id.date_time_range);
             TextView size = (TextView) convertView.findViewById(R.id.size);
             TextView handicap = (TextView) convertView.findViewById(R.id.handicap);
             TextView distance = (TextView) convertView.findViewById(R.id.distance);
 
+            Picasso.with(getContext())
+                    .load(parkingSpot.getPhotoURL())
+                    .placeholder(R.drawable.progress_animation)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(image);
+
+            address.setText(parkingSpot.getAddress());
+            size.setText(parkingSpot.getSize());
+            // Set handicap (hide if not handicap)
+            if (!parkingSpot.isHandicap())
+            {
+                handicap.setVisibility(View.GONE);
+            }
+            else {
+                handicap.setText("Handicap");
+            }
+            DecimalFormat df = new DecimalFormat("0.00");
+
+            // Set distance
+            distance.setText(
+                    df.format(Utility.distance(parkingSpot.getLatitude(),
+                            parkingSpot.getLongitude(),
+                            adapterLatitude,
+                            adapterLongitude,
+                            "M"))
+                            + " mi"
+            );
             return convertView;
         }
     }

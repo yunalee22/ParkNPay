@@ -75,6 +75,7 @@ public class ViewSpotActivity extends TemplateActivity{
     Calendar startCalendar;
     Calendar endCalendar;
     DatePickerDialog.OnDateSetListener dateStart, dateEnd;
+    String startDate, startTime, endDate, endTime;
     Button startDateButton, endDateButton;
 
     private ParkingSpotPost parkingSpotPost;
@@ -146,6 +147,10 @@ public class ViewSpotActivity extends TemplateActivity{
         tempLat = getIntent().getDoubleExtra("lat", 0);
         tempLong = getIntent().getDoubleExtra("long", 0);
         tempAddr = getIntent().getStringExtra("addr");
+        startDate = getIntent().getStringExtra("startDate");
+        startTime = getIntent().getStringExtra("startTime");
+        endDate = getIntent().getStringExtra("endDate");
+        endTime = getIntent().getStringExtra("endTime");
 
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
@@ -373,13 +378,11 @@ public class ViewSpotActivity extends TemplateActivity{
         startSpinner.setAdapter(timeAdapter);
         //index 11-12 are the hours in start string
 
-        String startHour = parkingSpotPost.getStartTime().substring(11,13);
-        String endHour = parkingSpotPost.getEndTime().substring(11,13);
-        startSpinner.setSelection(Integer.parseInt(startHour));
-        endSpinner.setSelection(Integer.parseInt(endHour));
+        startSpinner.setSelection(Integer.parseInt(startTime));
+        endSpinner.setSelection(Integer.parseInt(endTime));
 
-        startDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
-        endDateButton.setText(parkingSpotPost.getEndTime().substring(0,10));
+        startDateButton.setText(startDate);
+        endDateButton.setText(endDate);
 
         dialogBuilder.setTitle("Enter reservation information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
