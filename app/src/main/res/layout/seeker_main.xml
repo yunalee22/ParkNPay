@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -14,71 +17,64 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-            <RelativeLayout android:id="@+id/search_layout"
+
+        <RelativeLayout android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar">
+
+            <ViewSwitcher
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbar">
-                <ViewSwitcher
-                    android:id="@+id/search_bar"
+                android:layout_height="50dp">
+
+                <fragment android:id="@+id/place_autocomplete_fragment"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="match_parent">
 
-                    <fragment android:id="@+id/place_autocomplete_fragment"
-                        android:layout_width="350dp"
+                    <TextView
+                        android:text="Latitude:"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+                        android:id="@+id/textView" />
 
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:ems="10"
+                        android:id="@+id/latEditText"/>
 
-                        <TextView
-                            android:text="Latitude:"
-                            android:layout_marginLeft="30dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView" />
+                    <TextView
+                        android:text="Longitude:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2" />
 
-                        <EditText
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:ems="10"
-                            android:id="@+id/latEditText"/>
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:ems="10"
+                        android:id="@+id/longEditText" />
+                </LinearLayout>
+            </ViewSwitcher>
 
-                        <TextView
-                            android:text="Longitude:"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView2" />
+            <ImageView android:id="@+id/filter_button"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:src="@drawable/filter"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"/>
 
-                        <EditText
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:ems="10"
-                            android:id="@+id/longEditText" />
-                    </LinearLayout>
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-                    <!--TIM LOOK HERE REPLACE IMAGEVIEW WITH NEW SEARCHBAR FOR LONG/LAT-->
-
-                </ViewSwitcher>
-
-                <ImageView android:id="@+id/filter_button"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
-                    android:src="@drawable/filter"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
-
+        </RelativeLayout>
 
         <TextView android:id="@+id/dates_available_label"
             android:text="Date Range"
@@ -152,11 +148,20 @@
 
         </TableLayout>
 
+        <Button android:id="@+id/prior_bookings_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="View Prior Bookings"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_below="@id/date_range_table"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"/>
+
         <ListView android:id="@+id/search_list"
             android:layout_width="360dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/search_layout"
-            android:layout_marginTop="170dp"
+            android:layout_below="@id/prior_bookings_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
@@ -184,7 +189,7 @@
             android:layout_width="240dp"
             android:layout_height="120dp"
             android:layout_gravity="start"
-            android:background="@color/green"
+            android:background="@color/orange"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -192,7 +197,7 @@
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@color/green"
+                android:background="@color/orange"
                 android:padding="10dp">
                 <ImageView android:id="@+id/drawer_pic"
                     android:layout_width="match_parent"
@@ -202,7 +207,7 @@
                 <ImageView android:id="@+id/circle_crop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_seeker" />
+                    android:src="@drawable/circle_crop_owner" />
             </FrameLayout>
 
             <LinearLayout android:id="@+id/drawer"

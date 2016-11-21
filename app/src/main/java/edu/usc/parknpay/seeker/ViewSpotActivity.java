@@ -75,6 +75,7 @@ public class ViewSpotActivity extends TemplateActivity{
     Calendar startCalendar;
     Calendar endCalendar;
     DatePickerDialog.OnDateSetListener dateStart, dateEnd;
+    String startDate, startTime, endDate, endTime;
     Button startDateButton, endDateButton;
 
     private ParkingSpotPost parkingSpotPost;
@@ -146,6 +147,10 @@ public class ViewSpotActivity extends TemplateActivity{
         tempLat = getIntent().getDoubleExtra("lat", 0);
         tempLong = getIntent().getDoubleExtra("long", 0);
         tempAddr = getIntent().getStringExtra("addr");
+        startDate = getIntent().getStringExtra("startDate");
+        startTime = getIntent().getStringExtra("startTime");
+        endDate = getIntent().getStringExtra("endDate");
+        endTime = getIntent().getStringExtra("endTime");
 
         // TO DO: Update all the view information using the parkingSpotPost object.
         Picasso.with(this)
@@ -377,14 +382,12 @@ public class ViewSpotActivity extends TemplateActivity{
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 startCalendar.set(Calendar.YEAR, year);
                 startCalendar.set(Calendar.MONTH, monthOfYear);
                 startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 updateLabel("start");
             }
-
         };
         dateEnd = new DatePickerDialog.OnDateSetListener() {
 
@@ -403,7 +406,6 @@ public class ViewSpotActivity extends TemplateActivity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(ViewSpotActivity.this, dateStart, startCalendar
                         .get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
                         startCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -414,7 +416,6 @@ public class ViewSpotActivity extends TemplateActivity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(ViewSpotActivity.this, dateEnd, endCalendar
                         .get(Calendar.YEAR), endCalendar.get(Calendar.MONTH),
                         endCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -439,13 +440,11 @@ public class ViewSpotActivity extends TemplateActivity{
         startSpinner.setAdapter(timeAdapter);
         //index 11-12 are the hours in start string
 
-        String startHour = parkingSpotPost.getStartTime().substring(11,13);
-        String endHour = parkingSpotPost.getEndTime().substring(11,13);
-        startSpinner.setSelection(Integer.parseInt(startHour));
-        endSpinner.setSelection(Integer.parseInt(endHour));
+        startSpinner.setSelection(Integer.parseInt(startTime));
+        endSpinner.setSelection(Integer.parseInt(endTime));
 
-        startDateButton.setText(parkingSpotPost.getStartTime().substring(0,10));
-        endDateButton.setText(parkingSpotPost.getEndTime().substring(0,10));
+        startDateButton.setText(startDate);
+        endDateButton.setText(endDate);
 
         dialogBuilder.setTitle("Enter reservation information");
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
