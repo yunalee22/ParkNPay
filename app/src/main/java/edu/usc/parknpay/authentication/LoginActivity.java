@@ -126,103 +126,103 @@ public class LoginActivity extends TemplateActivity {
     }
 
 
-    public void SeekerTestLogin(View view){
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        progress.show();
-
-        firebaseAuth.signInWithEmailAndPassword("seeker@seeker.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if(task.isSuccessful()) {
-
-                    // Get the newly generated user
-                    String userId = task.getResult().getUser().getUid();
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) {
-                            // Create user
-                            User user = snapshot.getValue(User.class);
-                            User.createUser(user);
-
-                            (User.getInstance()).setIsCurrentlySeeker(true);
-
-                            // If authentication is successful, proceed to default (owner/seeker) main view.
-
-                            //if (User.getInstance().isSeeker()) {
-                            progress.dismiss();
-                            Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
-                            startActivity(seekerIntent);
-                            //} else {
-                            //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
-                            //    startActivity(ownerIntent);
-                            //}
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                } else {
-                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
-                }
-            }
-        });
-    }
-
-    public void HostTestLogin(View view){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        progress.show();
-
-
-        firebaseAuth.signInWithEmailAndPassword("host@host.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-                if(task.isSuccessful()) {
-
-                    // Get the newly generated user
-                    String userId = task.getResult().getUser().getUid();
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) {
-                            // Create user
-                            User user = snapshot.getValue(User.class);
-                            User.createUser(user);
-
-                            User.getInstance().setIsCurrentlySeeker(false);
-
-                            // If authentication is successful, proceed to default (owner/seeker) main view.
-                            //if (User.getInstance().isSeeker()) {
-                            //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
-                            //    startActivity(seekerIntent);
-                            //} else {
-                            progress.dismiss();
-                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
-                                startActivity(ownerIntent);
-                            //}
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                } else {
-                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
-                }
-            }
-        });
-    }
+//    public void SeekerTestLogin(View view){
+//
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//
+//        progress.show();
+//
+//        firebaseAuth.signInWithEmailAndPassword("seeker@seeker.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                if(task.isSuccessful()) {
+//
+//                    // Get the newly generated user
+//                    String userId = task.getResult().getUser().getUid();
+//                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//                        @Override
+//                        public void onDataChange(DataSnapshot snapshot) {
+//                            // Create user
+//                            User user = snapshot.getValue(User.class);
+//                            User.createUser(user);
+//
+//                            (User.getInstance()).setIsCurrentlySeeker(true);
+//
+//                            // If authentication is successful, proceed to default (owner/seeker) main view.
+//
+//                            //if (User.getInstance().isSeeker()) {
+//                            progress.dismiss();
+//                            Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+//                            startActivity(seekerIntent);
+//                            //} else {
+//                            //    Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+//                            //    startActivity(ownerIntent);
+//                            //}
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+//                    progress.dismiss();
+//                }
+//            }
+//        });
+//    }
+//
+//    public void HostTestLogin(View view){
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//
+//        progress.show();
+//
+//
+//        firebaseAuth.signInWithEmailAndPassword("host@host.com", "1234567890!").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//
+//                if(task.isSuccessful()) {
+//
+//                    // Get the newly generated user
+//                    String userId = task.getResult().getUser().getUid();
+//                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//                        @Override
+//                        public void onDataChange(DataSnapshot snapshot) {
+//                            // Create user
+//                            User user = snapshot.getValue(User.class);
+//                            User.createUser(user);
+//
+//                            User.getInstance().setIsCurrentlySeeker(false);
+//
+//                            // If authentication is successful, proceed to default (owner/seeker) main view.
+//                            //if (User.getInstance().isSeeker()) {
+//                            //    Intent seekerIntent = new Intent(LoginActivity.this, SeekerMainActivity.class);
+//                            //    startActivity(seekerIntent);
+//                            //} else {
+//                            progress.dismiss();
+//                                Intent ownerIntent = new Intent(LoginActivity.this, OwnerMainActivity.class);
+//                                startActivity(ownerIntent);
+//                            //}
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Failed to authenticate user", Toast.LENGTH_SHORT).show();
+//                    progress.dismiss();
+//                }
+//            }
+//        });
+//    }
 }

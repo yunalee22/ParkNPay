@@ -189,7 +189,7 @@
             android:layout_width="240dp"
             android:layout_height="120dp"
             android:layout_gravity="start"
-            android:background="@color/orange"
+            android:background="@color/blue"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -197,7 +197,7 @@
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@color/orange"
+                android:background="@color/blue"
                 android:padding="10dp">
                 <ImageView android:id="@+id/drawer_pic"
                     android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                 <ImageView android:id="@+id/circle_crop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/circle_crop_owner" />
+                    android:src="@drawable/circle_crop_registration" />
             </FrameLayout>
 
             <LinearLayout android:id="@+id/drawer"
