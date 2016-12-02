@@ -298,8 +298,8 @@ public class SeekerMainActivity extends TemplateActivity {
                 }
 
         // temporary values
-        startTime = startSpinner.getSelectedItem().toString() + ":00";
-        endTime = endSpinner.getSelectedItem().toString() + ":00";
+        startTime = startSpinner.getSelectedItem().toString();
+        endTime = endSpinner.getSelectedItem().toString();
         startDate = startDateButton.getText().toString();
         endDate = endDateButton.getText().toString();
 
@@ -308,10 +308,10 @@ public class SeekerMainActivity extends TemplateActivity {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
 
         try {
-            Date date = df.parse(startDate + " " + startTime);
+            Date date = df.parse(startDate + " " + startTime + ":00");
             df.setTimeZone(TimeZone.getDefault());
             final String sStartTime = df.format(date);
-            date = df.parse(endDate + " " + endTime);
+            date = df.parse(endDate + " " + endTime + ":00");
             df.setTimeZone(TimeZone.getDefault());
             final String sEndTime = df.format(date);
 
@@ -584,6 +584,7 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
             startDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
         }
     };

@@ -123,6 +123,8 @@ public class User {
     }
 
     public int Rating() {
+        if(numRatings == 0)
+            return 0;
         return rawRating / numRatings;
     }
 
