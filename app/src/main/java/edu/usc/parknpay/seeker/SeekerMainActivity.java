@@ -584,8 +584,12 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            if (month + 1 < 10) {
+                startDateButton.setText(year + "-0" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
+            } else {
+                startDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
+            }
 
-            startDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
         }
     };
 
@@ -593,7 +597,12 @@ public class SeekerMainActivity extends TemplateActivity {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            endDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
+            if (month + 1 < 10) {
+                endDateButton.setText(year + "-0" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
+            } else {
+                endDateButton.setText(year + "-" + (month + 1) + "-" + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth));
+            }
+
         }
     };
 

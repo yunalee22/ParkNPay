@@ -483,15 +483,17 @@ public class ViewSpotActivity extends TemplateActivity{
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         if(end == "end") {
             if (endCalendar.get(Calendar.MONTH) < 10) {
-                endDateButton.setText(sdf.format("0" + endCalendar.getTime()));
+                endDateButton.setText("0" + sdf.format(endCalendar.getTime()));
+            } else {
+                endDateButton.setText(sdf.format(endCalendar.getTime()));
             }
-            endDateButton.setText(sdf.format(endCalendar.getTime()));
         }
         else {
             if (endCalendar.get(Calendar.MONTH) < 10) {
-                startDateButton.setText(sdf.format("0" + startCalendar.getTime()));
+                startDateButton.setText("0" + sdf.format(startCalendar.getTime()));
+            } else {
+                startDateButton.setText(sdf.format(startCalendar.getTime()));
             }
-            startDateButton.setText(sdf.format(startCalendar.getTime()));
         }
 
     }
