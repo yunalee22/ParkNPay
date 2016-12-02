@@ -228,6 +228,10 @@ public class ViewSpotActivity extends TemplateActivity{
         String origEndTime = parkingSpotPost.getEndTime();
         String reqStartTime = startDate + " " + startTime + ":00";
         String reqEndTime = endDate + " " + endTime + ":00";
+        System.out.println(origStartTime);
+        System.out.println(origEndTime);
+        System.out.println(reqStartTime);
+        System.out.println(reqEndTime);
 
         int compareStart = reqStartTime.compareTo(origStartTime);
         int compareEnd = reqEndTime.compareTo(origEndTime);
