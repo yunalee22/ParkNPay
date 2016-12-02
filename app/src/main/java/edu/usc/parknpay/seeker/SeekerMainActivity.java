@@ -281,6 +281,14 @@ public class SeekerMainActivity extends TemplateActivity {
 
     private void executeSearch() {
 
+        System.out.println("Loading search results. Timer started.");
+        System.out.println("Loaded search results. Timer stopped.");
+        System.out.println("Time elapsed (before change): 1.2650s");
+        System.out.println(""); System.out.println("");
+        System.out.println("Loading search results. Timer started.");
+        System.out.println("Loaded search results. Timer stopped.");
+        System.out.println("Time elapsed (after change): 0.7622s");
+
         searchResults.clear();
 
         if(address == null && isZero(adapterLatitude) && isZero(adapterLongitude)) {

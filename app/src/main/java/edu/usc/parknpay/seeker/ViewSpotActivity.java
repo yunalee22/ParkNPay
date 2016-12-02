@@ -477,10 +477,19 @@ public class ViewSpotActivity extends TemplateActivity{
     private void updateLabel(String end) {
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        if(end == "end")
+        if(end == "end") {
+            if (endCalendar.get(Calendar.MONTH) < 10) {
+                endDateButton.setText(sdf.format("0" + endCalendar.getTime()));
+            }
             endDateButton.setText(sdf.format(endCalendar.getTime()));
-        else
+        }
+        else {
+            if (endCalendar.get(Calendar.MONTH) < 10) {
+                startDateButton.setText(sdf.format("0" + startCalendar.getTime()));
+            }
             startDateButton.setText(sdf.format(startCalendar.getTime()));
+        }
+
     }
 
     // This function allows for listviews within scrollviews to be scrolled
