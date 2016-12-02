@@ -343,7 +343,7 @@ public class SeekerMainActivity extends TemplateActivity {
                                 if (post.getPrice() >= minPrice || post.getPrice() <= maxPrice) {
                                     int postSize = Utility.convertSize(post.getSize());
                                     if (postSize >= size && post.getOwnerRating() >= minOwnerRating) {
-                                        if (!handicapOnly && post.isHandicap() || post.isHandicap() == handicapOnly) {
+                                        if (!handicapOnly || post.isHandicap() == handicapOnly) {
                                             System.out.println("Found spot " + post.getAddress());
                                             searchResults.add(post);
                                             searchResultsAdapter.notifyDataSetChanged();
