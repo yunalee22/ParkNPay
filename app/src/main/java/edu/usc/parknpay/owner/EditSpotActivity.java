@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -24,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import edu.usc.parknpay.R;
 import edu.usc.parknpay.database.ParkingSpot;
+import edu.usc.parknpay.database.ParkingSpotPost;
 import edu.usc.parknpay.database.User;
 import edu.usc.parknpay.utility.TemplateActivity;
 
@@ -162,6 +166,36 @@ public class EditSpotActivity extends TemplateActivity {
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(EditSpotActivity.this, "Could not delete parking spot.",
                                                 Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                // delete from browse
+                                FirebaseDatabase.getInstance().getReference().child("Browse").addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        ParkingSpotPost post = dataSnapshot.getValue(ParkingSpotPost.class);
+                                        if(post.getParkingSpotId().equals(parkingSpot.getParkingId())) {
+                                            FirebaseDatabase.getInstance().getReference().child("Browse").child(post.getParkingSpotPostId()).child("reserved").setValue(true);
+                                            post.setReserved(true);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
                                     }
                                 });
                                 Log.d( "AlertDialog", "Positive" );
